@@ -1,5 +1,8 @@
 all: bin/executable
 
+docu: 
+	doxygen doc/doxyfile
+
 bin/executable: obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/Plateau.o obj/main.o
 	g++ obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/Plateau.o obj/main.o -o bin/executable
 
