@@ -19,6 +19,13 @@ class Pioche {
 	private:
 	Carte tas; ///<Dernière carte jouée par un joueur
 	Carte pile[100]; ///<Pile de cartes à distribuer
+
+	public:
+	Pioche();
+
+	void melanger();
+
+	void distribuer(const Joueur &tab);
 };
 
 #endif
