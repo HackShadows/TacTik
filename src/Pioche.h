@@ -17,13 +17,19 @@ using namespace std;
 class Pioche {
 
 	private:
-	Carte tas; ///<Dernière carte jouée par un joueur
-	Carte pile[100]; ///<Pile de cartes à distribuer
+		Carte tas; ///<Dernière carte jouée par un joueur
+		Carte * pile; ///<Pile de cartes à distribuer
 
 	public:
-	Pioche();
+		/**
+        * @brief Constructeur de la pioche.
+        */
+		Pioche();
 
-	void melanger();
+		/**
+        * @brief Mélange la pioche.
+        */
+		void melanger();
 };
 
 #endif
