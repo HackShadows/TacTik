@@ -19,10 +19,10 @@ using namespace std;
 class Plateau {
 
 	private:
-		Pion cases[64]; ///<Les 64 cases du plateau de jeu
+		Pion * cases; ///<Les 64 ou 96 cases du plateau de jeu
 		Pioche pioche; ///<La pioche et le tas
 		string image; ///<Chemin relatif vers l'image du plateau
-		Joueur joueurs[6]; ///<Tableau des 6 joueurs
+		Joueur * joueurs; ///<Tableau de 4 ou 6 joueurs
 
 	public:
 		/**
