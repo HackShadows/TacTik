@@ -9,7 +9,7 @@ using namespace std;
 Carte::Carte(){
     valeur = 0;
     image = "data/imagedefaut.png";
-    jouable = true;
+    jouable = false;
 }
 
 void Carte::setCarte(int val, string chemin){

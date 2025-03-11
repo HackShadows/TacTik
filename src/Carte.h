@@ -16,9 +16,9 @@ using namespace std;
 class Carte {
 
 	private:
-		bool jouable; ///<Indique si la carte est jouable
+		bool jouee; ///<Indique si la carte est jouable
 		string image; ///<Chemin relatif vers l'image de la carte
-		int valeur; ///<Valeur de la carte
+		int valeur; ///<Valeur de la carte (0 : défaut, 1-13, -1 : Joker, -2 : Permutter, 4 : -4)
 
 	public:
 		/**
@@ -29,7 +29,7 @@ class Carte {
 		/**
         * @brief Défini la valeur et l'image de la carte.
         * 
-        * @param valeur Valeur de la carte (1-13, 0 : Joker, -1 : Permutter, 4 : -4)
+        * @param valeur Valeur de la carte
 		* @param chemin Chemin relatif vers l'image de la carte
         */
 		void setCarte(int valeur, string chemin);
@@ -49,18 +49,18 @@ class Carte {
 		string getImage() const;
 
 		/**
-        * @brief Renvoie True si la carte peut être jouée, False sinon.
+        * @brief Renvoie True si la carte n'a pas encore été jouée par le joueur, False sinon.
         * 
         * @return un booléen
         */
-		bool estJouable() const;
+		bool estDansMain() const;
 
 		/**
         * @brief Met à jour la jouabilité de la carte.
         * 
-        * @param jouable Booléen qui indique si la carte est jouable
+        * @param jouee Booléen qui indique si la carte est jouable
         */
-		void setJouable(bool jouable);
+		void setJouee(bool jouee);
 };
 
 #endif
