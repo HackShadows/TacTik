@@ -42,7 +42,7 @@ class Joueur {
         * @param valeur Valeur de la carte à renvoyer
 		* @return Pointeur constant vers la carte jouée
         */
-		const Carte* jouerCarte(int valeur);
+		const Carte& jouerCarte(int valeur);
 
 		/**
         * @brief Renvoie True si la maison du joueur est remplie, False sinon.

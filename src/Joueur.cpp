@@ -21,7 +21,7 @@ void Joueur::setJoueur(string nom, int coul){
 }
 
 
-const Carte* Joueur::jouerCarte(int valeur) {
+const Carte& Joueur::jouerCarte(int valeur) {
     for (int i = 0; i<4; i++){
         if (main[i].estJouable() && valeur == main[i].getValeur()){
             main[i].setJouable(false);
