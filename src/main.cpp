@@ -12,5 +12,7 @@ using namespace std;
 
 int main(){
     cout<<"Hello world !\n";
+    Joueur j;
+    cout<<sizeof(j);
     return 0;
 }

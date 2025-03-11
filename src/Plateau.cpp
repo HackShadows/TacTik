@@ -16,8 +16,3 @@ Plateau::Plateau(int nbJoueurs){
     image = "data/image.jpg";
     pioche = Pioche();
 }
-
-int Plateau::getNbJoueurs() const{
-    return sizeof(joueurs)/10; // calculer la taille d'un joueur
-}
-
