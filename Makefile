@@ -1,6 +1,9 @@
 all: bin/executable
 
-doc: 
+doc: doc/doxyfile doc/html
+	doxygen doc/doxyfile
+
+doc/html:
 	doxygen doc/doxyfile
 
 bin/executable: obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/Plateau.o obj/main.o
@@ -25,4 +28,4 @@ obj/Plateau.o: src/Plateau.cpp src/Plateau.h src/Joueur.h src/Pion.h src/Pioche.
 	g++ -Wall -c src/Plateau.cpp -o obj/Plateau.o
 
 clean:
-	rm obj/*.o bin/executable
+	rm -rf obj/*.o bin/executable doc/html
