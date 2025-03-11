@@ -34,7 +34,7 @@ class Joueur {
         * @param pseudo Pseudonyme du joueur
 		* @param couleur Couleur du joueur (1 : vert, 2 : rouge, 3 : bleu, 4 : jaune, 5 : blanc, 6 : noir)
         */
-		void setPseudoCouleur(string pseudo, int couleur);
+		void setJoueur(string pseudo, int couleur);
 
 		/**
         * @brief Renvoie la carte que le joueur souhaite jouer.
