@@ -9,9 +9,9 @@
 using namespace std;
 
 /**
-* @class Plateau
+* @class Joueur
 *
-* @brief Représente le plateau de jeu.
+* @brief Représente un joueur, avec sa main et sa maison.
 */
 
 class Joueur {
