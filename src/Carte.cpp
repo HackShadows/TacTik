@@ -1,4 +1,6 @@
-
+/**
+* @brief Contient l'implémentation de la classe Carte.
+*/
 #include "Carte.h"
 
 using namespace std;

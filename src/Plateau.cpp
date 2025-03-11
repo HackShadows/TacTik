@@ -1,7 +1,7 @@
-
+/**
+* @brief Contient l'implémentation de la classe Plateau.
+*/
 #include "Plateau.h"
-#include "Pion.h"
-#include "Joueur.h"
 
 #include <iostream>
 #include <cassert>

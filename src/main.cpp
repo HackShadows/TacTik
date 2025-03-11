@@ -1,4 +1,6 @@
-
+/**
+* @brief Contient l'implémentation du jeu.
+*/
 #include "Carte.h"
 #include "Joueur.h"
 #include "Pion.h"

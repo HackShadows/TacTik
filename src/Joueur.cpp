@@ -1,6 +1,7 @@
-
+/**
+* @brief Contient l'implémentation de la classe Joueur.
+*/
 #include "Joueur.h"
-#include "Carte.h"
 
 using namespace std;
 
