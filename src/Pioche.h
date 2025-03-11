@@ -27,9 +27,18 @@ class Pioche {
 		Pioche();
 
 		/**
-        * @brief Mélange la pioche.
+        * @brief Met à jour le tas.
+		*
+		* @param carte Carte venant d'être jouée.
         */
-		void melanger();
+		void setTas(const Carte &carte);
+
+		/**
+        * @brief Renvoie la carte se trouvant sur le tas.
+		*
+		* @return Carte se trouvant sur le tas.
+        */
+		Carte getTas() const;
 };
 
 #endif
