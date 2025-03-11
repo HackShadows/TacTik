@@ -35,13 +35,6 @@ class Plateau {
 		Plateau(int nbJoueurs);
 
 		/**
-        * @brief Renvoie le nombre de joueurs.
-        * 
-		* @return Nombre de joueurs
-        */
-		int getNbJoueurs() const;
-
-		/**
         * @brief Distribue 4 cartes à chaque joueur.
         */
 		void distribuer();
