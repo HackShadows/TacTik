@@ -16,15 +16,36 @@ using namespace std;
 class Carte {
 
 	private:
-	string image; ///<Chemin relatif vers l'image de la carte
-	int valeur; ///<Valeur de la carte
+		string image; ///<Chemin relatif vers l'image de la carte
+		int valeur; ///<Valeur de la carte
 
 	public:
-	Carte(int valeur, string chemin);
+		/**
+        * @brief Constructeur de la carte.
+        */
+		Carte();
 
-	int getValeur() const ;
+		/**
+        * @brief Défini la valeur et l'image de la carte.
+        * 
+        * @param valeur Valeur de la carte (1-13, 0 : Joker, -1 : Permutter, 4 : -4)
+		* @param chemin Chemin relatif vers l'image de la carte
+        */
+		void setCarte(int valeur, string chemin);
 
-	string getImage() const;
+		/**
+        * @brief Renvoie la valeur de la carte.
+        * 
+        * @return Valeur de la carte
+        */
+		int getValeur() const ;
+
+		/**
+        * @brief Renvoie l'image de la carte.
+        * 
+        * @return Image de la carte
+        */
+		string getImage() const;
 };
 
 #endif
