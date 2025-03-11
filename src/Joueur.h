@@ -28,25 +28,23 @@ class Joueur {
         *
         * Crée le joueur.
         * 
-        * @param nbJoueurs Nombre de joueurs
+        * @param pseudo Pseudonyme du joueur
+		* @param couleur Couleur du joueur (1 : vert, 2 : rouge, 3 : bleu, 4 : jaune, 5 : blanc, 6 : noir)
         */
 		Joueur(string pseudo, int couleur);
 
 		/**
-        * @brief Renvoie la carte se trouvant.
-        *
-        * Crée le plateau de jeu en fonction du nombre de joueurs.
+        * @brief Renvoie la carte que le joueur souhaite jouer.
         * 
-        * @param nbJoueurs Nombre de joueurs
+        * @param valeur Valeur de la carte à renvoyer
+		* @return Pointeur constant vers la carte jouée
         */
 		const Carte* jouerCarte(int valeur);
 
 		/**
-        * @brief Constructeur avec paramètre.
-        *
-        * Crée le plateau de jeu en fonction du nombre de joueurs.
+        * @brief Renvoie True si la maison du joueur est remplie, False sinon.
         * 
-        * @param nbJoueurs Nombre de joueurs
+        * @return le booléen
         */
 		bool maisonRemplie() const;
 };

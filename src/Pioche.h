@@ -24,8 +24,6 @@ class Pioche {
 	Pioche();
 
 	void melanger();
-
-	void distribuer(const Joueur &tab);
 };
 
 #endif

@@ -42,6 +42,11 @@ class Plateau {
 		int getNbJoueurs() const;
 
 		/**
+        * @brief Distribue 4 cartes à chaque joueur.
+        */
+		void distribuer();
+
+		/**
         * @brief Affiche le plateau de jeu.
         */
 		void afficher() const;
