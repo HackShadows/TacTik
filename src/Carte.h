@@ -16,6 +16,7 @@ using namespace std;
 class Carte {
 
 	private:
+		bool jouable; ///<Indique si la carte est jouable
 		string image; ///<Chemin relatif vers l'image de la carte
 		int valeur; ///<Valeur de la carte
 
@@ -46,6 +47,20 @@ class Carte {
         * @return Image de la carte
         */
 		string getImage() const;
+
+		/**
+        * @brief Renvoie True si la carte peut être jouée, False sinon.
+        * 
+        * @return un booléen
+        */
+		bool estJouable() const;
+
+		/**
+        * @brief Met à jour la jouabilité de la carte.
+        * 
+        * @param jouable Booléen qui indique si la carte est jouable
+        */
+		void setJouable(bool jouable);
 };
 
 #endif
