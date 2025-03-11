@@ -17,8 +17,8 @@ using namespace std;
 class Pioche {
 
 	private:
-	Carte tas;
-	Carte pile[100];
+	Carte tas; ///<Dernière carte jouée par un joueur
+	Carte pile[100]; ///<Pile de cartes à distribuer
 };
 
 #endif

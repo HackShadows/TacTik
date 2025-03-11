@@ -16,8 +16,8 @@ using namespace std;
 class Carte {
 
 	private:
-	string image;
-	int valeur;
+	string image; ///<Chemin relatif vers l'image de la carte
+	int valeur; ///<Valeur de la carte
 };
 
 #endif
