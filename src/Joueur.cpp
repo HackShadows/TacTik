@@ -30,7 +30,6 @@ const Carte& Joueur::jouerCarte(int valeur) {
     }
     return Carte();
 }
-
 bool Joueur::maisonRemplie() const{
     for (int i = 0; i<4; i++){
         if (!maison[i]){
