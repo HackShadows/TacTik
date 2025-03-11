@@ -9,9 +9,9 @@
 using namespace std;
 
 /**
-* @class Plateau
+* @class Pioche
 *
-* @brief Représente le plateau de jeu.
+* @brief Représente la pile de cartes et la carte sur le tas.
 */
 
 class Pioche {

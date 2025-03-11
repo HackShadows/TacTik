@@ -8,9 +8,9 @@
 using namespace std;
 
 /**
-* @class Plateau
+* @class Carte
 *
-* @brief Représente le plateau de jeu.
+* @brief Représente une carte à jouer.
 */
 
 class Carte {
