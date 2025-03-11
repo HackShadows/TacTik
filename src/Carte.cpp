@@ -7,6 +7,7 @@ using namespace std;
 Carte::Carte(){
     valeur = 0;
     image = "data/imagedefaut.png";
+    jouable = true;
 }
 
 void Carte::setCarte(int val, string chemin){
@@ -20,4 +21,12 @@ int Carte::getValeur()const{
 
 string Carte::getImage() const{
     return image;
+}
+
+bool Carte::estJouable() const {
+    return jouable;
+}
+
+void Carte::setJouable(bool valeur){
+    jouable = valeur;
 }
