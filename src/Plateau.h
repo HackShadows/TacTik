@@ -19,17 +19,32 @@ using namespace std;
 class Plateau {
 
 	private:
-	Pion cases[64]; ///<Les 64 cases du plateau de jeu
-	Pioche pioche; ///<La pioche et le tas
-	string image; ///<Chemin relatif vers l'image du plateau
-	Joueur joueurs[6]; ///<Tableau des 6 joueurs
+		Pion cases[64]; ///<Les 64 cases du plateau de jeu
+		Pioche pioche; ///<La pioche et le tas
+		string image; ///<Chemin relatif vers l'image du plateau
+		Joueur joueurs[6]; ///<Tableau des 6 joueurs
 
 	public:
-	Plateau(int nbJoueurs);
+		/**
+        * @brief Constructeur avec paramètre.
+        *
+        * Crée le plateau de jeu en fonction du nombre de joueurs.
+        * 
+        * @param nbJoueurs Nombre de joueurs
+        */
+		Plateau(int nbJoueurs);
 
-	int getNbJoueurs();
+		/**
+        * @brief Renvoie le nombre de joueurs.
+        * 
+		* @return Nombre de joueurs
+        */
+		int getNbJoueurs() const;
 
-	void afficher();
+		/**
+        * @brief Affiche le plateau de jeu.
+        */
+		void afficher() const;
 };
 
 #endif
