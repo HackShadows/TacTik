@@ -1,0 +1,14 @@
+
+#include "Carte.h"
+#include "Joueur.h"
+#include "Pion.h"
+#include "Pioche.h"
+#include "Plateau.h"
+#include <iostream>
+
+using namespace std;
+
+int main(){
+    cout<<"Hello world !";
+    return 0;
+}
