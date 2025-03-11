@@ -17,10 +17,10 @@ using namespace std;
 class Joueur {
 
 	private:
-	bool maison[4];
-	Carte main[4];
-	string pseudo;
-	int couleur, reserve;
+	bool maison[4]; ///<La maison du joueur
+	Carte main[4]; ///<Le 4 cartes de la main du joueur
+	string pseudo; ///<Le pseudo du joueur
+	int couleur, reserve; ///<La couleur et le nombre de pions en réserve du joueur
 };
 
 #endif
