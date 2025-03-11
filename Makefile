@@ -1,6 +1,6 @@
 all: bin/executable
 
-docu: 
+doc: 
 	doxygen doc/doxyfile
 
 bin/executable: obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/Plateau.o obj/main.o
