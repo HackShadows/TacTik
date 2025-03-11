@@ -19,6 +19,9 @@ class Pion {
 	bool pieu; ///<État du pion (Pieu/Pion)
 	string image; ///<Chemin relatif vers l'image du pion
 	int id, couleur; ///<Id (1-24) et couleur du pion
+
+	public:
+	Pion(int id);
 };
 
 #endif
