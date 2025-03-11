@@ -25,9 +25,6 @@ class Joueur {
 	public:
 		/**
         * @brief Constructeur du joueur.
-        * 
-        * @param pseudo Pseudonyme du joueur
-		* @param couleur Couleur du joueur (1 : vert, 2 : rouge, 3 : bleu, 4 : jaune, 5 : blanc, 6 : noir)
         */
 		Joueur();
 
