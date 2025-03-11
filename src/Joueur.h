@@ -18,7 +18,7 @@ class Joueur {
 
 	private:
 		bool maison[4]; ///<La maison du joueur
-		const Carte& main[4]; ///<Le 4 cartes de la main du joueur
+		const Carte * main[4]; ///<Les 4 cartes de la main du joueur
 		string pseudo; ///<Le pseudo du joueur
 		int couleur, reserve; ///<La couleur et le nombre de pions en réserve du joueur
 
@@ -39,7 +39,7 @@ class Joueur {
         * 
         * @param nbJoueurs Nombre de joueurs
         */
-		const Carte& jouerCarte(int valeur);
+		const Carte* jouerCarte(int valeur);
 
 		/**
         * @brief Constructeur avec paramètre.
