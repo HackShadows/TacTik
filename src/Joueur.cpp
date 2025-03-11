@@ -23,11 +23,12 @@ void Joueur::setJoueur(string nom, int coul){
 
 const Carte& Joueur::jouerCarte(int valeur) {
     for (int i = 0; i<4; i++){
-        if (main[i].estJouable() && valeur == main[i].getValeur()){
-            main[i].setJouable(false);
+        if (main[i].estDansMain() && valeur == main[i].getValeur()){
+            main[i].setJouee(false);
             return main[i];
         }
     }
+    return Carte();
 }
 
 bool Joueur::maisonRemplie() const{
