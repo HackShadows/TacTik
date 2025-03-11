@@ -15,9 +15,9 @@ Joueur::Joueur(){
 
 }
 
-void Joueur::setJoueur(string nom, int coul){
+void Joueur::setJoueur(string nom, int id_couleur){
     pseudo = nom;
-    couleur = coul;
+    couleur = id_couleur;
 }
 
 

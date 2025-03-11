@@ -29,9 +29,9 @@ class Pion {
 		/**
         * @brief Défini les données membres du pion.
         * 
-        * @param id Id du pion
+        * @param identifiant Id du pion
         */
-		void setPion(int id);
+		void setPion(int identifiant);
 };
 
 #endif

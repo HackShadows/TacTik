@@ -29,10 +29,10 @@ class Carte {
 		/**
         * @brief Défini la valeur et l'image de la carte.
         * 
-        * @param valeur Valeur de la carte
+        * @param val Valeur de la carte
 		* @param chemin Chemin relatif vers l'image de la carte
         */
-		void setCarte(int valeur, string chemin);
+		void setCarte(int val, string chemin);
 
 		/**
         * @brief Renvoie la valeur de la carte.
@@ -58,9 +58,9 @@ class Carte {
 		/**
         * @brief Met à jour la jouabilité de la carte.
         * 
-        * @param jouee Booléen qui indique si la carte est jouable
+        * @param joue Booléen qui indique si la carte est jouable
         */
-		void setJouee(bool jouee);
+		void setJouee(bool joue);
 };
 
 #endif
