@@ -8,3 +8,11 @@ Pioche::Pioche() {
 	tas = Carte();
 }
 
+void Pioche::setTas(const Carte & carte){
+    tas = carte;
+}
+
+Carte Pioche::getTas() const{
+    return tas;
+}
+
