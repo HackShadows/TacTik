@@ -17,17 +17,38 @@ using namespace std;
 class Joueur {
 
 	private:
-	bool maison[4]; ///<La maison du joueur
-	Carte main[4]; ///<Le 4 cartes de la main du joueur
-	string pseudo; ///<Le pseudo du joueur
-	int couleur, reserve; ///<La couleur et le nombre de pions en réserve du joueur
+		bool maison[4]; ///<La maison du joueur
+		Carte& main[4]; ///<Le 4 cartes de la main du joueur
+		string pseudo; ///<Le pseudo du joueur
+		int couleur, reserve; ///<La couleur et le nombre de pions en réserve du joueur
 
 	public:
-	Joueur(string pseudo, int couleur);
+		/**
+        * @brief Constructeur avec paramètres.
+        *
+        * Crée le plateau de jeu en fonction du nombre de joueurs.
+        * 
+        * @param nbJoueurs Nombre de joueurs
+        */
+		Joueur(string pseudo, int couleur);
 
-	Carte jouerCarte(int valeur);
+		/**
+        * @brief Renvoie la carte se trouvant.
+        *
+        * Crée le plateau de jeu en fonction du nombre de joueurs.
+        * 
+        * @param nbJoueurs Nombre de joueurs
+        */
+		Carte& jouerCarte(int valeur) const;
 
-	bool maisonRemplie();
+		/**
+        * @brief Constructeur avec paramètre.
+        *
+        * Crée le plateau de jeu en fonction du nombre de joueurs.
+        * 
+        * @param nbJoueurs Nombre de joueurs
+        */
+		bool maisonRemplie() const;
 };
 
 #endif
