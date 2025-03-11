@@ -7,15 +7,14 @@ using namespace std;
 Joueur::Joueur(){
     pseudo = "Jean";
     couleur = 0;
-    main = new Carte[4];
+    main = nullptr;
     for (int i = 0; i<4; i++){
         maison[i] = false;
-        main[i] = nullptr;
     }
 
 }
 
-void Joueur::setPseudoCouleur(string nom, int coul){
+void Joueur::setJoueur(string nom, int coul){
     pseudo = nom;
     couleur = coul;
 }
@@ -23,10 +22,9 @@ void Joueur::setPseudoCouleur(string nom, int coul){
 
 const Carte* Joueur::jouerCarte(int valeur) {
     for (int i = 0; i<4; i++){
-        if (valeur == main[i]->getValeur()){
-            const Carte* temp = main[i];
-            main[i] = nullptr;
-            return temp;
+        if (main[i].estJouable() && valeur == main[i].getValeur()){
+            main[i].setJouable(false);
+            return main[i];
         }
     }
 }
