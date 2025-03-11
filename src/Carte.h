@@ -22,9 +22,9 @@ class Carte {
 	public:
 	Carte(int valeur, string chemin);
 
-	int getValeur();
+	int getValeur() const ;
 
-	string getImage();
+	string getImage() const;
 };
 
 #endif
