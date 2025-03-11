@@ -21,6 +21,13 @@ class Joueur {
 	Carte main[4]; ///<Le 4 cartes de la main du joueur
 	string pseudo; ///<Le pseudo du joueur
 	int couleur, reserve; ///<La couleur et le nombre de pions en réserve du joueur
+
+	public:
+	Joueur(string pseudo, int couleur);
+
+	Carte jouerCarte(int valeur);
+
+	bool maisonRemplie();
 };
 
 #endif

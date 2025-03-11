@@ -23,6 +23,13 @@ class Plateau {
 	Pioche pioche; ///<La pioche et le tas
 	string image; ///<Chemin relatif vers l'image du plateau
 	Joueur joueurs[6]; ///<Tableau des 6 joueurs
+
+	public:
+	Plateau(int nbJoueurs);
+
+	int getNbJoueurs();
+
+	void afficher();
 };
 
 #endif
