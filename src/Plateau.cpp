@@ -17,7 +17,4 @@ Plateau::Plateau(int nbJoueurs){
     pioche = Pioche();
 }
 
-int Plateau::getNbJoueurs() const{
-    return sizeof(joueurs)/10; // calculer la taille d'un joueur
-}
 
