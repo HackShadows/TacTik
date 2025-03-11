@@ -18,6 +18,13 @@ class Carte {
 	private:
 	string image; ///<Chemin relatif vers l'image de la carte
 	int valeur; ///<Valeur de la carte
+
+	public:
+	Carte(int valeur, string chemin);
+
+	int getValeur();
+
+	string getImage();
 };
 
 #endif
