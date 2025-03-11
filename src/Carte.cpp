@@ -4,7 +4,12 @@
 using namespace std;
 
 
-Carte::Carte(int val, string chemin){
+Carte::Carte(){
+    valeur = 0;
+    image = "data/imagedefaut.png";
+}
+
+void Carte::setCarte(int val, string chemin){
     valeur = val;
     image = chemin;
 }
