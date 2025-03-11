@@ -12,11 +12,11 @@ Joueur::Joueur(string nom, int coul){
     }
 }
 
-const Carte& Joueur::jouerCarte(int valeur) {
+const Carte* Joueur::jouerCarte(int valeur) {
     for (int i = 0; i<4; i++){
-        if (valeur == main[i].getValeur()){
-            Carte temp = main[i];
-            //main[i] = NULL;
+        if (valeur == main[i]->getValeur()){
+            const Carte* temp = main[i];
+            main[i] = nullptr;
             return temp;
         }
     }
