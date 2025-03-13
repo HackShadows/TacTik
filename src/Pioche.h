@@ -39,6 +39,13 @@ class Pioche {
 		* @return Carte se trouvant sur le tas.
         */
 		Carte getTas() const;
+
+		/**
+        * @brief Renvoie la pile de cartes.
+		*
+		* @return La pile.
+        */
+		Carte* getPile() const;
 };
 
 #endif
