@@ -20,9 +20,10 @@ Plateau::Plateau(int nbJ){
 }
 
 void Plateau::distribuer(){
-    int i = 0; 
-    while (i<4*nbJoueurs){
-        r = rand()%54;
-        joueurs[i/4].
+    for (int i = 0; i<nbJoueurs; i++){
+        for (int j = 0; j<4; j++){
+            int r = rand()%54;
+            joueurs[i/4].piocherCarte(pioche.getPile()[r])
+        }
     }
 }
