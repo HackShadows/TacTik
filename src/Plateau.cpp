@@ -10,9 +10,9 @@
 using namespace std;
 
 
-Plateau::Plateau(int nb){
-    assert(nb== 4 || nb == 6);
-    nbJoueurs = nb;
+Plateau::Plateau(int nbJ){
+    assert(nbJ == 4 || nbJ == 6);
+    nbJoueurs = nbJ;
     joueurs = new Joueur[nbJoueurs];
     cases = new Pion[16*nbJoueurs];
     image = "data/image.jpg";

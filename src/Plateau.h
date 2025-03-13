@@ -31,9 +31,9 @@ class Plateau {
         *
         * Crée le plateau de jeu en fonction du nombre de joueurs.
         * 
-        * @param nb Nombre de joueurs
+        * @param nbJ Nombre de joueurs
         */
-		Plateau(int nb);
+		Plateau(int nbJ);
 
 		/**
         * @brief Distribue 4 cartes à chaque joueur.
