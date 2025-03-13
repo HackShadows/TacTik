@@ -39,3 +39,8 @@ bool Joueur::maisonRemplie() const{
     }
     return true;
 }
+
+
+void Joueur::piocherCarte(const Carte & carte){
+
+}

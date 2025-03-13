@@ -23,7 +23,7 @@ void Plateau::distribuer(){
     for (int i = 0; i<nbJoueurs; i++){
         for (int j = 0; j<4; j++){
             int r = rand()%54;
-            joueurs[i/4].piocherCarte(pioche.getPile()[r])
+            joueurs[i].piocherCarte(pioche.getPile()[r]);
         }
     }
 }
