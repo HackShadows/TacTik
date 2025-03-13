@@ -4,15 +4,25 @@
 #include "Plateau.h"
 
 #include <iostream>
+#include <cstdlib>
 #include <cassert>
 
 using namespace std;
 
 
-Plateau::Plateau(int nbJoueurs){
-    assert(nbJoueurs == 4 || nbJoueurs == 6);
+Plateau::Plateau(int nb){
+    assert(nb== 4 || nb == 6);
+    nbJoueurs = nb;
     joueurs = new Joueur[nbJoueurs];
     cases = new Pion[16*nbJoueurs];
     image = "data/image.jpg";
     pioche = Pioche();
+}
+
+void Plateau::distribuer(){
+    int i = 0; 
+    while (i<4*nbJoueurs){
+        r = rand()%54;
+        joueurs[i/4].
+    }
 }
