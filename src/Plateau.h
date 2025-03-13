@@ -23,6 +23,7 @@ class Plateau {
 		Pioche pioche; ///<La pioche et le tas
 		string image; ///<Chemin relatif vers l'image du plateau
 		Joueur * joueurs; ///<Tableau de 4 ou 6 joueurs
+		int nbJoueurs; ///<Nombres de joueurs
 
 	public:
 		/**
@@ -30,9 +31,9 @@ class Plateau {
         *
         * Crée le plateau de jeu en fonction du nombre de joueurs.
         * 
-        * @param nbJoueurs Nombre de joueurs
+        * @param nb Nombre de joueurs
         */
-		Plateau(int nbJoueurs);
+		Plateau(int nb);
 
 		/**
         * @brief Distribue 4 cartes à chaque joueur.
