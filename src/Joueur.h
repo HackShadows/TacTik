@@ -45,6 +45,13 @@ class Joueur {
 		const Carte& jouerCarte(int valeur);
 
 		/**
+        * @brief Ajoute la carte passée en paramètre à la main du joueur.
+        * 
+        * @param carte Carte à ajouter à la main.
+        */
+		void piocherCarte(const Carte &carte);
+
+		/**
         * @brief Renvoie True si la maison du joueur est remplie, False sinon.
         * 
         * @return un booléen.
