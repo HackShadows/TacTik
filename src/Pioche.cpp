@@ -16,3 +16,8 @@ Carte Pioche::getTas() const{
     return tas;
 }
 
+Carte* Pioche::getPile() const{
+    return pile;
+}
+
+
