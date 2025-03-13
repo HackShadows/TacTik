@@ -28,7 +28,7 @@ const Carte& Joueur::jouerCarte(int valeur) {
             return main[i];
         }
     }
-    return {};
+    __builtin_unreachable();
 }
 
 bool Joueur::maisonRemplie() const{
