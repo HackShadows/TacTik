@@ -23,8 +23,10 @@ Jeu::Jeu(int nbJ){
 }
 
 Jeu::~Jeu() {
-    delete [] joueurs;
+    cout<<"BOOOOOOOOOOOOOM";
+    //delete [] joueurs;
     joueurs = nullptr;
+    cout<<"BOOOOOOOOOOOOOM";
 }
 
 Plateau Jeu::getPlateau() const {

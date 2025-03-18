@@ -20,7 +20,7 @@ Plateau::Plateau(int nbJ){
 }
 
 Plateau::~Plateau() {
-    delete [] cases;
+    //delete [] cases;
 }
 
 int Plateau::getNbCase() {

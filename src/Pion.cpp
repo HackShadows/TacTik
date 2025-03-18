@@ -27,7 +27,14 @@ int Pion::getId() {
 }
 
 void Pion::testRegression(){
-    
+    Pion pion;
+    assert(pion.pieu);
+    assert(pion.id == 0);
+    assert(pion.couleur == 0);
+    pion.setPion(4);
+    assert(pion.id == 4);
+    assert(pion.getId()==4);
+    pion.afficher();
 }
 
 void Pion::afficher() const {
