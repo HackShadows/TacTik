@@ -24,7 +24,7 @@ Jeu::Jeu(int nbJ){
 
 Jeu::~Jeu() {
     cout<<"BOOOOOOOOOOOOOM";
-    //delete [] joueurs;
+    delete [] joueurs;
     joueurs = nullptr;
     cout<<"BOOOOOOOOOOOOOM";
 }
@@ -47,5 +47,5 @@ void Jeu::distribuer(){
 }
 
 void Jeu::testRegression(){
-
+    Pioche pioche;
 }
