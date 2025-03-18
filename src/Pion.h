@@ -37,6 +37,9 @@ class Pion {
         */
 		void setPion(int identifiant);
 
+
+		int getId();
+
 		/**
         * @brief Affiche le pion.
         */

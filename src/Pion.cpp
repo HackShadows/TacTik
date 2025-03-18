@@ -23,3 +23,7 @@ Pion::~Pion() {
     id = 0;
     couleur = 0;
 }
+
+int Pion::getId() {
+    return id;
+}

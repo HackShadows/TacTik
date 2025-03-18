@@ -46,6 +46,8 @@ class Plateau {
 
 		int getNbCase();
 
+		Pion& getPion(int indice);
+
 		/**
         * @brief Affiche le plateau de jeu.
         */

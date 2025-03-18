@@ -6,7 +6,7 @@
 using namespace std;
 
 void affichage_textuel(const Jeu & jeu){
-    for (int i = 0; i<jeu.getPlateau().getNbCase(); i++){
-
-      }
+    for (int i = 0; i<jeu.getPlateau().getNbCase()/4; i++){
+        cout << jeu.getPlateau().getPion(i).getId() << " ";
+    }
 }

@@ -22,3 +22,7 @@ Plateau::~Plateau() {
 int Plateau::getNbCase() {
     return nbCases;
 }
+
+Pion& Plateau::getPion(int indice) {
+    return cases[indice];
+}
