@@ -24,6 +24,13 @@ class Plateau {
 
 	public:
 		/**
+        * @brief Constructeur par défaut.
+        *
+        * Crée le plateau de jeu pour 4 joueurs.
+        */
+		Plateau();
+
+		/**
         * @brief Constructeur avec paramètre.
         *
         * Crée le plateau de jeu en fonction du nombre de joueurs.
