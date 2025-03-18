@@ -17,8 +17,8 @@ class Carte {
 
 	private:
 		bool jouee; ///<Indique si la carte est jouable
-		int valeur; ///<Valeur de la carte (0 : défaut, 1-13, -1 : Joker, -2 : Permutter, 4 : -4)
-
+		int valeur; ///<Valeur de la carte (0 : défaut, -1 : Joker, Cartes 1-13,  11 : Permutter, Carte 4 : -4)
+        
 	public:
 		/**
         * @brief Constructeur de la carte.
