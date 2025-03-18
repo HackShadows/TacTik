@@ -41,25 +41,11 @@ class Jeu {
 		~Jeu();
 
         /**
-        * @brief Renvoie la carte se trouvant sur le tas.
+        * @brief Renvoie le plateau de jeu.
 		*
-		* @return Carte se trouvant sur le tas.
+		* @return Le plateau de jeu.
         */
 		Plateau& getPlateau() const;
-
-        /**
-        * @brief Renvoie la carte se trouvant sur le tas.
-		*
-		* @return Carte se trouvant sur le tas.
-        */
-		Plateau& getPioche() const;
-
-        /**
-        * @brief Renvoie la carte se trouvant sur le tas.
-		*
-		* @return Carte se trouvant sur le tas.
-        */
-		Plateau& getJoueurs() const;
 
         /**
         * @brief Distribue 4 cartes à chaque joueur.
