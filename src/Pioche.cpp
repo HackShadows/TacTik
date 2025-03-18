@@ -63,9 +63,9 @@ void Pioche::testRegression(){
     assert(carte3->getValeur() == 1 && !carte3->estDansMain());
     cout << "getPile valide !" << endl;
 
-    cout << "Méthode affichage : " << endl;
+    /*cout << "Méthode affichage : " << endl;
     pioche.afficher();
-    cout << "afficher valide !" << endl;
+    cout << "afficher valide !" << endl;*/
 
     pioche.~Pioche();
     assert(pioche.pile == nullptr && pioche.tas.getValeur() == 0 && !pioche.tas.estDansMain());

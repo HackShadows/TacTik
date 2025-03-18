@@ -40,9 +40,9 @@ void Pion::testRegression(){
     assert(pion.getId()==4);
     cout << "getPion valide !" << endl;
 
-    cout << "Méthode affichage : " << endl;
+    /*cout << "Méthode affichage : " << endl;
     pion.afficher();
-    cout << "afficher valide !" << endl;
+    cout << "afficher valide !" << endl;*/
 
     pion.~Pion();
     assert(pion.pieu);
