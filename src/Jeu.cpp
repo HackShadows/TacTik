@@ -23,10 +23,8 @@ Jeu::Jeu(int nbJ){
 }
 
 Jeu::~Jeu() {
-    cout<<"BOOOOOOOOOOOOOM";
     delete [] joueurs;
     joueurs = nullptr;
-    cout<<"BOOOOOOOOOOOOOM";
 }
 
 Plateau Jeu::getPlateau() const {
@@ -37,11 +35,25 @@ int Jeu::getNbJoueurs() const {
     return nbJoueurs;
 }
 
+bool inTabInt(int element, const int * tab) {
+    for (int i: tab) {
+        if (tab[i] == element) {
+            return true;
+        }
+    }
+    return false;
+}
+
 void Jeu::distribuer(){
+    int indice_carte[];
     for (int i = 0; i<nbJoueurs; i++){
         for (int j = 0; j<4; j++){
             int r = rand()%54;
-            joueurs[i].piocherCarte(pioche.getPile()[r]);
+            do {
+                joueurs[i].piocherCarte(pioche.getPile()[r]);
+
+            } while (!inTabInt(r, indice_carte));
+
         }
     }
 }
@@ -49,3 +61,4 @@ void Jeu::distribuer(){
 void Jeu::testRegression(){
     Pioche pioche;
 }
+
