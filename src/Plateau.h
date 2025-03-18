@@ -29,11 +29,6 @@ class Plateau {
 		Plateau();
 
 		/**
-        * @brief Destructeur du plateau.
-        */
-	   	~Plateau();
-
-		/**
         * @brief Constructeur avec paramètre.
         *
         * Crée le plateau de jeu en fonction du nombre de joueurs.
@@ -41,6 +36,11 @@ class Plateau {
         * @param nbJ Nombre de joueurs
         */
 		Plateau(int nbJ);
+
+        /**
+        * @brief Destructeur du plateau.
+        */
+	   	~Plateau();
 
 		/**
         * @brief Renvoie le nombre de cases du plateau.
