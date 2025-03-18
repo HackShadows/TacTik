@@ -2,7 +2,9 @@
 * @brief Contient l'implémentation de la classe Pion.
 */
 #include "Pion.h"
+
 #include <iostream>
+#include <cassert>
 
 using namespace std;
 

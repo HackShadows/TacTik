@@ -4,7 +4,6 @@
 #include "Plateau.h"
 
 #include <iostream>
-#include <cstdlib>
 #include <cassert>
 
 using namespace std;

@@ -3,7 +3,11 @@
 */
 #include "Joueur.h"
 
+#include <iostream>
+#include <cassert>
+
 using namespace std;
+
 
 Joueur::Joueur(): pseudo("jean"), couleur(0){
     main = nullptr;

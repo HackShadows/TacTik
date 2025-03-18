@@ -3,6 +3,12 @@
 */
 #include "Pioche.h"
 
+#include <iostream>
+#include <cassert>
+
+using namespace std;
+
+
 Pioche::Pioche() {
 	pile = new Carte[54];
 	tas = Carte();

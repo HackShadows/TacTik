@@ -1,7 +1,11 @@
 
 #include "Jeu.h"
+
+#include <iostream>
 #include <cassert>
+
 using namespace std;
+
 
 Jeu::Jeu(){
     nbJoueurs = 4;
@@ -41,5 +45,5 @@ void Jeu::distribuer(){
 }
 
 void Jeu::testRegression(){
-    
+
 }
