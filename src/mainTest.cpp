@@ -7,6 +7,8 @@
 using namespace std;
 
 int main(){
+    cout << "testRegression Carte : " << endl;
     Carte::testRegression();
+    cout << "\ntestRegression Pion : " << endl;
     Pion::testRegression();
 }
