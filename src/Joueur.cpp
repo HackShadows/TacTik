@@ -37,6 +37,10 @@ const Carte& Joueur::jouerCarte(int valeur) {
     __builtin_unreachable();
 }
 
+void Joueur::piocherCarte(const Carte & carte){
+
+}
+
 bool Joueur::maisonRemplie() const{
     for (int i = 0; i<4; i++){
         if (!maison[i]){
@@ -46,7 +50,6 @@ bool Joueur::maisonRemplie() const{
     return true;
 }
 
-
-void Joueur::piocherCarte(const Carte & carte){
-
+void Joueur::afficher() const {
+    cout << "Pseudo : " << pseudo << " ; Couleur : " << couleur << endl;
 }
