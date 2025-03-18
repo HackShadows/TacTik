@@ -11,16 +11,16 @@ using namespace std;
 
 Plateau::Plateau(){
     nbCases = 16*4;
-    cases = new Pion[nbCases];
+    cases = new Pion*[nbCases];
 }
 
 Plateau::Plateau(int nbJ){
     nbCases = 16*nbJ;
-    cases = new Pion[nbCases];
+    cases = new Pion*[nbCases];
 }
 
 Plateau::~Plateau() {
-    //delete [] cases;
+    delete [] cases;
 }
 
 int Plateau::getNbCase() {
@@ -28,11 +28,14 @@ int Plateau::getNbCase() {
 }
 
 Pion& Plateau::getPion(int indice) {
-    return cases[indice];
+    return *cases[indice];
 }
 
 void Plateau::testRegression(){
-    
+    Plateau plateau;
+    assert(plateau.nbCases == 64);
+
+
 }
 
 void Plateau::afficher() const {

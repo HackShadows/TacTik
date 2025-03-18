@@ -8,8 +8,9 @@ using namespace std;
 
 int main(){
     cout<<"Hello world !\n";
-    //Pion::testRegression();
-    Pioche pioche;
-    pioche.afficher();
+    Pion::testRegression();
+    Carte::testRegression();
+    /*Pioche pioche;
+    pioche.afficher();*/
     return 0;
 }
