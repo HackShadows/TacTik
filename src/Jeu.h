@@ -31,6 +31,11 @@ class Jeu {
 		Jeu();
 
         /**
+        * @brief Destructeur du jeu.
+        */
+		~Jeu();
+
+        /**
         * @brief Constructeur du jeu.
         */
 		Jeu(int nbJ);

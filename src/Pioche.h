@@ -27,6 +27,11 @@ class Pioche {
 		Pioche();
 
 		/**
+        * @brief Destructeur de la pioche.
+        */
+	   	~Pioche();
+
+		/**
         * @brief Met à jour le tas.
 		*
 		* @param carte Carte venant d'être jouée.

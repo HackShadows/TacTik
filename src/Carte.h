@@ -25,6 +25,11 @@ class Carte {
         */
 		Carte();
 
+        /**
+        * @brief Destructeur de la carte.
+        */
+		~Carte();
+
 		/**
         * @brief Défini la valeur de la carte.
         * 

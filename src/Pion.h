@@ -26,6 +26,11 @@ class Pion {
 		Pion();
 
 		/**
+        * @brief Destructeur du pion.
+        */
+	   	~Pion();
+
+		/**
         * @brief Défini les données membres du pion.
         * 
         * @param identifiant Id du pion

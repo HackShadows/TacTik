@@ -31,6 +31,11 @@ class Plateau {
 		Plateau();
 
 		/**
+        * @brief Destructeur du plateau.
+        */
+	   	~Plateau();
+
+		/**
         * @brief Constructeur avec paramètre.
         *
         * Crée le plateau de jeu en fonction du nombre de joueurs.

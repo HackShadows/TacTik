@@ -28,6 +28,11 @@ class Joueur {
         */
 		Joueur();
 
+        /**
+        * @brief Destructeur du joueur.
+        */
+		~Joueur();
+
 		/**
         * @brief Défini la couleur et le pseudo du joueur.
         * 
