@@ -30,7 +30,12 @@ int Plateau::getNbCase() {
 }
 
 Pion& Plateau::getPion(int indice) {
+    assert(cases[indice] != nullptr);
     return *cases[indice];
+}
+
+void Plateau::setPion(Pion* pion, int indice) {
+    cases[indice] = pion;
 }
 
 void Plateau::testRegression(){
@@ -46,18 +51,22 @@ void Plateau::testRegression(){
     assert(plateau6.getNbCase() == 96);
     cout << "getNbCase valide !" << endl;
 
-    Pion pion;
-    pion = plateau.getPion(0);
-    assert(pion.getId() == plateau.cases[0]->getId());
+    Pion* pion;
+    plateau.setPion(pion, 0);
+    assert(plateau.cases[0]->getId() == pion->getId());
+    cout << "setPion valide !" << endl;
+
+    *pion = plateau.getPion(0);
+    assert(pion->getId() == plateau.cases[0]->getId());
     cout << "getPion valide !" << endl;
 
     /*cout << "Méthode affichage : " << endl;
     plateau.afficher();
-    cout << "afficher valide !" << endl;
+    cout << "afficher valide !" << endl;*/
 
     plateau.~Plateau();
     plateau6.~Plateau();
-    cout << "Destructeur valide !" << endl;*/
+    cout << "Destructeur valide !" << endl;
 
 
 }

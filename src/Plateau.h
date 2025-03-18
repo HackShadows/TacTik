@@ -49,6 +49,16 @@ class Plateau {
         */
 		int getNbCase();
 
+
+		/**
+		* @brief définit la valeur de la case d'indice i.
+		*
+		* @param pion Pointeur vers le pion.
+		* @param indice Indice de la nouvelle case du pion.
+
+		*/
+		void setPion(Pion* pion, int indice);
+
 		/**
         * @brief Renvoie le pion se trouvant à l'indice 'indice'.
 		* 
