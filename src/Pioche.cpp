@@ -25,4 +25,8 @@ Carte* Pioche::getPile() const{
     return pile;
 }
 
-
+void Pioche::afficher() const {
+    cout << "Tas : ";
+    tas.afficher();
+    for (int i = 0 ; i < 54 ; i++) pile[i].afficher();
+}
