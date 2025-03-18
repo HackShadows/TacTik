@@ -5,6 +5,4 @@
 #include "Plateau.h"
 #include "Jeu.h"
 
-void affichage_textuel() {
-
-}
+void affichage_textuel();
