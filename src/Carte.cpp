@@ -11,17 +11,12 @@ Carte::Carte(){
     jouee = false;
 }
 
-void Carte::setCarte(int val, string chemin){
+void Carte::setCarte(int val){
     valeur = val;
-    image = chemin;
 }
 
 int Carte::getValeur()const{
     return valeur;
-}
-
-string Carte::getImage() const{
-    return image;
 }
 
 bool Carte::estDansMain() const {

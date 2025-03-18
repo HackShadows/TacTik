@@ -26,12 +26,11 @@ class Carte {
 		Carte();
 
 		/**
-        * @brief Défini la valeur et l'image de la carte.
+        * @brief Défini la valeur de la carte.
         * 
         * @param val Valeur de la carte
-		* @param chemin Chemin relatif vers l'image de la carte
         */
-		void setCarte(int val, string chemin);
+		void setCarte(int val);
 
 		/**
         * @brief Renvoie la valeur de la carte.
