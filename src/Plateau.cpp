@@ -32,6 +32,10 @@ Pion& Plateau::getPion(int indice) {
     return cases[indice];
 }
 
+void Plateau::testRegression(){
+    
+}
+
 void Plateau::afficher() const {
     cout << "Nombre de cases : " << nbCases << endl;
 }

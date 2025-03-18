@@ -58,6 +58,14 @@ class Plateau {
         */
 		Pion& getPion(int indice);
 
+        /**
+        * @brief Test les fonctionnalités de la classe.
+        *
+        * Effectue une série de tests pour vérifier que toutes les fonctions produisent uniquement le résultat attendu,
+        * et que les données membres de l'objet sont conformes en tout temps.
+        */
+	   	static void testRegression();
+
 		/**
         * @brief Affiche le plateau de jeu.
         */

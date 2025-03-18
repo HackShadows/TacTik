@@ -64,6 +64,14 @@ class Joueur {
 		bool maisonRemplie() const;
 
         /**
+        * @brief Test les fonctionnalités de la classe.
+        *
+        * Effectue une série de tests pour vérifier que toutes les fonctions produisent uniquement le résultat attendu,
+        * et que les données membres de l'objet sont conformes en tout temps.
+        */
+        static void testRegression();
+
+        /**
         * @brief Affiche le joueur.
         */
         void afficher() const;

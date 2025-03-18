@@ -24,6 +24,10 @@ int Pion::getId() {
     return id;
 }
 
+void Pion::testRegression(){
+    
+}
+
 void Pion::afficher() const {
     cout << "Id : " << id << " ; Couleur : " << couleur << " ; C'est un " << ((pieu) ? "pieu":"pion") << endl;
 }

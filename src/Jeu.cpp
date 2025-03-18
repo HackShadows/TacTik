@@ -40,4 +40,6 @@ void Jeu::distribuer(){
     }
 }
 
-void Jeu::testRegression(){}
+void Jeu::testRegression(){
+    
+}

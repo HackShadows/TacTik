@@ -48,6 +48,10 @@ bool Joueur::maisonRemplie() const{
     return true;
 }
 
+void Joueur::testRegression(){
+    
+}
+
 void Joueur::afficher() const {
     cout << "Pseudo : " << pseudo << " ; Couleur : " << couleur << endl;
 }

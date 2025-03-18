@@ -25,6 +25,10 @@ Carte* Pioche::getPile() const{
     return pile;
 }
 
+void Pioche::testRegression(){
+    
+}
+
 void Pioche::afficher() const {
     cout << "Tas : ";
     tas.afficher();

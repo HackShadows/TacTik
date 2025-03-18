@@ -29,6 +29,10 @@ void Carte::setJouee(bool valeur){
     jouee = valeur;
 }
 
+void Carte::testRegression(){
+    
+}
+
 void Carte::afficher() const {
     cout << "Valeur : " << valeur << " ; Jouee : " << jouee << endl;
 }
