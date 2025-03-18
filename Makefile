@@ -1,5 +1,7 @@
 all: bin/executable
 
+test: bin/test
+
 doc: doc/doxyfile doc/html
 	doxygen doc/doxyfile
 
@@ -8,6 +10,11 @@ doc/html:
 
 bin/executable: obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/Plateau.o obj/Jeu.o obj/Affichage.o obj/main.o
 	g++ obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/Plateau.o obj/Jeu.o obj/Affichage.o obj/main.o -o bin/executable
+
+bin/test:obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/Plateau.o obj/Jeu.o obj/Affichage.o obj/mainTest.o
+
+obj/mainTest.o: src/mainTest.cpp src/Jeu.h
+	g++ -Wall -c src/mainTest.cpp -o obj/mainTest.o
 
 obj/main.o: src/main.cpp src/Affichage.h
 	g++ -Wall -c src/main.cpp -o obj/main.o
