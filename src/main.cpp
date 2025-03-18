@@ -8,7 +8,8 @@ using namespace std;
 
 int main(){
     cout<<"Hello world !\n";
-    //cout<<jeu.getNbJoueurs();
-    //affichage_textuel(jeu);
+    //Pion::testRegression();
+    Pioche pioche;
+    pioche.afficher();
     return 0;
 }
