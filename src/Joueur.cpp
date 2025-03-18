@@ -5,9 +5,7 @@
 
 using namespace std;
 
-Joueur::Joueur(){
-    pseudo = "Jean";
-    couleur = 0;
+Joueur::Joueur(): pseudo("jean"), couleur(0){
     main = nullptr;
     for (int i = 0; i<4; i++){
         maison[i] = false;

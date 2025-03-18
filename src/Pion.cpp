@@ -7,16 +7,9 @@
 using namespace std;
 
 
-Pion::Pion(){
-    pieu = true;
-    id = 0;
-    couleur = 0;
-}
+Pion::Pion(): id(0), couleur(0), pieu(true){}
 
-void Pion::setPion(int identifiant){
-    id = identifiant;
-    couleur = (id/4) + 1;
-}
+void Pion::setPion(int identifiant): id(identifiant), couleur((id/4)+1){}
 
 Pion::~Pion() {
     pieu = true;
