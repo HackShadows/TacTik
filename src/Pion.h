@@ -36,6 +36,11 @@ class Pion {
         * @param identifiant Id du pion
         */
 		void setPion(int identifiant);
+
+		/**
+        * @brief Affiche le pion.
+        */
+	   	void afficher() const;
 };
 
 #endif

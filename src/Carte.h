@@ -57,6 +57,11 @@ class Carte {
         * @param joue Booléen qui indique si la carte est jouable
         */
 		void setJouee(bool joue);
+
+        /**
+        * @brief Affiche la carte.
+        */
+		void afficher() const;
 };
 
 #endif

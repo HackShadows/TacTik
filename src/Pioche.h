@@ -51,6 +51,11 @@ class Pioche {
 		* @return La pile.
         */
 		Carte* getPile() const;
+
+		/**
+        * @brief Affiche la pioche.
+        */
+	   	void afficher() const;
 };
 
 #endif

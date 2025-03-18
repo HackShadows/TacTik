@@ -62,6 +62,11 @@ class Joueur {
         * @return un booléen.
         */
 		bool maisonRemplie() const;
+
+        /**
+        * @brief Affiche le joueur.
+        */
+        void afficher() const;
 };
 
 #endif
