@@ -6,6 +6,8 @@
 #include "Pion.h"
 #include "Pioche.h"
 #include "Plateau.h"
+#include "Jeu.h"
+#include "Affichage.h"
 #include <iostream>
 
 using namespace std;

@@ -20,7 +20,7 @@ class Plateau {
 
 	private:
 		Pion * cases; ///<Les 64 ou 96 cases du plateau de jeu
-		int nbJoueurs; ///<Nombres de joueurs
+		int nbCases; ///<Nombres de cases
 
 	public:
 		/**
