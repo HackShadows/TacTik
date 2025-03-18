@@ -39,8 +39,15 @@ void Pion::testRegression(){
 
     assert(pion.getId()==4);
     cout<<"getPion validé"<<endl;
+
     pion.afficher();
     cout<<"afficher validé "<<endl;
+
+    pion.~Pion();
+    assert(pion.pieu);
+    assert(pion.id == 0);
+    assert(pion.couleur == 0);
+    cout<<"Destructeur validé"<<endl;
 }
 
 void Pion::afficher() const {
