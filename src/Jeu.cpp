@@ -39,3 +39,5 @@ void Jeu::distribuer(){
         }
     }
 }
+
+void Jeu::testRegression(){}
