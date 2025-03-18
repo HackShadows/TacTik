@@ -6,10 +6,7 @@
 using namespace std;
 
 
-Carte::Carte(){
-    valeur = 0;
-    jouee = false;
-}
+Carte::Carte(): valeur(0), jouee(false){}
 
 Carte::~Carte() {
     valeur = 0;

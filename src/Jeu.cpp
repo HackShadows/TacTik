@@ -23,7 +23,7 @@ Jeu::~Jeu() {
     joueurs = nullptr;
 }
 
-Plateau& Jeu::getPlateau() {
+Plateau& Jeu::getPlateau() const {
     return plateau;
 }
 
