@@ -26,3 +26,7 @@ int Plateau::getNbCase() {
 Pion& Plateau::getPion(int indice) {
     return cases[indice];
 }
+
+void Plateau::afficher() const {
+    cout << "Nombre de cases : " << nbCases << endl;
+}

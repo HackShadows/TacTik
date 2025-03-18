@@ -44,8 +44,20 @@ class Plateau {
         */
 		Plateau(int nbJ);
 
+		/**
+        * @brief Renvoie le nombre de cases du plateau.
+        * 
+        * @return Nombre de cases.
+        */
 		int getNbCase();
 
+		/**
+        * @brief Renvoie le pion se trouvant à l'indice 'indice'.
+		* 
+		* @param indice Indice où chercher le pion.
+        * 
+        * @return Pion se trouvant à l'indice 'indice'.
+        */
 		Pion& getPion(int indice);
 
 		/**
