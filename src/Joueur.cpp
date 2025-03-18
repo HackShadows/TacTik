@@ -24,6 +24,7 @@ Joueur::~Joueur() {
 }
 
 void Joueur::setJoueur(string nom, int id_couleur){
+    assert(1 <= id_couleur && id_couleur <=6);
     pseudo = nom;
     couleur = id_couleur;
 }
@@ -53,7 +54,14 @@ bool Joueur::maisonRemplie() const{
 }
 
 void Joueur::testRegression(){
-    
+    Joueur joueur;
+    assert(joueur.main == nullptr);
+    for (int i = 0 ; i < 4 ; i++) assert(joueur.maison[i] == false);
+    cout << "Constructeur valide !" << endl;
+
+    joueur.setJoueur("Toto", 3);
+    assert(joueur.pseudo == "Toto" && joueur.couleur == 3);
+    cout << "setJoueur valide !" << endl;
 }
 
 void Joueur::afficher() const {
