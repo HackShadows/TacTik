@@ -48,9 +48,24 @@ class Jeu {
         Plateau getPlateau() const;
 
         /**
+        * @brief Renvoie le nombre de joueurs.
+		*
+		* @return Le nombre de joueurs.
+        */
+        int getNbJoueurs() const;
+
+        /**
         * @brief Distribue 4 cartes à chaque joueur.
         */
 		void distribuer();
+
+        /**
+        * @brief Test les fonctionnalités de la classe.
+        *
+        * Effectue une série de tests pour vérifier que toutes les fonctions produisent uniquement le résultat attendu,
+        * et que les données membres de l'objet sont conformes en tout temps.
+        */
+        static void testRegression();
 };
 
 #endif
