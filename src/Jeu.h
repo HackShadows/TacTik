@@ -34,6 +34,11 @@ class Jeu {
         * @brief Constructeur du jeu.
         */
 		Jeu(int nbJ);
+
+        /**
+        * @brief Distribue 4 cartes à chaque joueur.
+        */
+		void distribuer();
 };
 
 #endif
