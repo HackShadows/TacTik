@@ -36,7 +36,7 @@ void Carte::setJouee(bool valeur){
 void Carte::testRegression(){
     Carte carte;
     assert(carte.jouee == false && carte.valeur == 0);
-    cout << "Constructeur par défaut valide !" << endl;
+    cout << "Constructeur valide !" << endl;
 
     carte.setCarte(3);
     assert(carte.valeur == 3);
@@ -53,6 +53,10 @@ void Carte::testRegression(){
     bool val2 = carte.estDansMain();
     assert(val2 == true);
     cout << "estDansMain valide !" << endl;
+
+    carte.~Carte();
+    assert(carte.jouee == false && carte.valeur == 0);
+    cout << "Destructeur valide !" << endl;
 }
 
 void Carte::afficher() const {
