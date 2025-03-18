@@ -23,6 +23,9 @@ Plateau::~Plateau() {
     for (int i = 0; i<nbCases; i++) {
         delete cases[i];
     }
+    delete [] cases;
+    cases = nullptr;
+    nbCases = 0;
 }
 
 int Plateau::getNbCase() {
@@ -66,6 +69,8 @@ void Plateau::testRegression(){
 
     plateau.~Plateau();
     plateau6.~Plateau();
+    assert(plateau.cases == nullptr && plateau.getNbCase() == 0);
+    assert(plateau6.cases == nullptr && plateau6.getNbCase() == 0);
     cout << "Destructeur valide !" << endl;
 
 
