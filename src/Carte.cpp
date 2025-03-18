@@ -54,6 +54,10 @@ void Carte::testRegression(){
     assert(val2 == true);
     cout << "estDansMain valide !" << endl;
 
+    cout << "Méthode affichage : " << endl;
+    carte.afficher();
+    cout << "afficher valide !" << endl;
+
     carte.~Carte();
     assert(carte.jouee == false && carte.valeur == 0);
     cout << "Destructeur valide !" << endl;
