@@ -27,7 +27,7 @@ Plateau Jeu::getPlateau() const {
     return plateau;
 }
 
-int Jeu::getNbJoueurs()const {
+int Jeu::getNbJoueurs() const {
     return nbJoueurs;
 }
 
