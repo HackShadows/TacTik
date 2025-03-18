@@ -17,7 +17,6 @@ class Carte {
 
 	private:
 		bool jouee; ///<Indique si la carte est jouable
-		string image; ///<Chemin relatif vers l'image de la carte
 		int valeur; ///<Valeur de la carte (0 : défaut, 1-13, -1 : Joker, -2 : Permutter, 4 : -4)
 
 	public:
@@ -40,13 +39,6 @@ class Carte {
         * @return Valeur de la carte
         */
 		int getValeur() const ;
-
-		/**
-        * @brief Renvoie l'image de la carte.
-        * 
-        * @return Image de la carte
-        */
-		string getImage() const;
 
 		/**
         * @brief Renvoie True si la carte n'a pas encore été jouée par le joueur, False sinon.
