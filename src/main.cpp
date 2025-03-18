@@ -14,7 +14,7 @@ using namespace std;
 
 int main(){
     cout<<"Hello world !\n";
-    Joueur j;
-    cout<<sizeof(j);
+    Jeu jeu(4);
+    affichage_textuel(jeu);
     return 0;
 }
