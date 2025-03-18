@@ -9,7 +9,6 @@ using namespace std;
 
 Pion::Pion(){
     pieu = true;
-    image = "data/pion.png";
     id = 0;
     couleur = 0;
 }

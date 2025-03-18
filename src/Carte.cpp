@@ -8,7 +8,6 @@ using namespace std;
 
 Carte::Carte(){
     valeur = 0;
-    image = "data/imagedefaut.png";
     jouee = false;
 }
 

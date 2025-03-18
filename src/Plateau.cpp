@@ -11,12 +11,7 @@ using namespace std;
 
 
 Plateau::Plateau(int nbJ){
-    assert(nbJ == 4 || nbJ == 6);
-    nbJoueurs = nbJ;
-    joueurs = new Joueur[nbJoueurs];
     cases = new Pion[16*nbJoueurs];
-    image = "data/image.jpg";
-    pioche = Pioche();
 }
 
 void Plateau::distribuer(){
