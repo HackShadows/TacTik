@@ -10,6 +10,11 @@
 using namespace std;
 
 
+Plateau::Plateau(){
+    nbCases = 16*4;
+    cases = new Pion[nbCases];
+}
+
 Plateau::Plateau(int nbJ){
     nbCases = 16*nbJ;
     cases = new Pion[nbCases];
