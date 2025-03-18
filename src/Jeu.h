@@ -45,7 +45,7 @@ class Jeu {
 		*
 		* @return Le plateau de jeu.
         */
-		Plateau* getPlateau() const;
+		Plateau getPlateau() const;
 
         /**
         * @brief Distribue 4 cartes à chaque joueur.
