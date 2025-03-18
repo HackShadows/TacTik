@@ -14,11 +14,3 @@ Plateau::Plateau(int nbJ){
     cases = new Pion[16*nbJoueurs];
 }
 
-void Plateau::distribuer(){
-    for (int i = 0; i<nbJoueurs; i++){
-        for (int j = 0; j<4; j++){
-            int r = rand()%54;
-            joueurs[i].piocherCarte(pioche.getPile()[r]);
-        }
-    }
-}
