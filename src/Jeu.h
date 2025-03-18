@@ -31,14 +31,35 @@ class Jeu {
 		Jeu();
 
         /**
+        * @brief Constructeur du jeu.
+        */
+		Jeu(int nbJ);
+
+        /**
         * @brief Destructeur du jeu.
         */
 		~Jeu();
 
         /**
-        * @brief Constructeur du jeu.
+        * @brief Renvoie la carte se trouvant sur le tas.
+		*
+		* @return Carte se trouvant sur le tas.
         */
-		Jeu(int nbJ);
+		Plateau& getPlateau() const;
+
+        /**
+        * @brief Renvoie la carte se trouvant sur le tas.
+		*
+		* @return Carte se trouvant sur le tas.
+        */
+		Plateau& getPioche() const;
+
+        /**
+        * @brief Renvoie la carte se trouvant sur le tas.
+		*
+		* @return Carte se trouvant sur le tas.
+        */
+		Plateau& getJoueurs() const;
 
         /**
         * @brief Distribue 4 cartes à chaque joueur.
