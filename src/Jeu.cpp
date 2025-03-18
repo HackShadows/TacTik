@@ -27,6 +27,9 @@ Plateau Jeu::getPlateau() const {
     return plateau;
 }
 
+int Jeu::getNbJoueurs()const {
+    return nbJoueurs;
+}
 
 void Jeu::distribuer(){
     for (int i = 0; i<nbJoueurs; i++){

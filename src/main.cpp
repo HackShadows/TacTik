@@ -9,6 +9,7 @@ using namespace std;
 int main(){
     cout<<"Hello world !\n";
     Jeu jeu(4);
-    affichage_textuel(jeu);
+    cout<<jeu.getNbJoueurs();
+    //affichage_textuel(jeu);
     return 0;
 }
