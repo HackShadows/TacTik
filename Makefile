@@ -9,10 +9,10 @@ doc/html:
 bin/executable: obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/Plateau.o obj/main.o obj/Jeu.o obj/Affichage.o
 	g++ obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/Plateau.o obj/Affichage.o obj/main.o -o bin/executable
 
-obj/main.o: src/main.cpp src/Carte.h src/Joueur.h src/Pion.h src/Pioche.h src/Plateau.h src/Affichage.h
+obj/main.o: src/main.cpp src/Carte.h src/Joueur.h src/Pion.h src/Pioche.h src/Plateau.h src/Affichage.h src/Jeu.h
 	g++ -Wall -c src/main.cpp -o obj/main.o
 
-obj/Affichage.o: src/Affichage.cpp src/Affichage.h src/Carte.h src/Joueur.h src/Pion.h src/Pioche.h src/Plateau.h
+obj/Affichage.o: src/Affichage.cpp src/Affichage.h src/Jeu.h
 	g++ -Wall -c src/Affichage.cpp -o obj/Affichage.o
 
 obj/Jeu.o: src/Jeu.cpp src/Jeu.h src/Joueur.h src/Pioche.h src/Plateau.h
