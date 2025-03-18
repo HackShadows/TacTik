@@ -18,6 +18,12 @@ Jeu::Jeu(int nbJ){
     plateau = Plateau(nbJ);
 }
 
+Jeu::~Jeu() {
+    delete [] joueurs;
+    joueurs = nullptr;
+}
+
+
 void Jeu::distribuer(){
     for (int i = 0; i<nbJoueurs; i++){
         for (int j = 0; j<4; j++){

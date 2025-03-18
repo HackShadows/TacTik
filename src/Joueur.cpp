@@ -15,6 +15,12 @@ Joueur::Joueur(){
 
 }
 
+Joueur::~Joueur() {
+    if (main!=nullptr) {
+        delete [] main;
+    }
+}
+
 void Joueur::setJoueur(string nom, int id_couleur){
     pseudo = nom;
     couleur = id_couleur;

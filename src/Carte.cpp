@@ -11,6 +11,11 @@ Carte::Carte(){
     jouee = false;
 }
 
+Carte::~Carte() {
+    valeur = 0;
+    jouee = false;
+}
+
 void Carte::setCarte(int val){
     valeur = val;
 }

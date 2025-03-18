@@ -8,6 +8,11 @@ Pioche::Pioche() {
 	tas = Carte();
 }
 
+Pioche::~Pioche() {
+    delete [] pile;
+    pile = nullptr;
+}
+
 void Pioche::setTas(const Carte & carte){
     tas = carte;
 }

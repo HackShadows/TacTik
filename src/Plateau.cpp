@@ -14,3 +14,6 @@ Plateau::Plateau(int nbJ){
     cases = new Pion[16*nbJoueurs];
 }
 
+Plateau::~Plateau() {
+    delete [] cases;
+}

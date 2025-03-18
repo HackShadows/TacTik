@@ -17,3 +17,9 @@ void Pion::setPion(int identifiant){
     id = identifiant;
     couleur = (id/4) + 1;
 }
+
+Pion::~Pion() {
+    pieu = true;
+    id = 0;
+    couleur = 0;
+}
