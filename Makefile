@@ -7,9 +7,9 @@ doc/html:
 	doxygen doc/doxyfile
 
 bin/executable: obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/Plateau.o obj/main.o obj/Jeu.o obj/Affichage.o
-	g++ obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/Plateau.o obj/Affichage.o obj/main.o -o bin/executable
+	g++ obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/Plateau.o obj/Jeu.o obj/Affichage.o obj/main.o -o bin/executable
 
-obj/main.o: src/main.cpp src/Carte.h src/Joueur.h src/Pion.h src/Pioche.h src/Plateau.h src/Affichage.h src/Jeu.h
+obj/main.o: src/main.cpp src/Affichage.h
 	g++ -Wall -c src/main.cpp -o obj/main.o
 
 obj/Affichage.o: src/Affichage.cpp src/Affichage.h src/Jeu.h
@@ -21,16 +21,16 @@ obj/Jeu.o: src/Jeu.cpp src/Jeu.h src/Joueur.h src/Pioche.h src/Plateau.h
 obj/Carte.o: src/Carte.cpp src/Carte.h 
 	g++ -Wall -c src/Carte.cpp -o obj/Carte.o
 
-obj/Pioche.o: src/Pioche.cpp src/Pioche.h 
+obj/Pioche.o: src/Pioche.cpp src/Pioche.h src/Carte.h
 	g++ -Wall -c src/Pioche.cpp -o obj/Pioche.o
 
-obj/Pion.o: src/Pion.cpp src/Pion.h src/Carte.h
+obj/Pion.o: src/Pion.cpp src/Pion.h
 	g++ -Wall -c src/Pion.cpp -o obj/Pion.o
 
 obj/Joueur.o: src/Joueur.cpp src/Joueur.h src/Carte.h
 	g++ -Wall -c src/Joueur.cpp -o obj/Joueur.o
 
-obj/Plateau.o: src/Plateau.cpp src/Plateau.h src/Joueur.h src/Pion.h src/Pioche.h
+obj/Plateau.o: src/Plateau.cpp src/Plateau.h src/Pion.h
 	g++ -Wall -c src/Plateau.cpp -o obj/Plateau.o
 
 clean:
