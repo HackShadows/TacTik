@@ -7,6 +7,6 @@
 using namespace std;
 
 int main(){
-    Carte carte;
-    carte.testRegression();
+    Carte::testRegression();
+    Pion::testRegression();
 }
