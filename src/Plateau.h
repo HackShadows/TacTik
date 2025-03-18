@@ -4,9 +4,7 @@
 /**
 * @brief Contient la déclaration de la classe Plateau.
 */
-#include "Pioche.h"
 #include "Pion.h"
-#include "Joueur.h"
 #include <iostream>
 using namespace std;
 
