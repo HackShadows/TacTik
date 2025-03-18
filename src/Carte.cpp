@@ -20,7 +20,7 @@ void Carte::setCarte(int val){
     valeur = val;
 }
 
-int Carte::getValeur()const{
+int Carte::getValeur() const {
     return valeur;
 }
 
@@ -30,4 +30,8 @@ bool Carte::estDansMain() const {
 
 void Carte::setJouee(bool valeur){
     jouee = valeur;
+}
+
+void Carte::afficher() const {
+    cout << "Valeur : " << valeur << " ; Jouee : " << jouee << endl;
 }
