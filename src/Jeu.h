@@ -19,7 +19,7 @@ using namespace std;
 class Jeu {
 
 	private:
-        int nb_joueurs; ///<Nombres de joueurs.
+        int nbJoueurs; ///<Nombres de joueurs.
 		Plateau plateau; ///<Le plateau de jeu.
 		Pioche pioche; ///<La pioche et le tas.
 		Joueur * joueurs; ///<Tableau de 4 ou 6 joueurs.
