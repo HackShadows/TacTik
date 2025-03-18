@@ -44,6 +44,8 @@ class Plateau {
         */
 		Plateau(int nbJ);
 
+		int getNbCase();
+
 		/**
         * @brief Affiche le plateau de jeu.
         */

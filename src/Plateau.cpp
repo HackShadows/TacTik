@@ -11,9 +11,14 @@ using namespace std;
 
 
 Plateau::Plateau(int nbJ){
-    cases = new Pion[16*nbJoueurs];
+    nbCases = 16*nbJ;
+    cases = new Pion[nbCases];
 }
 
 Plateau::~Plateau() {
     delete [] cases;
+}
+
+int Plateau::getNbCase() {
+    return nbCases;
 }

@@ -23,6 +23,10 @@ Jeu::~Jeu() {
     joueurs = nullptr;
 }
 
+Plateau& Jeu::getPlateau() {
+    return plateau;
+}
+
 
 void Jeu::distribuer(){
     for (int i = 0; i<nbJoueurs; i++){
