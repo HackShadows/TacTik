@@ -13,4 +13,6 @@ int main(){
     Pion::testRegression();
     cout << "\ntestRegression Pile : " << endl;
     Pioche::testRegression();
+    cout << "\ntestRegression Plateau : " << endl;
+    Plateau::testRegression();
 }

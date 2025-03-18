@@ -51,7 +51,7 @@ void Plateau::testRegression(){
     assert(plateau6.getNbCase() == 96);
     cout << "getNbCase valide !" << endl;
 
-    Pion* pion;
+    Pion* pion = new Pion();
     plateau.setPion(pion, 0);
     assert(plateau.cases[0]->getId() == pion->getId());
     cout << "setPion valide !" << endl;
