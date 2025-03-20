@@ -10,7 +10,6 @@ using namespace std;
 
 
 Pioche::Pioche() {
-	pile = new Carte[54];
     for (int i = 0; i<13; i++) {
         for (int j = 0; j<4; j++) {
             pile[i*4+j].setCarte(i+1);
@@ -22,8 +21,6 @@ Pioche::Pioche() {
 }
 
 Pioche::~Pioche() {
-    delete [] pile;
-    pile = nullptr;
     tas = Carte();
 }
 
