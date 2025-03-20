@@ -43,6 +43,7 @@ Carte* Joueur::jouerCarte(int valeur) {
             return carte;
         }
     }
+    return nullptr;
 }
 
 bool Joueur::maisonRemplie() const{
@@ -56,8 +57,10 @@ bool Joueur::maisonRemplie() const{
 
 void Joueur::testRegression(){
     Joueur joueur;
-    assert(joueur.main == nullptr);
-    for (int i = 0 ; i < 4 ; i++) assert(joueur.maison[i] == false);
+    for (int i = 0 ; i < 4 ; i++) {
+        assert(joueur.maison[i] == false);
+        assert(joueur.main[i] == nullptr);
+    }
     cout << "Constructeur valide !" << endl;
 
     joueur.setJoueur("Toto", 3);
