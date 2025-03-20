@@ -57,8 +57,8 @@ void Pioche::testRegression(){
     assert(carte2.getValeur() == 0 && !carte2.estDansMain());
     cout << "getTas valide !" << endl;
 
-    Carte* carte3 = pioche.getCarte(52);
-    assert(carte3->getValeur() == -1 && !carte3->estDansMain());
+    Carte carte3 = pioche.getCarte(52);
+    assert(carte3.getValeur() == -1 && !carte3.estDansMain());
     cout << "getCarte valide !" << endl;
 
     /*cout << "Méthode affichage : " << endl;
