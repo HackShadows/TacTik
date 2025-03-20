@@ -21,7 +21,6 @@ Joueur::~Joueur() {
     for (int i = 0; i<4; i++){
         main[i] = nullptr;
     }
-    delete [] main;
 }
 
 void Joueur::setJoueur(string nom, int id_couleur){
