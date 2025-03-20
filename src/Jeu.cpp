@@ -51,9 +51,9 @@ bool intInTab(int element, const int * tab, int taille) {
 
 void Jeu::distribuer(){
     int indice_carte[4*nbJoueurs];
-    for (int i = 0; i<nbJoueurs; i++){
+    for (int i = 0; i<nbJoueurs; i++) {
         int random_int;
-        for (int j = 0; j<4; j++){
+        for (int j = 0 ; j < 4 ; j++) {
             do {
                 random_int = rand()%54;
                 joueurs[i].piocherCarte(j, &pioche.getCarte(random_int));
@@ -64,6 +64,22 @@ void Jeu::distribuer(){
 }
 
 void Jeu::testRegression(){
+    Jeu jeu;
+    assert(jeu.nbJoueurs == 4);
+    cout << "Constructeur par défaut valide !" << endl;
 
+    Jeu jeu2(6);
+    assert(jeu2.nbJoueurs == 6);
+    cout << "Constructeur avec paramètres valide !" << endl;
+
+    Plateau plateau = jeu.getPlateau();
+    assert(plateau.getNbCase() == 64);
+    cout << "getPlateau valide !" << endl;
+
+    int nbJ = jeu.getNbJoueurs();
+    assert(nbJ == 4);
+    cout << "getNbJoueurs valide !" << endl;
+
+    jeu.distribuer();
 }
 
