@@ -41,6 +41,14 @@ class Joueur {
         */
 		void setJoueur(string nom, int id_couleur);
 
+        /**
+        * @brief Modifie l'état d'une case de la maison (occupée = True, vide = False).
+        * 
+        * @param indice Indice de la case à modifier.
+        * @param etat État dans lequel mettre la case.
+        */
+		void setMaison(int indice, bool etat);
+
 		/**
         * @brief Renvoie la carte que le joueur souhaite jouer.
         * 
