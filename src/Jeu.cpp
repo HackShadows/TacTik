@@ -12,8 +12,7 @@ Jeu::Jeu(){
     nbJoueurs = 4;
     joueurs = new Joueur * [nbJoueurs];
     for (int i = 0; i < nbJoueurs; i++) {
-        Joueur joueur(i+1);
-        joueurs[i] = &joueur;
+        joueurs[i] = new Joueur(i+1);
     }
     pioche = Pioche();
     plateau = Plateau(nbJoueurs);
@@ -24,8 +23,7 @@ Jeu::Jeu(int nbJ){
     nbJoueurs = nbJ;
     joueurs = new Joueur * [nbJoueurs];
     for (int i = 0; i < nbJoueurs; i++) {
-        Joueur joueur(i+1);
-        joueurs[i] = &joueur;
+        joueurs[i] = new Joueur(i+1);
     }
     pioche = Pioche();
     plateau = Plateau(nbJ);
@@ -33,10 +31,11 @@ Jeu::Jeu(int nbJ){
 
 Jeu::~Jeu() {
     for (int i = 0 ; i < nbJoueurs ; i++) {
-        joueurs[i] = nullptr;
+        delete joueurs[i];
     }
     delete [] joueurs;
     joueurs = nullptr;
+    nbJoueurs = 0;
 }
 
 Plateau Jeu::getPlateau() const {
@@ -90,7 +89,7 @@ void Jeu::testRegression(){
 
     jeu.~Jeu();
     jeu2.~Jeu();
-    assert(jeu.joueurs == nullptr && jeu2.joueurs == nullptr);
+    assert(jeu.joueurs == nullptr && jeu2.joueurs == nullptr && jeu.nbJoueurs == 0 && jeu2.nbJoueurs == 0);
     cout << "Destructeur valide !" << endl;
 }
 
