@@ -1,6 +1,8 @@
-all: bin/executable
+all: bin/executable bin/test
 
 test: bin/test
+
+main: bin/executable
 
 doc: doc/doxyfile doc/html
 	doxygen doc/doxyfile
