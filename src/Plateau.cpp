@@ -11,7 +11,9 @@ using namespace std;
 
 Plateau::Plateau(){
     nbCases = 16*4;
-    cases = new Pion*[nbCases];
+    for (int i = 0; i<16*4; i++) {
+        cases[i] = nullptr;
+    }
 }
 
 Plateau::Plateau(int nbJ){
@@ -41,6 +43,11 @@ void Plateau::setPion(Pion* pion, int indice) {
     cases[indice] = pion;
 }
 
+void Plateau::viderCase(int indice) {
+    cases[indice] = nullptr;
+}
+
+
 void Plateau::testRegression(){
     Plateau plateau;
     assert(plateau.nbCases == 64);
@@ -58,6 +65,10 @@ void Plateau::testRegression(){
     plateau.setPion(pion, 0);
     assert(plateau.cases[0]->getId() == pion->getId());
     cout << "setPion valide !" << endl;
+
+    plateau.viderCase(0);
+    assert(plateau.cases[0] == nullptr);
+    cout << "viderCase valide !" << endl;
 
     *pion = plateau.getPion(0);
     assert(pion->getId() == plateau.cases[0]->getId());
