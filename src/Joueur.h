@@ -28,18 +28,24 @@ class Joueur {
         */
 		Joueur();
 
+		/**
+		* @brief Constructeur du joueur.
+		*
+		* @param id_couleur Couleur du joueur (1 : vert, 2 : rouge, 3 : bleu, 4 : jaune, 5 : blanc, 6 : noir)
+		*/
+		Joueur(int id_couleur);
+
         /**
         * @brief Destructeur du joueur.
         */
 		~Joueur();
 
 		/**
-        * @brief Défini la couleur et le pseudo du joueur.
+        * @brief Définit le pseudo du joueur.
         * 
         * @param nom Pseudonyme du joueur
-		* @param id_couleur Couleur du joueur (1 : vert, 2 : rouge, 3 : bleu, 4 : jaune, 5 : blanc, 6 : noir)
         */
-		void setJoueur(string nom, int id_couleur);
+		void setPseudo(string nom);
 
         /**
         * @brief Modifie l'état d'une case de la maison (occupée = True, vide = False).
