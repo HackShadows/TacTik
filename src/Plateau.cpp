@@ -70,13 +70,13 @@ void Plateau::testRegression(){
     assert(plateau.cases[0]->getId() == pion->getId());
     cout << "setPion valide !" << endl;
 
+    Pion pion2 = plateau.getPion(0);
+    assert(pion2.getId() == pion->getId());
+    cout << "getPion valide !" << endl;
+
     plateau.viderCase(0);
     assert(plateau.cases[0] == nullptr);
     cout << "viderCase valide !" << endl;
-
-    *pion = plateau.getPion(0);
-    assert(pion->getId() == plateau.cases[0]->getId());
-    cout << "getPion valide !" << endl;
 
     /*cout << "Méthode affichage : " << endl;
     plateau.afficher();
