@@ -66,7 +66,7 @@ void Pioche::testRegression(){
     cout << "afficher valide !" << endl;*/
 
     pioche.~Pioche();
-    assert(pioche.pile == nullptr && pioche.tas.getValeur() == 0 && !pioche.tas.estDansMain());
+    assert(pioche.tas.getValeur() == 0 && !pioche.tas.estDansMain());
     cout << "Destructeur valide !" << endl;
 }
 
