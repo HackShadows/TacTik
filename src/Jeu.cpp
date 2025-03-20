@@ -10,9 +10,9 @@ using namespace std;
 
 Jeu::Jeu(){
     nbJoueurs = 4;
-    joueurs = new Joueur[nbJoueurs];
+    joueurs = new Joueur * [nbJoueurs];
     for (int i = 0; i < nbJoueurs; i++) {
-        joueurs[i] = Joueur(i+1);
+        *joueurs[i] = Joueur(i+1);
     }
     pioche = Pioche();
     plateau = Plateau(nbJoueurs);
@@ -21,15 +21,18 @@ Jeu::Jeu(){
 Jeu::Jeu(int nbJ){
     assert(nbJ == 4 || nbJ == 6);
     nbJoueurs = nbJ;
-    joueurs = new Joueur[nbJoueurs];
+    joueurs = new Joueur * [nbJoueurs];
     for (int i = 0; i < nbJoueurs; i++) {
-        joueurs[i] = Joueur(i+1);
+        *joueurs[i] = Joueur(i+1);
     }
     pioche = Pioche();
     plateau = Plateau(nbJ);
 }
 
 Jeu::~Jeu() {
+    for (int i = 0 ; i < nbJoueurs ; i++) {
+        delete joueurs[i];
+    }
     delete [] joueurs;
     joueurs = nullptr;
 }
@@ -56,8 +59,8 @@ void Jeu::distribuer(){
         for (int j = 0 ; j < 4 ; j++) {
             do {
                 random_int = rand()%54;
-                joueurs[i].piocherCarte(j, &pioche.getCarte(random_int));
-            } while (!intInTab(random_int, indice_carte, 4*i + j));
+            } while (intInTab(random_int, indice_carte, 4*i + j));
+            joueurs[i]->piocherCarte(j, &pioche.getCarte(random_int));
             indice_carte[4*i+j] = random_int;
         }
     }
@@ -81,5 +84,11 @@ void Jeu::testRegression(){
     cout << "getNbJoueurs valide !" << endl;
 
     jeu.distribuer();
+    cout << "distribuer valide !" << endl;
+
+    jeu.~Jeu();
+    jeu2.~Jeu();
+    assert(jeu.joueurs == nullptr && jeu2.joueurs == nullptr);
+    cout << "Destructeur valide !" << endl;
 }
 
