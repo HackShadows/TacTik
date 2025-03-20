@@ -64,30 +64,15 @@ void Joueur::testRegression(){
     assert(joueur.pseudo == "Toto" && joueur.couleur == 3);
     cout << "setJoueur valide !" << endl;
 
-    const Carte * carte = joueur.jouerCarte(3);
-    assert(carte->getValeur() == 3);
-    cout << "setCarte valide !" << endl;
+    Carte carte_tmp;
+    carte_tmp.setCarte(12);
+    joueur.piocherCarte(3, &carte_tmp);
+    assert(joueur.main[3]->getValeur() == 12);
+    cout << "piocherCarte valide !" << endl;
 
-    /*
-    int val = carte.getValeur();
-    assert(val == 3);
-    cout << "getCarte valide !" << endl;
-
-    carte.setJouee(true);
-    assert(carte.jouee == true);
-    cout << "setJouee valide !" << endl;
-
-    bool val2 = carte.estDansMain();
-    assert(val2 == true);
-    cout << "estDansMain valide !" << endl;
-
-    cout << "Méthode affichage : " << endl;
-    carte.afficher();
-    cout << "afficher valide !" << endl;
-
-    carte.~Carte();
-    assert(carte.jouee == false && carte.valeur == 0);
-    cout << "Destructeur valide !" << endl;*/
+    Carte * carte = joueur.jouerCarte(3);
+    assert(carte->getValeur() == 12 && joueur.main[3] == nullptr);
+    cout << "jouerCarte valide !" << endl;
 }
 
 void Joueur::afficher() const {
