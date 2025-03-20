@@ -42,23 +42,21 @@ int Jeu::getNbJoueurs() const {
     return nbJoueurs;
 }
 
-bool intInTab(int element, const int * tab) {
-    for (int i = 0; i<16; i++) {
-        if (tab[i] == element) {
-            return true;
-        }
+bool intInTab(int element, const int * tab, int taille) {
+    for (int i = 0 ; i < taille ; i++) {
+        if (tab[i] == element) return true;
     }
     return false;
 }
 
 void Jeu::distribuer(){
-    int indice_carte[4*nbJoueurs] = {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1};
+    int indice_carte[4*nbJoueurs];
     for (int i = 0; i<nbJoueurs; i++){
         int random_int;
         for (int j = 0; j<4; j++){
             do {
                 random_int = rand()%54;
-                joueurs[i].piocherCarte(j, &pioche.getPile()[random_int]);
+                joueurs[i].piocherCarte(j, pioche.getPile()[random_int]);
             } while (!intInTab(random_int, indice_carte));
             indice_carte[i] = random_int;
         }
