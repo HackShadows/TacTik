@@ -11,7 +11,7 @@ int main(){
     Carte::testRegression();
     cout << "\ntestRegression Pion : " << endl;
     Pion::testRegression();
-    cout << "\ntestRegression Pile : " << endl;
+    cout << "\ntestRegression Pioche : " << endl;
     Pioche::testRegression();
     cout << "\ntestRegression Plateau : " << endl;
     Plateau::testRegression();
