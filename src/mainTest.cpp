@@ -17,4 +17,6 @@ int main(){
     Plateau::testRegression();
     cout << "\ntestRegression Joueur : " << endl;
     Joueur::testRegression();
+    cout << "\ntestRegression Jeu : " << endl;
+    Jeu::testRegression();
 }
