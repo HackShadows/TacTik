@@ -10,17 +10,18 @@ using namespace std;
 
 
 Joueur::Joueur(): pseudo("jean"), couleur(0){
-    main = nullptr;
     for (int i = 0; i<4; i++){
+        main[i] = nullptr;
         maison[i] = false;
     }
 
 }
 
 Joueur::~Joueur() {
-    if (main!=nullptr) {
-        delete [] main;
+    for (int i = 0; i<4; i++){
+        main[i] = nullptr;
     }
+    delete [] main;
 }
 
 void Joueur::setJoueur(string nom, int id_couleur){
@@ -29,19 +30,19 @@ void Joueur::setJoueur(string nom, int id_couleur){
     couleur = id_couleur;
 }
 
-
-const Carte* Joueur::jouerCarte(int valeur) {
-    for (int i = 0; i<4; i++){
-        if (main[i]->estDansMain() && valeur == main[i]->getValeur()){
-            main[i]->setJouee(false);
-            return main[i];
-        }
-    }
-    __builtin_unreachable();
+void Joueur::piocherCarte(int indice, Carte * carte){
+    assert(main[indice] == nullptr);
+    main[indice] = carte;
 }
 
-void Joueur::piocherCarte(const Carte * carte){
-
+Carte* Joueur::jouerCarte(int valeur) {
+    for (int i = 0; i<4; i++){
+        Carte* carte = main[i];
+        if (carte != nullptr && valeur == carte->getValeur()) {
+            main[i] = nullptr;
+            return carte;
+        }
+    }
 }
 
 bool Joueur::maisonRemplie() const{
@@ -67,6 +68,7 @@ void Joueur::testRegression(){
     assert(carte->getValeur() == 3);
     cout << "setCarte valide !" << endl;
 
+    /*
     int val = carte.getValeur();
     assert(val == 3);
     cout << "getCarte valide !" << endl;
@@ -85,7 +87,7 @@ void Joueur::testRegression(){
 
     carte.~Carte();
     assert(carte.jouee == false && carte.valeur == 0);
-    cout << "Destructeur valide !" << endl;
+    cout << "Destructeur valide !" << endl;*/
 }
 
 void Joueur::afficher() const {

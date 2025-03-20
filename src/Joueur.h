@@ -18,7 +18,7 @@ class Joueur {
 
 	private:
 		bool maison[4]; ///<La maison du joueur
-		Carte ** main; ///<Les 4 cartes de la main du joueur
+		Carte* main[4]; ///<Les 4 cartes de la main du joueur
 		string pseudo; ///<Le pseudo du joueur
 		int couleur, reserve; ///<La couleur et le nombre de pions en réserve du joueur
 
@@ -47,14 +47,15 @@ class Joueur {
         * @param valeur Valeur de la carte à renvoyer
 		* @return Pointeur constant vers la carte jouée
         */
-		const Carte* jouerCarte(int valeur);
+		Carte* jouerCarte(int valeur);
 
 		/**
         * @brief Ajoute la carte passée en paramètre à la main du joueur.
         * 
         * @param carte Carte à ajouter à la main.
+        * @param indice Position de la carte dans la main.
         */
-		void piocherCarte(const Carte *carte);
+		void piocherCarte(int indice, Carte* carte);
 
 		/**
         * @brief Renvoie True si la maison du joueur est remplie, False sinon.
