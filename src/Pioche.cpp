@@ -36,7 +36,8 @@ Carte Pioche::getTas() const{
 }
 
 Carte* Pioche::getCarte(int indice) const{
-    return &pile[indice];
+    Carte carte = pile[indice];
+    return &carte;
 }
 
 void Pioche::testRegression(){
@@ -59,9 +60,9 @@ void Pioche::testRegression(){
     assert(carte2.getValeur() == 0 && !carte2.estDansMain());
     cout << "getTas valide !" << endl;
 
-    Carte* carte3 = pioche.getPile();
-    assert(carte3->getValeur() == 1 && !carte3->estDansMain());
-    cout << "getPile valide !" << endl;
+    Carte* carte3 = pioche.getCarte(52);
+    assert(carte3->getValeur() == -1 && !carte3->estDansMain());
+    cout << "getCarte valide !" << endl;
 
     /*cout << "Méthode affichage : " << endl;
     pioche.afficher();
