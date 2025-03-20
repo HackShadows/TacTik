@@ -30,17 +30,17 @@ void Joueur::setJoueur(string nom, int id_couleur){
 }
 
 
-const Carte& Joueur::jouerCarte(int valeur) {
+const Carte* Joueur::jouerCarte(int valeur) {
     for (int i = 0; i<4; i++){
-        if (main[i].estDansMain() && valeur == main[i].getValeur()){
-            main[i].setJouee(false);
+        if (main[i]->estDansMain() && valeur == main[i]->getValeur()){
+            main[i]->setJouee(false);
             return main[i];
         }
     }
     __builtin_unreachable();
 }
 
-void Joueur::piocherCarte(const Carte & carte){
+void Joueur::piocherCarte(const Carte * carte){
 
 }
 
@@ -63,8 +63,8 @@ void Joueur::testRegression(){
     assert(joueur.pseudo == "Toto" && joueur.couleur == 3);
     cout << "setJoueur valide !" << endl;
 
-    joueur.jouerCarte(3);
-    assert(carte.valeur == 3);
+    const Carte * carte = joueur.jouerCarte(3);
+    assert(carte->getValeur() == 3);
     cout << "setCarte valide !" << endl;
 
     int val = carte.getValeur();
