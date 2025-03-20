@@ -18,7 +18,7 @@ class Pioche {
 
 	private:
 		Carte tas; ///<Dernière carte jouée par un joueur
-		Carte * pile; ///<Pile de cartes à distribuer
+		Carte pile[54]; ///<Pile de cartes à distribuer
 
 	public:
 		/**
@@ -47,10 +47,12 @@ class Pioche {
 
 		/**
         * @brief Renvoie la pile de cartes.
+		* 
+		* @param indice Indice de la carte à récupérer.
 		*
 		* @return La pile.
         */
-		Carte* getPile() const;
+		Carte* getCarte(int indice) const;
 
 		/**
         * @brief Test les fonctionnalités de la classe.
