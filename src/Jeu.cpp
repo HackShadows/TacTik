@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <cassert>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -35,8 +36,8 @@ int Jeu::getNbJoueurs() const {
     return nbJoueurs;
 }
 
-bool inTabInt(int element, const int * tab) {
-    for (int i: tab) {
+bool intInTab(int element, const int * tab) {
+    for (int i = 0; i<16; i++) {
         if (tab[i] == element) {
             return true;
         }
@@ -45,20 +46,21 @@ bool inTabInt(int element, const int * tab) {
 }
 
 void Jeu::distribuer(){
-    int indice_carte[];
+    int indice_carte[4*nbJoueurs] = {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1};
     for (int i = 0; i<nbJoueurs; i++){
+        int random_int;
         for (int j = 0; j<4; j++){
-            int r = rand()%54;
             do {
-                joueurs[i].piocherCarte(pioche.getPile()[r]);
-
-            } while (!inTabInt(r, indice_carte));
-
+                random_int = rand()%54;
+                joueurs[i].piocherCarte(j, &pioche.getPile()[random_int]);
+            } while (!intInTab(random_int, indice_carte));
+            indice_carte[i] = random_int;
         }
     }
 }
 
 void Jeu::testRegression(){
-    Pioche pioche;
+    Jeu jeu;
+
 }
 
