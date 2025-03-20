@@ -84,8 +84,8 @@ void Jeu::testRegression(){
     assert(nbJ == 4);
     cout << "getNbJoueurs valide !" << endl;
 
-    //jeu.distribuer();
-    //cout << "distribuer valide !" << endl;
+    jeu.distribuer();
+    cout << "distribuer valide !" << endl;
 
     jeu.~Jeu();
     jeu2.~Jeu();
