@@ -56,23 +56,14 @@ void Jeu::distribuer(){
         for (int j = 0; j<4; j++){
             do {
                 random_int = rand()%54;
-                joueurs[i].piocherCarte(j, pioche.getPile()[random_int]);
-            } while (!intInTab(random_int, indice_carte));
-            indice_carte[i] = random_int;
+                joueurs[i].piocherCarte(j, &pioche.getCarte(random_int));
+            } while (!intInTab(random_int, indice_carte, 4*i + j));
+            indice_carte[4*i+j] = random_int;
         }
     }
 }
 
 void Jeu::testRegression(){
-    Jeu jeu;
-    assert(jeu.nbJoueurs ==4);
-    for (int i = 0; i < 52; i++) {
-        cout << jeu.pioche.getPile()[i].getValeur();
-        //assert(jeu.pioche.getPile()[i].getValeur() == i/4);
-    }
-
-
-    //jeu.distribuer();
 
 }
 
