@@ -72,7 +72,7 @@ void Joueur::testRegression(){
     assert(joueur.main[3]->getValeur() == 12);
     cout << "piocherCarte valide !" << endl;
 
-    Carte * carte = joueur.jouerCarte(3);
+    Carte * carte = joueur.jouerCarte(12);
     assert(carte->getValeur() == 12 && joueur.main[3] == nullptr);
     cout << "jouerCarte valide !" << endl;
 }
