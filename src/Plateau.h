@@ -17,7 +17,7 @@ using namespace std;
 class Plateau {
 
 	private:
-		Pion ** cases; ///<Les 64 ou 96 cases du plateau de jeu
+		Pion * cases; ///<Les 64 ou 96 cases du plateau de jeu
 		int nbCases; ///<Nombres de cases
 
 	public:
