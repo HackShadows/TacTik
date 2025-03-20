@@ -11,6 +11,9 @@ using namespace std;
 Jeu::Jeu(){
     nbJoueurs = 4;
     joueurs = new Joueur[nbJoueurs];
+    for (int i = 0; i < nbJoueurs; i++) {
+        joueurs[i] = Joueur(i+1);
+    }
     pioche = Pioche();
     plateau = Plateau(nbJoueurs);
   }
@@ -19,6 +22,9 @@ Jeu::Jeu(int nbJ){
     assert(nbJ == 4 || nbJ == 6);
     nbJoueurs = nbJ;
     joueurs = new Joueur[nbJoueurs];
+    for (int i = 0; i < nbJoueurs; i++) {
+        joueurs[i] = Joueur(i+1);
+    }
     pioche = Pioche();
     plateau = Plateau(nbJ);
 }
@@ -61,6 +67,14 @@ void Jeu::distribuer(){
 
 void Jeu::testRegression(){
     Jeu jeu;
+    assert(jeu.nbJoueurs ==4);
+    for (int i = 0; i < 52; i++) {
+        cout << jeu.pioche.getPile()[i].getValeur();
+        //assert(jeu.pioche.getPile()[i].getValeur() == i/4);
+    }
+
+
+    //jeu.distribuer();
 
 }
 
