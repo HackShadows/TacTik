@@ -15,4 +15,6 @@ int main(){
     Pioche::testRegression();
     cout << "\ntestRegression Plateau : " << endl;
     Plateau::testRegression();
+    cout << "\ntestRegression Joueur : " << endl;
+    Joueur::testRegression();
 }
