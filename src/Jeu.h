@@ -59,6 +59,15 @@ class Jeu {
         */
 		void distribuer();
 
+		/**
+		* @brief Déplace le pion id_pion avec une carte.
+		*
+		* @param carte La carte jouée par le joueur.
+		* @param id_pion L'id du pion à déplacer.
+		* */
+
+		void deplacerPion(const Carte & carte, int id_pion);
+
         /**
         * @brief Test les fonctionnalités de la classe.
         *
