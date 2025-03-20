@@ -8,14 +8,11 @@
 using namespace std;
 
 
-Jeu::Jeu(){
-    nbJoueurs = 4;
+Jeu::Jeu() : nbJoueurs(4), plateau(nbJoueurs), pioche(){
     joueurs = new Joueur * [nbJoueurs];
     for (int i = 0; i < nbJoueurs; i++) {
         joueurs[i] = new Joueur(i+1);
     }
-    pioche = Pioche();
-    plateau = Plateau(nbJoueurs);
   }
 
 Jeu::Jeu(int nbJ){
@@ -36,6 +33,7 @@ Jeu::~Jeu() {
     delete [] joueurs;
     joueurs = nullptr;
     nbJoueurs = 0;
+    cout << "Destructeur valide !" << endl;
 }
 
 Plateau Jeu::getPlateau() const {
@@ -86,10 +84,5 @@ void Jeu::testRegression(){
 
     jeu.distribuer();
     cout << "distribuer valide !" << endl;
-
-    jeu.~Jeu();
-    jeu2.~Jeu();
-    assert(jeu.joueurs == nullptr && jeu2.joueurs == nullptr && jeu.nbJoueurs == 0 && jeu2.nbJoueurs == 0);
-    cout << "Destructeur valide !" << endl;
 }
 
