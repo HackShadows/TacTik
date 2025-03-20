@@ -32,9 +32,8 @@ Carte Pioche::getTas() const{
     return tas;
 }
 
-Carte* Pioche::getCarte(int indice) const{
-    Carte carte = pile[indice];
-    return &carte;
+Carte* Pioche::getCarte(int indice) {
+    return &pile[indice];
 }
 
 void Pioche::testRegression(){

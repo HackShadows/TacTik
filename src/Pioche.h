@@ -52,7 +52,7 @@ class Pioche {
 		*
 		* @return La pile.
         */
-		Carte* getCarte(int indice) const;
+		Carte* getCarte(int indice);
 
 		/**
         * @brief Test les fonctionnalités de la classe.
