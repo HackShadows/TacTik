@@ -11,7 +11,7 @@ using namespace std;
 
 Plateau::Plateau(){
     nbCases = 16*4;
-    cases = new Pion*[nbCases];
+    cases = new Pion * [nbCases];
     for (int i = 0; i<nbCases; i++) {
         cases[i] = nullptr;
     }
@@ -19,7 +19,7 @@ Plateau::Plateau(){
 
 Plateau::Plateau(int nbJ){
     nbCases = 16*nbJ;
-    cases = new Pion*[nbCases];
+    cases = new Pion * [nbCases];
     for (int i = 0; i<nbCases; i++) {
         cases[i] = nullptr;
     }
