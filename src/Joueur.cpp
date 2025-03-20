@@ -16,7 +16,9 @@ Joueur::Joueur(): pseudo("Jean"), couleur(0){
     }
 }
 
-Joueur::Joueur(int id_couleur): pseudo("Jean"), couleur(id_couleur){
+Joueur::Joueur(int id_couleur): pseudo("Jean") {
+    assert(1 <= id_couleur && id_couleur <= 6);
+    couleur = id_couleur;
     for (int i = 0; i<4; i++){
         main[i] = nullptr;
         maison[i] = false;
@@ -39,6 +41,7 @@ void Joueur::setMaison(int indice, bool etat) {
 }
 
 void Joueur::piocherCarte(int indice, Carte * carte){
+    assert(0 <= indice && indice < 4);
     assert(main[indice] == nullptr);
     main[indice] = carte;
 }
@@ -66,6 +69,13 @@ bool Joueur::maisonRemplie() const{
 
 void Joueur::testRegression(){
     Joueur joueur;
+    for (int i = 0 ; i < 4 ; i++) {
+        assert(joueur.maison[i] == false);
+        assert(joueur.main[i] == nullptr);
+    }
+    cout << "Constructeur valide !" << endl;
+
+    Joueur joueur2(3);
     for (int i = 0 ; i < 4 ; i++) {
         assert(joueur.maison[i] == false);
         assert(joueur.main[i] == nullptr);
