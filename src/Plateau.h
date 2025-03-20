@@ -17,7 +17,7 @@ using namespace std;
 class Plateau {
 
 	private:
-		Pion * cases; ///<Les 64 ou 96 cases du plateau de jeu
+		Pion ** cases; ///<Les 64 ou 96 cases du plateau de jeu
 		int nbCases; ///<Nombres de cases
 
 	public:
@@ -50,14 +50,7 @@ class Plateau {
 		int getNbCase();
 
 
-		/**
-		* @brief définit la valeur de la case d'indice i.
-		*
-		* @param pion Pointeur vers le pion.
-		* @param indice Indice de la nouvelle case du pion.
-
-		*/
-		void setPion(Pion* pion, int indice);
+		/**par défaut
 
 		/**
         * @brief Renvoie le pion se trouvant à l'indice 'indice'.
