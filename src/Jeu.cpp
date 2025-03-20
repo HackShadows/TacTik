@@ -33,7 +33,7 @@ Jeu::Jeu(int nbJ){
 
 Jeu::~Jeu() {
     for (int i = 0 ; i < nbJoueurs ; i++) {
-        delete joueurs[i];
+        joueurs[i] = nullptr;
     }
     delete [] joueurs;
     joueurs = nullptr;
