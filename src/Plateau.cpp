@@ -39,7 +39,7 @@ int Plateau::getNbCase() const {
 }
 
 Pion& Plateau::getPion(int indice) const {
-    assert(cases[indice] != nullptr);
+    assert(0 <= indice && indice < nbCases && cases[indice] != nullptr);
     return *cases[indice];
 }
 

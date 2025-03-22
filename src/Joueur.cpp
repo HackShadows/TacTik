@@ -46,6 +46,11 @@ void Joueur::piocherCarte(int indice, Carte * carte){
     main[indice] = carte;
 }
 
+Carte* Joueur::getCarte(int indice) const {
+	assert(0 <= indice && indice < 4);
+	return main[indice];
+}
+
 Carte* Joueur::jouerCarte(int valeur) {
     assert(-1 <= valeur && valeur <= 13);
     for (int i = 0; i<4; i++){
@@ -58,7 +63,7 @@ Carte* Joueur::jouerCarte(int valeur) {
     return nullptr;
 }
 
-bool Joueur::maisonRemplie() const{
+bool Joueur::maisonRemplie() const {
     for (int i = 0; i<4; i++){
         if (!maison[i]){
             return false;
@@ -99,8 +104,12 @@ void Joueur::testRegression(){
 		assert(joueur.main[3]->getValeur() == 12);
 		cout << "piocherCarte valide !" << endl;
 
-		Carte * carte = joueur.jouerCarte(12);
-		assert(carte->getValeur() == 12 && joueur.main[3] == nullptr);
+		Carte * carte = joueur.getCarte(3);
+		assert(carte->getValeur() == 12);
+		cout << "getCarte valide !" << endl;
+
+		Carte * carte2 = joueur.jouerCarte(12);
+		assert(carte2->getValeur() == 12 && joueur.main[3] == nullptr);
 		cout << "jouerCarte valide !" << endl;
 
 		bool remplie = joueur.maisonRemplie();

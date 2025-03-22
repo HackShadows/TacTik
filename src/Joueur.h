@@ -56,6 +56,15 @@ class Joueur {
 		void setMaison(int indice, bool etat);
 
 		/**
+        * @brief Renvoie la carte se trouvant à l'indice 'indice'.
+		* 
+		* @param indice Indice où chercher la carte (0-3).
+        * 
+        * @return Carte se trouvant à l'indice 'indice'.
+        */
+	   	Carte* getCarte(int indice) const;
+
+		/**
         * @brief Renvoie la carte que le joueur souhaite jouer.
         * 
         * @param valeur Valeur de la carte à renvoyer

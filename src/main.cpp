@@ -7,10 +7,6 @@
 using namespace std;
 
 int main(){
-    cout<<"Hello world !\n";
-    /*Pion::testRegression();
-    Carte::testRegression();
-    Plateau::testRegression();*/
-    Jeu::testRegression();
+
     return 0;
 }
