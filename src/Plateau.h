@@ -17,7 +17,7 @@ using namespace std;
 class Plateau {
 
 	private:
-		int * cases; ///<Tableau de 64 ou 96 cases les indices des pions (0 par défaut)
+		int * cases; ///<Tableau de 64 ou 96 cases les identifiants des pions (0 par défaut)
 		int nbCases; ///<Nombres de cases
 
 	public:
