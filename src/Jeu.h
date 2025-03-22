@@ -45,7 +45,7 @@ class Jeu {
 		*
 		* @return Le plateau de jeu.
         */
-        Plateau getPlateau() const;
+        const Plateau& getPlateau() const;
 
         /**
         * @brief Renvoie le nombre de joueurs.

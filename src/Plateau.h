@@ -37,6 +37,10 @@ class Plateau {
         */
 		Plateau(int nbJ);
 
+		// Désactivation du constructeur par copie et de l'opérateur d'affectation
+		Plateau(const Plateau&) = delete;
+		Plateau& operator=(const Plateau&) = delete;
+
         /**
         * @brief Destructeur du plateau.
         */
@@ -47,7 +51,16 @@ class Plateau {
         * 
         * @return Nombre de cases.
         */
-		int getNbCase();
+		int getNbCase() const;
+
+		/**
+        * @brief Renvoie le pion se trouvant à l'indice 'indice'.
+		* 
+		* @param indice Indice où chercher le pion.
+        * 
+        * @return Pion se trouvant à l'indice 'indice'.
+        */
+	   	Pion& getPion(int indice) const;
 
 		/**
 		* @brief définit la valeur de la case d'indice indice.
@@ -65,15 +78,6 @@ class Plateau {
 
 		*/
 		void viderCase(int indice);
-
-		/**
-        * @brief Renvoie le pion se trouvant à l'indice 'indice'.
-		* 
-		* @param indice Indice où chercher le pion.
-        * 
-        * @return Pion se trouvant à l'indice 'indice'.
-        */
-		Pion& getPion(int indice);
 
         /**
         * @brief Test les fonctionnalités de la classe.

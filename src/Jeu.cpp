@@ -15,15 +15,12 @@ Jeu::Jeu() : nbJoueurs(4), plateau(nbJoueurs), pioche(){
     }
   }
 
-Jeu::Jeu(int nbJ){
+Jeu::Jeu(int nbJ) : nbJoueurs(nbJ), plateau(nbJ), pioche(){
     assert(nbJ == 4 || nbJ == 6);
-    nbJoueurs = nbJ;
     joueurs = new Joueur * [nbJoueurs];
     for (int i = 0; i < nbJoueurs; i++) {
         joueurs[i] = new Joueur(i+1);
     }
-    pioche = Pioche();
-    plateau = Plateau(nbJ);
 }
 
 Jeu::~Jeu() {
@@ -35,7 +32,7 @@ Jeu::~Jeu() {
     nbJoueurs = 0;
 }
 
-Plateau Jeu::getPlateau() const {
+const Plateau& Jeu::getPlateau() const {
     return plateau;
 }
 
@@ -74,7 +71,7 @@ void Jeu::testRegression(){
 		assert(jeu2.nbJoueurs == 6);
 		cout << "Constructeur avec paramètres valide !" << endl;
 
-		Plateau plateau = jeu.getPlateau();
+		const Plateau& plateau = jeu.getPlateau();
 		assert(plateau.getNbCase() == 64);
 		cout << "getPlateau valide !" << endl;
 

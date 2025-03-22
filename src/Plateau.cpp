@@ -34,11 +34,11 @@ Plateau::~Plateau() {
     nbCases = 0;
 }
 
-int Plateau::getNbCase() {
+int Plateau::getNbCase() const {
     return nbCases;
 }
 
-Pion& Plateau::getPion(int indice) {
+Pion& Plateau::getPion(int indice) const {
     assert(cases[indice] != nullptr);
     return *cases[indice];
 }
