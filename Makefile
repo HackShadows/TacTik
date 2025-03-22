@@ -1,6 +1,6 @@
 all: bin/executable bin/test
 
-test: bin/test
+test: memcheck_test
 
 main: bin/executable
 
@@ -46,7 +46,7 @@ obj/Plateau.o: src/Plateau.cpp src/Plateau.h src/Pion.h
 memcheck_main: bin/executable
 	valgrind --leak-check=full --track-origins=yes ./bin/executable
 
-memcheck: bin/test
+memcheck_test: bin/test
 	valgrind --leak-check=full --track-origins=yes ./bin/test
 
 clean:
