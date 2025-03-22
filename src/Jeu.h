@@ -61,6 +61,13 @@ class Jeu {
 		void distribuer();
 
 		/**
+		* @brief Sort le pion de la réserve et le place sur sa case de départ.
+		*
+		* @param id_pion Id du pion à démarrer.
+		*/
+		void demarrer(int id_pion);
+
+		/**
 		* @brief Elimine le pion se trouvant à l'indice 'indice'.
 		*
 		* @param position Position du pion sur le plateau.
@@ -74,13 +81,6 @@ class Jeu {
 		* @param id_pion Id du pion à déplacer.
 		*/
 		void avancerPion(int val_carte, int id_pion);
-
-		/**
-		* @brief Sort le pion de la réserve et le place sur sa case de départ.
-		*
-		* @param id_pion Id du pion à démarrer.
-		*/
-		void demarrer(int id_pion);
 
         /**
         * @brief Test les fonctionnalités de la classe.

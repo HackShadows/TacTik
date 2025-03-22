@@ -41,9 +41,16 @@ class Pion {
 		/**
         * @brief Modifie la position du pion.
         * 
-        * @param indice Nouvelle position du pion sur le plateau.
+        * @param position Nouvelle position du pion sur le plateau.
         */
-	   	void setPos(int indice);
+	   	void setPos(int position);
+
+		/**
+        * @brief Modifie l'état du pion.
+        * 
+        * @param etat Booléen (True : pieu, False : pion).
+        */
+	   	void setPieu(bool etat);
 
 		/**
         * @brief Renvoie l'id du pion.

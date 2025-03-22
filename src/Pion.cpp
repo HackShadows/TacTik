@@ -24,6 +24,10 @@ void Pion::setPos(int indice) {
 	position = indice;
 }
 
+void Pion::setPieu(bool etat) {
+	pieu = etat;
+}
+
 int Pion::getId() {
     return id;
 }
@@ -64,6 +68,10 @@ void Pion::testRegression(){
 
 		assert(pion.estPieu());
 		cout << "estPieu valide !" << endl;
+
+		pion.setPieu(false);
+		assert(!pion.estPieu());
+		cout << "setPieu valide !" << endl;
 
 		/*cout << "Méthode affichage : " << endl;
 		pion.afficher();
