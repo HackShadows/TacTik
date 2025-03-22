@@ -60,7 +60,7 @@ class Plateau {
         * 
         * @return Pion se trouvant à l'indice 'indice'.
         */
-	   	Pion& getPion(int indice) const;
+	   	Pion* getPion(int indice) const;
 
 		/**
 		* @brief définit la valeur de la case d'indice indice.
