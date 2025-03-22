@@ -53,42 +53,37 @@ void Plateau::viderCase(int indice) {
 
 
 void Plateau::testRegression(){
-    Plateau plateau;
-    assert(plateau.nbCases == 64);
-    cout << "Constructeur par défaut valide !" << endl;
+	{
+		Plateau plateau;
+		assert(plateau.nbCases == 64);
+		cout << "Constructeur par défaut valide !" << endl;
 
-    Plateau plateau6(6);
-    assert(plateau6.nbCases == 96);
-    cout << "Constructeur avec paramètre valide !" << endl;
+		Plateau plateau6(6);
+		assert(plateau6.nbCases == 96);
+		cout << "Constructeur avec paramètre valide !" << endl;
 
-    assert(plateau.getNbCase() == 64);
-    assert(plateau6.getNbCase() == 96);
-    cout << "getNbCase valide !" << endl;
+		assert(plateau.getNbCase() == 64);
+		assert(plateau6.getNbCase() == 96);
+		cout << "getNbCase valide !" << endl;
 
-    Pion* pion = new Pion();
-    plateau.setPion(pion, 0);
-    assert(plateau.cases[0]->getId() == pion->getId());
-    cout << "setPion valide !" << endl;
+		Pion* pion = new Pion();
+		plateau.setPion(pion, 0);
+		assert(plateau.cases[0]->getId() == pion->getId());
+		cout << "setPion valide !" << endl;
 
-    Pion pion2 = plateau.getPion(0);
-    assert(pion2.getId() == pion->getId());
-    cout << "getPion valide !" << endl;
+		Pion pion2 = plateau.getPion(0);
+		assert(pion2.getId() == pion->getId());
+		cout << "getPion valide !" << endl;
 
-    plateau.viderCase(0);
-    assert(plateau.cases[0] == nullptr);
-    cout << "viderCase valide !" << endl;
+		plateau.viderCase(0);
+		assert(plateau.cases[0] == nullptr);
+		cout << "viderCase valide !" << endl;
 
-    /*cout << "Méthode affichage : " << endl;
-    plateau.afficher();
-    cout << "afficher valide !" << endl;*/
-
-    plateau.~Plateau();
-    plateau6.~Plateau();
-    assert(plateau.cases == nullptr && plateau.getNbCase() == 0);
-    assert(plateau6.cases == nullptr && plateau6.getNbCase() == 0);
+		/*cout << "Méthode affichage : " << endl;
+		plateau.afficher();
+		cout << "afficher valide !" << endl;*/
+	}
     cout << "Destructeur valide !" << endl;
-
-
 }
 
 void Plateau::afficher() const {

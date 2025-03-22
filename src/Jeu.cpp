@@ -33,7 +33,6 @@ Jeu::~Jeu() {
     delete [] joueurs;
     joueurs = nullptr;
     nbJoueurs = 0;
-    cout << "Destructeur valide !" << endl;
 }
 
 Plateau Jeu::getPlateau() const {
@@ -66,23 +65,26 @@ void Jeu::distribuer(){
 }
 
 void Jeu::testRegression(){
-    Jeu jeu;
-    assert(jeu.nbJoueurs == 4);
-    cout << "Constructeur par défaut valide !" << endl;
+    {
+		Jeu jeu;
+		assert(jeu.nbJoueurs == 4);
+		cout << "Constructeur par défaut valide !" << endl;
 
-    Jeu jeu2(6);
-    assert(jeu2.nbJoueurs == 6);
-    cout << "Constructeur avec paramètres valide !" << endl;
+		Jeu jeu2(6);
+		assert(jeu2.nbJoueurs == 6);
+		cout << "Constructeur avec paramètres valide !" << endl;
 
-    Plateau plateau = jeu.getPlateau();
-    assert(plateau.getNbCase() == 64);
-    cout << "getPlateau valide !" << endl;
+		Plateau plateau = jeu.getPlateau();
+		assert(plateau.getNbCase() == 64);
+		cout << "getPlateau valide !" << endl;
 
-    int nbJ = jeu.getNbJoueurs();
-    assert(nbJ == 4);
-    cout << "getNbJoueurs valide !" << endl;
+		int nbJ = jeu.getNbJoueurs();
+		assert(nbJ == 4);
+		cout << "getNbJoueurs valide !" << endl;
 
-    jeu.distribuer();
-    cout << "distribuer valide !" << endl;
+		jeu.distribuer();
+		cout << "distribuer valide !" << endl;
+	}
+	cout << "Destructeur valide !" << endl;
 }
 

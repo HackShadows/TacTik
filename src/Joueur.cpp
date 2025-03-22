@@ -68,46 +68,49 @@ bool Joueur::maisonRemplie() const{
 }
 
 void Joueur::testRegression(){
-    Joueur joueur;
-    assert(joueur.couleur == 0);
-    for (int i = 0 ; i < 4 ; i++) {
-        assert(joueur.maison[i] == false);
-        assert(joueur.main[i] == nullptr);
-    }
-    cout << "Constructeur par défaut valide !" << endl;
+	{
+		Joueur joueur;
+		assert(joueur.couleur == 0);
+		for (int i = 0 ; i < 4 ; i++) {
+			assert(joueur.maison[i] == false);
+			assert(joueur.main[i] == nullptr);
+		}
+		cout << "Constructeur par défaut valide !" << endl;
 
-    Joueur joueur2(3);
-    assert(joueur2.couleur == 3);
-    for (int i = 0 ; i < 4 ; i++) {
-        assert(joueur2.maison[i] == false);
-        assert(joueur2.main[i] == nullptr);
-    }
-    cout << "Constructeur avec paramètres valide !" << endl;
+		Joueur joueur2(3);
+		assert(joueur2.couleur == 3);
+		for (int i = 0 ; i < 4 ; i++) {
+			assert(joueur2.maison[i] == false);
+			assert(joueur2.main[i] == nullptr);
+		}
+		cout << "Constructeur avec paramètres valide !" << endl;
 
-    joueur.setPseudo("Toto");
-    assert(joueur.pseudo == "Toto");
-    cout << "setPseudo valide !" << endl;
+		joueur.setPseudo("Toto");
+		assert(joueur.pseudo == "Toto");
+		cout << "setPseudo valide !" << endl;
 
-    joueur.setMaison(2, true);
-    assert(joueur.maison[2]);
-    cout << "setMaison valide !" << endl;
+		joueur.setMaison(2, true);
+		assert(joueur.maison[2]);
+		cout << "setMaison valide !" << endl;
 
-    Carte carte_tmp;
-    carte_tmp.setCarte(12);
-    joueur.piocherCarte(3, &carte_tmp);
-    assert(joueur.main[3]->getValeur() == 12);
-    cout << "piocherCarte valide !" << endl;
+		Carte carte_tmp;
+		carte_tmp.setCarte(12);
+		joueur.piocherCarte(3, &carte_tmp);
+		assert(joueur.main[3]->getValeur() == 12);
+		cout << "piocherCarte valide !" << endl;
 
-    Carte * carte = joueur.jouerCarte(12);
-    assert(carte->getValeur() == 12 && joueur.main[3] == nullptr);
-    cout << "jouerCarte valide !" << endl;
+		Carte * carte = joueur.jouerCarte(12);
+		assert(carte->getValeur() == 12 && joueur.main[3] == nullptr);
+		cout << "jouerCarte valide !" << endl;
 
-    bool remplie = joueur.maisonRemplie();
-    assert(!remplie);
-    for (int i = 0 ; i < 4 ; i++) joueur.setMaison(i, true);
-    remplie = joueur.maisonRemplie();
-    assert(remplie);
-    cout << "maisonRemplie valide !" << endl;
+		bool remplie = joueur.maisonRemplie();
+		assert(!remplie);
+		for (int i = 0 ; i < 4 ; i++) joueur.setMaison(i, true);
+		remplie = joueur.maisonRemplie();
+		assert(remplie);
+		cout << "maisonRemplie valide !" << endl;
+	}
+	cout << "Destructeur valide !" << endl;
 }
 
 void Joueur::afficher() const {

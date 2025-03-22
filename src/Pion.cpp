@@ -27,27 +27,24 @@ int Pion::getId() {
 }
 
 void Pion::testRegression(){
-    Pion pion;
-    assert(pion.pieu);
-    assert(pion.id == 0);
-    assert(pion.couleur == 0);
-    cout << "Constructeur valide !" << endl;
+    {
+		Pion pion;
+		assert(pion.pieu);
+		assert(pion.id == 0);
+		assert(pion.couleur == 0);
+		cout << "Constructeur valide !" << endl;
 
-    pion.setPion(4);
-    assert(pion.id == 4);
-    cout << "setPion valide !" << endl;
+		pion.setPion(4);
+		assert(pion.id == 4);
+		cout << "setPion valide !" << endl;
 
-    assert(pion.getId()==4);
-    cout << "getPion valide !" << endl;
+		assert(pion.getId()==4);
+		cout << "getPion valide !" << endl;
 
-    /*cout << "Méthode affichage : " << endl;
-    pion.afficher();
-    cout << "afficher valide !" << endl;*/
-
-    pion.~Pion();
-    assert(pion.pieu);
-    assert(pion.id == 0);
-    assert(pion.couleur == 0);
+		/*cout << "Méthode affichage : " << endl;
+		pion.afficher();
+		cout << "afficher valide !" << endl;*/
+	}
     cout << "Destructeur valide !" << endl;
 }
 

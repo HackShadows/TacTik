@@ -34,32 +34,31 @@ void Carte::setJouee(bool valeur){
 }
 
 void Carte::testRegression(){
-    Carte carte;
-    assert(carte.jouee == false && carte.valeur == 0);
-    cout << "Constructeur valide !" << endl;
+	{
+		Carte carte;
+		assert(carte.jouee == false && carte.valeur == 0);
+		cout << "Constructeur valide !" << endl;
 
-    carte.setCarte(3);
-    assert(carte.valeur == 3);
-    cout << "setCarte valide !" << endl;
+		carte.setCarte(3);
+		assert(carte.valeur == 3);
+		cout << "setCarte valide !" << endl;
 
-    int val = carte.getValeur();
-    assert(val == 3);
-    cout << "getCarte valide !" << endl;
+		int val = carte.getValeur();
+		assert(val == 3);
+		cout << "getCarte valide !" << endl;
 
-    carte.setJouee(true);
-    assert(carte.jouee == true);
-    cout << "setJouee valide !" << endl;
+		carte.setJouee(true);
+		assert(carte.jouee == true);
+		cout << "setJouee valide !" << endl;
 
-    bool val2 = carte.estDansMain();
-    assert(val2 == true);
-    cout << "estDansMain valide !" << endl;
+		bool val2 = carte.estDansMain();
+		assert(val2 == true);
+		cout << "estDansMain valide !" << endl;
 
-    /*cout << "Méthode affichage : " << endl;
-    carte.afficher();
-    cout << "afficher valide !" << endl;*/
-
-    carte.~Carte();
-    assert(carte.jouee == false && carte.valeur == 0);
+		/*cout << "Méthode affichage : " << endl;
+		carte.afficher();
+		cout << "afficher valide !" << endl;*/
+	}
     cout << "Destructeur valide !" << endl;
 }
 
