@@ -9,16 +9,15 @@
 using namespace std;
 
 
-Joueur::Joueur(): pseudo("Jean"), couleur(0){
+Joueur::Joueur(): pseudo("Jean"), couleur(0), reserve(4) {
     for (int i = 0; i<4; i++){
         main[i] = nullptr;
         maison[i] = false;
     }
 }
 
-Joueur::Joueur(int id_couleur): pseudo("Jean") {
+Joueur::Joueur(int id_couleur): pseudo("Jean"), couleur(id_couleur), reserve(4) {
     assert(1 <= id_couleur && id_couleur <= 6);
-    couleur = id_couleur;
     for (int i = 0; i<4; i++){
         main[i] = nullptr;
         maison[i] = false;
@@ -38,6 +37,11 @@ void Joueur::setPseudo(string nom){
 void Joueur::setMaison(int indice, bool etat) {
     assert(0 <= indice && indice < 4);
     maison[indice] = etat;
+}
+
+void Joueur::setReserve(int quantite) {
+	assert(quantite == 1 || quantite == -1);
+	reserve += quantite;
 }
 
 void Joueur::piocherCarte(int indice, Carte * carte){
@@ -97,6 +101,10 @@ void Joueur::testRegression(){
 		joueur.setMaison(2, true);
 		assert(joueur.maison[2]);
 		cout << "setMaison valide !" << endl;
+
+		joueur.setReserve(-1);
+		assert(joueur.reserve == 3);
+		cout << "setReserve valide !" << endl;
 
 		Carte carte_tmp;
 		carte_tmp.setCarte(12);

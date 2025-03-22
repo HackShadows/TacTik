@@ -9,10 +9,10 @@ using namespace std;
 
 
 Jeu::Jeu() : nbJoueurs(4), plateau(nbJoueurs), pioche(){
-    joueurs = new Joueur * [nbJoueurs];
+    joueurs = new Joueur [nbJoueurs];
 	pions = new Pion [4*nbJoueurs];
     for (int i = 0; i < nbJoueurs; i++) {
-        joueurs[i] = new Joueur(i+1);
+        joueurs[i] = Joueur(i+1);
 		for (int j = 0 ; j < 4 ; j++) {
 			pions[i*4+j] = Pion(i*4+j+1);
 		}
@@ -21,10 +21,10 @@ Jeu::Jeu() : nbJoueurs(4), plateau(nbJoueurs), pioche(){
 
 Jeu::Jeu(int nbJ) : nbJoueurs(nbJ), plateau(nbJ), pioche(){
     assert(nbJ == 4 || nbJ == 6);
-    joueurs = new Joueur * [nbJoueurs];
+    joueurs = new Joueur [nbJoueurs];
 	pions = new Pion [4*nbJoueurs];
     for (int i = 0; i < nbJoueurs; i++) {
-        joueurs[i] = new Joueur(i+1);
+        joueurs[i] = Joueur(i+1);
 		for (int j = 0 ; j < 4 ; j++) {
 			pions[i*4+j] = Pion(i*4+j+1);
 		}
@@ -32,9 +32,6 @@ Jeu::Jeu(int nbJ) : nbJoueurs(nbJ), plateau(nbJ), pioche(){
 }
 
 Jeu::~Jeu() {
-    for (int i = 0 ; i < nbJoueurs ; i++) {
-        delete joueurs[i];
-    }
     delete [] joueurs;
     joueurs = nullptr;
     nbJoueurs = 0;
@@ -65,17 +62,18 @@ void Jeu::distribuer(){
             do {
                 random_int = rand()%54;
             } while (intInTab(random_int, indice_carte, 4*i + j));
-            joueurs[i]->piocherCarte(j, &pioche.getCarte(random_int));
+            joueurs[i].piocherCarte(j, &pioche.getCarte(random_int));
             indice_carte[4*i+j] = random_int;
         }
     }
 }
 
 void Jeu::eliminerPion(int position) {
-	assert(0 <= indice && indice < plateau.getNbCase());
-	int id_pion = plateau.getPion(position);
+	assert(0 <= position && position < plateau.getNbCase());
+	int id_pion = plateau.getIdPion(position);
 	Pion& pion = pions[id_pion-1];
 	pion.setPos(-1);
+	joueurs[(id_pion-1)/4].setReserve(1);
 }
 
 void Jeu::avancerPion(const Carte & carte, int id_pion) {
@@ -83,19 +81,21 @@ void Jeu::avancerPion(const Carte & carte, int id_pion) {
 	int val = carte.getValeur();
 	int ind = pions[id_pion-1].getPos();
 	int nb_cases = plateau.getNbCase();
-	Pion* ptr_pion;
+	int id_tmp;
 	assert(1 <= val && val <= 13 && val != 11);
 	for (int i = ind+1 ; i <= ind+val ; i++) {
-		ptr_pion = plateau.getPion(i%nb_cases);
-		if (ptr_pion != nullptr) {
-			if (ptr_pion->estPieu()) {
+		id_tmp = plateau.getIdPion(i%nb_cases);
+		if (id_tmp != 0) {
+			Pion& pion = pions[id_tmp-1];
+			if (pion.estPieu()) {
 				return ;
 			} else if (val == 7 || i == ind+val) {
-				eliminerPion(i);
+				pion.setPos(-1);
+				joueurs[(id_tmp-1)/4].setReserve(1);
 			}
 		}
 	}
-	plateau.setPion(&plateau.viderCase(ind), ind+val);
+	plateau.setPion(plateau.viderCase(ind), ind+val);
 }
 
 void Jeu::testRegression(){

@@ -17,7 +17,7 @@ using namespace std;
 class Plateau {
 
 	private:
-		Pion ** cases; ///<Les 64 ou 96 cases du plateau de jeu
+		int * cases; ///<Tableau de 64 ou 96 cases les indices des pions (0 par défaut)
 		int nbCases; ///<Nombres de cases
 
 	public:
@@ -54,30 +54,30 @@ class Plateau {
 		int getNbCase() const;
 
 		/**
-        * @brief Renvoie le pion se trouvant à l'indice 'indice'.
+        * @brief Renvoie l'id du pion se trouvant à l'indice 'indice'.
 		* 
 		* @param indice Indice où chercher le pion.
         * 
-        * @return Pion se trouvant à l'indice 'indice'.
+        * @return Id du pion se trouvant à l'indice 'indice'.
         */
-	   	Pion* getPion(int indice) const;
+	   	int getIdPion(int indice) const;
 
 		/**
-		* @brief définit la valeur de la case d'indice indice.
+		* @brief Définit la valeur de la case d'indice 'indice'.
 		*
-		* @param pion Pointeur vers le pion.
+		* @param id_pion Id du pion à ajouter.
 		* @param indice Indice de la nouvelle case du pion.
 		*/
-		void setPion(Pion* pion, int indice);
+		void setPion(int id_pion, int indice);
 
 		/**
-		* @brief supprime le pion de la case d'indice indice.
+		* @brief supprime le pion de la case d'indice 'indice'.
 		*
 		* @param indice Indice de la case à vider.
 		*
-		* @return Pion se trouvant à l'indice 'indice'.
+		* @return Id du pion se trouvant à l'indice 'indice'.
 		*/
-		Pion& viderCase(int indice);
+		int viderCase(int indice);
 
         /**
         * @brief Test les fonctionnalités de la classe.

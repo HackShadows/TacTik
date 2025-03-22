@@ -11,24 +11,21 @@ using namespace std;
 
 Plateau::Plateau(){
     nbCases = 16*4;
-    cases = new Pion * [nbCases];
+    cases = new int [nbCases];
     for (int i = 0; i<nbCases; i++) {
-        cases[i] = nullptr;
+        cases[i] = 0;
     }
 }
 
 Plateau::Plateau(int nbJ){
     nbCases = 16*nbJ;
-    cases = new Pion * [nbCases];
+    cases = new int [nbCases];
     for (int i = 0; i<nbCases; i++) {
-        cases[i] = nullptr;
+        cases[i] = 0;
     }
 }
 
 Plateau::~Plateau() {
-    for (int i = 0; i<nbCases; i++) {
-        delete cases[i];
-    }
     delete [] cases;
     cases = nullptr;
     nbCases = 0;
@@ -38,19 +35,19 @@ int Plateau::getNbCase() const {
     return nbCases;
 }
 
-Pion* Plateau::getPion(int indice) const {
+int Plateau::getIdPion(int indice) const {
     assert(0 <= indice && indice < nbCases);
     return cases[indice];
 }
 
-void Plateau::setPion(Pion* pion, int indice) {
-    cases[indice] = pion;
+void Plateau::setPion(int id_pion, int indice) {
+    cases[indice] = id_pion;
 }
 
-Pion& Plateau::viderCase(int indice) {
-	Pion& pion = *cases[indice];
-    cases[indice] = nullptr;
-	return pion;
+int Plateau::viderCase(int indice) {
+	int id_pion = cases[indice];
+    cases[indice] = 0;
+	return id_pion;
 }
 
 
@@ -68,23 +65,21 @@ void Plateau::testRegression(){
 		assert(plateau6.getNbCase() == 96);
 		cout << "getNbCase valide !" << endl;
 
-		Pion* pion = new Pion();
-		plateau.setPion(pion, 0);
-		assert(plateau.cases[0]->getId() == pion->getId());
+		plateau.setPion(2, 4);
+		assert(plateau.cases[4] == 2);
 		cout << "setPion valide !" << endl;
 
-		Pion pion2 = *plateau.getPion(0);
-		assert(pion2.getId() == pion->getId());
-		cout << "getPion valide !" << endl;
+		int id_pion = plateau.getIdPion(4);
+		assert(id_pion == 2);
+		cout << "getIdPion valide !" << endl;
 
-		Pion pion3 = plateau.viderCase(0);
-		assert(plateau.cases[0] == nullptr && pion3.getId() == pion2.getId());
+		int id_pion2 = plateau.viderCase(4);
+		assert(plateau.cases[4] == 0 && id_pion2 == 2);
 		cout << "viderCase valide !" << endl;
 
 		/*cout << "Méthode affichage : " << endl;
 		plateau.afficher();
 		cout << "afficher valide !" << endl;*/
-		delete pion;
 	}
     cout << "Destructeur valide !" << endl;
 }

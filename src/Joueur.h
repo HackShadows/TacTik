@@ -17,10 +17,10 @@ using namespace std;
 class Joueur {
 
 	private:
-		bool maison[4]; ///<La maison du joueur
-		Carte* main[4]; ///<Les 4 cartes de la main du joueur
 		string pseudo; ///<Le pseudo du joueur
 		int couleur, reserve; ///<La couleur et le nombre de pions en réserve du joueur
+		Carte* main[4]; ///<Les 4 cartes de la main du joueur
+		bool maison[4]; ///<La maison du joueur
 
 	public:
 		/**
@@ -54,6 +54,13 @@ class Joueur {
         * @param etat État dans lequel mettre la case.
         */
 		void setMaison(int indice, bool etat);
+
+		/**
+        * @brief Augmente ou diminue la réserve de 1.
+        * 
+        * @param quantite Nombre à ajouter à la réserve.
+        */
+	   	void setReserve(int quantite);
 
 		/**
         * @brief Renvoie la carte se trouvant à l'indice 'indice'.
