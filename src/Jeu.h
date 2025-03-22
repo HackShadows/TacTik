@@ -68,12 +68,19 @@ class Jeu {
 		void eliminerPion(int position);
 
 		/**
-		* @brief Avance le pion avec une carte de déplacement.
+		* @brief Avance le pion du nombre passé en paramètre.
 		*
-		* @param carte Carte jouée par le joueur.
+		* @param val_carte Valeur de la carte jouée par le joueur.
 		* @param id_pion Id du pion à déplacer.
 		*/
-		void avancerPion(const Carte & carte, int id_pion);
+		void avancerPion(int val_carte, int id_pion);
+
+		/**
+		* @brief Sort le pion de la réserve et le place sur sa case de départ.
+		*
+		* @param id_pion Id du pion à démarrer.
+		*/
+		void demarrer(int id_pion);
 
         /**
         * @brief Test les fonctionnalités de la classe.
