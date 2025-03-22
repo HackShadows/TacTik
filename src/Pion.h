@@ -16,8 +16,9 @@ using namespace std;
 class Pion {
 
 	private:
-		bool pieu; ///<État du pion (Pieu/Pion)
-		int id, couleur; ///<Id (1-24) et couleur du pion
+		bool pieu; ///<État du pion (Pieu : true ; Pion : false)
+		int position;	///<Position du pion sur le plateau (-1 : reserve, -2 : maison)
+		int id, couleur; ///<Id (1-24), couleur du pion
 
 	public:
 		/**
@@ -31,11 +32,18 @@ class Pion {
 	   	~Pion();
 
 		/**
-        * @brief Défini les données membres du pion.
+        * @brief Défini l'identifiant et la couleur du pion.
         * 
         * @param identifiant Id du pion
         */
 		void setPion(int identifiant);
+
+		/**
+        * @brief Modifie la position du pion.
+        * 
+        * @param indice Nouvelle position du pion sur le plateau.
+        */
+	   	void setPos(int indice);
 
 		/**
         * @brief Renvoie l'id du pion.
@@ -43,6 +51,20 @@ class Pion {
 		* @return L'id pion.
         */
 		int getId();
+
+		/**
+        * @brief Renvoie la position du pion.
+		*
+		* @return La position du pion.
+        */
+	   	int getPos();
+
+		/**
+        * @brief Renvoie True si c'est un pieu, False pour un pion.
+		*
+		* @return Le booléen correspondant.
+        */
+	   	bool estPieu();
 
 		/**
         * @brief Test les fonctionnalités de la classe.

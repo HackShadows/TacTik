@@ -67,7 +67,6 @@ class Plateau {
 		*
 		* @param pion Pointeur vers le pion.
 		* @param indice Indice de la nouvelle case du pion.
-
 		*/
 		void setPion(Pion* pion, int indice);
 
@@ -75,9 +74,10 @@ class Plateau {
 		* @brief supprime le pion de la case d'indice indice.
 		*
 		* @param indice Indice de la case à vider.
-
+		*
+		* @return Pion se trouvant à l'indice 'indice'.
 		*/
-		void viderCase(int indice);
+		Pion& viderCase(int indice);
 
         /**
         * @brief Test les fonctionnalités de la classe.

@@ -47,8 +47,10 @@ void Plateau::setPion(Pion* pion, int indice) {
     cases[indice] = pion;
 }
 
-void Plateau::viderCase(int indice) {
+Pion& Plateau::viderCase(int indice) {
+	Pion& pion = *cases[indice];
     cases[indice] = nullptr;
+	return pion;
 }
 
 
@@ -75,8 +77,8 @@ void Plateau::testRegression(){
 		assert(pion2.getId() == pion->getId());
 		cout << "getPion valide !" << endl;
 
-		plateau.viderCase(0);
-		assert(plateau.cases[0] == nullptr);
+		Pion pion3 = plateau.viderCase(0);
+		assert(plateau.cases[0] == nullptr && pion3.getId() == pion2.getId());
 		cout << "viderCase valide !" << endl;
 
 		/*cout << "Méthode affichage : " << endl;

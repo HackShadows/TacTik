@@ -61,6 +61,25 @@ void Jeu::distribuer(){
     }
 }
 
+void Jeu::avancerPion(const Carte & carte, Pion & pion) {
+	int val = carte.getValeur();
+	int ind = pion.getPos();
+	int nb_cases = plateau.getNbCase();
+	Pion* ptr_pion;
+	assert(1 <= val && val <= 13 && val != 11);
+	for (int i = ind+1 ; i <= ind+val ; i++) {
+		ptr_pion = plateau.getPion(i%nb_cases);
+		if (ptr_pion != nullptr) {
+			if (ptr_pion->estPieu()) {
+				return ;
+			} else if (val == 7 || i == ind+val) {
+
+			}
+		}
+	}
+	plateau.setPion(&plateau.viderCase(ind), ind+val);
+}
+
 void Jeu::testRegression(){
     {
 		Jeu jeu;
