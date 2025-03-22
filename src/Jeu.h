@@ -61,12 +61,19 @@ class Jeu {
 		void distribuer();
 
 		/**
+		* @brief Elimine le pion se trouvant à l'indice 'indice'.
+		*
+		* @param position Position du pion sur le plateau.
+		*/
+		void eliminerPion(int position);
+
+		/**
 		* @brief Avance le pion avec une carte de déplacement.
 		*
 		* @param carte Carte jouée par le joueur.
-		* @param pion Pion à déplacer.
-		* */
-		void avancerPion(const Carte & carte, Pion & pion);
+		* @param id_pion Id du pion à déplacer.
+		*/
+		void avancerPion(const Carte & carte, int id_pion);
 
         /**
         * @brief Test les fonctionnalités de la classe.

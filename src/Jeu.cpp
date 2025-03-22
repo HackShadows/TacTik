@@ -71,9 +71,17 @@ void Jeu::distribuer(){
     }
 }
 
-void Jeu::avancerPion(const Carte & carte, Pion & pion) {
+void Jeu::eliminerPion(int position) {
+	assert(0 <= indice && indice < plateau.getNbCase());
+	int id_pion = plateau.getPion(position);
+	Pion& pion = pions[id_pion-1];
+	pion.setPos(-1);
+}
+
+void Jeu::avancerPion(const Carte & carte, int id_pion) {
+	assert(1 <= id_pion && id_pion <= 4*nbJoueurs);
 	int val = carte.getValeur();
-	int ind = pion.getPos();
+	int ind = pions[id_pion-1].getPos();
 	int nb_cases = plateau.getNbCase();
 	Pion* ptr_pion;
 	assert(1 <= val && val <= 13 && val != 11);
@@ -83,7 +91,7 @@ void Jeu::avancerPion(const Carte & carte, Pion & pion) {
 			if (ptr_pion->estPieu()) {
 				return ;
 			} else if (val == 7 || i == ind+val) {
-
+				eliminerPion(i);
 			}
 		}
 	}
