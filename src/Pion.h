@@ -22,21 +22,21 @@ class Pion {
 
 	public:
 		/**
-        * @brief Constructeur du pion.
+        * @brief Constructeur par défaut du pion.
         */
 		Pion();
+
+		/**
+        * @brief Constructeur avec paramètre du pion.
+        * 
+        * @param identifiant Id du pion
+        */
+	   	Pion(int identifiant);
 
 		/**
         * @brief Destructeur du pion.
         */
 	   	~Pion();
-
-		/**
-        * @brief Défini l'identifiant et la couleur du pion.
-        * 
-        * @param identifiant Id du pion
-        */
-		void setPion(int identifiant);
 
 		/**
         * @brief Modifie la position du pion.

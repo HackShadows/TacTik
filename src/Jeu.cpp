@@ -10,16 +10,24 @@ using namespace std;
 
 Jeu::Jeu() : nbJoueurs(4), plateau(nbJoueurs), pioche(){
     joueurs = new Joueur * [nbJoueurs];
+	pions = new Pion [4*nbJoueurs];
     for (int i = 0; i < nbJoueurs; i++) {
         joueurs[i] = new Joueur(i+1);
+		for (int j = 0 ; j < 4 ; j++) {
+			pions[i*4+j] = Pion(i*4+j+1);
+		}
     }
   }
 
 Jeu::Jeu(int nbJ) : nbJoueurs(nbJ), plateau(nbJ), pioche(){
     assert(nbJ == 4 || nbJ == 6);
     joueurs = new Joueur * [nbJoueurs];
+	pions = new Pion [4*nbJoueurs];
     for (int i = 0; i < nbJoueurs; i++) {
         joueurs[i] = new Joueur(i+1);
+		for (int j = 0 ; j < 4 ; j++) {
+			pions[i*4+j] = Pion(i*4+j+1);
+		}
     }
 }
 
@@ -30,6 +38,8 @@ Jeu::~Jeu() {
     delete [] joueurs;
     joueurs = nullptr;
     nbJoueurs = 0;
+	delete [] pions;
+    pions = nullptr;
 }
 
 const Plateau& Jeu::getPlateau() const {

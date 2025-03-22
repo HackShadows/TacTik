@@ -11,16 +11,13 @@ using namespace std;
 
 Pion::Pion(): pieu(true), position(-1), id(0), couleur(0){}
 
+Pion::Pion(int identifiant): pieu(true), position(-1), id(identifiant), couleur((identifiant-1)/4+1) {}
+
 Pion::~Pion() {
     pieu = true;
 	position = -1;
     id = 0;
     couleur = 0;
-}
-
-void Pion::setPion(int identifiant) {
-    id = identifiant;
-    couleur = (id/4)+1;
 }
 
 void Pion::setPos(int indice) {
@@ -41,16 +38,19 @@ bool Pion::estPieu() {
 
 void Pion::testRegression(){
     {
-		Pion pion;
+		Pion pion2;
+		assert(pion2.pieu);
+		assert(pion2.position == -1);
+		assert(pion2.id == 0);
+		assert(pion2.couleur == 0);
+		cout << "Constructeur par défaut valide !" << endl;
+
+		Pion pion(4);
 		assert(pion.pieu);
 		assert(pion.position == -1);
-		assert(pion.id == 0);
-		assert(pion.couleur == 0);
-		cout << "Constructeur valide !" << endl;
-
-		pion.setPion(4);
 		assert(pion.id == 4);
-		cout << "setPion valide !" << endl;
+		assert(pion.couleur == 1);
+		cout << "Constructeur avec paramètre valide !" << endl;
 
 		pion.setPos(3);
 		assert(pion.position == 3);
