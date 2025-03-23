@@ -72,6 +72,20 @@ class Joueur {
 	   	Carte* getCarte(int indice) const;
 
 		/**
+        * @brief Renvoie le nombre de pions se trouvant dans la réserve.
+        * 
+        * @return Nombre de pions.
+        */
+	   	int getReserve() const;
+
+		/**
+        * @brief Renvoie la couleur du joueur.
+        * 
+        * @return Couleur du joueur (1 : vert, 2 : rouge, 3 : bleu, 4 : jaune, 5 : noir, 6 : blanc).
+        */
+	   	int getCouleur() const;
+
+		/**
         * @brief Renvoie la carte que le joueur souhaite jouer.
         * 
         * @param valeur Valeur de la carte à renvoyer

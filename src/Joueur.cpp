@@ -55,6 +55,14 @@ Carte* Joueur::getCarte(int indice) const {
 	return main[indice];
 }
 
+int Joueur::getReserve() const {
+	return reserve;
+}
+
+int Joueur::getCouleur() const {
+	return couleur;
+}
+
 Carte* Joueur::jouerCarte(int valeur) {
     assert(-1 <= valeur && valeur <= 13);
     for (int i = 0; i<4; i++){
@@ -105,6 +113,13 @@ void Joueur::testRegression(){
 		joueur.setReserve(-1);
 		assert(joueur.reserve == 3);
 		cout << "setReserve valide !" << endl;
+
+		assert(joueur.getReserve() == 3);
+		cout << "getReserve valide !" << endl;
+
+		assert(joueur.getCouleur() == 0);
+		assert(joueur2.getCouleur() == 3);
+		cout << "getCouleur valide !" << endl;
 
 		Carte carte_tmp;
 		carte_tmp.setCarte(12);
