@@ -119,7 +119,7 @@ void reserveHaut6p(const Jeu & jeu) {
     affichageId(jeu.getPlateau().getIdPion(94)); // 94
     cout << "  Réserve : " << jeu.getJoueur(0).getReserve();
     cout << "                      Réserve : " << jeu.getJoueur(1).getReserve();
-    cout << "                      Réserve : " << jeu.getJoueur(4).getReserve();
+    cout << "                      Réserve : " << jeu.getJoueur(2).getReserve();
     cout << "           ";
     affichageId(jeu.getPlateau().getIdPion(33)); //33
     cout << endl;
@@ -140,8 +140,8 @@ void milieu6p(const Jeu & jeu) {
 void reserveBas6p(const Jeu & jeu) {
     affichageId(jeu.getPlateau().getIdPion(81)); // 81
     cout << "  Réserve : " << jeu.getJoueur(5).getReserve();
+    cout << "                      Réserve : " << jeu.getJoueur(4).getReserve();
     cout << "                      Réserve : " << jeu.getJoueur(3).getReserve();
-    cout << "                      Réserve : " << jeu.getJoueur(2).getReserve();
     cout << "           ";
     affichageId(jeu.getPlateau().getIdPion(46)); // 46
     cout << endl;

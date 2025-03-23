@@ -8,18 +8,21 @@ using namespace std;
 
 int main(){
 	srand(time(NULL));
-	int nbJoueurs;
-	do {
+	int nbJoueurs = 6;
+	/*do {
 		cout << "\nNombre de joueurs (4 ou 6) : ";
 		cin >> nbJoueurs;
 		cout << endl;
-	} while (nbJoueurs != 4 && nbJoueurs != 6);
+	} while (nbJoueurs != 4 && nbJoueurs != 6);*/
 	
 	Jeu jeu(nbJoueurs);
     jeu.distribuer();
     affichageTexte(jeu);
+    jeu.demarrer(3);
+    affichageTexte(jeu);
+    cout << jeu.getPlateau().getIdPion(3*16);
 
-	for (int i = 0 ; i < nbJoueurs ; i++) {
+	/*for (int i = 0 ; i < nbJoueurs ; i++) {
 		jeu.demarrer(i+1);
 		affichageTexte(jeu);
 		cout << "'Entrée' pour passer à l'étape suivante" << endl;
@@ -35,6 +38,6 @@ int main(){
 	cout << "'Entrée' pour passer à l'étape suivante" << endl;
 	cin.get();
 	jeu.avancerPion(7, 13);
-	affichageTexte(jeu);
+	affichageTexte(jeu);*/
     return 0;
 }
