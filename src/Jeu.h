@@ -70,6 +70,16 @@ class Jeu {
 		void distribuer();
 
 		/**
+        * @brief Echange une carte entre deux joueurs de la même équipe.
+		* 
+		* @param indJ1 Indice du joueur1 (indJ1 < indJ2).
+		* @param indJ2 Indice du joueur2 (indJ2 > indJ1).
+		* @param val_carteJ1 Valeur de la carte du joueur1 à donner au joueur2.
+		* @param val_carteJ2 Valeur de la carte du joueur2 à donner au joueur1.
+        */
+	   	void echangerCartes(int indJ1, int indJ2, int val_carteJ1, int val_carteJ2);
+
+		/**
 		* @brief Sort le pion de la réserve et le place sur sa case de départ.
 		*
 		* @param id_pion Id du pion à démarrer.

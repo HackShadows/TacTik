@@ -93,20 +93,21 @@ class Joueur {
 	   	const bool* getMaison() const;
 
 		/**
+        * @brief Ajoute la carte passée en paramètre à la main du joueur.
+        * 
+        * @param carte Carte à ajouter à la main.
+		* 
+		* @return True si la carte a pu être ajoutée, False sinon.
+        */
+	   	bool piocherCarte(Carte* carte);
+
+		/**
         * @brief Renvoie la carte que le joueur souhaite jouer.
         * 
         * @param valeur Valeur de la carte à renvoyer
 		* @return Pointeur constant vers la carte jouée
         */
-		Carte* jouerCarte(int valeur);
-
-		/**
-        * @brief Ajoute la carte passée en paramètre à la main du joueur.
-        * 
-        * @param carte Carte à ajouter à la main.
-        * @param indice Position de la carte dans la main.
-        */
-		void piocherCarte(int indice, Carte* carte);
+		Carte* retirerCarte(int valeur);
 
 		/**
         * @brief Renvoie True si la maison du joueur est remplie, False sinon.

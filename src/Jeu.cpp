@@ -75,6 +75,14 @@ void Jeu::distribuer(){
     }
 }
 
+void Jeu::echangerCartes(int indJ1, int indJ2, int val_carteJ1, int val_carteJ2) {
+	assert((indJ1 == 0 && indJ2 == 2) || (indJ1 == 1 && indJ2 == 3) || (indJ1 == 4 && indJ2 == 5));
+	Carte* carteJ1 = joueurs[indJ1].retirerCarte(val_carteJ1);
+	Carte* carteJ2 = joueurs[indJ2].retirerCarte(val_carteJ2);
+	joueurs[indJ1].piocherCarte(carteJ2);
+	joueurs[indJ2].piocherCarte(carteJ1);
+}
+
 void Jeu::demarrer(int id_pion) {
 	Pion& pion = pions[id_pion-1];
 	int couleur = (id_pion-1)/4;
@@ -199,4 +207,3 @@ void Jeu::testRegression(){
 	}
 	cout << "Destructeur valide !" << endl;
 }
-
