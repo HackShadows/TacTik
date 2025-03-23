@@ -96,13 +96,13 @@ class Jeu {
 		void eliminerPion(int position);
 
 		/**
-		* @brief Sort le pion de la réserve et le place sur sa case de départ.
+		* @brief Sort un pion de la réserve et le place sur sa case de départ.
 		*
-		* @param id_pion Id du pion à démarrer.
+		* @param couleur Couleur du pion à démarrer.
 		*
-		* @return True si le pion a pu démarrer, False sinon.
+		* @return True si un pion a pu démarrer, False sinon.
 		*/
-		bool demarrer(int id_pion);
+		bool demarrer(int couleur);
 
 		/**
 		* @brief Avance le pion du nombre passé en paramètre.
