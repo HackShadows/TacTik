@@ -144,9 +144,9 @@ void grille6p(const Jeu & jeu) {
 
 void affichageCarte(const Jeu & jeu) {
     for (int i = 0; i < jeu.getNbJoueurs(); i++) {
-        cout << "Les cartes du joueur " << jeu.getJoueurs().getCouleur() << endl;
+        cout << "Les cartes du joueur " << jeu.getJoueur(i).getCouleur() << endl;
         for (int j = 0; j < 4; j++) {
-            cout << "Valeur : " << jeu.getJoueurs(i).getCarte(j).getValeur() << endl;
+            cout << "Valeur : " << jeu.getJoueur(i).getCarte(j)->getValeur() << endl;
         }
     }
 }
