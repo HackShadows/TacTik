@@ -63,6 +63,10 @@ int Joueur::getCouleur() const {
 	return couleur;
 }
 
+const bool* Joueur::getMaison() const {
+	return maison;
+}
+
 Carte* Joueur::jouerCarte(int valeur) {
     assert(-1 <= valeur && valeur <= 13);
     for (int i = 0; i<4; i++){
@@ -120,6 +124,12 @@ void Joueur::testRegression(){
 		assert(joueur.getCouleur() == 0);
 		assert(joueur2.getCouleur() == 3);
 		cout << "getCouleur valide !" << endl;
+
+		const bool* mais = joueur.getMaison();
+		const bool* mais2 = joueur2.getMaison();
+		for (int i = 0 ; i < 4 ; i++) assert(!mais2[i]);
+		assert(mais[2]);
+		cout << "getMaison valide !" << endl;
 
 		Carte carte_tmp;
 		carte_tmp.setCarte(12);

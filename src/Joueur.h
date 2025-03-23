@@ -86,6 +86,13 @@ class Joueur {
 	   	int getCouleur() const;
 
 		/**
+        * @brief Renvoie la maison du joueur.
+        * 
+        * @return Maison du joueur.
+        */
+	   	const bool* getMaison() const;
+
+		/**
         * @brief Renvoie la carte que le joueur souhaite jouer.
         * 
         * @param valeur Valeur de la carte à renvoyer
