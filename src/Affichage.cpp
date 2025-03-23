@@ -16,7 +16,7 @@ void affichageId(int id){
 
 void affichageMaison(const Jeu & jeu, int couleur) {
     for (int i = 0; i < 4; i++) {
-        if (jeu.getJoueur(couleur).getMaison()[i] == false) {
+        if (jeu.getJoueur(couleur-1).getMaison()[i] == false) {
             cout << "0 ";
         }
         else {
