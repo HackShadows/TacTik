@@ -88,21 +88,6 @@ void Jeu::echangerCartes(int indJ1, int indJ2, int val_carteJ1, int val_carteJ2)
 	joueurs[indJ2].piocherCarte(carteJ1);
 }
 
-void Jeu::demarrer(int id_pion) {
-	Pion &pion = pions[id_pion-1];
-	int couleur = (id_pion-1)/4;
-	joueurs[couleur].setReserve(-1);
-	if (nbJoueurs == 4) {
-		pion.setPos(16*couleur);
-		plateau.setPion(id_pion, 16*couleur);
-	} else {
-		if (couleur == 2 || couleur == 3) couleur++;
-		else if (couleur == 4) couleur = 2;
-		pion.setPos(16*couleur);
-		plateau.setPion(id_pion, 16*couleur);
-	}
-}
-
 void Jeu::eliminerPion(int id_pion) {
 	assert(1 <= id_pion && id_pion <= 4*nbJoueurs);
 	Pion &pion = pions[id_pion-1];
@@ -112,11 +97,31 @@ void Jeu::eliminerPion(int id_pion) {
 	joueurs[(id_pion-1)/4].setReserve(1);
 }
 
-void Jeu::avancerPion(int val_carte, int id_pion) {
+bool Jeu::demarrer(int id_pion) {
+	Pion &pion = pions[id_pion-1];
+	int couleur = (id_pion-1)/4;
+	int case_dep = 16*couleur;
+	if (nbJoueurs == 6) {
+		if (couleur == 2 || couleur == 3) case_dep += 16;
+		else if (couleur == 4) case_dep = 32;
+	}
+	int id_pion_tmp = plateau.getIdPion(case_dep);
+	if (id_pion_tmp != 0) {
+		if (pions[id_pion_tmp-1].estPieu()) return false;
+		else eliminerPion(id_pion);
+	}
+	joueurs[couleur].setReserve(-1);
+	pion.setPos(case_dep);
+	plateau.setPion(id_pion, case_dep);
+	return true;
+}
+
+bool Jeu::avancerPion(int val_carte, int id_pion) {
 	assert(1 <= id_pion && id_pion <= 4*nbJoueurs);
 	assert((val_carte == -4 || (1 <= val_carte && val_carte <= 13 && val_carte != 11 && val_carte != 4)));
 	Pion &pion = pions[id_pion-1];
 	int position = pion.getPos();
+	assert(position != -1);
 	int nb_cases = plateau.getNbCase();
 	int a_eliminer[4*nbJoueurs-1] = {0};
 	int nb_elimines = 0;
@@ -127,7 +132,7 @@ void Jeu::avancerPion(int val_carte, int id_pion) {
 		int id_tmp = plateau.getIdPion(i%nb_cases);
 		if (id_tmp != 0) {
 			if (pions[id_tmp-1].estPieu()) {
-				return ;
+				return false;
 			} else if (val_carte == 7 || i == position+val_carte) {
 				a_eliminer[nb_elimines] = plateau.getIdPion(i%nb_cases);
 				nb_elimines++;
@@ -141,6 +146,7 @@ void Jeu::avancerPion(int val_carte, int id_pion) {
 	pion.setPieu(false);
 	pion.setPos(new_pos);
 	plateau.setPion(plateau.viderCase(position), new_pos);
+	return true;
 }
 
 void Jeu::permutter(int id_pion1, int id_pion2) {
@@ -192,22 +198,22 @@ void Jeu::testRegression(){
 		assert(jeu.getJoueur(0).getCarte(0)->getValeur() == valJ2 && jeu.getJoueur(2).getCarte(0)->getValeur() == valJ1);
 		cout << "echangerCartes valide !" << endl;
 
-		jeu.demarrer(2);
-		jeu.demarrer(5);
-		jeu.demarrer(10);
-		jeu.demarrer(14);
+		assert(jeu.demarrer(2));
+		assert(jeu.demarrer(5));
+		assert(jeu.demarrer(10));
+		assert(jeu.demarrer(14));
 		const Plateau& plateau2 = jeu.getPlateau();
 		assert(plateau2.getIdPion(0) == 2 && jeu.getJoueur(0).getReserve() == 3);
 		assert(plateau2.getIdPion(16) == 5 && jeu.getJoueur(1).getReserve() == 3);
 		assert(plateau2.getIdPion(32) == 10 && jeu.getJoueur(2).getReserve() == 3);
 		assert(plateau2.getIdPion(48) == 14 && jeu.getJoueur(3).getReserve() == 3);
 
-		jeu2.demarrer(2);
-		jeu2.demarrer(5);
-		jeu2.demarrer(10);
-		jeu2.demarrer(14);
-		jeu2.demarrer(17);
-		jeu2.demarrer(24);
+		assert(jeu2.demarrer(2));
+		assert(jeu2.demarrer(5));
+		assert(jeu2.demarrer(10));
+		assert(jeu2.demarrer(14));
+		assert(jeu2.demarrer(17));
+		assert(jeu2.demarrer(24));
 		const Plateau& plateau3 = jeu2.getPlateau();
 		assert(plateau3.getIdPion(0) == 2 && jeu2.getJoueur(0).getReserve() == 3);
 		assert(plateau3.getIdPion(16) == 5 && jeu2.getJoueur(1).getReserve() == 3);
@@ -224,12 +230,12 @@ void Jeu::testRegression(){
 		assert(plateau4.getIdPion(48) == 0 && jeu2.getJoueur(2).getReserve() == 4);
 		cout << "eliminerPion valide !" << endl;
 
-		jeu.avancerPion(3, 2);
-		jeu.avancerPion(13, 14);
+		assert(jeu.avancerPion(3, 2));
+		assert(jeu.avancerPion(13, 14));
 		const Plateau& plateau5 = jeu.getPlateau();
 		assert(plateau5.getIdPion(3) == 2);
 		assert(plateau5.getIdPion(61) == 14);
-		jeu.avancerPion(7, 14);
+		assert(jeu.avancerPion(7, 14));
 		const Plateau& plateau6 = jeu.getPlateau();
 		assert(plateau6.getIdPion(3) == 0 && jeu.getJoueur(0).getReserve() == 4);
 		assert(plateau6.getIdPion(4) == 14);

@@ -89,13 +89,6 @@ class Jeu {
 	   	void echangerCartes(int indJ1, int indJ2, int val_carteJ1, int val_carteJ2);
 
 		/**
-		* @brief Sort le pion de la réserve et le place sur sa case de départ.
-		*
-		* @param id_pion Id du pion à démarrer.
-		*/
-		void demarrer(int id_pion);
-
-		/**
 		* @brief Elimine le pion se trouvant à l'indice 'indice'.
 		*
 		* @param position Position du pion sur le plateau.
@@ -103,12 +96,23 @@ class Jeu {
 		void eliminerPion(int position);
 
 		/**
+		* @brief Sort le pion de la réserve et le place sur sa case de départ.
+		*
+		* @param id_pion Id du pion à démarrer.
+		*
+		* @return True si le pion a pu démarrer, False sinon.
+		*/
+		bool demarrer(int id_pion);
+
+		/**
 		* @brief Avance le pion du nombre passé en paramètre.
 		*
 		* @param val_carte Valeur de la carte jouée par le joueur.
 		* @param id_pion Id du pion à déplacer.
+		*
+		* @return True si le pion a pu avancer, False sinon.
 		*/
-		void avancerPion(int val_carte, int id_pion);
+		bool avancerPion(int val_carte, int id_pion);
 
 		/**
 		* @brief Permutte le pion du joueur avec un autre pion.
