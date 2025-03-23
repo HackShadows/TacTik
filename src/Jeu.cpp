@@ -97,21 +97,27 @@ void Jeu::eliminerPion(int id_pion) {
 	joueurs[(id_pion-1)/4].setReserve(1);
 }
 
-bool Jeu::demarrer(int id_pion) {
-	Pion &pion = pions[id_pion-1];
-	int couleur = (id_pion-1)/4;
-	int case_dep = 16*couleur;
+bool Jeu::demarrer(int couleur) {
+	assert(joueurs[couleur-1].getReserve() > 0);
+	int id_pion = 0;
+	for (int i = 4*(couleur-1) ; i < 4*couleur ; i++) {
+		if (pions[i].getPos() == -1) {
+			id_pion = i+1;
+			break;
+		}
+	}
+	int case_dep = 16*(couleur-1);
 	if (nbJoueurs == 6) {
-		if (couleur == 2 || couleur == 3) case_dep += 16;
-		else if (couleur == 4) case_dep = 32;
+		if (couleur == 3 || couleur == 4) case_dep += 16;
+		else if (couleur == 5) case_dep = 32;
 	}
 	int id_pion_tmp = plateau.getIdPion(case_dep);
 	if (id_pion_tmp != 0) {
 		if (pions[id_pion_tmp-1].estPieu()) return false;
-		else eliminerPion(id_pion);
+		else eliminerPion(id_pion_tmp);
 	}
-	joueurs[couleur].setReserve(-1);
-	pion.setPos(case_dep);
+	joueurs[couleur-1].setReserve(-1);
+	pions[id_pion-1].setPos(case_dep);
 	plateau.setPion(id_pion, case_dep);
 	return true;
 }
@@ -198,53 +204,53 @@ void Jeu::testRegression(){
 		assert(jeu.getJoueur(0).getCarte(0)->getValeur() == valJ2 && jeu.getJoueur(2).getCarte(0)->getValeur() == valJ1);
 		cout << "echangerCartes valide !" << endl;
 
+		assert(jeu.demarrer(1));
 		assert(jeu.demarrer(2));
-		assert(jeu.demarrer(5));
-		assert(jeu.demarrer(10));
-		assert(jeu.demarrer(14));
+		assert(jeu.demarrer(3));
+		assert(jeu.demarrer(4));
 		const Plateau& plateau2 = jeu.getPlateau();
-		assert(plateau2.getIdPion(0) == 2 && jeu.getJoueur(0).getReserve() == 3);
+		assert(plateau2.getIdPion(0) == 1 && jeu.getJoueur(0).getReserve() == 3);
 		assert(plateau2.getIdPion(16) == 5 && jeu.getJoueur(1).getReserve() == 3);
-		assert(plateau2.getIdPion(32) == 10 && jeu.getJoueur(2).getReserve() == 3);
-		assert(plateau2.getIdPion(48) == 14 && jeu.getJoueur(3).getReserve() == 3);
+		assert(plateau2.getIdPion(32) == 9 && jeu.getJoueur(2).getReserve() == 3);
+		assert(plateau2.getIdPion(48) == 13 && jeu.getJoueur(3).getReserve() == 3);
 
+		assert(jeu2.demarrer(1));
 		assert(jeu2.demarrer(2));
+		assert(jeu2.demarrer(3));
+		assert(jeu2.demarrer(4));
 		assert(jeu2.demarrer(5));
-		assert(jeu2.demarrer(10));
-		assert(jeu2.demarrer(14));
-		assert(jeu2.demarrer(17));
-		assert(jeu2.demarrer(24));
+		assert(jeu2.demarrer(6));
 		const Plateau& plateau3 = jeu2.getPlateau();
-		assert(plateau3.getIdPion(0) == 2 && jeu2.getJoueur(0).getReserve() == 3);
+		assert(plateau3.getIdPion(0) == 1 && jeu2.getJoueur(0).getReserve() == 3);
 		assert(plateau3.getIdPion(16) == 5 && jeu2.getJoueur(1).getReserve() == 3);
-		assert(plateau3.getIdPion(48) == 10 && jeu2.getJoueur(2).getReserve() == 3);
-		assert(plateau3.getIdPion(64) == 14 && jeu2.getJoueur(3).getReserve() == 3);
+		assert(plateau3.getIdPion(48) == 9 && jeu2.getJoueur(2).getReserve() == 3);
+		assert(plateau3.getIdPion(64) == 13 && jeu2.getJoueur(3).getReserve() == 3);
 		assert(plateau3.getIdPion(32) == 17 && jeu2.getJoueur(4).getReserve() == 3);
-		assert(plateau3.getIdPion(80) == 24 && jeu2.getJoueur(5).getReserve() == 3);
+		assert(plateau3.getIdPion(80) == 21 && jeu2.getJoueur(5).getReserve() == 3);
 		cout << "demarrer valide !" << endl;
 
-		jeu2.eliminerPion(2);
-		jeu2.eliminerPion(10);
+		jeu2.eliminerPion(1);
+		jeu2.eliminerPion(9);
 		const Plateau& plateau4 = jeu2.getPlateau();
 		assert(plateau4.getIdPion(0) == 0 && jeu2.getJoueur(0).getReserve() == 4);
 		assert(plateau4.getIdPion(48) == 0 && jeu2.getJoueur(2).getReserve() == 4);
 		cout << "eliminerPion valide !" << endl;
 
-		assert(jeu.avancerPion(3, 2));
-		assert(jeu.avancerPion(13, 14));
+		assert(jeu.avancerPion(3, 1));
+		assert(jeu.avancerPion(13, 13));
 		const Plateau& plateau5 = jeu.getPlateau();
-		assert(plateau5.getIdPion(3) == 2);
-		assert(plateau5.getIdPion(61) == 14);
-		assert(jeu.avancerPion(7, 14));
+		assert(plateau5.getIdPion(3) == 1);
+		assert(plateau5.getIdPion(61) == 13);
+		assert(jeu.avancerPion(7, 13));
 		const Plateau& plateau6 = jeu.getPlateau();
 		assert(plateau6.getIdPion(3) == 0 && jeu.getJoueur(0).getReserve() == 4);
-		assert(plateau6.getIdPion(4) == 14);
+		assert(plateau6.getIdPion(4) == 13);
 		cout << "avancerPion valide !" << endl;
 
-		int pos1 = jeu.getPion(10).getPos(), pos2 = jeu.getPion(14).getPos();
-		assert(pos1 == 32 && pos2 == 4 && jeu.getPion(10).estPieu());
-		jeu.permutter(10, 14);
-		assert(jeu.getPion(10).getPos() == pos2 && jeu.getPion(14).getPos() == pos1 && !jeu.getPion(10).estPieu());
+		int pos1 = jeu.getPion(9).getPos(), pos2 = jeu.getPion(13).getPos();
+		assert(pos1 == 32 && pos2 == 4 && jeu.getPion(9).estPieu());
+		jeu.permutter(9, 13);
+		assert(jeu.getPion(9).getPos() == pos2 && jeu.getPion(13).getPos() == pos1 && !jeu.getPion(9).estPieu());
 		cout << "permutter valide !" << endl;
 	}
 	cout << "Destructeur valide !" << endl;
