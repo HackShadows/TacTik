@@ -78,6 +78,7 @@ void Jeu::distribuer(){
 void Jeu::demarrer(int id_pion) {
 	Pion& pion = pions[id_pion-1];
 	int couleur = (id_pion-1)/4;
+	joueurs[couleur].setReserve(-1);
 	if (nbJoueurs == 4) {
 		pion.setPos(16*couleur);
 		plateau.setPion(id_pion, 16*couleur);
