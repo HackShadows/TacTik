@@ -57,21 +57,21 @@ class Pion {
 		*
 		* @return L'id pion.
         */
-		int getId();
+		int getId() const;
 
 		/**
         * @brief Renvoie la position du pion.
 		*
 		* @return La position du pion.
         */
-	   	int getPos();
+	   	int getPos() const;
 
 		/**
         * @brief Renvoie True si c'est un pieu, False pour un pion.
 		*
 		* @return Le booléen correspondant.
         */
-	   	bool estPieu();
+	   	bool estPieu() const;
 
 		/**
         * @brief Test les fonctionnalités de la classe.

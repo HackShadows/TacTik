@@ -54,6 +54,11 @@ const Joueur& Jeu::getJoueur(int indice) const {
 	return joueurs[indice];
 }
 
+const Pion& Jeu::getPion(int id_pion) const {
+	assert(0 < id_pion && id_pion <= 4*nbJoueurs);
+	return pions[id_pion-1];
+}
+
 bool intInTab(int element, const int * tab, int taille) {
     for (int i = 0 ; i < taille ; i++) {
         if (tab[i] == element) return true;
@@ -76,7 +81,7 @@ void Jeu::distribuer(){
 }
 
 void Jeu::echangerCartes(int indJ1, int indJ2, int val_carteJ1, int val_carteJ2) {
-	assert((indJ1 == 0 && indJ2 == 2) || (indJ1 == 1 && indJ2 == 3) || (indJ1 == 4 && indJ2 == 5));
+	assert((indJ1 == 0 && indJ2 == 2) || (indJ1 == 1 && indJ2 == 3) || (indJ1 == 4 && indJ2 == 5 && nbJoueurs == 6));
 	Carte* carteJ1 = joueurs[indJ1].retirerCarte(val_carteJ1);
 	Carte* carteJ2 = joueurs[indJ2].retirerCarte(val_carteJ2);
 	joueurs[indJ1].piocherCarte(carteJ2);
@@ -84,7 +89,7 @@ void Jeu::echangerCartes(int indJ1, int indJ2, int val_carteJ1, int val_carteJ2)
 }
 
 void Jeu::demarrer(int id_pion) {
-	Pion& pion = pions[id_pion-1];
+	Pion &pion = pions[id_pion-1];
 	int couleur = (id_pion-1)/4;
 	joueurs[couleur].setReserve(-1);
 	if (nbJoueurs == 4) {
@@ -100,16 +105,17 @@ void Jeu::demarrer(int id_pion) {
 
 void Jeu::eliminerPion(int id_pion) {
 	assert(1 <= id_pion && id_pion <= 4*nbJoueurs);
-	Pion& pion = pions[id_pion-1];
+	Pion &pion = pions[id_pion-1];
 	plateau.viderCase(pion.getPos());
 	pion.setPos(-1);
+	pion.setPieu(true);
 	joueurs[(id_pion-1)/4].setReserve(1);
 }
 
 void Jeu::avancerPion(int val_carte, int id_pion) {
 	assert(1 <= id_pion && id_pion <= 4*nbJoueurs);
 	assert((val_carte == -4 || (1 <= val_carte && val_carte <= 13 && val_carte != 11 && val_carte != 4)));
-	Pion& pion = pions[id_pion-1];
+	Pion &pion = pions[id_pion-1];
 	int position = pion.getPos();
 	int nb_cases = plateau.getNbCase();
 	int a_eliminer[4*nbJoueurs-1] = {0};
@@ -137,6 +143,20 @@ void Jeu::avancerPion(int val_carte, int id_pion) {
 	plateau.setPion(plateau.viderCase(position), new_pos);
 }
 
+void Jeu::permutter(int id_pion1, int id_pion2) {
+	assert(0 < id_pion1 && id_pion1 <= 4*nbJoueurs && 0 < id_pion2 && id_pion2 <= 4*nbJoueurs && id_pion1 != id_pion2);
+	assert(pions[id_pion1-1].getPos() >= 0 && !pions[id_pion2-1].estPieu());
+	Pion &pion1 = pions[id_pion1-1], &pion2 = pions[id_pion2-1];
+	int pos1 = pion1.getPos(), pos2 = pion2.getPos();
+	pion1.setPieu(false);
+	pion1.setPos(pos2);
+	pion2.setPos(pos1);
+	plateau.viderCase(pos1);
+	plateau.viderCase(pos2);
+	plateau.setPion(id_pion1, pos2);
+	plateau.setPion(id_pion2, pos1);
+}
+
 void Jeu::testRegression(){
     {
 		Jeu jeu;
@@ -158,6 +178,10 @@ void Jeu::testRegression(){
 		const Joueur& joueur = jeu.getJoueur(2);
 		assert(joueur.getCouleur() == 3);
 		cout << "getJoueur valide !" << endl;
+
+		const Pion &pion = jeu.getPion(9);
+		assert(pion.getId() == 9);
+		cout << "getPion valide !" << endl;
 
 		jeu.distribuer();
 		cout << "distribuer valide !" << endl;
@@ -210,6 +234,12 @@ void Jeu::testRegression(){
 		assert(plateau6.getIdPion(3) == 0 && jeu.getJoueur(0).getReserve() == 4);
 		assert(plateau6.getIdPion(4) == 14);
 		cout << "avancerPion valide !" << endl;
+
+		int pos1 = jeu.getPion(10).getPos(), pos2 = jeu.getPion(14).getPos();
+		assert(pos1 == 32 && pos2 == 4 && jeu.getPion(10).estPieu());
+		jeu.permutter(10, 14);
+		assert(jeu.getPion(10).getPos() == pos2 && jeu.getPion(14).getPos() == pos1 && !jeu.getPion(10).estPieu());
+		cout << "permutter valide !" << endl;
 	}
 	cout << "Destructeur valide !" << endl;
 }

@@ -28,15 +28,15 @@ void Pion::setPieu(bool etat) {
 	pieu = etat;
 }
 
-int Pion::getId() {
+int Pion::getId() const {
     return id;
 }
 
-int Pion::getPos() {
+int Pion::getPos() const {
     return position;
 }
 
-bool Pion::estPieu() {
+bool Pion::estPieu() const {
     return pieu;
 }
 

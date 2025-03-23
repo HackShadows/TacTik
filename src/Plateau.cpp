@@ -41,10 +41,14 @@ int Plateau::getIdPion(int indice) const {
 }
 
 void Plateau::setPion(int id_pion, int indice) {
+	assert(0 <= indice && indice < nbCases);
+	assert(0 < id_pion && id_pion <= nbCases/4);
+	assert(cases[indice] == 0);
     cases[indice] = id_pion;
 }
 
 int Plateau::viderCase(int indice) {
+	assert(0 <= indice && indice < nbCases);
 	int id_pion = cases[indice];
     cases[indice] = 0;
 	return id_pion;
