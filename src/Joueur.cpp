@@ -136,13 +136,13 @@ void Joueur::testRegression(){
 		assert(mais[2]);
 		cout << "getMaison valide !" << endl;
 
-		Carte carte_tmp;
+		Carte * cartes = new Carte[4];
 		for (int i = 0 ; i < 4 ; i++) {
-			carte_tmp;
-			carte_tmp.setCarte(9+i);
-			assert(joueur.piocherCarte(&carte_tmp));
+			cartes[i].setCarte(9+i);
+			assert(joueur.piocherCarte(&cartes[i]));
 			assert(joueur.main[i]->getValeur() == 9+i);
 		}
+		Carte carte_tmp;
 		carte_tmp.setCarte(8);
 		assert(!joueur.piocherCarte(&carte_tmp));
 		cout << "piocherCarte valide !" << endl;
@@ -151,7 +151,7 @@ void Joueur::testRegression(){
 		assert(carte->getValeur() == 12);
 		cout << "getCarte valide !" << endl;
 
-		Carte * carte2 = joueur.jouerCarte(12);
+		Carte * carte2 = joueur.retirerCarte(12);
 		assert(carte2->getValeur() == 12 && joueur.main[3] == nullptr);
 		cout << "jouerCarte valide !" << endl;
 
@@ -161,6 +161,8 @@ void Joueur::testRegression(){
 		remplie = joueur.maisonRemplie();
 		assert(remplie);
 		cout << "maisonRemplie valide !" << endl;
+
+		delete [] cartes;
 	}
 	cout << "Destructeur valide !" << endl;
 }

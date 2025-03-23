@@ -69,7 +69,7 @@ void Jeu::distribuer(){
             do {
                 random_int = rand()%54;
             } while (intInTab(random_int, indice_carte, 4*i + j));
-            joueurs[i].piocherCarte(j, &pioche.getCarte(random_int));
+            joueurs[i].piocherCarte(&pioche.getCarte(random_int));
             indice_carte[4*i+j] = random_int;
         }
     }
