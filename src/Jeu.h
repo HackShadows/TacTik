@@ -119,8 +119,10 @@ class Jeu {
 		*
 		* @param id_pion1 Id du pion du joueur.
 		* @param id_pion2 Id du pion avec lequel permutter.
+		*
+		* @return True si le pion a pu être permutté, False sinon.
 		*/
-		void permutter(int id_pion1, int id_pion2);
+		bool permutter(int id_pion1, int id_pion2);
 
         /**
         * @brief Test les fonctionnalités de la classe.

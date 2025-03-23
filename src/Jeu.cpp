@@ -155,9 +155,10 @@ bool Jeu::avancerPion(int val_carte, int id_pion) {
 	return true;
 }
 
-void Jeu::permutter(int id_pion1, int id_pion2) {
+bool Jeu::permutter(int id_pion1, int id_pion2) {
 	assert(0 < id_pion1 && id_pion1 <= 4*nbJoueurs && 0 < id_pion2 && id_pion2 <= 4*nbJoueurs && id_pion1 != id_pion2);
-	assert(pions[id_pion1-1].getPos() >= 0 && !pions[id_pion2-1].estPieu());
+	assert(pions[id_pion1-1].getPos() >= 0);
+	if (pions[id_pion2-1].estPieu()) return false;
 	Pion &pion1 = pions[id_pion1-1], &pion2 = pions[id_pion2-1];
 	int pos1 = pion1.getPos(), pos2 = pion2.getPos();
 	pion1.setPieu(false);
@@ -167,6 +168,7 @@ void Jeu::permutter(int id_pion1, int id_pion2) {
 	plateau.viderCase(pos2);
 	plateau.setPion(id_pion1, pos2);
 	plateau.setPion(id_pion2, pos1);
+	return true;
 }
 
 void Jeu::testRegression(){
