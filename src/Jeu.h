@@ -55,6 +55,15 @@ class Jeu {
         */
         int getNbJoueurs() const;
 
+		/**
+        * @brief Renvoie le nombre de joueurs.
+		* 
+		* @param indice Indice du joueur à retourner.
+		*
+		* @return Le joueur se trouvant à l'indice 'indice'.
+        */
+	   	const Joueur& getJoueur(int indice) const;
+
         /**
         * @brief Distribue 4 cartes à chaque joueur.
         */

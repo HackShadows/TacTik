@@ -49,6 +49,11 @@ int Jeu::getNbJoueurs() const {
     return nbJoueurs;
 }
 
+const Joueur& Jeu::getJoueur(int indice) const {
+	assert(0 <= indice && indice < nbJoueurs);
+	return joueurs[indice];
+}
+
 bool intInTab(int element, const int * tab, int taille) {
     for (int i = 0 ; i < taille ; i++) {
         if (tab[i] == element) return true;
@@ -141,6 +146,10 @@ void Jeu::testRegression(){
 		assert(nbJ == 4);
 		cout << "getNbJoueurs valide !" << endl;
 
+		const Joueur& joueur = jeu.getJoueur(2);
+		assert(joueur.getCouleur() == 3);
+		cout << "getJoueur valide !" << endl;
+
 		jeu.distribuer();
 		cout << "distribuer valide !" << endl;
 
@@ -149,10 +158,10 @@ void Jeu::testRegression(){
 		jeu.demarrer(10);
 		jeu.demarrer(14);
 		const Plateau& plateau2 = jeu.getPlateau();
-		assert(plateau2.getIdPion(0) == 2);
-		assert(plateau2.getIdPion(16) == 5);
-		assert(plateau2.getIdPion(32) == 10);
-		assert(plateau2.getIdPion(48) == 14);
+		assert(plateau2.getIdPion(0) == 2 && jeu.getJoueur(0).getReserve() == 3);
+		assert(plateau2.getIdPion(16) == 5 && jeu.getJoueur(1).getReserve() == 3);
+		assert(plateau2.getIdPion(32) == 10 && jeu.getJoueur(2).getReserve() == 3);
+		assert(plateau2.getIdPion(48) == 14 && jeu.getJoueur(3).getReserve() == 3);
 
 		jeu2.demarrer(2);
 		jeu2.demarrer(5);
@@ -161,19 +170,19 @@ void Jeu::testRegression(){
 		jeu2.demarrer(17);
 		jeu2.demarrer(24);
 		const Plateau& plateau3 = jeu2.getPlateau();
-		assert(plateau3.getIdPion(0) == 2);
-		assert(plateau3.getIdPion(16) == 5);
-		assert(plateau3.getIdPion(48) == 10);
-		assert(plateau3.getIdPion(64) == 14);
-		assert(plateau3.getIdPion(32) == 17);
-		assert(plateau3.getIdPion(80) == 24);
+		assert(plateau3.getIdPion(0) == 2 && jeu2.getJoueur(0).getReserve() == 3);
+		assert(plateau3.getIdPion(16) == 5 && jeu2.getJoueur(1).getReserve() == 3);
+		assert(plateau3.getIdPion(48) == 10 && jeu2.getJoueur(2).getReserve() == 3);
+		assert(plateau3.getIdPion(64) == 14 && jeu2.getJoueur(3).getReserve() == 3);
+		assert(plateau3.getIdPion(32) == 17 && jeu2.getJoueur(4).getReserve() == 3);
+		assert(plateau3.getIdPion(80) == 24 && jeu2.getJoueur(5).getReserve() == 3);
 		cout << "demarrer valide !" << endl;
 
 		jeu2.eliminerPion(2);
 		jeu2.eliminerPion(10);
 		const Plateau& plateau4 = jeu2.getPlateau();
-		assert(plateau4.getIdPion(0) == 0);
-		assert(plateau4.getIdPion(48) == 0);
+		assert(plateau4.getIdPion(0) == 0 && jeu2.getJoueur(0).getReserve() == 4);
+		assert(plateau4.getIdPion(48) == 0 && jeu2.getJoueur(2).getReserve() == 4);
 		cout << "eliminerPion valide !" << endl;
 
 		jeu.avancerPion(3, 2);
@@ -183,7 +192,7 @@ void Jeu::testRegression(){
 		assert(plateau5.getIdPion(61) == 14);
 		jeu.avancerPion(7, 14);
 		const Plateau& plateau6 = jeu.getPlateau();
-		assert(plateau6.getIdPion(3) == 0);
+		assert(plateau6.getIdPion(3) == 0 && jeu.getJoueur(0).getReserve() == 4);
 		assert(plateau6.getIdPion(4) == 14);
 		cout << "avancerPion valide !" << endl;
 	}
