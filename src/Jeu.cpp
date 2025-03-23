@@ -161,6 +161,12 @@ void Jeu::testRegression(){
 
 		jeu.distribuer();
 		cout << "distribuer valide !" << endl;
+		
+		int valJ1 = jeu.getJoueur(0).getCarte(0)->getValeur();
+		int valJ2 = jeu.getJoueur(2).getCarte(0)->getValeur();
+		jeu.echangerCartes(0, 2, valJ1, valJ2);
+		assert(jeu.getJoueur(0).getCarte(0)->getValeur() == valJ2 && jeu.getJoueur(2).getCarte(0)->getValeur() == valJ1);
+		cout << "echangerCartes valide !" << endl;
 
 		jeu.demarrer(2);
 		jeu.demarrer(5);
