@@ -6,4 +6,4 @@
 *
 * @param jeu Le jeu à afficher.
 */
-void affichage_textuel(const Jeu & jeu);
+void affichageTexte(const Jeu & jeu);

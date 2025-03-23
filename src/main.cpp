@@ -8,6 +8,6 @@ using namespace std;
 
 int main(){
     Jeu jeu(4);
-    affichage_textuel(jeu);
+    affichageTexte(jeu);
     return 0;
 }

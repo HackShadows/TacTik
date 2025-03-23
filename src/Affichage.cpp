@@ -4,7 +4,7 @@
 
 using namespace std;
 
-void affichage_id(int id){
+void affichageId(int id){
     if (id/10 == 0) {
         cout << id << "  ";
     }
@@ -14,7 +14,7 @@ void affichage_id(int id){
 }
 
 
-void affichage_maison(const Jeu & jeu, int couleur) {
+void affichageMaison(const Jeu & jeu, int couleur) {
     for (int i = 0; i < 4; i++) {
         if (jeu.getJoueur(couleur).getMaison()[i] == false) {
             cout << "0 ";
@@ -26,64 +26,125 @@ void affichage_maison(const Jeu & jeu, int couleur) {
 }
 
 
-void affichage_grille_4p(const Jeu & jeu) {
+void ligneHaut4p(const Jeu & jeu) {
     for (int i = 0; i < 16; i++){
-        affichage_id(jeu.getPlateau().getIdPion(i));  //i;
+        affichageId(jeu.getPlateau().getIdPion(i));  //i;
     }
     cout << endl;
-    affichage_id(63);
-    cout << "  ";
-    cout << "vert : ";
-    affichage_maison(jeu, 1);
-    cout << "                           ";
-    cout << "rouge : ";
-    affichage_maison(jeu, 2);
-    affichage_id(16);
+}
+
+void maisonHaut4p(const Jeu & jeu) {
+    affichageId(63);
+    cout << "  " << "vert : ";
+    affichageMaison(jeu, 1);
+    cout << "                           " << "rouge : ";
+    affichageMaison(jeu, 2);
+    affichageId(16);
+    cout << endl;
+}
+
+
+void milieu4p(const Jeu & jeu) {
     for (int i = 0; i < 14; i++) {
-        affichage_id(63-i);  // 63-i
+        affichageId(63-i);  // 63-i
         for (int j = 0; j < 14; j++) {
             cout << "   ";
         }
-        affichage_id(16+i); // 16+i
+        affichageId(16+i); // 16+i
         cout << endl;
     }
-    affichage_id(47);
-    cout << "  ";
-    cout << "jaune : ";
-    affichage_maison(jeu, 4);
-    cout << "                           ";
-    cout << "bleu : ";
-    affichage_maison(jeu, 3);
-    affichage_id(32);
+}
+
+void maisonBas4p(const Jeu & jeu) {
+    affichageId(47);
+    cout << "  " << "jaune : ";
+    affichageMaison(jeu, 4);
+    cout << "                           " << "bleu : ";
+    affichageMaison(jeu, 3);
+    affichageId(32);
+    cout << endl;
+}
+
+void ligneBas4p(const Jeu & jeu) {
     for (int i = 0; i < 16; i++){
-        affichage_id(jeu.getPlateau().getIdPion(47+i));  //47+i
+        affichageId(jeu.getPlateau().getIdPion(47+i));  //47+i
     }
     cout << endl;
 }
 
 
-void affichage_grille_6p(const Jeu & jeu) {
+void ligneHaut6p(const Jeu & jeu) {
     for (int i = 0; i < 32; i++){
-        affichage_id(jeu.getPlateau().getIdPion(i));  //i;
+        affichageId(jeu.getPlateau().getIdPion(i));  //i;
     }
     cout << endl;
-    for (int i = 0; i < 16; i++) {
-        affichage_id(jeu.getPlateau().getIdPion(95-i));  // 95-i
+}
+
+
+void ligneBas6p(const Jeu & jeu) {
+    for (int i = 0; i < 32; i++){
+        affichageId(jeu.getPlateau().getIdPion(79-i));  //79+i
+    }
+    cout << endl;
+}
+
+void maisonHaut6p(const Jeu & jeu) {
+    affichageId(95);
+    cout << "  Vert : ";
+    affichageMaison(jeu, 1);
+    cout << "                Rouge : ";
+    affichageMaison(jeu, 2);
+    cout << "                Bleu : ";
+    affichageMaison(jeu, 3);
+    affichageId(32);
+    cout << endl;
+}
+
+void milieu6p(const Jeu & jeu) {
+    for (int i = 0; i < 14; i++) {
+        affichageId(jeu.getPlateau().getIdPion(94-i));  // 95-i
         for (int j = 0; j < 30; j++) {
             cout << "   ";
         }
-        affichage_id(jeu.getPlateau().getIdPion(32+i)); // 32+i
+        affichageId(jeu.getPlateau().getIdPion(32+i)); // 32+i
         cout << endl;
     }
-    for (int i = 0; i < 32; i++){
-        affichage_id(jeu.getPlateau().getIdPion(79-i));  //79+i
-    }
+}
+
+void maisonBas6p(const Jeu & jeu) {
+    affichageId(95);
+    cout << "  Blanc : ";
+    affichageMaison(jeu, 6);
+    cout << "                Noir : ";
+    affichageMaison(jeu, 5);
+    cout << "                Jaune : ";
+    affichageMaison(jeu, 4);
+    affichageId(32);
     cout << endl;
 }
 
 
-void affichage_carte(const Jeu & jeu) {
+void grille4p(const Jeu & jeu) {
+    ligneHaut4p(jeu);
+    maisonHaut4p(jeu);
+    milieu4p(jeu);
+    maisonBas4p(jeu);
+    ligneBas4p(jeu);
+}
+
+
+void grille6p(const Jeu & jeu) {
+    ligneHaut6p(jeu);
+    maisonHaut6p(jeu);
+    milieu6p(jeu);
+    maisonBas6p(jeu);
+    ligneBas6p(jeu);
+}
+
+
+void affichageCarte(const Jeu & jeu) {
     for (int i = 0; i < jeu.getNbJoueurs(); i++) {
+        cout << "Les cartes du joueur " << jeu.getJoueurs().getCouleur() << endl;
         for (int j = 0; j < 4; j++) {
             cout << "Valeur : " << jeu.getJoueurs(i).getCarte(j).getValeur() << endl;
         }
@@ -92,12 +153,12 @@ void affichage_carte(const Jeu & jeu) {
 
 
 
-void affichage_textuel(const Jeu & jeu){
+void affichageTexte(const Jeu & jeu){
     if (jeu.getNbJoueurs() == 4) {
-        affichage_grille_4p(jeu);
+        grille4p(jeu);
     }
      else{
-        affichage_grille_6p(jeu);
+        grille6p(jeu);
     }
     //affichage_carte(jeu);
 }
