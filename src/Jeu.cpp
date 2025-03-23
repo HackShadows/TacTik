@@ -171,6 +171,20 @@ bool Jeu::permutter(int id_pion1, int id_pion2) {
 	return true;
 }
 
+/*bool Jeu::jouerCarte(int val_carte, int couleur) {
+	assert(val_carte == -4 || (-1 <= val_carte && val_carte <= 13 && val_carte != 0));
+	if (val_carte == 11) {
+
+	} else if (val_carte == -1) {
+
+	} else if (val_carte == 1 || val_carte == 10 || val_carte == 13) {
+		
+	} else {
+
+	}
+	pioche.setTas(joueurs[couleur-1].retirerCarte(val_carte));
+}*/
+
 void Jeu::testRegression(){
     {
 		Jeu jeu;
@@ -251,7 +265,8 @@ void Jeu::testRegression(){
 
 		int pos1 = jeu.getPion(9).getPos(), pos2 = jeu.getPion(13).getPos();
 		assert(pos1 == 32 && pos2 == 4 && jeu.getPion(9).estPieu());
-		jeu.permutter(9, 13);
+		assert(!jeu.permutter(13, 9));
+		assert(jeu.permutter(9, 13));
 		assert(jeu.getPion(9).getPos() == pos2 && jeu.getPion(13).getPos() == pos1 && !jeu.getPion(9).estPieu());
 		cout << "permutter valide !" << endl;
 	}

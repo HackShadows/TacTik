@@ -102,10 +102,11 @@ class Joueur {
 	   	bool piocherCarte(Carte* carte);
 
 		/**
-        * @brief Renvoie la carte que le joueur souhaite jouer.
+        * @brief Retire une carte de valeur 'valeur' de la main du joueur.
         * 
-        * @param valeur Valeur de la carte à renvoyer
-		* @return Pointeur constant vers la carte jouée
+        * @param valeur Valeur de la carte à retirer.
+		* 
+		* @return Carte retirée.
         */
 		Carte* retirerCarte(int valeur);
 

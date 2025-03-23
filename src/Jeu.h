@@ -124,6 +124,15 @@ class Jeu {
 		*/
 		bool permutter(int id_pion1, int id_pion2);
 
+		/**
+		* @brief Joue la carte passée en paramètre.
+		*
+		* @param val_carte Valeur de la carte jouée par le joueur.
+		*
+		* @return True si la carte a pu être jouée, False sinon.
+		*/
+		//bool jouerCarte(int val_carte);
+
         /**
         * @brief Test les fonctionnalités de la classe.
         *
