@@ -14,8 +14,15 @@ void affichage_id(int id){
 }
 
 
-void affichage_maison() {
-
+void affichage_maison(const Jeu & jeu, int couleur) {
+    for (int i = 0; i < 4; i++) {
+        if (jeu.getJoueur(couleur).getMaison()[i] == false) {
+            cout << "0 ";
+        }
+        else {
+            cout << "1 ";
+        }
+    }
 }
 
 
@@ -24,7 +31,15 @@ void affichage_grille_4p(const Jeu & jeu) {
         affichage_id(jeu.getPlateau().getIdPion(i));  //i;
     }
     cout << endl;
-    for (int i = 0; i < 16; i++) {
+    affichage_id(63);
+    cout << "  ";
+    cout << "vert : ";
+    affichage_maison(jeu, 1);
+    cout << "                           ";
+    cout << "rouge : ";
+    affichage_maison(jeu, 2);
+    affichage_id(16);
+    for (int i = 0; i < 14; i++) {
         affichage_id(63-i);  // 63-i
         for (int j = 0; j < 14; j++) {
             cout << "   ";
@@ -32,6 +47,14 @@ void affichage_grille_4p(const Jeu & jeu) {
         affichage_id(16+i); // 16+i
         cout << endl;
     }
+    affichage_id(47);
+    cout << "  ";
+    cout << "jaune : ";
+    affichage_maison(jeu, 4);
+    cout << "                           ";
+    cout << "bleu : ";
+    affichage_maison(jeu, 3);
+    affichage_id(32);
     for (int i = 0; i < 16; i++){
         affichage_id(jeu.getPlateau().getIdPion(47+i));  //47+i
     }
