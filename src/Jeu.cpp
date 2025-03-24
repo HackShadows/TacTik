@@ -45,6 +45,10 @@ const Plateau& Jeu::getPlateau() const {
     return plateau;
 }
 
+const Pioche& Jeu::getPioche() const {
+    return pioche;
+}
+
 int Jeu::getNbJoueurs() const {
     return nbJoueurs;
 }
@@ -179,7 +183,7 @@ bool Jeu::permutter(int id_pion1, int id_pion2) {
 	return true;
 }
 
-/*bool Jeu::jouerCarte(int val_carte, int couleur) {
+bool Jeu::jouerCarte(int val_carte, int couleur) {
 	assert(val_carte == -4 || (-1 <= val_carte && val_carte <= 13 && val_carte != 0));
 	if (val_carte == 11) {
 
@@ -191,7 +195,7 @@ bool Jeu::permutter(int id_pion1, int id_pion2) {
 
 	}
 	pioche.setTas(joueurs[couleur-1].retirerCarte(val_carte));
-}*/
+}
 
 void Jeu::testRegression(){
     {
@@ -206,6 +210,10 @@ void Jeu::testRegression(){
 		const Plateau& plateau = jeu.getPlateau();
 		assert(plateau.getNbCase() == 64);
 		cout << "getPlateau valide !" << endl;
+
+		const Pioche& pioche = jeu.getPioche();
+		assert(pioche.getTas() == nullptr);
+		cout << "getPioche valide !" << endl;
 
 		int nbJ = jeu.getNbJoueurs();
 		assert(nbJ == 4);

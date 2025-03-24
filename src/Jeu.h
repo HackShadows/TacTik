@@ -48,6 +48,13 @@ class Jeu {
         */
         const Plateau& getPlateau() const;
 
+		/**
+        * @brief Renvoie la pioche.
+		*
+		* @return La pioche.
+        */
+	   	const Pioche& getPioche() const;
+
         /**
         * @brief Renvoie le nombre de joueurs.
 		*
@@ -138,10 +145,11 @@ class Jeu {
 		* @brief Joue la carte passée en paramètre.
 		*
 		* @param val_carte Valeur de la carte jouée par le joueur.
+		* @param couleur Couleur du joueur.
 		*
 		* @return True si la carte a pu être jouée, False sinon.
 		*/
-		//bool jouerCarte(int val_carte);
+		bool jouerCarte(int val_carte, int couleur);
 
         /**
         * @brief Test les fonctionnalités de la classe.
