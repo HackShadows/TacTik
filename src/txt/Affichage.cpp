@@ -33,11 +33,16 @@ string intToStr(int entier) {
     }
 }
 
-void affichageCarte(const Jeu & jeu, int indiceJoueur) {
+void affichageCarte(const Jeu & jeu, int indiceJoueur, int joueurActif) {
     cout << "     Les cartes du joueur " << intToStr(indiceJoueur) << " : [ ";
     for (int j = 0; j < 4; j++) {
         if(jeu.getJoueur(indiceJoueur).getCarte(j) != nullptr) {
-            cout << jeu.getJoueur(indiceJoueur).getCarte(j)->getValeur() << " ";
+            if (joueurActif == indiceJoueur) {
+                cout << jeu.getJoueur(indiceJoueur).getCarte(j)->getValeur() << " ";
+            }
+            else {
+                cout << "* ";
+            }
         }
     }
     cout << "]";
@@ -57,16 +62,16 @@ void affichageMaison(const Jeu & jeu, int couleur) {
 
 
 
-void ligneHaut(const Jeu & jeu, int nbCase) {
+void ligneHaut(const Jeu & jeu, int nbCase, int joueurActif) {
     int nbJ = nbCase/16;
     for (int i = 0; i < 8*(nbJ-2); i++){
         affichageId(jeu.getPlateau().getIdPion(i));  //i;
     }
-    affichageCarte(jeu, 0);
+    affichageCarte(jeu, 0, joueurActif);
     cout << endl;
 }
 
-void maisonHaut(const Jeu & jeu, int nbCase) {
+void maisonHaut(const Jeu & jeu, int nbCase, int joueurActif) {
     int nbJ = nbCase/16;
     affichageId(jeu.getPlateau().getIdPion(nbCase-1));  //63
     if (jeu.getNbJoueurs() == 4) {
@@ -86,11 +91,11 @@ void maisonHaut(const Jeu & jeu, int nbCase) {
         cout << "       ";
     }
     affichageId(jeu.getPlateau().getIdPion(8*(nbJ-2))); //16
-    affichageCarte(jeu, 1);
+    affichageCarte(jeu, 1, joueurActif);
     cout << endl;
 }
 
-void reserveHaut(const Jeu & jeu, int nbCase) {
+void reserveHaut(const Jeu & jeu, int nbCase, int joueurActif) {
     int nbJ = nbCase/16;
     affichageId(jeu.getPlateau().getIdPion(nbCase-2)); //62
     if (jeu.getNbJoueurs() == 4) {
@@ -105,7 +110,7 @@ void reserveHaut(const Jeu & jeu, int nbCase) {
     }
     affichageId(jeu.getPlateau().getIdPion(8*(nbJ-2)+1)); //62
     if (nbJ == 6) {
-        affichageCarte(jeu, 4);
+        affichageCarte(jeu, 4, joueurActif);
     }
     cout << endl;
 }
@@ -140,7 +145,7 @@ void milieu(const Jeu & jeu, int nbCase) {
 }
 
 
-void reserveBas(const Jeu & jeu, int nbCase) {
+void reserveBas(const Jeu & jeu, int nbCase, int joueurActif) {
     affichageId(jeu.getPlateau().getIdPion(nbCase-15)); //49
     if (jeu.getNbJoueurs() == 4){
         cout << "  " << "Réserve : " << jeu.getJoueur(3).getReserve() << "         ";
@@ -154,13 +159,13 @@ void reserveBas(const Jeu & jeu, int nbCase) {
     }
     affichageId(jeu.getPlateau().getIdPion((nbCase-1)/2-1)); //30
     if (nbCase/16 == 6) {
-        affichageCarte(jeu, 2);
+        affichageCarte(jeu, 2, joueurActif);
     }
     cout << endl;
 }
 
 
-void maisonBas(const Jeu & jeu, int nbCase) {
+void maisonBas(const Jeu & jeu, int nbCase, int joueurActif) {
     affichageId(jeu.getPlateau().getIdPion(nbCase-16)); // 48
     if (jeu.getNbJoueurs() == 4) {
         cout << "  " << "Bleu : ";
@@ -179,48 +184,43 @@ void maisonBas(const Jeu & jeu, int nbCase) {
         cout << "       ";
     }
     affichageId(jeu.getPlateau().getIdPion(nbCase/2-1));  // 31
-    affichageCarte(jeu, 3);
+    affichageCarte(jeu, 3, joueurActif);
     cout << endl;
 }
 
 
-void ligneBas(const Jeu & jeu, int nbCase) {
+void ligneBas(const Jeu & jeu, int nbCase, int joueurActif) {
     int nbJ = nbCase/16;
     for (int i = 0; i < 8*(nbJ-2); i++) {
         affichageId(jeu.getPlateau().getIdPion(nbCase -17 -i));  //47-i
     }
     if (jeu.getNbJoueurs() == 6) {
-        affichageCarte(jeu, 5);
+        affichageCarte(jeu, 5, joueurActif);
     }
     else {
-        affichageCarte(jeu, 2);
+        affichageCarte(jeu, 2, joueurActif);
     }
     cout << endl;
 }
 
 
 
-void grille(const Jeu & jeu, int nbCase) {
-    ligneHaut(jeu, nbCase);
-    maisonHaut(jeu, nbCase);
-    reserveHaut(jeu, nbCase);
+void grille(const Jeu & jeu, int nbCase, int joueurActif) {
+    ligneHaut(jeu, nbCase, joueurActif);
+    maisonHaut(jeu, nbCase, joueurActif);
+    reserveHaut(jeu, nbCase, joueurActif);
     milieu(jeu, nbCase);
-    reserveBas(jeu, nbCase);
-    maisonBas(jeu, nbCase);
-    ligneBas(jeu, nbCase);
+    reserveBas(jeu, nbCase, joueurActif);
+    maisonBas(jeu, nbCase, joueurActif);
+    ligneBas(jeu, nbCase, joueurActif);
 }
 
 
 
-
-
-
-
-void affichageTexte(const Jeu & jeu){
+void affichageTexte(const Jeu & jeu, int joueurActif){
     int nbCase = jeu.getPlateau().getNbCase();
-    grille(jeu, nbCase);
+    grille(jeu, nbCase, joueurActif);
     cout << endl;
-    //affichageCarte(jeu);
 }
 
 
