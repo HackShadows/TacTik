@@ -129,16 +129,10 @@ void maisonBas(const Jeu & jeu, int nbCase) {
 }
 
 
-void ligneBas(const Jeu & jeu) {
-    if (jeu.getNbJoueurs() == 4) {
-        for (int i = 0; i < 16; i++) {
-            affichageId(jeu.getPlateau().getIdPion(47-i));  //47-i
-        }
-    }
-    else {
-        for (int i = 0; i < 32; i++){
-            affichageId(jeu.getPlateau().getIdPion(79-i));  //79+i
-        }
+void ligneBas(const Jeu & jeu, int nbCase) {
+    int nbJ = nbCase/16;
+    for (int i = 0; i < 8*(nbJ-2); i++) {
+        affichageId(jeu.getPlateau().getIdPion(nbCase -17 -i));  //47-i
     }
     cout << endl;
 }
@@ -152,7 +146,7 @@ void grille(const Jeu & jeu, int nbCase) {
     milieu(jeu, nbCase);
     reserveBas(jeu, nbCase);
     maisonBas(jeu, nbCase);
-    ligneBas(jeu);
+    ligneBas(jeu, nbCase);
 }
 
 
