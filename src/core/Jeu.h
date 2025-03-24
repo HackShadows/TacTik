@@ -163,10 +163,11 @@ class Jeu {
 		*
 		* @param val_carte Valeur de la carte jouée par le joueur.
 		* @param couleur Couleur du joueur.
+		* @param joker Géré automatiquement.
 		*
 		* @return True si la carte a pu être jouée, False sinon.
 		*/
-		bool jouerCarte(int val_carte, int couleur);
+		bool jouerCarte(int val_carte, int couleur, bool joker = false);
 
         /**
         * @brief Test les fonctionnalités de la classe.
