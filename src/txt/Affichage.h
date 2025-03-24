@@ -1,5 +1,5 @@
 
-#include "Jeu.h"
+#include "../core/Jeu.h"
 
 /**
 * @brief Affiche un nombre prenant 2 espaces dans le terminal.

@@ -1,7 +1,7 @@
 /**
 * @brief Contient l'implémentation du jeu.
 */
-#include "Affichage.h"
+#include "./txt/Affichage.h"
 #include <iostream>
 
 using namespace std;
