@@ -5,6 +5,7 @@ all: bin/executable bin/test
 test: memcheck_test
 
 main: bin/executable
+	./bin/executable
 
 doc: doc/doxyfile doc/html
 	doxygen doc/doxyfile

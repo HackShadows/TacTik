@@ -107,10 +107,10 @@ bool Jeu::demarrer(int couleur) {
 		}
 	}
 	int case_dep = 16*(couleur-1);
-	/*if (nbJoueurs == 6) {
+	if (nbJoueurs == 6) {
 		if (couleur == 3 || couleur == 4) case_dep += 16;
 		else if (couleur == 5) case_dep = 32;
-	}*/
+	}
 	int id_pion_tmp = plateau.getIdPion(case_dep);
 	if (id_pion_tmp != 0) {
 		if (pions[id_pion_tmp-1].estPieu()) return false;
