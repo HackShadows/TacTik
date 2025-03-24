@@ -115,10 +115,9 @@ void milieu(const Jeu & jeu, int nbCase) {
     for (int i = 0; i < 12; i++) {
         affichageId(jeu.getPlateau().getIdPion(nbCase-3-i));  // 61-i
         if (i == 5) {
-            for (int j = 0 ; j < 4*(nbJ-2)-1; j++) {
+            for (int j = 0 ; j < 4*(nbJ-2)-2; j++) {
                 cout << "   ";
             }
-            cout << " ";
             Carte* tas = jeu.getPioche().getTas();
             if (tas == nullptr) cout << "0 ";
             else {
@@ -126,7 +125,8 @@ void milieu(const Jeu & jeu, int nbCase) {
                 if (val < 0) cout << val;
                 else affichageId(val);
             }
-            for (int j = 4*(nbJ-2) ; j < 8*(nbJ-2)-2; j++) {
+            cout << " ";
+            for (int j = 4*(nbJ-2)-1; j < 8*(nbJ-2)-2; j++) {
                 cout << "   ";
             }
         }
