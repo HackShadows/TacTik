@@ -20,7 +20,7 @@ class Joueur {
 		string pseudo; ///<Le pseudo du joueur
 		int couleur, reserve; ///<La couleur et le nombre de pions en réserve du joueur
 		Carte* main[4]; ///<Les 4 cartes de la main du joueur
-		bool maison[4]; ///<La maison du joueur
+		int maison[4] = {0}; ///<La maison du joueur
 
 	public:
 		/**
@@ -51,9 +51,9 @@ class Joueur {
         * @brief Modifie l'état d'une case de la maison (occupée = True, vide = False).
         * 
         * @param indice Indice de la case à modifier.
-        * @param etat État dans lequel mettre la case.
+        * @param id_pion Id du pion à mettre dans la case (0 si vide).
         */
-		void setMaison(int indice, bool etat);
+		void setMaison(int indice, int id_pion);
 
 		/**
         * @brief Augmente ou diminue la réserve de 1.
@@ -90,7 +90,7 @@ class Joueur {
         * 
         * @return Maison du joueur.
         */
-	   	const bool* getMaison() const;
+	   	const int* getMaison() const;
 
 		/**
         * @brief Ajoute la carte passée en paramètre à la main du joueur.

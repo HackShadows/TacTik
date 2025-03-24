@@ -12,7 +12,6 @@ using namespace std;
 Joueur::Joueur(): pseudo("Jean"), couleur(0), reserve(4) {
     for (int i = 0; i<4; i++){
         main[i] = nullptr;
-        maison[i] = false;
     }
 }
 
@@ -20,7 +19,6 @@ Joueur::Joueur(int id_couleur): pseudo("Jean"), couleur(id_couleur), reserve(4) 
     assert(1 <= id_couleur && id_couleur <= 6);
     for (int i = 0; i<4; i++){
         main[i] = nullptr;
-        maison[i] = false;
     }
 }
 
@@ -34,9 +32,10 @@ void Joueur::setPseudo(string nom){
     pseudo = nom;
 }
 
-void Joueur::setMaison(int indice, bool etat) {
+void Joueur::setMaison(int indice, int id_pion) {
     assert(0 <= indice && indice < 4);
-    maison[indice] = etat;
+	assert(0 <= id_pion && id_pion <=24);
+    maison[indice] = id_pion;
 }
 
 void Joueur::setReserve(int quantite) {
@@ -57,7 +56,7 @@ int Joueur::getCouleur() const {
 	return couleur;
 }
 
-const bool* Joueur::getMaison() const {
+const int* Joueur::getMaison() const {
 	return maison;
 }
 
@@ -86,7 +85,7 @@ Carte* Joueur::retirerCarte(int valeur) {
 
 bool Joueur::maisonRemplie() const {
     for (int i = 0; i<4; i++){
-        if (!maison[i]){
+        if (maison[i] == 0){
             return false;
         }
     }
@@ -98,7 +97,7 @@ void Joueur::testRegression(){
 		Joueur joueur;
 		assert(joueur.couleur == 0);
 		for (int i = 0 ; i < 4 ; i++) {
-			assert(joueur.maison[i] == false);
+			assert(joueur.maison[i] == 0);
 			assert(joueur.main[i] == nullptr);
 		}
 		cout << "Constructeur par défaut valide !" << endl;
@@ -106,7 +105,7 @@ void Joueur::testRegression(){
 		Joueur joueur2(3);
 		assert(joueur2.couleur == 3);
 		for (int i = 0 ; i < 4 ; i++) {
-			assert(joueur2.maison[i] == false);
+			assert(joueur2.maison[i] == 0);
 			assert(joueur2.main[i] == nullptr);
 		}
 		cout << "Constructeur avec paramètres valide !" << endl;
@@ -115,8 +114,8 @@ void Joueur::testRegression(){
 		assert(joueur.pseudo == "Toto");
 		cout << "setPseudo valide !" << endl;
 
-		joueur.setMaison(2, true);
-		assert(joueur.maison[2]);
+		joueur.setMaison(2, 5);
+		assert(joueur.maison[2] == 5);
 		cout << "setMaison valide !" << endl;
 
 		joueur.setReserve(-1);
@@ -130,10 +129,10 @@ void Joueur::testRegression(){
 		assert(joueur2.getCouleur() == 3);
 		cout << "getCouleur valide !" << endl;
 
-		const bool* mais = joueur.getMaison();
-		const bool* mais2 = joueur2.getMaison();
-		for (int i = 0 ; i < 4 ; i++) assert(!mais2[i]);
-		assert(mais[2]);
+		const int* mais = joueur.getMaison();
+		const int* mais2 = joueur2.getMaison();
+		for (int i = 0 ; i < 4 ; i++) assert(mais2[i] == 0);
+		assert(mais[2] == 5);
 		cout << "getMaison valide !" << endl;
 
 		Carte * cartes = new Carte[4];
@@ -157,7 +156,7 @@ void Joueur::testRegression(){
 
 		bool remplie = joueur.maisonRemplie();
 		assert(!remplie);
-		for (int i = 0 ; i < 4 ; i++) joueur.setMaison(i, true);
+		for (int i = 0 ; i < 4 ; i++) joueur.setMaison(i, 2);
 		remplie = joueur.maisonRemplie();
 		assert(remplie);
 		cout << "maisonRemplie valide !" << endl;
