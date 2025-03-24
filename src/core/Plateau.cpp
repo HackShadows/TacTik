@@ -86,7 +86,7 @@ void Plateau::testRegression(){
 
 		int case_dep = plateau.getCasesDepart(4);
 		assert(case_dep == 48);
-		case_dep = plateau.getCasesDepart(6);
+		case_dep = plateau6.getCasesDepart(6);
 		assert(case_dep == 80);
 		cout << "getCasesDepart valide !" << endl;
 
