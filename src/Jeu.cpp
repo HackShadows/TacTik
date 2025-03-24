@@ -139,7 +139,7 @@ bool Jeu::avancerPion(int val_carte, int id_pion) {
 	assert((val_carte == -4 || (1 <= val_carte && val_carte <= 13 && val_carte != 11 && val_carte != 4)));
 	Pion &pion = pions[id_pion-1];
 	int position = pion.getPos();
-	assert(position != -1);
+	if (position == -1) return false;
 	int nb_cases = plateau.getNbCase();
 	int a_eliminer[4*nbJoueurs-1] = {0};
 	int nb_elimines = 0;
@@ -185,16 +185,47 @@ bool Jeu::permutter(int id_pion1, int id_pion2) {
 
 bool Jeu::jouerCarte(int val_carte, int couleur) {
 	assert(val_carte == -4 || (-1 <= val_carte && val_carte <= 13 && val_carte != 0));
+	int id_pion = 0;
 	if (val_carte == 11) {
-
+		do {
+			cout << "\nId du pion à permutter (pion du joueur) : ";
+			cin >> id_pion;
+		} while (id_pion < 1 || id_pion > 4*nbJoueurs || pions[id_pion-1].getPos() < 0 || (id_pion-1)/4 != couleur-1);
+		int id_pion2;
+		do {
+			cout << "\nId du deuxième pion avec lequel permutter : ";
+			cin >> id_pion2;
+		} while (id_pion < 1 || id_pion > 4*nbJoueurs || pions[id_pion-1].estPieu());
+		if (!permutter(id_pion, id_pion2)) return false;
 	} else if (val_carte == -1) {
-
+		do {
+			cout << "\nValeur désirée pour le joker : ";
+			cin >> val_carte;
+		} while (val_carte != -4 && (val_carte < 1 || val_carte > 13));
+		return jouerCarte(val_carte, couleur);
 	} else if (val_carte == 1 || val_carte == 10 || val_carte == 13) {
-		
+		char choix;
+		do {
+			cout << "\nUtiliser la carte comme démarrer(D) ou avancer(A) : ";
+			cin >> choix;
+		} while (choix != 'D' && choix != 'A');
+		if (choix == 'D' && !demarrer(couleur)) return false;
+		else if (choix == 'A') {
+			do {
+				cout << "\nId du pion à avancer : ";
+				cin >> id_pion;
+			} while (id_pion < 1 || id_pion > 4*nbJoueurs || (id_pion-1)/4 != couleur-1);
+			if (!avancerPion(val_carte, id_pion)) return false;
+		}
 	} else {
-
+		do {
+			cout << "\nId du pion à avancer : ";
+			cin >> id_pion;
+		} while (id_pion < 1 || id_pion > 4*nbJoueurs || (id_pion-1)/4 != couleur-1);
+		if (!avancerPion(val_carte, id_pion)) return false;
 	}
 	pioche.setTas(joueurs[couleur-1].retirerCarte(val_carte));
+	return true;
 }
 
 void Jeu::testRegression(){

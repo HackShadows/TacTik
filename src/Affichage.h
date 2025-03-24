@@ -9,6 +9,13 @@
 void affichageId(int id);
 
 /**
+* @brief Convertie la couleur entière du joueur en string.
+*
+* @param entier Couleur à convertir en string.
+*/
+string intToStr(int entier);
+
+/**
 * @brief Affiche la maison d'une couleur dans le terminal.
 *
 * @param jeu Le jeu que l'on veut afficher
