@@ -228,6 +228,12 @@ void Jeu::testRegression(){
 		assert(jeu.getJoueur(0).getCarte(0)->getValeur() == valJ2 && jeu.getJoueur(2).getCarte(0)->getValeur() == valJ1);
 		cout << "echangerCartes valide !" << endl;
 
+		assert(jeu.defausserCarte(valJ1, 3));
+		assert(jeu.getJoueur(2).getCarte(0) == nullptr);
+		assert(jeu.defausserCarte(valJ2, 1));
+		assert(jeu.getJoueur(0).getCarte(0) == nullptr);
+		cout << "defausserCarte valide !" << endl;
+
 		assert(jeu.demarrer(1));
 		assert(jeu.demarrer(2));
 		assert(jeu.demarrer(3));
