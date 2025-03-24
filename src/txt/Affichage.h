@@ -1,3 +1,5 @@
+#ifndef AFFICHERTXT_H
+#define AFFICHERTXT_H
 
 #include "../core/Jeu.h"
 
@@ -131,3 +133,5 @@ void affichageCarte(const Jeu & jeu, int indiceJoueur, int joueurActif);
 * @param joueurActif Le joueur qui joue
 */
 void affichageTexte(const Jeu & jeu, int joueurActif);
+
+#endif
