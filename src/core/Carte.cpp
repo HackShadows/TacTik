@@ -17,7 +17,7 @@ Carte::~Carte() {
 }
 
 void Carte::setCarte(int val){
-    assert(-1 <= val && val <= 13);
+    assert(val == -4 || (-1 <= val && val <= 13 && val != 4));
     valeur = val;
 }
 

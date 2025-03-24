@@ -140,7 +140,7 @@ void milieu(const Jeu & jeu, int nbCase) {
             if (tas == nullptr) cout << "0  ";
             else {
                 int val = tas->getValeur();
-                if (val < 0) cout << val;
+                if (val < 0) cout << val << " ";
                 else affichageId(val);
             }
             for (int j = 4*(nbJ-2)-1; j < 8*(nbJ-2)-2; j++) {

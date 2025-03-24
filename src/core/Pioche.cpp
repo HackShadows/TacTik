@@ -11,10 +11,14 @@ using namespace std;
 
 Pioche::Pioche() {
     for (int i = 0; i<13; i++) {
+		if (i == 3) continue;
         for (int j = 0; j<4; j++) {
             pile[i*4+j].setCarte(i+1);
         }
     }
+	for (int j = 12; j<16; j++) {
+		pile[j].setCarte(-4);
+	}
     pile[52].setCarte(-1);
     pile[53].setCarte(-1);
 	tas = nullptr;
@@ -42,7 +46,8 @@ void Pioche::testRegression(){
 		Pioche pioche;
 		for (int i = 0; i<13; i++) {
 			for (int j = 0; j<4; j++) {
-				assert(pioche.pile[i*4+j].getValeur() == i+1 && !pioche.pile[i*4+j].estDansMain());
+				if (i == 3) assert(pioche.pile[i*4+j].getValeur() == -4 && !pioche.pile[i*4+j].estDansMain());
+				else assert(pioche.pile[i*4+j].getValeur() == i+1 && !pioche.pile[i*4+j].estDansMain());
 			}
 		}
 		assert(pioche.pile[52].getValeur() == -1 && !pioche.pile[52].estDansMain());
