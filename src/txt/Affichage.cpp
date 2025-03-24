@@ -98,7 +98,7 @@ void maisonHaut(const Jeu & jeu, int nbCase, int joueurActif) {
 void reserveHaut(const Jeu & jeu, int nbCase, int joueurActif) {
     int nbJ = nbCase/16;
     affichageId(jeu.getPlateau().getIdPion(nbCase-2)); //62
-    if (jeu.getNbJoueurs() == 4) {
+    if (nbJ == 4) {
         cout << "  " << "Réserve : " << jeu.getJoueur(0).getReserve() << "         ";
         cout << "Réserve : " << jeu.getJoueur(1).getReserve() << "         ";
     }
@@ -115,10 +115,28 @@ void reserveHaut(const Jeu & jeu, int nbCase, int joueurActif) {
     cout << endl;
 }
 
+void idPionHaut(const Jeu & jeu, int nbCase) {
+    int nbJ = nbCase/16;
+    affichageId(jeu.getPlateau().getIdPion(nbCase-3)); //62
+    if (nbJ == 4) {
+        cout << "  " << "Pions : 1 2 3 4"  << "     ";
+        cout << "Pions : 5 6 7 8"  << "     ";
+    }
+    else {
+        cout << "  Pions : 1 2 3 4";
+        cout << "                  Pions : 5 6 7 8";
+        cout << "                  Pions : 17 18 19 20   ";
+    }
+    affichageId(jeu.getPlateau().getIdPion(8*(nbJ-2)+2)); //62
+    cout << endl;
+}
+
+
+
 void milieu(const Jeu & jeu, int nbCase) {
     int nbJ = nbCase/16;
-    for (int i = 0; i < 12; i++) {
-        affichageId(jeu.getPlateau().getIdPion(nbCase-3-i));  // 61-i
+    for (int i = 0; i < 10; i++) {
+        affichageId(jeu.getPlateau().getIdPion(nbCase-4-i));  // 61-i
         if (i == 5) {
             for (int j = 0 ; j < 4*(nbJ-2)-2; j++) {
                 cout << "   ";
@@ -139,11 +157,26 @@ void milieu(const Jeu & jeu, int nbCase) {
                 cout << "   ";
             }
         }
-        affichageId(jeu.getPlateau().getIdPion(8*(nbJ-2)+2+i)); // 18+i
+        affichageId(jeu.getPlateau().getIdPion(8*(nbJ-2)+3+i)); // 18+i
         cout << endl;
     }
 }
 
+void idPionBas(const Jeu & jeu, int nbCase) {
+    int nbJ = nbCase/16;
+    affichageId(jeu.getPlateau().getIdPion(nbCase-14));
+    if (nbJ == 4) {
+        cout << "  " << "Pions : 13 14 15 16"  << " ";
+        cout << "Pions : 9 10 11 12"  << "  ";
+    }
+    else {
+        cout << "  Pions : 21 22 23 24";
+        cout << "              Pions : 13 14 15 16";
+        cout << "              Pions : 9 10 11 12    ";
+    }
+    affichageId(jeu.getPlateau().getIdPion((nbCase-1)/2-2));
+    cout << endl;
+}
 
 void reserveBas(const Jeu & jeu, int nbCase, int joueurActif) {
     affichageId(jeu.getPlateau().getIdPion(nbCase-15)); //49
@@ -168,11 +201,11 @@ void reserveBas(const Jeu & jeu, int nbCase, int joueurActif) {
 void maisonBas(const Jeu & jeu, int nbCase, int joueurActif) {
     affichageId(jeu.getPlateau().getIdPion(nbCase-16)); // 48
     if (jeu.getNbJoueurs() == 4) {
-        cout << "  " << "Bleu : ";
+        cout << "  " << "Jaune : ";
         affichageMaison(jeu, 4);
-        cout << "     " << "Jaune : ";
+        cout << "    " << "Bleu : ";
         affichageMaison(jeu, 3);
-        cout << "    ";
+        cout << "     ";
     }
     else {
         cout << "  Blanc : ";
@@ -184,7 +217,12 @@ void maisonBas(const Jeu & jeu, int nbCase, int joueurActif) {
         cout << "       ";
     }
     affichageId(jeu.getPlateau().getIdPion(nbCase/2-1));  // 31
-    affichageCarte(jeu, 3, joueurActif);
+    if (jeu.getNbJoueurs() == 6) {
+        affichageCarte(jeu, 3, joueurActif);
+    }
+    else {
+        affichageCarte(jeu, 2, joueurActif);
+    }
     cout << endl;
 }
 
@@ -198,7 +236,7 @@ void ligneBas(const Jeu & jeu, int nbCase, int joueurActif) {
         affichageCarte(jeu, 5, joueurActif);
     }
     else {
-        affichageCarte(jeu, 2, joueurActif);
+        affichageCarte(jeu, 3, joueurActif);
     }
     cout << endl;
 }
@@ -209,7 +247,9 @@ void grille(const Jeu & jeu, int nbCase, int joueurActif) {
     ligneHaut(jeu, nbCase, joueurActif);
     maisonHaut(jeu, nbCase, joueurActif);
     reserveHaut(jeu, nbCase, joueurActif);
+    idPionHaut(jeu, nbCase);
     milieu(jeu, nbCase);
+    idPionBas(jeu, nbCase);
     reserveBas(jeu, nbCase, joueurActif);
     maisonBas(jeu, nbCase, joueurActif);
     ligneBas(jeu, nbCase, joueurActif);

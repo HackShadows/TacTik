@@ -53,12 +53,30 @@ void maisonHaut(const Jeu & jeu, int nbCase, int joueurActif);
 void reserveHaut(const Jeu & jeu, int nbCase, int joueurActif);
 
 /**
+* @brief Affiche la quatrième ligne d'une partie dans le terminal.
+*
+* @param jeu Le jeu que l'on veut afficher
+* @param nbCase Le nombre de case du plateau
+*/
+void idPionHaut(const Jeu & jeu, int nbCase);
+
+
+/**
 * @brief Affiche les lignes du milieu d'une partie dans le terminal.
 *
 * @param jeu Le jeu que l'on veut afficher
 * @param nbCase Le nombre de case du plateau
 */
 void milieu(const Jeu & jeu, int nbCase);
+
+/**
+* @brief Affiche la quatrième ligne du bas d'une partie dans le terminal.
+*
+* @param jeu Le jeu que l'on veut afficher
+* @param nbCase Le nombre de case du plateau
+*/
+void idPionBas(const Jeu & jeu, int nbCase);
+
 
 /**
 * @brief Affiche les reserves sur la 3eme ligne du bas d'une partie dans le terminal.
