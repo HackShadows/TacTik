@@ -1,4 +1,4 @@
-
+//Gérer permutter infini avec la défausse et finir la gestion rentrerDansMaison
 #include "Jeu.h"
 
 #include <iostream>
