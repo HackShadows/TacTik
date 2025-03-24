@@ -51,12 +51,7 @@ void affichageCarte(const Jeu & jeu, int indiceJoueur, int joueurActif) {
 
 void affichageMaison(const Jeu & jeu, int couleur) {
     for (int i = 0; i < 4; i++) {
-        if (jeu.getJoueur(couleur-1).getMaison()[i] == false) {
-            cout << "0 ";
-        }
-        else {
-            cout << "1 ";
-        }
+        cout << jeu.getJoueur(couleur-1).getMaison()[i] << " ";
     }
 }
 

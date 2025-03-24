@@ -19,10 +19,9 @@ string intToStr(int entier);
 * @brief Affiche la maison d'une couleur dans le terminal.
 *
 * @param jeu Le jeu que l'on veut afficher
-* @param nbCase Le nombre de case du plateau
 * @param couleur La couleur dont on veut afficher la maison
 */
-void affichageMaison(const Jeu & jeu, int nbCase, int couleur);
+void affichageMaison(const Jeu & jeu, int couleur);
 
 /**
 * @brief Affiche la premiere ligne d'une partie dans le terminal.
