@@ -12,6 +12,7 @@ using namespace std;
 Plateau::Plateau(){
     nbCases = 16*4;
     cases = new int [nbCases];
+	casesDepart = new int [4]{};
     for (int i = 0; i<nbCases; i++) {
         cases[i] = 0;
     }

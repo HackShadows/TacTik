@@ -167,6 +167,34 @@ bool Jeu::avancerPion(int val_carte, int id_pion) {
 	return true;
 }
 
+bool Jeu::avancerMaison(int val_carte, int id_pion) {
+	assert(1 <= id_pion && id_pion <= 4*nbJoueurs);
+	assert(0 < val_carte && val_carte <= 4);
+	int i_deb = 0, couleur = (id_pion-1)/nbJoueurs;
+	const int* mais = joueurs[couleur-1].getMaison();
+	Pion* pion = pions[id_pion-1];
+	if (pion.getPos() == -2) {
+		for (int i = 0 ; i < val_carte ; i++) {
+			if (mais[i] == id_pion) {
+				i_deb = i++;
+				break;
+			}
+		}
+	}
+	if (i_deb + val_carte > 4) return false;
+
+	for (int i = i_deb ; i < i_deb + val_carte ; i++) {
+		if (mais[i] != 0) return false;
+	}
+	
+	if (i_deb > 0) {
+		joueurs[couleur-1].setMaison(i_deb-1, 0);
+	} else {
+		
+	} 
+	joueurs[couleur-1].setMaison(i_deb+val_carte-1, id_pion);
+}
+
 bool Jeu::permutter(int id_pion1, int id_pion2) {
 	assert(0 < id_pion1 && id_pion1 <= 4*nbJoueurs && 0 < id_pion2 && id_pion2 <= 4*nbJoueurs && id_pion1 != id_pion2);
 	assert(pions[id_pion1-1].getPos() >= 0);
@@ -181,6 +209,13 @@ bool Jeu::permutter(int id_pion1, int id_pion2) {
 	plateau.setPion(id_pion1, pos2);
 	plateau.setPion(id_pion2, pos1);
 	return true;
+}
+
+bool Jeu::partieGagnee() {
+	if ((joueurs[0].maisonRemplie() && joueurs[2].maisonRemplie()) || 
+	(joueurs[1].maisonRemplie() && joueurs[3].maisonRemplie()) ||
+	(nbJoueurs == 6 && joueurs[4].maisonRemplie() && joueurs[5].maisonRemplie())) return true;
+	return false;
 }
 
 bool Jeu::jouerCarte(int val_carte, int couleur) {
@@ -322,6 +357,13 @@ void Jeu::testRegression(){
 		assert(jeu.permutter(9, 13));
 		assert(jeu.getPion(9).getPos() == pos2 && jeu.getPion(13).getPos() == pos1 && !jeu.getPion(9).estPieu());
 		cout << "permutter valide !" << endl;
+
+		for (int i = 0 ; i < 3 ; i+=2) {
+			assert(!jeu.partieGagnee());
+			for (int j = 0 ; j < 4 ; j++) jeu.joueurs[i].setMaison(j, 2);
+		}
+		assert(jeu.partieGagnee());
+		cout << "partieGagnee valide !" << endl;
 	}
 	cout << "Destructeur valide !" << endl;
 }

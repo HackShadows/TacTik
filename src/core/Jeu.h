@@ -132,6 +132,16 @@ class Jeu {
 		bool avancerPion(int val_carte, int id_pion);
 
 		/**
+		* @brief Avance le pion dans la maison du nombre passé en paramètre.
+		*
+		* @param val_carte Valeur de la carte jouée par le joueur.
+		* @param id_pion Id du pion à déplacer.
+		*
+		* @return True si le pion a pu avancer, False sinon.
+		*/
+		bool avancerMaison(int val_carte, int id_pion);
+
+		/**
 		* @brief Permutte le pion du joueur avec un autre pion.
 		*
 		* @param id_pion1 Id du pion du joueur.
@@ -140,6 +150,13 @@ class Jeu {
 		* @return True si le pion a pu être permutté, False sinon.
 		*/
 		bool permutter(int id_pion1, int id_pion2);
+
+		/**
+        * @brief Renvoie True si la partie a été gagnée par une équipe, False sinon.
+		*
+		* @return Le booléen correspondant.
+        */
+	   	bool partieGagnee();
 
 		/**
 		* @brief Joue la carte passée en paramètre.
