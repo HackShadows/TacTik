@@ -69,7 +69,7 @@ void reserveHaut(const Jeu & jeu, int nbCase) {
     else {
         cout << "  Réserve : " << jeu.getJoueur(0).getReserve();
         cout << "                      Réserve : " << jeu.getJoueur(1).getReserve();
-        cout << "                      Réserve : " << jeu.getJoueur(2).getReserve();
+        cout << "                      Réserve : " << jeu.getJoueur(4).getReserve();
         cout << "           ";
     }
     affichageId(jeu.getPlateau().getIdPion(8*(nbJ-2)+1)); //62
@@ -97,8 +97,8 @@ void reserveBas(const Jeu & jeu, int nbCase) {
     }
     else {
         cout << "  Réserve : " << jeu.getJoueur(5).getReserve();
-        cout << "                      Réserve : " << jeu.getJoueur(4).getReserve();
         cout << "                      Réserve : " << jeu.getJoueur(3).getReserve();
+        cout << "                      Réserve : " << jeu.getJoueur(2).getReserve();
         cout << "           ";
     }
     affichageId(jeu.getPlateau().getIdPion((nbCase-1)/2-1)); //30
