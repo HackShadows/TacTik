@@ -21,49 +21,49 @@ void affichageMaison(const Jeu & jeu, int couleur);
 *
 * @param jeu Le jeu que l'on veut afficher
 */
-void ligneHaut4p(const Jeu & jeu);
+void ligneHaut(const Jeu & jeu);
 
 /**
 * @brief Affiche la deuxieme ligne d'une partie 4 joueurs dans le terminal.
 *
 * @param jeu Le jeu que l'on veut afficher
 */
-void maisonHaut4p(const Jeu & jeu);
+void maisonHaut(const Jeu & jeu);
 
 /**
 * @brief Affiche la troisieme ligne d'une partie 4 joueurs dans le terminal.
 *
 * @param jeu Le jeu que l'on veut afficher
 */
-void reserveHaut4p(const Jeu & jeu);
+void reserveHaut(const Jeu & jeu);
 
 /**
 * @brief Affiche les lignes du milieu d'une partie 4 joueurs dans le terminal.
 *
 * @param jeu Le jeu que l'on veut afficher
 */
-void milieu4p(const Jeu & jeu);
+void milieu(const Jeu & jeu);
 
 /**
 * @brief Affiche les reserves sur la 3eme ligne du bas d'une partie 4 joueurs dans le terminal.
 *
 * @param jeu Le jeu que l'on veut afficher
 */
-void reserveBas4p(const Jeu & jeu);
+void reserveBas(const Jeu & jeu);
 
 /**
 * @brief Affiche les maisons sur la deuxieme ligne du bas d'une partie 4 joueurs dans le terminal.
 *
 * @param jeu Le jeu que l'on veut afficher
 */
-void maisonBas4p(const Jeu & jeu);
+void maisonBas(const Jeu & jeu);
 
 /**
 * @brief Affiche la dernière ligne d'une partie 4 joueurs dans le terminal.
 *
 * @param jeu Le jeu que l'on veut afficher
 */
-void ligneBas4p(const Jeu & jeu);
+void ligneBas(const Jeu & jeu);
 
 /**
 * @brief Affiche la premiere ligne d'une partie 6 joueurs dans le terminal.
