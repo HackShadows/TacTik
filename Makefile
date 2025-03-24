@@ -2,7 +2,7 @@ CXXFLAGS = -Wall -g -c
 CORE = src/core
 TXT = src/txt
 
-all: bin/main bin/test
+all: test main
 
 test: memcheck_test
 
