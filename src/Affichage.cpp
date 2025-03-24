@@ -39,9 +39,6 @@ void affichageCarte(const Jeu & jeu, int indiceJoueur) {
         if(jeu.getJoueur(indiceJoueur).getCarte(j) != nullptr) {
             cout << jeu.getJoueur(indiceJoueur).getCarte(j)->getValeur() << " ";
         }
-        else {
-            cout << "-1 " << endl;
-        }
     }
     cout << "]";
 }
