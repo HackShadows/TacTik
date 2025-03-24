@@ -119,7 +119,7 @@ void milieu(const Jeu & jeu, int nbCase) {
                 cout << "   ";
             }
             Carte* tas = jeu.getPioche().getTas();
-            if (tas == nullptr) cout << "0 ";
+            if (tas == nullptr) cout << "0  ";
             else {
                 int val = tas->getValeur();
                 if (val < 0) cout << val;
