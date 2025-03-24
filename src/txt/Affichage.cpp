@@ -154,7 +154,7 @@ void reserveBas(const Jeu & jeu, int nbCase) {
     }
     affichageId(jeu.getPlateau().getIdPion((nbCase-1)/2-1)); //30
     if (nbCase/16 == 6) {
-        affichageCarte(jeu, 5);
+        affichageCarte(jeu, 2);
     }
     cout << endl;
 }
@@ -189,7 +189,12 @@ void ligneBas(const Jeu & jeu, int nbCase) {
     for (int i = 0; i < 8*(nbJ-2); i++) {
         affichageId(jeu.getPlateau().getIdPion(nbCase -17 -i));  //47-i
     }
-    affichageCarte(jeu, 2);
+    if (jeu.getNbJoueurs() == 6) {
+        affichageCarte(jeu, 5);
+    }
+    else {
+        affichageCarte(jeu, 2);
+    }
     cout << endl;
 }
 
