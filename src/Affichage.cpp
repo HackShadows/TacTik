@@ -40,20 +40,20 @@ void maisonHaut(const Jeu & jeu, int nbCase) {
     int nbJ = nbCase/16;
     affichageId(jeu.getPlateau().getIdPion(nbCase-1));  //63
     if (jeu.getNbJoueurs() == 4) {
-        cout << "  " << "Maison : ";
+        cout << "  " << "Vert : ";
         affichageMaison(jeu, 1);
-        cout << "   " << "Maison : ";
+        cout << "     " << "Rouge : ";
         affichageMaison(jeu, 2);
-        cout << "   ";
+        cout << "    ";
     }
     else {
-        cout << "  Maison : ";
+        cout << "  Vert : ";
         affichageMaison(jeu, 1);
-        cout << "                Maison : ";
+        cout << "                  Rouge : ";
         affichageMaison(jeu, 2);
-        cout << "                Maison : ";
-        affichageMaison(jeu, 3);
-        cout << "     ";
+        cout << "                 Noir : ";
+        affichageMaison(jeu, 5);
+        cout << "       ";
     }
     affichageId(jeu.getPlateau().getIdPion(8*(nbJ-2))); //16
     cout << endl;
@@ -109,20 +109,20 @@ void reserveBas(const Jeu & jeu, int nbCase) {
 void maisonBas(const Jeu & jeu, int nbCase) {
     affichageId(jeu.getPlateau().getIdPion(nbCase-16)); // 48
     if (jeu.getNbJoueurs() == 4) {
-        cout << "  " << "Maison : ";
+        cout << "  " << "Bleu : ";
         affichageMaison(jeu, 4);
-        cout << "   " << "Maison : ";
+        cout << "     " << "Jaune : ";
         affichageMaison(jeu, 3);
-        cout << "   ";
+        cout << "    ";
     }
     else {
-        cout << "  Maison : ";
+        cout << "  Blanc : ";
         affichageMaison(jeu, 6);
-        cout << "                Maison : ";
-        affichageMaison(jeu, 5);
-        cout << "                Maison : ";
+        cout << "                 Jaune : ";
         affichageMaison(jeu, 4);
-        cout << "     ";
+        cout << "                 Bleu : ";
+        affichageMaison(jeu, 3);
+        cout << "       ";
     }
     affichageId(jeu.getPlateau().getIdPion(nbCase/2-1));  // 31
     cout << endl;
