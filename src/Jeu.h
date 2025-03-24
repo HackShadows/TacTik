@@ -89,6 +89,16 @@ class Jeu {
 	   	void echangerCartes(int indJ1, int indJ2, int val_carteJ1, int val_carteJ2);
 
 		/**
+		* @brief Défausse la carte passée en paramètre.
+		*
+		* @param val_carte Valeur de la carte défaussée par le joueur.
+		* @param couleur Couleur du joueur qui défausse la carte.
+		*
+		* @return True si la carte a pu être défaussée, False sinon.
+		*/
+		bool defausserCarte(int val_carte, int couleur);
+
+		/**
 		* @brief Elimine le pion se trouvant à l'indice 'indice'.
 		*
 		* @param position Position du pion sur le plateau.

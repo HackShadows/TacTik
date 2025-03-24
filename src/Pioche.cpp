@@ -17,18 +17,18 @@ Pioche::Pioche() {
     }
     pile[52].setCarte(-1);
     pile[53].setCarte(-1);
-	tas = Carte();
+	tas = nullptr;
 }
 
 Pioche::~Pioche() {
-    tas = Carte();
+    tas = nullptr;
 }
 
-void Pioche::setTas(const Carte & carte){
+void Pioche::setTas(Carte * carte){
     tas = carte;
 }
 
-Carte Pioche::getTas() const{
+Carte* Pioche::getTas() const{
     return tas;
 }
 
@@ -49,13 +49,13 @@ void Pioche::testRegression(){
 		assert(pioche.pile[53].getValeur() == -1 && !pioche.pile[53].estDansMain());
 		cout << "Constructeur valide !" << endl;
 
-		Carte carte;
+		Carte* carte = new Carte();
 		pioche.setTas(carte);
-		assert(pioche.tas.getValeur() == 0 && !pioche.tas.estDansMain());
+		assert(pioche.tas->getValeur() == 0 && !pioche.tas->estDansMain());
 		cout << "setTas valide !" << endl;
 
-		Carte carte2 = pioche.getTas();
-		assert(carte2.getValeur() == 0 && !carte2.estDansMain());
+		Carte* carte2 = pioche.getTas();
+		assert(carte2->getValeur() == 0 && !carte2->estDansMain());
 		cout << "getTas valide !" << endl;
 
 		Carte carte3 = pioche.getCarte(52);
@@ -65,12 +65,13 @@ void Pioche::testRegression(){
 		/*cout << "Méthode affichage : " << endl;
 		pioche.afficher();
 		cout << "afficher valide !" << endl;*/
+		delete carte;
 	}
     cout << "Destructeur valide !" << endl;
 }
 
 void Pioche::afficher() const {
     cout << "Tas : ";
-    tas.afficher();
+    tas->afficher();
     for (int i = 0 ; i < 54 ; i++) pile[i].afficher();
 }

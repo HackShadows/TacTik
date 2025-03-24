@@ -88,6 +88,14 @@ void Jeu::echangerCartes(int indJ1, int indJ2, int val_carteJ1, int val_carteJ2)
 	joueurs[indJ2].piocherCarte(carteJ1);
 }
 
+bool Jeu::defausserCarte(int val_carte, int couleur) {
+	assert(1 <= couleur && couleur <= nbJoueurs);
+	Carte* carte = joueurs[couleur-1].retirerCarte(val_carte);
+	if (carte == nullptr) return false;
+	pioche.setTas(carte);
+	return true;
+}
+
 void Jeu::eliminerPion(int id_pion) {
 	assert(1 <= id_pion && id_pion <= 4*nbJoueurs);
 	Pion &pion = pions[id_pion-1];

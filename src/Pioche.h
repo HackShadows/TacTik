@@ -17,7 +17,7 @@ using namespace std;
 class Pioche {
 
 	private:
-		Carte tas; ///<Dernière carte jouée par un joueur
+		Carte * tas; ///<Dernière carte jouée par un joueur
 		Carte pile[54]; ///<Pile de cartes à distribuer
 
 	public:
@@ -36,14 +36,14 @@ class Pioche {
 		*
 		* @param carte Carte venant d'être jouée.
         */
-		void setTas(const Carte &carte);
+		void setTas(Carte *carte);
 
 		/**
         * @brief Renvoie la carte se trouvant sur le tas.
 		*
 		* @return Carte se trouvant sur le tas.
         */
-		Carte getTas() const;
+		Carte* getTas() const;
 
 		/**
         * @brief Renvoie la pile de cartes.
