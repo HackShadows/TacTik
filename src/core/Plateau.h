@@ -17,8 +17,8 @@ using namespace std;
 class Plateau {
 
 	private:
-		int * cases; ///<Tableau de 64 ou 96 cases les identifiants des pions (0 par défaut)
 		int nbCases; ///<Nombres de cases
+		int * cases; ///<Tableau de 64 ou 96 cases les identifiants des pions (0 par défaut)
 		int * casesDepart; ///<Cases de départ des joueurs
 
 	public:
@@ -48,6 +48,14 @@ class Plateau {
 	   	~Plateau();
 
 		/**
+		* @brief Définit la valeur de la case d'indice 'indice'.
+		*
+		* @param id_pion Id du pion à ajouter.
+		* @param indice Indice de la nouvelle case du pion.
+		*/
+		void setPion(int id_pion, int indice);
+
+		/**
         * @brief Renvoie le nombre de cases du plateau.
         * 
         * @return Nombre de cases.
@@ -64,12 +72,13 @@ class Plateau {
 	   	int getIdPion(int indice) const;
 
 		/**
-		* @brief Définit la valeur de la case d'indice 'indice'.
+        * @brief Renvoie la case de départ de la couleur passée en paramètre.
 		*
-		* @param id_pion Id du pion à ajouter.
-		* @param indice Indice de la nouvelle case du pion.
-		*/
-		void setPion(int id_pion, int indice);
+		* @param couleur Couleur de la case de départ.
+        * 
+        * @return Indice de la case de départ.
+        */
+	   	int getCasesDepart(int couleur) const;
 
 		/**
 		* @brief supprime le pion de la case d'indice 'indice'.
