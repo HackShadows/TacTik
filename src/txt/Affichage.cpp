@@ -125,7 +125,6 @@ void milieu(const Jeu & jeu, int nbCase) {
                 if (val < 0) cout << val;
                 else affichageId(val);
             }
-            cout << " ";
             for (int j = 4*(nbJ-2)-1; j < 8*(nbJ-2)-2; j++) {
                 cout << "   ";
             }

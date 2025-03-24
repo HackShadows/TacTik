@@ -21,8 +21,8 @@ int main(){
 	cout << "'Entrée' pour passer à l'étape suivante" << endl;
 	cin.get();
 	cin.get();
-	/*
 	int ordre[6] = {1, 2, 5, 3, 4, 6};
+	/*
 	if (nbJoueurs == 4) {
 		for (int i = 0 ; i < nbJoueurs ; i++) {
 			jeu.demarrer(i+1);
@@ -51,7 +51,7 @@ int main(){
 	affichageTexte(jeu);*/
 	int it = 0, val_carte, couleur;
 	while (it < 10) {
-		couleur = it%nbJoueurs+1;
+		couleur = ordre[it%nbJoueurs];
 		cout << "\nTour de " << intToStr(couleur-1) << " :";
 		cout << "\nCarte à jouer : ";
 		cin >> val_carte;
