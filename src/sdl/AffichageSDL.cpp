@@ -1,7 +1,8 @@
 
 #include "AffichageSDL.h"
 
-ImageViewer::ImageViewer(){
+
+ImageViewer::ImageViewer(const Jeu & jeu){
     cout << "SDL: init" << endl;
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
     {
@@ -18,10 +19,14 @@ ImageViewer::ImageViewer(){
         SDL_Quit();
         exit(1);
     }
-
-    int dimx, dimy;
-    dimx = 1920;
-    dimy = 1075;
+    if (jeu.getNbJoueurs() == 6){
+        dimx = 1500;
+        dimy = 890;
+    }
+    else{
+        dimx = 1000;
+        dimy = 997;
+    }
 
     // Creation de la fenetre
     window = SDL_CreateWindow("Tac-Tik", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, dimx, dimy, 0);
@@ -35,6 +40,7 @@ ImageViewer::ImageViewer(){
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 }
 
+
 ImageViewer::~ImageViewer(){
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
@@ -42,8 +48,13 @@ ImageViewer::~ImageViewer(){
 }
 
 
-void ImageViewer::afficher(){
-    surface = IMG_Load("./data/image.jpg");
+void ImageViewer::afficher(const Jeu & jeu){
+    if (jeu.getNbJoueurs() == 6){
+        surface = IMG_Load("./data/plateau6.png");
+    }
+    else{
+        surface = IMG_Load("./data/plateau4.png");
+    }
     if (surface == nullptr) {
         std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
         return;
@@ -72,7 +83,7 @@ void ImageViewer::afficher(){
         }
         SDL_SetRenderDrawColor(renderer, 128, 128, 128, 255);
         SDL_RenderClear(renderer);
-        SDL_Rect Rect = { 0, 0, 1920, 1075};
+        SDL_Rect Rect = { 0, 0, dimx, dimy};
         SDL_RenderCopy(renderer, texture, NULL, &Rect);
         SDL_RenderPresent(renderer);
         SDL_Delay(100);

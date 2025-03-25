@@ -4,7 +4,8 @@
 using namespace std;
 
 int main(){
-    ImageViewer image;
-    image.afficher();
+    Jeu jeu(6);
+    ImageViewer image(jeu);
+    image.afficher(jeu);
     return 0;
 }

@@ -15,12 +15,14 @@ class ImageViewer{
         SDL_Window * window; /// La fenetre
         SDL_Renderer * renderer;/// Le renderer
         SDL_Surface * surface;///La surface
+        int dimx, dimy;
 
     public :
         /**
         * @brief Constructeur qui initialise tout SDL2 et crée la fenêtre et le renderer
+        * @param jeu Le jeu que l'on veut afficher.
         */
-        ImageViewer();
+        ImageViewer(const Jeu & jeu);
 
         /**
         * @brief Detruit et ferme SDL2
@@ -28,10 +30,10 @@ class ImageViewer{
         ~ImageViewer();
 
         /**
-        * @brief Affiche l'image passé en parametre
-        * @param im est l'Image que l'on veut afficher
+        * @brief Affiche le jeu passé en parametre
+        * @param jeu Le jeu que l'on veut afficher
         */
-        void afficher();
+        void afficher(const Jeu & jeu);
 };
 
 
