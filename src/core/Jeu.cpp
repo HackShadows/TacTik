@@ -148,12 +148,12 @@ bool Jeu::avancerPion(int val_carte, int id_pion, bool test) {
 	if (val_carte == -4) {i_deb = i_fin; i_fin = position-1;}
 	
 	for (int i = i_deb ; i <= i_fin ; i++) {
-		int id_tmp = plateau.getIdPion(i%nb_cases);
+		int id_tmp = plateau.getIdPion((i+nb_cases)%nb_cases);
 		if (id_tmp != 0) {
 			if (pions[id_tmp-1].estPieu()) {
 				return false;
 			} else if (val_carte == 7 || i == position+val_carte) {
-				a_eliminer[nb_elimines] = plateau.getIdPion(i%nb_cases);
+				a_eliminer[nb_elimines] = plateau.getIdPion((i+nb_cases)%nb_cases);
 				nb_elimines++;
 			}
 		}
@@ -162,7 +162,7 @@ bool Jeu::avancerPion(int val_carte, int id_pion, bool test) {
 		for (int i = 0 ; i < nb_elimines ; i++) {
 			eliminerPion(a_eliminer[i]);
 		}
-		int new_pos = (position+val_carte)%nb_cases;
+		int new_pos = (position+val_carte+nb_cases)%nb_cases;
 		pion.setPieu(false);
 		pion.setPos(new_pos);
 		plateau.setPion(plateau.viderCase(position), new_pos);
@@ -230,7 +230,8 @@ bool Jeu::partieGagnee() {
 bool Jeu::jouerCarte(int val_carte, int couleur, bool joker) {
 	assert(val_carte == -4 || (-1 <= val_carte && val_carte <= 13 && val_carte != 0 && val_carte != 4));
 	assert(1 <= couleur && couleur <= nbJoueurs);
-	int id_pion = 0;
+	int nb_possible = 0, id_pion = 0;
+	Joueur& joueur = joueurs[couleur-1];
 	if (val_carte == 11) {
 		do {
 			cout << "\nId du pion à permutter (pion du joueur) : ";
@@ -250,7 +251,7 @@ bool Jeu::jouerCarte(int val_carte, int couleur, bool joker) {
 		return jouerCarte(val_carte, couleur, true);
 	} else if (val_carte == 1 || val_carte == 10 || val_carte == 13) {
 		char choix = '0';
-		if (joueurs[couleur-1].getReserve() == 4) choix = 'D';
+		if (joueur.getReserve() == 4) choix = 'D';
 		else if (!demarrer(couleur, true)) choix = 'A';
 		while (choix != 'D' && choix != 'A') {
 			cout << "\nUtiliser la carte comme démarrer(D) ou avancer(A) : ";
@@ -258,21 +259,37 @@ bool Jeu::jouerCarte(int val_carte, int couleur, bool joker) {
 		}
 		if (choix == 'D' && !demarrer(couleur)) return false;
 		else if (choix == 'A') {
-			do {
+			for (int i = (couleur-1)*4 +1 ; i <= couleur*4 ; i++) {
+				if (avancerPion(val_carte, i, true)) {
+					id_pion = i;
+					nb_possible++;
+				}
+			}
+			if (nb_possible == 0) return false;
+			if (nb_possible > 1 ) id_pion = 0;
+			while (id_pion < 1 || id_pion > 4*nbJoueurs || (id_pion-1)/4 != couleur-1) {
 				cout << "\nId du pion à avancer : ";
 				cin >> id_pion;
-			} while (id_pion < 1 || id_pion > 4*nbJoueurs || (id_pion-1)/4 != couleur-1);
+			}
 			if (!avancerPion(val_carte, id_pion)) return false;
 		}
 	} else {
-		do {
+		for (int i = (couleur-1)*4 +1 ; i <= couleur*4 ; i++) {
+			if (avancerPion(val_carte, i, true)) {
+				id_pion = i;
+				nb_possible++;
+			}
+		}
+		if (nb_possible == 0) return false;
+		if (nb_possible > 1 ) id_pion = 0;
+		while (id_pion < 1 || id_pion > 4*nbJoueurs || (id_pion-1)/4 != couleur-1) {
 			cout << "\nId du pion à avancer : ";
 			cin >> id_pion;
-		} while (id_pion < 1 || id_pion > 4*nbJoueurs || (id_pion-1)/4 != couleur-1);
+		}
 		if (!avancerPion(val_carte, id_pion)) return false;
 	}
 	if (joker) val_carte = -1;
-	pioche.setTas(joueurs[couleur-1].retirerCarte(val_carte));
+	pioche.setTas(joueur.retirerCarte(val_carte));
 	return true;
 }
 

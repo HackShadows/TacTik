@@ -63,9 +63,6 @@ obj/Joueur.o: $(CORE)/Joueur.cpp $(CORE)/Joueur.h $(CORE)/Carte.h
 obj/Plateau.o: $(CORE)/Plateau.cpp $(CORE)/Plateau.h $(CORE)/Pion.h
 	g++ $(CXXFLAGS) $(CORE)/Plateau.cpp -o obj/Plateau.o
 
-memcheck_mainTXT: bin/mainTXT
-	valgrind --leak-check=full --track-origins=yes ./bin/mainTXT
-
 memcheck_test: bin/test
 	valgrind --leak-check=full --track-origins=yes ./bin/test
 
