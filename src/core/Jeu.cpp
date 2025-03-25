@@ -109,8 +109,8 @@ void Jeu::eliminerPion(int id_pion) {
 	joueurs[(id_pion-1)/4].setReserve(1);
 }
 
-bool Jeu::demarrer(int couleur) {
-	assert(joueurs[couleur-1].getReserve() > 0);
+bool Jeu::demarrer(int couleur, bool test) {
+	if (joueurs[couleur-1].getReserve() == 0) return false;
 	int id_pion = 0;
 	for (int i = 4*(couleur-1) ; i < 4*couleur ; i++) {
 		if (pions[i].getPos() == -1) {
@@ -122,22 +122,24 @@ bool Jeu::demarrer(int couleur) {
 	int id_pion_tmp = plateau.getIdPion(case_dep);
 	if (id_pion_tmp != 0) {
 		if (pions[id_pion_tmp-1].estPieu()) return false;
-		else eliminerPion(id_pion_tmp);
+		else if (!test) eliminerPion(id_pion_tmp);
 	}
-	joueurs[couleur-1].setReserve(-1);
-	pions[id_pion-1].setPos(case_dep);
-	plateau.setPion(id_pion, case_dep);
+	if (!test) {
+		joueurs[couleur-1].setReserve(-1);
+		pions[id_pion-1].setPos(case_dep);
+		plateau.setPion(id_pion, case_dep);
+	}
 	return true;
 }
 
-bool Jeu::avancerPion(int val_carte, int id_pion) {
+bool Jeu::avancerPion(int val_carte, int id_pion, bool test) {
 	assert(1 <= id_pion && id_pion <= 4*nbJoueurs);
 	assert((val_carte == -4 || (1 <= val_carte && val_carte <= 13 && val_carte != 11 && val_carte != 4)));
 	
 	Pion &pion = pions[id_pion-1];
 	int position = pion.getPos();
 	if (position == -1) return false;
-	if (position == -2) return avancerMaison(val_carte, id_pion);
+	if (position == -2) return avancerMaison(val_carte, id_pion, test);
 	
 	int nb_cases = plateau.getNbCase();
 	int a_eliminer[4*nbJoueurs-1] = {0};
@@ -156,19 +158,21 @@ bool Jeu::avancerPion(int val_carte, int id_pion) {
 			}
 		}
 	}
-	for (int i = 0 ; i < nb_elimines ; i++) {
-		eliminerPion(a_eliminer[i]);
+	if (!test) {
+		for (int i = 0 ; i < nb_elimines ; i++) {
+			eliminerPion(a_eliminer[i]);
+		}
+		int new_pos = (position+val_carte)%nb_cases;
+		pion.setPieu(false);
+		pion.setPos(new_pos);
+		plateau.setPion(plateau.viderCase(position), new_pos);
 	}
-	int new_pos = (position+val_carte)%nb_cases;
-	pion.setPieu(false);
-	pion.setPos(new_pos);
-	plateau.setPion(plateau.viderCase(position), new_pos);
 	return true;
 }
 
-bool Jeu::avancerMaison(int val_carte, int id_pion) {
+bool Jeu::avancerMaison(int val_carte, int id_pion, bool test) {
 	assert(1 <= id_pion && id_pion <= 4*nbJoueurs);
-	assert(0 < val_carte && val_carte <= 4);
+	if (!(0 < val_carte && val_carte <= 4)) return false;
 	int i_deb = 0, couleur = (id_pion-1)/nbJoueurs;
 	const int* mais = joueurs[couleur-1].getMaison();
 	Pion pion = pions[id_pion-1];
@@ -185,31 +189,34 @@ bool Jeu::avancerMaison(int val_carte, int id_pion) {
 	for (int i = i_deb ; i < i_deb + val_carte ; i++) {
 		if (mais[i] != 0) return false;
 	}
-	
-	if (i_deb > 0) {
-		joueurs[couleur-1].setMaison(i_deb-1, 0);
-	} else {
-		plateau.viderCase(plateau.getCasesDepart(couleur));
-		pion.setPos(-2);
-		pion.setPieu(true);
-	} 
-	joueurs[couleur-1].setMaison(i_deb+val_carte-1, id_pion);
+	if (!test) {
+		if (i_deb > 0) {
+			joueurs[couleur-1].setMaison(i_deb-1, 0);
+		} else {
+			plateau.viderCase(plateau.getCasesDepart(couleur));
+			pion.setPos(-2);
+			pion.setPieu(true);
+		} 
+		joueurs[couleur-1].setMaison(i_deb+val_carte-1, id_pion);
+	}
 	return true;
 }
 
-bool Jeu::permutter(int id_pion1, int id_pion2) {
+bool Jeu::permutter(int id_pion1, int id_pion2, bool test) {
 	assert(0 < id_pion1 && id_pion1 <= 4*nbJoueurs && 0 < id_pion2 && id_pion2 <= 4*nbJoueurs && id_pion1 != id_pion2);
-	assert(pions[id_pion1-1].getPos() >= 0);
+	if (pions[id_pion1-1].getPos() < 0) return false;
 	if (pions[id_pion2-1].estPieu()) return false;
-	Pion &pion1 = pions[id_pion1-1], &pion2 = pions[id_pion2-1];
-	int pos1 = pion1.getPos(), pos2 = pion2.getPos();
-	pion1.setPieu(false);
-	pion1.setPos(pos2);
-	pion2.setPos(pos1);
-	plateau.viderCase(pos1);
-	plateau.viderCase(pos2);
-	plateau.setPion(id_pion1, pos2);
-	plateau.setPion(id_pion2, pos1);
+	if (!test) {
+		Pion &pion1 = pions[id_pion1-1], &pion2 = pions[id_pion2-1];
+		int pos1 = pion1.getPos(), pos2 = pion2.getPos();
+		pion1.setPieu(false);
+		pion1.setPos(pos2);
+		pion2.setPos(pos1);
+		plateau.viderCase(pos1);
+		plateau.viderCase(pos2);
+		plateau.setPion(id_pion1, pos2);
+		plateau.setPion(id_pion2, pos1);
+	}
 	return true;
 }
 
@@ -221,7 +228,8 @@ bool Jeu::partieGagnee() {
 }
 
 bool Jeu::jouerCarte(int val_carte, int couleur, bool joker) {
-	assert(val_carte == -4 || (-1 <= val_carte && val_carte <= 13 && val_carte != 0));
+	assert(val_carte == -4 || (-1 <= val_carte && val_carte <= 13 && val_carte != 0 && val_carte != 4));
+	assert(1 <= couleur && couleur <= nbJoueurs);
 	int id_pion = 0;
 	if (val_carte == 11) {
 		do {
@@ -265,6 +273,46 @@ bool Jeu::jouerCarte(int val_carte, int couleur, bool joker) {
 	pioche.setTas(joueurs[couleur-1].retirerCarte(val_carte));
 	return true;
 }
+
+/*bool Jeu::carteJouable(int couleur, int val_carte) {
+	assert(1 <= couleur && couleur <= nbJoueurs);
+	assert(val_carte == -4 || (-1 <= val_carte && val_carte <= 13 && val_carte != 0 && val_carte != 4));
+	Carte* carte = joueurs[couleur-1].retirerCarte(val_carte);
+	if (carte == nullptr) return false;
+	for (int i = 0 ; i < 4 ; i++) {
+		Carte* carte_tmp = joueurs[couleur-1].getCarte(i);
+		if (carte_tmp == nullptr) continue;
+		val = carte_tmp->getValeur();
+		if (val == -1) {
+			cartes[nb_cartes] = -1;
+			nb_cartes++;
+		}
+		else {
+			for (int j = 0 ; j < 4 ; j++) {
+				int id_pion = pions[i*4+j].getId();
+				switch (val)
+				{
+				case 11:
+					for (int id_pion2 = 1 ; id_pion2 <= 4*nbJoueurs ; id_pion2++) {
+						if (id_pion2 == id_pion) continue;
+						if (permutter(id_pion, id_pion2, true)) car
+					}
+				
+				case 1:
+				case 10: 
+				case 13:
+					
+					break;
+				
+				default:
+					break;
+				}
+			}
+		}
+	}
+
+	return true;
+}*/
 
 void Jeu::testRegression(){
     {
