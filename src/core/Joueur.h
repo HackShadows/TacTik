@@ -84,6 +84,15 @@ class Joueur {
         */
 	   	const int* getMaison() const;
 
+        /**
+        * @brief Indique si la carte est dans la main.
+		* 
+		* @param val_carte Valeur de la carte à vérifier.
+        * 
+        * @return True si la carte est dans la main, False sinon.
+        */
+	   	bool estDansMain(int val_carte) const;
+
 		/**
         * @brief Ajoute la carte passée en paramètre à la main du joueur.
         * 

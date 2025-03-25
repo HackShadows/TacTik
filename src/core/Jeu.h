@@ -116,40 +116,44 @@ class Jeu {
 		* @brief Sort un pion de la réserve et le place sur sa case de départ.
 		*
 		* @param couleur Couleur du pion à démarrer.
+		* @param test True pour ne pas effectuer l'action, False sinon (géré automatiquement).
 		*
 		* @return True si un pion a pu démarrer, False sinon.
 		*/
-		bool demarrer(int couleur);
+		bool demarrer(int couleur, bool test = false);
 
 		/**
 		* @brief Avance le pion du nombre passé en paramètre.
 		*
 		* @param val_carte Valeur de la carte jouée par le joueur.
 		* @param id_pion Id du pion à déplacer.
+		* @param test True pour ne pas effectuer l'action, False sinon (géré automatiquement).
 		*
 		* @return True si le pion a pu avancer, False sinon.
 		*/
-		bool avancerPion(int val_carte, int id_pion);
+		bool avancerPion(int val_carte, int id_pion, bool test = false);
 
 		/**
 		* @brief Avance le pion dans la maison du nombre passé en paramètre.
 		*
 		* @param val_carte Valeur de la carte jouée par le joueur.
 		* @param id_pion Id du pion à déplacer.
+		* @param test True pour ne pas effectuer l'action, False sinon (géré automatiquement).
 		*
 		* @return True si le pion a pu avancer, False sinon.
 		*/
-		bool avancerMaison(int val_carte, int id_pion);
+		bool avancerMaison(int val_carte, int id_pion, bool test = false);
 
 		/**
 		* @brief Permutte le pion du joueur avec un autre pion.
 		*
 		* @param id_pion1 Id du pion du joueur.
 		* @param id_pion2 Id du pion avec lequel permutter.
+		* @param test True pour ne pas effectuer l'action, False sinon (géré automatiquement).
 		*
 		* @return True si le pion a pu être permutté, False sinon.
 		*/
-		bool permutter(int id_pion1, int id_pion2);
+		bool permutter(int id_pion1, int id_pion2, bool test = false);
 
 		/**
         * @brief Renvoie True si la partie a été gagnée par une équipe, False sinon.
@@ -163,11 +167,21 @@ class Jeu {
 		*
 		* @param val_carte Valeur de la carte jouée par le joueur.
 		* @param couleur Couleur du joueur.
-		* @param joker Géré automatiquement.
+		* @param joker True si la carte passée en paramètre est un joker, false sinon (géré automatiquement).
 		*
 		* @return True si la carte a pu être jouée, False sinon.
 		*/
 		bool jouerCarte(int val_carte, int couleur, bool joker = false);
+
+		/**
+		* @brief Détermine si la carte passée en paramètre peut être jouée.
+		*
+		* @param couleur Couleur du joueur.
+		* @param val_carte Valeur de la carte jouée par le joueur.
+		*
+		* @return True si la carte peut être jouée, False sinon.
+		*/
+		bool carteJouable(int couleur, int val_carte);
 
         /**
         * @brief Test les fonctionnalités de la classe.
