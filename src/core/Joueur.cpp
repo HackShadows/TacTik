@@ -129,12 +129,11 @@ void Joueur::testRegression(){
 
 		Carte * cartes = new Carte[4];
 		for (int i = 0 ; i < 4 ; i++) {
-			cartes[i].setCarte(9+i);
+			cartes[i] = Carte(9+i);
 			assert(joueur.piocherCarte(&cartes[i]));
 			assert(joueur.main[i]->getValeur() == 9+i);
 		}
-		Carte carte_tmp;
-		carte_tmp.setCarte(8);
+		Carte carte_tmp = Carte(8);
 		assert(!joueur.piocherCarte(&carte_tmp));
 		cout << "piocherCarte valide !" << endl;
 

@@ -30,10 +30,10 @@ void Carte::testRegression(){
 		cout << "Constructeur par défaut valide !" << endl;
 
 		Carte carte2(3);
-		assert(carte.valeur == 3);
+		assert(carte2.valeur == 3);
 		cout << "Constructeur avec paramètre valide !" << endl;
 
-		int val = carte.getValeur();
+		int val = carte2.getValeur();
 		assert(val == 3);
 		cout << "getCarte valide !" << endl;
 	}
