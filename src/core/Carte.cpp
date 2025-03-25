@@ -9,59 +9,33 @@
 using namespace std;
 
 
-Carte::Carte(): jouee(false), valeur(0){}
+Carte::Carte(): valeur(0) {}
+
+Carte::Carte(int val): valeur(val) {
+    assert(val == -4 || (-1 <= val && val <= 13 && val != 4));
+}
 
 Carte::~Carte() {
     valeur = 0;
-    jouee = false;
-}
-
-void Carte::setCarte(int val){
-    assert(val == -4 || (-1 <= val && val <= 13 && val != 4));
-    valeur = val;
 }
 
 int Carte::getValeur() const {
     return valeur;
 }
 
-bool Carte::estDansMain() const {
-    return jouee;
-}
-
-void Carte::setJouee(bool valeur){
-    jouee = valeur;
-}
-
 void Carte::testRegression(){
 	{
 		Carte carte;
-		assert(carte.jouee == false && carte.valeur == 0);
-		cout << "Constructeur valide !" << endl;
+		assert(carte.valeur == 0);
+		cout << "Constructeur par défaut valide !" << endl;
 
-		carte.setCarte(3);
+		Carte carte2(3);
 		assert(carte.valeur == 3);
-		cout << "setCarte valide !" << endl;
+		cout << "Constructeur avec paramètre valide !" << endl;
 
 		int val = carte.getValeur();
 		assert(val == 3);
 		cout << "getCarte valide !" << endl;
-
-		carte.setJouee(true);
-		assert(carte.jouee == true);
-		cout << "setJouee valide !" << endl;
-
-		bool val2 = carte.estDansMain();
-		assert(val2 == true);
-		cout << "estDansMain valide !" << endl;
-
-		/*cout << "Méthode affichage : " << endl;
-		carte.afficher();
-		cout << "afficher valide !" << endl;*/
 	}
     cout << "Destructeur valide !" << endl;
-}
-
-void Carte::afficher() const {
-    cout << "Valeur : " << valeur << " ; Jouee : " << jouee << endl;
 }

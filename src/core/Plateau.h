@@ -96,11 +96,6 @@ class Plateau {
         * et que les données membres de l'objet sont conformes en tout temps.
         */
 	   	static void testRegression();
-
-		/**
-        * @brief Affiche le plateau de jeu.
-        */
-		void afficher() const;
 };
 
 #endif

@@ -67,16 +67,7 @@ void Pioche::testRegression(){
 		assert(carte3.getValeur() == -1 && !carte3.estDansMain());
 		cout << "getCarte valide !" << endl;
 
-		/*cout << "Méthode affichage : " << endl;
-		pioche.afficher();
-		cout << "afficher valide !" << endl;*/
 		delete carte;
 	}
     cout << "Destructeur valide !" << endl;
-}
-
-void Pioche::afficher() const {
-    cout << "Tas : ";
-    tas->afficher();
-    for (int i = 0 ; i < 54 ; i++) pile[i].afficher();
 }

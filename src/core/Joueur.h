@@ -17,7 +17,6 @@ using namespace std;
 class Joueur {
 
 	private:
-		string pseudo; ///<Le pseudo du joueur
 		int couleur, reserve; ///<La couleur et le nombre de pions en réserve du joueur
 		Carte* main[4]; ///<Les 4 cartes de la main du joueur
 		int maison[4] = {0}; ///<La maison du joueur
@@ -39,13 +38,6 @@ class Joueur {
         * @brief Destructeur du joueur.
         */
 		~Joueur();
-
-		/**
-        * @brief Définit le pseudo du joueur.
-        * 
-        * @param nom Pseudonyme du joueur
-        */
-		void setPseudo(string nom);
 
         /**
         * @brief Modifie l'état d'une case de la maison (occupée = True, vide = False).
@@ -124,11 +116,6 @@ class Joueur {
         * et que les données membres de l'objet sont conformes en tout temps.
         */
         static void testRegression();
-
-        /**
-        * @brief Affiche le joueur.
-        */
-        void afficher() const;
 };
 
 #endif

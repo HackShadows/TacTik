@@ -9,13 +9,13 @@
 using namespace std;
 
 
-Joueur::Joueur(): pseudo("Jean"), couleur(0), reserve(4) {
+Joueur::Joueur(): couleur(0), reserve(4) {
     for (int i = 0; i<4; i++){
         main[i] = nullptr;
     }
 }
 
-Joueur::Joueur(int id_couleur): pseudo("Jean"), couleur(id_couleur), reserve(4) {
+Joueur::Joueur(int id_couleur): couleur(id_couleur), reserve(4) {
     assert(1 <= id_couleur && id_couleur <= 6);
     for (int i = 0; i<4; i++){
         main[i] = nullptr;
@@ -26,10 +26,6 @@ Joueur::~Joueur() {
     for (int i = 0; i<4; i++){
         main[i] = nullptr;
     }
-}
-
-void Joueur::setPseudo(string nom){
-    pseudo = nom;
 }
 
 void Joueur::setMaison(int indice, int id_pion) {
@@ -110,10 +106,6 @@ void Joueur::testRegression(){
 		}
 		cout << "Constructeur avec paramètres valide !" << endl;
 
-		joueur.setPseudo("Toto");
-		assert(joueur.pseudo == "Toto");
-		cout << "setPseudo valide !" << endl;
-
 		joueur.setMaison(2, 5);
 		assert(joueur.maison[2] == 5);
 		cout << "setMaison valide !" << endl;
@@ -164,8 +156,4 @@ void Joueur::testRegression(){
 		delete [] cartes;
 	}
 	cout << "Destructeur valide !" << endl;
-}
-
-void Joueur::afficher() const {
-    cout << "Pseudo : " << pseudo << " ; Couleur : " << couleur << endl;
 }

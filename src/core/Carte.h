@@ -16,26 +16,25 @@ using namespace std;
 class Carte {
 
 	private:
-		bool jouee; ///<Indique si la carte est jouable
 		int valeur; ///<Valeur de la carte (0 : défaut, -1 : Joker, Cartes 1-13,  11 : Permutter, -4 : Carte -4)
         
 	public:
 		/**
-        * @brief Constructeur de la carte.
+        * @brief Constructeur par défaut de la carte.
         */
 		Carte();
+
+        /**
+        * @brief Constructeur avec paramètre de la carte.
+        * 
+        * @param val Valeur de la carte
+        */
+		Carte(int val);
 
         /**
         * @brief Destructeur de la carte.
         */
 		~Carte();
-
-		/**
-        * @brief Défini la valeur de la carte.
-        * 
-        * @param val Valeur de la carte
-        */
-		void setCarte(int val);
 
 		/**
         * @brief Renvoie la valeur de la carte.
@@ -44,20 +43,6 @@ class Carte {
         */
 		int getValeur() const ;
 
-		/**
-        * @brief Renvoie True si la carte n'a pas encore été jouée par le joueur, False sinon.
-        * 
-        * @return un booléen
-        */
-		bool estDansMain() const;
-
-		/**
-        * @brief Met à jour la jouabilité de la carte.
-        * 
-        * @param joue Booléen qui indique si la carte est jouable
-        */
-		void setJouee(bool joue);
-
         /**
         * @brief Test les fonctionnalités de la classe.
         *
@@ -65,11 +50,6 @@ class Carte {
         * et que les données membres de l'objet sont conformes en tout temps.
         */
         static void testRegression();
-
-        /**
-        * @brief Affiche la carte.
-        */
-		void afficher() const;
 };
 
 #endif

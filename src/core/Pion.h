@@ -80,11 +80,6 @@ class Pion {
         * et que les données membres de l'objet sont conformes en tout temps.
         */
 	   	static void testRegression();
-
-		/**
-        * @brief Affiche le pion.
-        */
-	   	void afficher() const;
 };
 
 #endif

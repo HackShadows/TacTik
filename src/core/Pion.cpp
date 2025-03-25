@@ -72,14 +72,6 @@ void Pion::testRegression(){
 		pion.setPieu(false);
 		assert(!pion.estPieu());
 		cout << "setPieu valide !" << endl;
-
-		/*cout << "Méthode affichage : " << endl;
-		pion.afficher();
-		cout << "afficher valide !" << endl;*/
 	}
     cout << "Destructeur valide !" << endl;
-}
-
-void Pion::afficher() const {
-    cout << "Id : " << id << " ; Couleur : " << couleur << " ; C'est un " << ((pieu) ? "pieu":"pion") << endl;
 }

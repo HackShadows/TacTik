@@ -61,11 +61,6 @@ class Pioche {
         * et que les données membres de l'objet sont conformes en tout temps.
         */
 	   	static void testRegression();
-
-		/**
-        * @brief Affiche la pioche.
-        */
-	   	void afficher() const;
 };
 
 #endif

@@ -93,14 +93,6 @@ void Plateau::testRegression(){
 		int id_pion2 = plateau.viderCase(4);
 		assert(plateau.cases[4] == 0 && id_pion2 == 2);
 		cout << "viderCase valide !" << endl;
-
-		/*cout << "Méthode affichage : " << endl;
-		plateau.afficher();
-		cout << "afficher valide !" << endl;*/
 	}
     cout << "Destructeur valide !" << endl;
-}
-
-void Plateau::afficher() const {
-    cout << "Nombre de cases : " << nbCases << endl;
 }
