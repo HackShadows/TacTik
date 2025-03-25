@@ -20,8 +20,8 @@ ImageViewer::ImageViewer(){
     }
 
     int dimx, dimy;
-    dimx = 200;
-    dimy = 200;
+    dimx = 1920;
+    dimy = 1075;
 
     // Creation de la fenetre
     window = SDL_CreateWindow("Tac-Tik", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, dimx, dimy, 0);
@@ -43,11 +43,7 @@ ImageViewer::~ImageViewer(){
 
 
 void ImageViewer::afficher(){
-    int imgWidth = 200;
-    int imgHeight = 200;
-    int zoom = 10;
-
-    surface = IMG_Load("../../data/image.jpg");
+    surface = IMG_Load("./data/image.jpg");
     if (surface == nullptr) {
         std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
         return;
@@ -76,6 +72,8 @@ void ImageViewer::afficher(){
         }
         SDL_SetRenderDrawColor(renderer, 128, 128, 128, 255);
         SDL_RenderClear(renderer);
+        SDL_Rect Rect = { 0, 0, 1920, 1075};
+        SDL_RenderCopy(renderer, texture, NULL, &Rect);
         SDL_RenderPresent(renderer);
         SDL_Delay(100);
     }
