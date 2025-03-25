@@ -249,11 +249,13 @@ bool Jeu::jouerCarte(int val_carte, int couleur, bool joker) {
 		} while (val_carte != -4 && (val_carte < 1 || val_carte > 13));
 		return jouerCarte(val_carte, couleur, true);
 	} else if (val_carte == 1 || val_carte == 10 || val_carte == 13) {
-		char choix;
-		do {
+		char choix = '0';
+		if (joueurs[couleur-1].getReserve() == 4) choix = 'D';
+		else if (!demarrer(couleur, true)) choix = 'A';
+		while (choix != 'D' && choix != 'A') {
 			cout << "\nUtiliser la carte comme démarrer(D) ou avancer(A) : ";
 			cin >> choix;
-		} while (choix != 'D' && choix != 'A');
+		}
 		if (choix == 'D' && !demarrer(couleur)) return false;
 		else if (choix == 'A') {
 			do {
@@ -280,7 +282,6 @@ bool Jeu::carteJouable(int couleur, int val_carte) {
 	
 	Joueur joueur = joueurs[couleur-1];
 	if (!joueur.estDansMain(val_carte)) return false;
-	
 	if (val_carte == -1) return true;
 	for (int j = 0 ; j < 4 ; j++) {
 		int id_pion = pions[(couleur-1)*4+j].getId();
@@ -304,6 +305,17 @@ bool Jeu::carteJouable(int couleur, int val_carte) {
 		}
 	}
 
+	return false;
+}
+
+bool Jeu::peutJouer(int couleur) {
+	assert(1 <= couleur && couleur <= nbJoueurs);
+	Joueur joueur = joueurs[couleur-1];
+	int val;
+	for (int i = 0 ; i < 4 ; i++) {
+		val = joueur.getCarte(i)->getValeur();
+		if (carteJouable(couleur, val)) return true;
+	}
 	return false;
 }
 
@@ -408,6 +420,30 @@ void Jeu::testRegression(){
 		}
 		assert(jeu.partieGagnee());
 		cout << "partieGagnee valide !" << endl;
+
+		Joueur& joueur2 = jeu.joueurs[0];
+		for (int i = 0 ; i < 4 ; i++) {
+			joueur2.retirerCarte(0, i);
+		}
+		Carte* carte1 = new Carte(1);
+		Carte* carte2 = new Carte(2);
+		joueur2.piocherCarte(carte1);
+		for (int i = 0 ; i < 3 ; i++) {
+			joueur2.piocherCarte(carte2);
+		}
+		assert(jeu.carteJouable(1, 1));
+		assert(!jeu.carteJouable(1, 2));
+		assert(!jeu.carteJouable(1, 3));
+		cout << "carteJouable valide !" << endl;
+
+		assert(jeu.peutJouer(1));
+		joueur2.retirerCarte(1);
+		joueur2.piocherCarte(carte2);
+		assert(!jeu.peutJouer(1));
+		cout << "peutJouer valide !" << endl;
+		
+		delete carte1;
+		delete carte2;
 	}
 	cout << "Destructeur valide !" << endl;
 }

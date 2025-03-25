@@ -106,10 +106,11 @@ class Joueur {
         * @brief Retire une carte de valeur 'valeur' de la main du joueur.
         * 
         * @param valeur Valeur de la carte à retirer.
+        * @param indice Indice de la carte à retirer (si préciser remplace la valeur).
 		* 
 		* @return Carte retirée.
         */
-		Carte* retirerCarte(int valeur);
+		Carte* retirerCarte(int valeur, int indice = -1);
 
 		/**
         * @brief Renvoie True si la maison du joueur est remplie, False sinon.

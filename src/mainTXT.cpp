@@ -48,7 +48,6 @@ void echangeDeCartes(Jeu& jeu) {
 
 void tourJoueur(Jeu& jeu, int couleur) {
 	int val_carte;
-	cout << "\n\n\n\n" << endl;
 	affichageTexte(jeu, couleur-1);
 	cout << "Tour de " << intToStr(couleur-1) << " :\n";
 	char choix = 'o';
@@ -80,10 +79,10 @@ int main(){
 	
 	Jeu jeu(nbJoueurs);
 	int ordre[6] = {1, 2, 5, 3, 4, 6};
+	//int casser = -1, nb_pass = 0, passer[6] = {0}; Implémenter peutJouer + défausser toutes les cartes
 	while (true) {
 		jeu.distribuer();
 		echangeDeCartes(jeu);
-
 		for (int i = 0 ; i < 4 ; i++) {
 			for (int j = 0 ; j < nbJoueurs ; j++) {
 				int couleur = (nbJoueurs == 6) ? ordre[j]:j+1;

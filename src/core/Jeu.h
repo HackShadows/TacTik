@@ -183,6 +183,15 @@ class Jeu {
 		*/
 		bool carteJouable(int couleur, int val_carte);
 
+		/**
+		* @brief Détermine si le joueur peut jouer.
+		*
+		* @param couleur Couleur du joueur.
+		*
+		* @return True si le joueur peut jouer, False sinon.
+		*/
+		bool peutJouer(int couleur);
+
         /**
         * @brief Test les fonctionnalités de la classe.
         *

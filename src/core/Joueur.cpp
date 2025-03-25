@@ -78,8 +78,14 @@ bool Joueur::piocherCarte(Carte * carte) {
 	return false;
 }
 
-Carte* Joueur::retirerCarte(int valeur) {
-    assert(valeur == -4 || (-1 <= valeur && valeur <= 13 && valeur != 0 && valeur != 4));
+Carte* Joueur::retirerCarte(int valeur, int indice) {
+	if (indice != -1) {
+		assert(0 <= indice && indice < 4);
+		Carte* carte = main[indice];
+		main[indice] = nullptr;
+		return carte;
+	}
+	assert(valeur == -4 || (-1 <= valeur && valeur <= 13 && valeur != 0 && valeur != 4));
     for (int i = 0; i<4; i++){
         Carte* carte = main[i];
         if (carte != nullptr && valeur == carte->getValeur()) {
