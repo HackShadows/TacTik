@@ -274,45 +274,38 @@ bool Jeu::jouerCarte(int val_carte, int couleur, bool joker) {
 	return true;
 }
 
-/*bool Jeu::carteJouable(int couleur, int val_carte) {
+bool Jeu::carteJouable(int couleur, int val_carte) {
 	assert(1 <= couleur && couleur <= nbJoueurs);
 	assert(val_carte == -4 || (-1 <= val_carte && val_carte <= 13 && val_carte != 0 && val_carte != 4));
-	Carte* carte = joueurs[couleur-1].retirerCarte(val_carte);
-	if (carte == nullptr) return false;
-	for (int i = 0 ; i < 4 ; i++) {
-		Carte* carte_tmp = joueurs[couleur-1].getCarte(i);
-		if (carte_tmp == nullptr) continue;
-		val = carte_tmp->getValeur();
-		if (val == -1) {
-			cartes[nb_cartes] = -1;
-			nb_cartes++;
-		}
-		else {
-			for (int j = 0 ; j < 4 ; j++) {
-				int id_pion = pions[i*4+j].getId();
-				switch (val)
-				{
-				case 11:
-					for (int id_pion2 = 1 ; id_pion2 <= 4*nbJoueurs ; id_pion2++) {
-						if (id_pion2 == id_pion) continue;
-						if (permutter(id_pion, id_pion2, true)) car
-					}
-				
-				case 1:
-				case 10: 
-				case 13:
-					
-					break;
-				
-				default:
-					break;
+	
+	Joueur joueur = joueurs[couleur-1];
+	if (!joueur.estDansMain(val_carte)) return false;
+	
+	if (val_carte == -1) return true;
+	for (int j = 0 ; j < 4 ; j++) {
+		int id_pion = pions[(couleur-1)*4+j].getId();
+		switch (val_carte)
+		{
+			case 11:
+				for (int id_pion2 = 1 ; id_pion2 <= 4*nbJoueurs ; id_pion2++) {
+					if (id_pion2 == id_pion) continue;
+					if (permutter(id_pion, id_pion2, true)) return true;
 				}
-			}
+				break;
+			
+			case 1:
+			case 10: 
+			case 13:
+				if (demarrer(couleur, true)) return true;
+			
+			default:
+				if (avancerPion(val_carte, id_pion, true)) return true;
+				break;
 		}
 	}
 
-	return true;
-}*/
+	return false;
+}
 
 void Jeu::testRegression(){
     {

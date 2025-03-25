@@ -181,7 +181,7 @@ class Jeu {
 		*
 		* @return True si la carte peut être jouée, False sinon.
 		*/
-		//bool carteJouable(int couleur, int val_carte);
+		bool carteJouable(int couleur, int val_carte);
 
         /**
         * @brief Test les fonctionnalités de la classe.
