@@ -5,14 +5,14 @@ SDL = src/sdl
 INCLUDE_DIR = -I/usr/include/SDL2
 LIB_SDL = -lSDL2 -lSDL2_ttf -lSDL2_image
 
-all: test mainTXT
+all: test main
 
 test: memcheck_test
 
-mainTXT: bin/mainTXT
+main: bin/mainTXT
 	./bin/mainTXT
 
-mainSDL: bin/mainSDL
+sdl: bin/mainSDL
 	./bin/mainSDL
 
 doc: doc/doxyfile doc/html
