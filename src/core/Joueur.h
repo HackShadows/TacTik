@@ -54,6 +54,15 @@ class Joueur {
         */
 	   	void setReserve(int quantite);
 
+        /**
+        * @brief Ajoute la carte passée en paramètre à la main du joueur.
+        * 
+        * @param carte Carte à ajouter à la main.
+		* 
+		* @return True si la carte a pu être ajoutée, False sinon.
+        */
+	   	bool piocherCarte(Carte* carte);
+
 		/**
         * @brief Renvoie la carte se trouvant à l'indice 'indice'.
 		* 
@@ -92,15 +101,6 @@ class Joueur {
         * @return True si la carte est dans la main, False sinon.
         */
 	   	bool estDansMain(int val_carte) const;
-
-		/**
-        * @brief Ajoute la carte passée en paramètre à la main du joueur.
-        * 
-        * @param carte Carte à ajouter à la main.
-		* 
-		* @return True si la carte a pu être ajoutée, False sinon.
-        */
-	   	bool piocherCarte(Carte* carte);
 
 		/**
         * @brief Retire une carte de valeur 'valeur' de la main du joueur.

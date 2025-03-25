@@ -56,6 +56,17 @@ const int* Joueur::getMaison() const {
 	return maison;
 }
 
+bool Joueur::estDansMain(int val_carte) const {
+	assert(val_carte == -4 || (-1 <= val_carte && val_carte <= 13 && val_carte != 0 && val_carte != 4));
+	for (int i = 0; i<4; i++){
+        Carte* carte = main[i];
+        if (carte != nullptr && val_carte == carte->getValeur()) {
+            return true;
+        }
+    }
+	return false;
+}
+
 bool Joueur::piocherCarte(Carte * carte) {
 	assert(carte->getValeur() != 0);
     for (int i = 0 ; i < 4 ; i++) {
@@ -114,19 +125,6 @@ void Joueur::testRegression(){
 		assert(joueur.reserve == 3);
 		cout << "setReserve valide !" << endl;
 
-		assert(joueur.getReserve() == 3);
-		cout << "getReserve valide !" << endl;
-
-		assert(joueur.getCouleur() == 0);
-		assert(joueur2.getCouleur() == 3);
-		cout << "getCouleur valide !" << endl;
-
-		const int* mais = joueur.getMaison();
-		const int* mais2 = joueur2.getMaison();
-		for (int i = 0 ; i < 4 ; i++) assert(mais2[i] == 0);
-		assert(mais[2] == 5);
-		cout << "getMaison valide !" << endl;
-
 		Carte * cartes = new Carte[4];
 		for (int i = 0 ; i < 4 ; i++) {
 			cartes[i] = Carte(9+i);
@@ -141,9 +139,25 @@ void Joueur::testRegression(){
 		assert(carte->getValeur() == 12);
 		cout << "getCarte valide !" << endl;
 
+		assert(joueur.getReserve() == 3);
+		cout << "getReserve valide !" << endl;
+
+		assert(joueur.getCouleur() == 0);
+		assert(joueur2.getCouleur() == 3);
+		cout << "getCouleur valide !" << endl;
+
+		const int* mais = joueur.getMaison();
+		const int* mais2 = joueur2.getMaison();
+		for (int i = 0 ; i < 4 ; i++) assert(mais2[i] == 0);
+		assert(mais[2] == 5);
+		cout << "getMaison valide !" << endl;
+
+		for (int i = 9 ; i < 13 ; i++) assert(joueur.estDansMain(i));
+		cout << "estDansMain valide !" << endl;
+
 		Carte * carte2 = joueur.retirerCarte(12);
 		assert(carte2->getValeur() == 12 && joueur.main[3] == nullptr);
-		cout << "jouerCarte valide !" << endl;
+		cout << "retirerCarte valide !" << endl;
 
 		bool remplie = joueur.maisonRemplie();
 		assert(!remplie);
