@@ -6,9 +6,10 @@
 /**
 * @brief Affiche un nombre prenant 2 espaces dans le terminal.
 *
-* @param id Le nombre que l'on veut afficher
+* @param id Le nombre que l'on veut afficher.
+* @param indice L'indice de la case a afficher.
 */
-void affichageId(int id);
+void affichageId(int id, int indice);
 
 /**
 * @brief Convertie la couleur entière du joueur en string.
