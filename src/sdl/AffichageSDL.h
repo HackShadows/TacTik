@@ -17,6 +17,7 @@ class ImageViewer{
         SDL_Surface * surface;///La surface
         int dimx, dimy;
 
+
     public :
         /**
         * @brief Constructeur qui initialise tout SDL2 et crée la fenêtre et le renderer
