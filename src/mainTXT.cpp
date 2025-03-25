@@ -40,7 +40,8 @@ int main(){
 				cout << "\nCarte à donner à ton coéquipier : ";
 				cin >> val_carte;
 			} while (!jeu.getJoueur(couleur-1).estDansMain(val_carte));
-			jeu.echangerCartes(i-nbJoueurs/2, i, echange_carte[i-nbJoueurs/2], val_carte);
+			int indJ1 = (i != 5) ? (couleur-1)-(nbJoueurs/2-1):4;
+			jeu.echangerCartes(indJ1, (couleur-1), echange_carte[((i!=5)?indJ1:2)], val_carte);
 		}
 
 		for (int i = 0 ; i < 4 ; i++) {
@@ -48,17 +49,17 @@ int main(){
 				couleur = (nbJoueurs == 6) ? ordre[j]:j+1;
 				affichageTexte(jeu, couleur-1);
 				cout << "\nTour de " << intToStr(couleur-1) << " :\n";
-				char choix = 'a';
+				char choix = 'o';
 				do {
 					do {
 						cout << "\nCarte à jouer : ";
 						cin >> val_carte;
-					} while (!jeu.getJoueur(j).estDansMain(val_carte));
+					} while (!jeu.getJoueur(couleur-1).estDansMain(val_carte));
 					
 					if (!jeu.carteJouable(couleur, val_carte)) {
 						cout << "\nLa carte ne peut être jouée.\nDéfausser la carte ? (Oui(o) ; Non(n)) : ";
 						cin >> choix;
-					}
+					} else choix = 'o';
 
 				} while (choix == 'n');
 
