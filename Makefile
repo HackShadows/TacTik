@@ -5,7 +5,7 @@ SDL = src/sdl
 INCLUDE_DIR = -I/usr/include/SDL2
 LIB_SDL = -lSDL2 -lSDL2_ttf -lSDL2_image
 
-all: test main
+all: clean test main
 
 test: memcheck_test
 
@@ -70,4 +70,7 @@ memcheck_test: bin/test
 	valgrind --leak-check=full --track-origins=yes ./bin/test
 
 clean:
-	rm -rf obj/*.o bin/* doc/html
+	rm -rf obj/*.o bin/*
+
+veryclean:
+	rm doc/html
