@@ -40,7 +40,7 @@ int main(){
 				cout << "\nCarte à donner à ton coéquipier : ";
 				cin >> val_carte;
 			} while (!jeu.getJoueur(couleur-1).estDansMain(val_carte));
-			jeu.echangerCartes(i, i-nbJoueurs/2, val_carte, echange_carte[i-nbJoueurs/2]);
+			jeu.echangerCartes(i-nbJoueurs/2, i, echange_carte[i-nbJoueurs/2], val_carte);
 		}
 
 		for (int i = 0 ; i < 4 ; i++) {
@@ -60,7 +60,7 @@ int main(){
 						cin >> choix;
 					}
 
-				} while (choix != 'n');
+				} while (choix == 'n');
 
 				if (!jeu.carteJouable(couleur, val_carte)) jeu.defausserCarte(val_carte, couleur);
 				else jeu.jouerCarte(val_carte, couleur);
