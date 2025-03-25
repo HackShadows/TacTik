@@ -262,7 +262,6 @@ void grille(const Jeu & jeu, int nbCase, int joueurActif) {
 void affichageTexte(const Jeu & jeu, int joueurActif){
     int nbCase = jeu.getPlateau().getNbCase();
     grille(jeu, nbCase, joueurActif);
-    cout << endl;
 }
 
 
