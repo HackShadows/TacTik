@@ -3,6 +3,12 @@
 
 #include "../core/Jeu.h"
 
+
+/**
+* @brief Clear le terminal.
+*/
+void clearTerminal();
+
 /**
 * @brief Affiche un nombre prenant 2 espaces dans le terminal.
 *

@@ -2,8 +2,17 @@
 #include "Affichage.h"
 #include <iostream>
 #include <cassert>
+#include <cstdlib>
 
 using namespace std;
+
+void clearTerminal() {
+	#ifdef _WIN32
+		system("cls");  // Commande Windows
+	#else
+		system("clear");  // Commande Linux/Mac
+	#endif
+}
 
 void affichageId(int id, int indice){
     assert(indice>=0 && indice<96);
@@ -261,6 +270,7 @@ void grille(const Jeu & jeu, int nbCase, int joueurActif) {
 
 void affichageTexte(const Jeu & jeu, int joueurActif){
     int nbCase = jeu.getPlateau().getNbCase();
+	clearTerminal();
     grille(jeu, nbCase, joueurActif);
 }
 
