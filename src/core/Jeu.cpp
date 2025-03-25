@@ -137,35 +137,50 @@ bool Jeu::avancerPion(int val_carte, int id_pion, bool test) {
 	assert((val_carte == -4 || (1 <= val_carte && val_carte <= 13 && val_carte != 11 && val_carte != 4)));
 	
 	Pion &pion = pions[id_pion-1];
-	int position = pion.getPos();
+	int position = pion.getPos(), case_dep = plateau.getCasesDepart((id_pion-1)/nbJoueurs+1);
 	if (position == -1) return false;
 	if (position == -2) return avancerMaison(val_carte, id_pion, test);
+	if (position == case_dep && !pion.estPieu() && avancerMaison(val_carte, id_pion, true)) return avancerMaison(val_carte, id_pion);
 	
 	int nb_cases = plateau.getNbCase();
 	int a_eliminer[4*nbJoueurs-1] = {0};
 	int nb_elimines = 0;
-	int i_deb = position+1, i_fin = position+val_carte;
+	int ind, i_deb = position+1, i_fin = position+val_carte;
+	int maison = -1;
 	if (val_carte == -4) {i_deb = i_fin; i_fin = position-1;}
 	
 	for (int i = i_deb ; i <= i_fin ; i++) {
-		int id_tmp = plateau.getIdPion((i+nb_cases)%nb_cases);
+		ind = (i+nb_cases)%nb_cases;
+		int id_tmp = plateau.getIdPion(ind);
 		if (id_tmp != 0) {
 			if (pions[id_tmp-1].estPieu()) {
 				return false;
 			} else if (val_carte == 7 || i == position+val_carte) {
-				a_eliminer[nb_elimines] = plateau.getIdPion((i+nb_cases)%nb_cases);
+				a_eliminer[nb_elimines] = plateau.getIdPion(ind);
 				nb_elimines++;
 			}
+		}
+		if (ind == case_dep && val_carte != -4 && avancerMaison(i_fin-i, id_pion, true)) {
+			maison = i_fin-i;
+			break;
 		}
 	}
 	if (!test) {
 		for (int i = 0 ; i < nb_elimines ; i++) {
 			eliminerPion(a_eliminer[i]);
 		}
-		int new_pos = (position+val_carte+nb_cases)%nb_cases;
-		pion.setPieu(false);
-		pion.setPos(new_pos);
-		plateau.setPion(plateau.viderCase(position), new_pos);
+		if (maison == -1) {
+			int new_pos = (position+val_carte+nb_cases)%nb_cases;
+			pion.setPieu(false);
+			pion.setPos(new_pos);
+			plateau.setPion(plateau.viderCase(position), new_pos);
+		} else {
+			int new_pos = case_dep;
+			pion.setPieu(false);
+			pion.setPos(new_pos);
+			plateau.setPion(plateau.viderCase(position), new_pos);
+			avancerMaison(maison, id_pion);
+		}
 	}
 	return true;
 }
@@ -173,7 +188,7 @@ bool Jeu::avancerPion(int val_carte, int id_pion, bool test) {
 bool Jeu::avancerMaison(int val_carte, int id_pion, bool test) {
 	assert(1 <= id_pion && id_pion <= 4*nbJoueurs);
 	if (!(0 < val_carte && val_carte <= 4)) return false;
-	int i_deb = 0, couleur = (id_pion-1)/nbJoueurs;
+	int i_deb = 0, couleur = (id_pion-1)/nbJoueurs+1;
 	const int* mais = joueurs[couleur-1].getMaison();
 	Pion pion = pions[id_pion-1];
 	if (pion.getPos() == -2) {

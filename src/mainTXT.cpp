@@ -80,6 +80,7 @@ int main(){
 	Jeu jeu(nbJoueurs);
 	int ordre[6] = {1, 2, 5, 3, 4, 6};
 	//int casser = -1, nb_pass = 0, passer[6] = {0}; Implémenter peutJouer + défausser toutes les cartes
+	//Erreur pour un avancer 5 sur un pion dans la maison (voir photo)
 	while (true) {
 		jeu.distribuer();
 		echangeDeCartes(jeu);
