@@ -57,7 +57,7 @@ const int* Joueur::getMaison() const {
 }
 
 bool Joueur::estDansMain(int val_carte) const {
-	if (!(val_carte == -4 || (-1 <= val_carte && val_carte <= 13 && val_carte != 0 && val_carte != 4))) return false;
+	if (val_carte == 4 || val_carte == 0 ||(val_carte < -1 && val_carte != -4)  || val_carte > 13) return false;
 	for (int i = 0; i<4; i++){
         Carte* carte = main[i];
         if (carte != nullptr && val_carte == carte->getValeur()) {

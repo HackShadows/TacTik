@@ -3,7 +3,6 @@
 */
 #include "./txt/Affichage.h"
 #include <iostream>
-#include <limits>
 
 using namespace std;
 
@@ -11,11 +10,7 @@ int choixCarte(string message, const Joueur& joueur) {
 	int val_carte = 0;
 	do {
 		cout << message;
-		if(!(cin >> val_carte)) {
-			cin.clear();
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			val_carte = 0;
-		}
+		val_carte = cinProtection();
 	} while (!joueur.estDansMain(val_carte));
 	
 	return val_carte;
@@ -53,7 +48,7 @@ void tourJoueur(Jeu& jeu, int couleur) {
 	char choix = 'o';
 	do {
 		val_carte = choixCarte("\nCarte à jouer : ", jeu.getJoueur(couleur-1));
-		
+
 		if (!jeu.carteJouable(couleur, val_carte)) {
 			cout << "\nLa carte ne peut être jouée.\nDéfausser la carte ? (Oui(o) ; Non(n)) : ";
 			cin >> choix;
@@ -80,10 +75,15 @@ int main(){
 	Jeu jeu(nbJoueurs);
 	int ordre[6] = {1, 2, 5, 3, 4, 6};
 	//int casser = -1, nb_pass = 0, passer[6] = {0}; Implémenter peutJouer + défausser toutes les cartes
-	//Erreur pour un avancer 5 sur un pion dans la maison (voir photo)
 	while (true) {
 		jeu.distribuer();
 		echangeDeCartes(jeu);
+		/*Joueur &joueur = jeu.getJoueur(0);
+		Carte carte_tmp(-1);
+		for (int i = 0 ; i < 4 ; i++) {
+			joueur.retirerCarte(0, i);
+			joueur.piocherCarte(&carte_tmp);
+		}*/
 		for (int i = 0 ; i < 4 ; i++) {
 			for (int j = 0 ; j < nbJoueurs ; j++) {
 				int couleur = (nbJoueurs == 6) ? ordre[j]:j+1;

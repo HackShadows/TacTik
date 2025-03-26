@@ -8,7 +8,18 @@
 #include "Pioche.h"
 #include "Plateau.h"
 #include <iostream>
+#include <limits>
 using namespace std;
+
+
+/**
+* @brief Permet de saisir un entier en gérant les erreurs de saisi.
+*
+* @param val_defaut Valeur par défaut de l'entier (non obligatoire).
+*
+* @return L'entier saisi par l'utilisateur.
+*/
+int cinProtection(int val_defaut = 0);
 
 /**
 * @class Jeu
@@ -163,25 +174,15 @@ class Jeu {
 	   	bool partieGagnee();
 
 		/**
-		* @brief Joue la carte passée en paramètre.
-		*
-		* @param val_carte Valeur de la carte jouée par le joueur.
-		* @param couleur Couleur du joueur.
-		* @param joker True si la carte passée en paramètre est un joker, false sinon (géré automatiquement).
-		*
-		* @return True si la carte a pu être jouée, False sinon.
-		*/
-		bool jouerCarte(int val_carte, int couleur, bool joker = false);
-
-		/**
 		* @brief Détermine si la carte passée en paramètre peut être jouée.
 		*
 		* @param couleur Couleur du joueur.
 		* @param val_carte Valeur de la carte jouée par le joueur.
+		* @param joker True si la carte passée en paramètre est la valeur choisie pour un joker, false sinon (géré automatiquement).
 		*
 		* @return True si la carte peut être jouée, False sinon.
 		*/
-		bool carteJouable(int couleur, int val_carte);
+		bool carteJouable(int couleur, int val_carte, bool joker = false);
 
 		/**
 		* @brief Détermine si le joueur peut jouer.
@@ -191,6 +192,17 @@ class Jeu {
 		* @return True si le joueur peut jouer, False sinon.
 		*/
 		bool peutJouer(int couleur);
+
+		/**
+		* @brief Joue la carte passée en paramètre.
+		*
+		* @param val_carte Valeur de la carte jouée par le joueur.
+		* @param couleur Couleur du joueur.
+		* @param joker True si la carte passée en paramètre est un joker, false sinon (géré automatiquement).
+		*
+		* @return True si la carte a pu être jouée, False sinon.
+		*/
+		bool jouerCarte(int val_carte, int couleur, bool joker = false);
 
         /**
         * @brief Test les fonctionnalités de la classe.
