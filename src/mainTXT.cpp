@@ -76,6 +76,7 @@ int jouer(){
 	int ordre[6] = {1, 2, 5, 3, 4, 6};
 	// int casser = -1, nb_pass = 0, passer[6] = {0}; Implémenter peutJouer + défausser toutes les cartes
 	// Fractionner le 7x1 et faire en sorte que quand un joueur a fini, il joue pour l'autre
+	// Affichage du tableau ligne maison bas modifié à droite quand 2 chiffres dans maisons bas
 	while (true) {
 		jeu.distribuer();
 		echangeDeCartes(jeu);
