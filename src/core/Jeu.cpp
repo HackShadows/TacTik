@@ -202,7 +202,7 @@ bool Jeu::avancerMaison(int val_carte, int id_pion, bool test) {
 	const int* mais = joueurs[couleur-1].getMaison();
 	Pion &pion = pions[id_pion-1];
 	if (pion.getPos() == -2) {
-		for (int i = 0 ; i < val_carte ; i++) {
+		for (int i = 0 ; i < 4 ; i++) {
 			if (mais[i] == id_pion) {
 				i_deb = i+1;
 				break;

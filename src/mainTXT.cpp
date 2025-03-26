@@ -60,7 +60,7 @@ void tourJoueur(Jeu& jeu, int couleur) {
 	else jeu.jouerCarte(val_carte, couleur);
 }
 
-int main(){
+int jouer(){
 	srand(time(NULL));
 	int nbJoueurs = 4;
 	do {
@@ -74,23 +74,35 @@ int main(){
 	
 	Jeu jeu(nbJoueurs);
 	int ordre[6] = {1, 2, 5, 3, 4, 6};
-	//int casser = -1, nb_pass = 0, passer[6] = {0}; Implémenter peutJouer + défausser toutes les cartes
+	// int casser = -1, nb_pass = 0, passer[6] = {0}; Implémenter peutJouer + défausser toutes les cartes
+	// Fractionner le 7x1 et faire en sorte que quand un joueur a fini, il joue pour l'autre
 	while (true) {
 		jeu.distribuer();
 		echangeDeCartes(jeu);
-		/*Joueur &joueur = jeu.getJoueur(0);
-		Carte carte_tmp(-1);
+		/*Carte carte_tmp(-1);
 		for (int i = 0 ; i < 4 ; i++) {
-			joueur.retirerCarte(0, i);
-			joueur.piocherCarte(&carte_tmp);
-		}*/
+			for (int j = 0 ; j < nbJoueurs ; j++) {
+				Joueur &joueur = jeu.getJoueur(j);
+				joueur.piocherCarte(&carte_tmp);
+		}}*/
 		for (int i = 0 ; i < 4 ; i++) {
 			for (int j = 0 ; j < nbJoueurs ; j++) {
 				int couleur = (nbJoueurs == 6) ? ordre[j]:j+1;
 				tourJoueur(jeu, couleur);
-				if (jeu.partieGagnee()) return 0;
+				if (jeu.partieGagnee()) return couleur;
 			}
 		}
 
 	}
+}
+
+int main() {
+	int vainqueurs = jouer();
+	int j1 = 4, j2 = 5;
+	if (vainqueurs < 5) {
+		j1 = (vainqueurs+3)%4;
+		j2 = (vainqueurs+1)%4;
+	}
+	cout << "L'équipe " << intToStr(j1) << " et " << intToStr(j2) << " a gagné !" << endl;
+	return 0;
 }
