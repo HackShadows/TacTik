@@ -67,6 +67,13 @@ bool Joueur::estDansMain(int val_carte) const {
 	return false;
 }
 
+bool Joueur::mainVide() const {
+	for (auto carte : main) {
+		if (carte != nullptr) return false;
+	}
+	return true;
+}
+
 bool Joueur::piocherCarte(Carte * carte) {
 	assert(carte->getValeur() != 0);
     for (int i = 0 ; i < 4 ; i++) {
@@ -160,6 +167,10 @@ void Joueur::testRegression(){
 
 		for (int i = 9 ; i < 13 ; i++) assert(joueur.estDansMain(i));
 		cout << "estDansMain valide !" << endl;
+
+		assert(!joueur.mainVide());
+		assert(joueur2.mainVide());
+		cout << "mainVide valide !" << endl;
 
 		Carte * carte2 = joueur.retirerCarte(12);
 		assert(carte2->getValeur() == 12 && joueur.main[3] == nullptr);

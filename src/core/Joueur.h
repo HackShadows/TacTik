@@ -103,6 +103,13 @@ class Joueur {
 	   	bool estDansMain(int val_carte) const;
 
 		/**
+        * @brief Indique si la main est vide.
+        * 
+        * @return True si la main est vide, False sinon.
+        */
+	   	bool mainVide() const;
+
+		/**
         * @brief Retire une carte de valeur 'valeur' de la main du joueur.
         * 
         * @param valeur Valeur de la carte à retirer.
