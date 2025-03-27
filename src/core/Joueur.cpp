@@ -103,6 +103,17 @@ Carte* Joueur::retirerCarte(int valeur, int indice) {
     return nullptr;
 }
 
+Carte* Joueur::defausserMain() {
+	Carte* carte = nullptr;
+	for (int i = 0 ; i < 4 ; i++) {
+		if (main[i] != nullptr) {
+			carte = main[i];
+			main[i] = nullptr;
+		}
+	}
+	return carte;
+}
+
 bool Joueur::maisonRemplie() const {
     for (int i = 0; i<4; i++){
         if (maison[i] == 0){
@@ -175,6 +186,12 @@ void Joueur::testRegression(){
 		Carte * carte2 = joueur.retirerCarte(12);
 		assert(carte2->getValeur() == 12 && joueur.main[3] == nullptr);
 		cout << "retirerCarte valide !" << endl;
+
+		assert(!joueur.mainVide());
+		carte2 = joueur.defausserMain();
+		assert(carte2->getValeur() == 11);
+		assert(joueur.mainVide());
+		cout << "defausserMain valide !" << endl;
 
 		bool remplie = joueur.maisonRemplie();
 		assert(!remplie);

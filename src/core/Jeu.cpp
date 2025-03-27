@@ -109,6 +109,13 @@ bool Jeu::defausserCarte(int val_carte, int couleur) {
 	return true;
 }
 
+void Jeu::defausserJoueur(int couleur) {
+	assert(1 <= couleur && couleur <= nbJoueurs);
+	Carte* carte = joueurs[couleur-1].defausserMain();
+	if (carte == nullptr) return ;
+	pioche.setTas(carte);
+}
+
 void Jeu::eliminerPion(int id_pion) {
 	assert(1 <= id_pion && id_pion <= 4*nbJoueurs);
 	Pion &pion = pions[id_pion-1];
@@ -289,7 +296,9 @@ bool Jeu::peutJouer(int couleur) {
 	Joueur joueur = joueurs[couleur-1];
 	int val;
 	for (int i = 0 ; i < 4 ; i++) {
-		val = joueur.getCarte(i)->getValeur();
+		Carte* carte = joueur.getCarte(i);
+		if (carte == nullptr) continue;
+		val = carte->getValeur();
 		if (carteJouable(couleur, val)) return true;
 	}
 	return false;
@@ -423,6 +432,11 @@ void Jeu::testRegression(){
 		assert(jeu.defausserCarte(valJ2, 1));
 		assert(jeu.getJoueur(0).getCarte(0) == nullptr);
 		cout << "defausserCarte valide !" << endl;
+
+		assert(!jeu.getJoueur(0).mainVide());
+		jeu.defausserJoueur(1);
+		assert(jeu.getJoueur(0).mainVide());
+		cout << "defausserJoueur valide !" << endl;
 
 		assert(jeu.demarrer(1));
 		assert(jeu.demarrer(2));

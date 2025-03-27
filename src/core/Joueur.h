@@ -120,6 +120,13 @@ class Joueur {
 		Carte* retirerCarte(int valeur, int indice = -1);
 
 		/**
+        * @brief Défausse toute la main et renvoie la dernière carte.
+        * 
+        * @return Dernière carte de la main.
+        */
+	   	Carte* defausserMain();
+
+		/**
         * @brief Renvoie True si la maison du joueur est remplie, False sinon.
         * 
         * @return un booléen.

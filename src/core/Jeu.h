@@ -117,6 +117,13 @@ class Jeu {
 		bool defausserCarte(int val_carte, int couleur);
 
 		/**
+		* @brief Défausse la main du joueur passé en paramètre.
+		*
+		* @param couleur Couleur du joueur.
+		*/
+		void defausserJoueur(int couleur);
+
+		/**
 		* @brief Elimine le pion se trouvant à l'indice 'indice'.
 		*
 		* @param position Position du pion sur le plateau.

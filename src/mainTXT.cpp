@@ -42,10 +42,19 @@ void echangeDeCartes(Jeu& jeu) {
 }
 
 void tourJoueur(Jeu& jeu, int couleur) {
+	if (jeu.getJoueur(couleur-1).mainVide()) return ;
+	char choix = 'o';
 	int val_carte;
 	affichageTexte(jeu, couleur-1);
-	cout << "Tour de " << intToStr(couleur-1) << " :\n";
-	char choix = 'o';
+	cout << "Tour de " << intToStr(couleur-1) << " :" << endl;
+	if (!jeu.peutJouer(couleur)) {
+		cout << "Aucune carte ne peut être jouée. Défausser toutes les cartes ? (Oui(o) ; Non(n)) : ";
+		cin >> choix;
+		if (choix == 'o' || choix == 'O') {
+			jeu.defausserJoueur(couleur);
+			return ;
+		}
+	}
 	do {
 		val_carte = choixCarte("\nCarte à jouer : ", jeu.getJoueur(couleur-1));
 
@@ -65,16 +74,11 @@ int jouer(){
 	int nbJoueurs = 4;
 	do {
 		cout << "\nNombre de joueurs (4 ou 6) : ";
-		if(!(cin >> nbJoueurs)) {
-			cin.clear();
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			nbJoueurs = 0;
-		}
+		nbJoueurs = cinProtection();
 	} while (nbJoueurs != 4 && nbJoueurs != 6);
 	
 	Jeu jeu(nbJoueurs);
 	int ordre[6] = {1, 2, 5, 3, 4, 6};
-	// int casser = -1, nb_pass = 0, passer[6] = {0}; Implémenter peutJouer + défausser toutes les cartes
 	// Fractionner le 7x1 et faire en sorte que quand un joueur a fini, il joue pour l'autre
 	// Affichage du tableau ligne maison bas modifié à droite quand 2 chiffres dans maisons bas
 	while (true) {
