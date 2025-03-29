@@ -3,6 +3,7 @@
 */
 #include "./txt/Affichage.h"
 #include <iostream>
+#include <ctime>
 
 using namespace std;
 
