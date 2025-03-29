@@ -79,7 +79,7 @@ veryclean:
 # Les objets Windows seront placés dans le dossier obj_win
 
 CROSS = x86_64-w64-mingw32-g++
-CROSS_CXXFLAGS = -Wall -g -c
+CROSS_CXXFLAGS = -Wall -g -c -municode -DUNICODE -D_UNICODE
 WIN_OBJ_DIR = obj_win
 
 # Règle pour créer le dossier d'objets Windows s'il n'existe pas
@@ -114,12 +114,12 @@ $(WIN_OBJ_DIR)/mainTXT.o: src/mainTXT.cpp $(TXT)/Affichage.h | $(WIN_OBJ_DIR)
 
 # Règle de linkage pour générer l'exécutable Windows mainTXT.exe
 bin/mainTXT.exe: $(WIN_OBJ_DIR)/Carte.o $(WIN_OBJ_DIR)/Pioche.o $(WIN_OBJ_DIR)/Pion.o $(WIN_OBJ_DIR)/Joueur.o $(WIN_OBJ_DIR)/Plateau.o $(WIN_OBJ_DIR)/Jeu.o $(WIN_OBJ_DIR)/AffichageTXT.o $(WIN_OBJ_DIR)/mainTXT.o | bin
-	$(CROSS) $^ -static -static-libgcc -static-libstdc++ -o bin/mainTXT.exe
+	$(CROSS) $^ -static -static-libgcc -static-libstdc++ -lmingw32 -o bin/mainTXT.exe
 
 # Assure que le dossier bin existe
 bin:
 	mkdir -p bin
 
 # Cible mainWindows qui génère l'exécutable Windows
-mainWindows: bin/mainTXT.exe
+mainWindows: clean bin/mainTXT.exe
 	@echo "Windows executable generated: bin/mainTXT.exe"

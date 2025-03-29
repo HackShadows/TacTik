@@ -1,6 +1,9 @@
 /**
 * @brief Contient l'implémentation du jeu.
 */
+#ifdef _WIN32
+#include <windows.h>
+#endif
 #include "./txt/Affichage.h"
 #include <iostream>
 #include <ctime>
@@ -122,6 +125,10 @@ int jouer(){
 }
 
 int main() {
+	#ifdef _WIN32
+        SetConsoleOutputCP(CP_UTF8);
+    #endif
+
 	int vainqueurs = jouer();
 	int j1 = 4, j2 = 5;
 	if (vainqueurs < 5) {
