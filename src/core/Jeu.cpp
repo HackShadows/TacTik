@@ -259,13 +259,14 @@ bool Jeu::partieGagnee() {
 	return false;
 }
 
-bool Jeu::carteJouable(int couleur, int val_carte, bool joker) {
+bool Jeu::carteJouable(int couleur, int val_carte, bool coequipier, bool joker) {
 	assert(1 <= couleur && couleur <= nbJoueurs);
 	assert(val_carte == -4 || (-1 <= val_carte && val_carte <= 13 && val_carte != 0 && val_carte != 4));
 	
 	Joueur joueur = joueurs[couleur-1];
 	if (!joueur.estDansMain(val_carte) && !(joker && joueur.estDansMain(-1))) return false;
 	if (val_carte == -1) return true;
+	if (coequipier) couleur = 1 + ((couleur < 5) ? (couleur+1)%4 : 10-couleur);
 	for (int j = 0 ; j < 4 ; j++) {
 		int id_pion = pions[(couleur-1)*4+j].getId();
 		switch (val_carte)
@@ -291,7 +292,7 @@ bool Jeu::carteJouable(int couleur, int val_carte, bool joker) {
 	return false;
 }
 
-bool Jeu::peutJouer(int couleur) {
+bool Jeu::peutJouer(int couleur, bool coequipier) {
 	assert(1 <= couleur && couleur <= nbJoueurs);
 	Joueur joueur = joueurs[couleur-1];
 	int val;
@@ -299,27 +300,37 @@ bool Jeu::peutJouer(int couleur) {
 		Carte* carte = joueur.getCarte(i);
 		if (carte == nullptr) continue;
 		val = carte->getValeur();
-		if (carteJouable(couleur, val)) return true;
+		if (carteJouable(couleur, val, coequipier)) return true;
 	}
 	return false;
 }
 
 
-bool Jeu::jouerCarte(int val_carte, int couleur, bool joker) {
+bool Jeu::jouerCarte(int val_carte, int couleur, bool coequipier, bool joker) {
 	assert(val_carte == -4 || (-1 <= val_carte && val_carte <= 13 && val_carte != 0 && val_carte != 4));
 	assert(1 <= couleur && couleur <= nbJoueurs);
-	int nb_possible = 0, id_pion = 0;
+	int nb_possible = 0, id_pion = 0, c1 = couleur;
+	Joueur& j1 = joueurs[couleur-1];
+	if (coequipier) couleur = 1 + ((couleur < 5) ? (couleur+1)%4 : 10-couleur);
 	Joueur& joueur = joueurs[couleur-1];
 	if (val_carte == 11) {
-		do {
+		for (int i = (couleur-1)*4 ; i < couleur*4 ; i++) {
+			if (pions[i].getPos() >= 0) {
+				id_pion = i+1;
+				nb_possible++;
+			}
+		}
+		if (nb_possible > 1) id_pion = 0;
+		nb_possible = 0;
+		while (id_pion < 1 || id_pion > 4*nbJoueurs || pions[id_pion-1].getPos() < 0 || (id_pion-1)/4 != couleur-1) {
 			cout << "\nId du pion à permutter (pion du joueur) : ";
 			id_pion = cinProtection();
-		} while (id_pion < 1 || id_pion > 4*nbJoueurs || pions[id_pion-1].getPos() < 0 || (id_pion-1)/4 != couleur-1);
-		int id_pion2;
-		do {
+		} 
+		int id_pion2 = 0;
+		while (id_pion2 < 1 || id_pion2 > 4*nbJoueurs || pions[id_pion2-1].estPieu()) {
 			cout << "\nId du deuxième pion avec lequel permutter : ";
 			id_pion2 = cinProtection();
-		} while (id_pion2 < 1 || id_pion2 > 4*nbJoueurs || pions[id_pion2-1].estPieu());
+		}
 		if (!permutter(id_pion, id_pion2)) return false;
 	} else if (val_carte == -1) {
 		bool continuer = true;
@@ -328,12 +339,12 @@ bool Jeu::jouerCarte(int val_carte, int couleur, bool joker) {
 				cout << "\nValeur désirée pour le joker : ";
 				val_carte = cinProtection();
 			} while (val_carte != -4 && (val_carte < 1 || val_carte > 13 || val_carte == 4));
-			if (!carteJouable(couleur, val_carte, true)) {
+			if (!carteJouable(c1, val_carte, coequipier, true)) {
 				cout << "\nLa carte ne peut être jouée, choisissez-en une autre !" << endl;
 			} else continuer = false;
 		}
 		
-		return jouerCarte(val_carte, couleur, true);
+		return jouerCarte(val_carte, c1, coequipier, true);
 	} else if (val_carte == 1 || val_carte == 10 || val_carte == 13) {
 		char choix = '0';
 		if (joueur.getReserve() == 4) choix = 'D';
@@ -384,7 +395,7 @@ bool Jeu::jouerCarte(int val_carte, int couleur, bool joker) {
 		if (!avancerPion(val_carte, id_pion)) return false;
 	}
 	if (joker) val_carte = -1;
-	pioche.setTas(joueur.retirerCarte(val_carte));
+	pioche.setTas(j1.retirerCarte(val_carte));
 	return true;
 }
 

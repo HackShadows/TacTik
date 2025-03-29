@@ -185,31 +185,34 @@ class Jeu {
 		*
 		* @param couleur Couleur du joueur.
 		* @param val_carte Valeur de la carte jouée par le joueur.
+		* @param coequipier True si le joueur joue pour son coéquipier, false sinon (géré automatiquement).
 		* @param joker True si la carte passée en paramètre est la valeur choisie pour un joker, false sinon (géré automatiquement).
 		*
 		* @return True si la carte peut être jouée, False sinon.
 		*/
-		bool carteJouable(int couleur, int val_carte, bool joker = false);
+		bool carteJouable(int couleur, int val_carte, bool coequipier = false, bool joker = false);
 
 		/**
 		* @brief Détermine si le joueur peut jouer.
 		*
 		* @param couleur Couleur du joueur.
+		* @param coequipier True si le joueur joue pour son coéquipier, false sinon (géré automatiquement).
 		*
 		* @return True si le joueur peut jouer, False sinon.
 		*/
-		bool peutJouer(int couleur);
+		bool peutJouer(int couleur, bool coequipier = false);
 
 		/**
 		* @brief Joue la carte passée en paramètre.
 		*
 		* @param val_carte Valeur de la carte jouée par le joueur.
 		* @param couleur Couleur du joueur.
+		* @param coequipier True si le joueur joue pour son coéquipier, false sinon (géré automatiquement).
 		* @param joker True si la carte passée en paramètre est un joker, false sinon (géré automatiquement).
 		*
 		* @return True si la carte a pu être jouée, False sinon.
 		*/
-		bool jouerCarte(int val_carte, int couleur, bool joker = false);
+		bool jouerCarte(int val_carte, int couleur, bool coequipier = false, bool joker = false);
 
         /**
         * @brief Test les fonctionnalités de la classe.

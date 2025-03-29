@@ -45,9 +45,10 @@ void tourJoueur(Jeu& jeu, int couleur) {
 	if (jeu.getJoueur(couleur-1).mainVide()) return ;
 	char choix = 'o';
 	int val_carte;
+	bool coequipier = (jeu.getJoueur(couleur-1).maisonRemplie());
 	affichageTexte(jeu, couleur-1);
 	cout << "Tour de " << intToStr(couleur-1) << " :" << endl;
-	if (!jeu.peutJouer(couleur)) {
+	if (!jeu.peutJouer(couleur, coequipier)) {
 		cout << "Aucune carte ne peut être jouée. Défausser toutes les cartes ? (Oui(o) ; Non(n)) : ";
 		cin >> choix;
 		if (choix == 'o' || choix == 'O') {
@@ -58,15 +59,15 @@ void tourJoueur(Jeu& jeu, int couleur) {
 	do {
 		val_carte = choixCarte("\nCarte à jouer : ", jeu.getJoueur(couleur-1));
 
-		if (!jeu.carteJouable(couleur, val_carte)) {
+		if (!jeu.carteJouable(couleur, val_carte, coequipier)) {
 			cout << "\nLa carte ne peut être jouée.\nDéfausser la carte ? (Oui(o) ; Non(n)) : ";
 			cin >> choix;
 		} else choix = 'o';
 
 	} while (choix == 'n' || choix == 'N');
 
-	if (!jeu.carteJouable(couleur, val_carte)) jeu.defausserCarte(val_carte, couleur);
-	else jeu.jouerCarte(val_carte, couleur);
+	if (!jeu.carteJouable(couleur, val_carte, coequipier)) jeu.defausserCarte(val_carte, couleur);
+	else jeu.jouerCarte(val_carte, couleur, coequipier);
 }
 
 int jouer(){
@@ -79,7 +80,7 @@ int jouer(){
 	
 	Jeu jeu(nbJoueurs);
 	int ordre[6] = {1, 2, 5, 3, 4, 6};
-	// Fractionner le 7x1 et faire en sorte que quand un joueur a fini, il joue pour l'autre
+	// Fractionner le 7x1
 	// Affichage du tableau ligne maison bas modifié à droite quand 2 chiffres dans maisons bas
 	while (true) {
 		jeu.distribuer();
@@ -108,6 +109,6 @@ int main() {
 		j1 = (vainqueurs+3)%4;
 		j2 = (vainqueurs+1)%4;
 	}
-	cout << "L'équipe " << intToStr(j1) << " et " << intToStr(j2) << " a gagné !" << endl;
+	cout << "\nLes " << intToStr(j1) << "s et " << intToStr(j2) << "s ont gagné !\n" << endl;
 	return 0;
 }
