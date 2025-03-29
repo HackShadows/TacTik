@@ -328,7 +328,7 @@ bool Jeu::jouerCarte(int val_carte, int couleur, bool coequipier, bool joker) {
 			id_pion = cinProtection();
 		} 
 		int id_pion2 = 0;
-		while (id_pion2 < 1 || id_pion2 > 4*nbJoueurs || pions[id_pion2-1].estPieu()) {
+		while (id_pion2 < 1 || id_pion2 > 4*nbJoueurs || pions[id_pion2-1].estPieu() || id_pion2 == id_pion) {
 			cout << "\nId du deuxième pion avec lequel permutter : ";
 			id_pion2 = cinProtection();
 		}
@@ -341,7 +341,7 @@ bool Jeu::jouerCarte(int val_carte, int couleur, bool coequipier, bool joker) {
 				val_carte = cinProtection();
 			} while (val_carte != -4 && (val_carte < 1 || val_carte > 13 || val_carte == 4));
 			if (!carteJouable(c1, val_carte, coequipier, true)) {
-				cout << "\nLa carte ne peut être jouée, choisissez-en une autre !" << endl;
+				cout << "\nAction impossible ! Choisissez une autre valeur pour le joker." << endl;
 			} else continuer = false;
 		}
 		

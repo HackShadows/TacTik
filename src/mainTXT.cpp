@@ -9,6 +9,7 @@ using namespace std;
 int choixCarte(string message, const Joueur& joueur) {
 	int val_carte = 0;
 	do {
+		cin.clear();
 		cout << message;
 		val_carte = cinProtection();
 	} while (!joueur.estDansMain(val_carte));
@@ -22,16 +23,26 @@ void echangeDeCartes(Jeu& jeu) {
 	int echange_carte[3] = {0, 0, 0};
 		for (int i = 0 ; i < nbJoueurs/2 ; i++) {
 			couleur = (nbJoueurs == 6) ? ordre[i]:i+1;
+			affichageTexte(jeu, -1);
+			cout << "\nTour de " << intToStr(couleur-1) << " (Entrée pour continuer)" << endl;
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			cin.get();
 			affichageTexte(jeu, couleur-1);
-			cout << "Tour de " << intToStr(couleur-1) << " :\n";
+			cout << "\nTour de " << intToStr(couleur-1) << " :" << endl;
 			val_carte = choixCarte("\nCarte à donner à ton coéquipier : ", jeu.getJoueur(couleur-1));
 			echange_carte[i] = val_carte;
 		}
 
 		for (int i = nbJoueurs/2 ; i < nbJoueurs ; i++) {
 			couleur = (nbJoueurs == 6) ? ordre[i]:i+1;
+			affichageTexte(jeu, -1);
+			cout << "\nTour de " << intToStr(couleur-1) << " (Entrée pour continuer)" << endl;
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			cin.get();
 			affichageTexte(jeu, couleur-1);
-			cout << "Tour de " << intToStr(couleur-1) << " :\n";
+			cout << "\nTour de " << intToStr(couleur-1) << " :" << endl;
 			val_carte = choixCarte("\nCarte à donner à ton coéquipier : ", jeu.getJoueur(couleur-1));
 			
 			int indJ1;
@@ -45,9 +56,14 @@ void tourJoueur(Jeu& jeu, int couleur) {
 	if (jeu.getJoueur(couleur-1).mainVide()) return ;
 	char choix = 'o';
 	int val_carte;
-	bool coequipier = (jeu.getJoueur(couleur-1).maisonRemplie());
+	bool peut_jouer = true, coequipier = (jeu.getJoueur(couleur-1).maisonRemplie());
+	affichageTexte(jeu, -1);
+	cout << "\nTour de " << intToStr(couleur-1) << " (Entrée pour continuer)" << endl;
+	cin.clear();
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	cin.get();
 	affichageTexte(jeu, couleur-1);
-	cout << "Tour de " << intToStr(couleur-1) << " :" << endl;
+	cout << "\nTour de " << intToStr(couleur-1) << " :" << endl;
 	if (!jeu.peutJouer(couleur, coequipier)) {
 		cout << "Aucune carte ne peut être jouée. Défausser toutes les cartes ? (Oui(o) ; Non(n)) : ";
 		cin >> choix;
@@ -55,16 +71,17 @@ void tourJoueur(Jeu& jeu, int couleur) {
 			jeu.defausserJoueur(couleur);
 			return ;
 		}
+		peut_jouer = false;
 	}
 	do {
-		val_carte = choixCarte("\nCarte à jouer : ", jeu.getJoueur(couleur-1));
+		val_carte = choixCarte(((peut_jouer) ? "\nCarte à jouer : " : "\nCarte à défausser : "), jeu.getJoueur(couleur-1));
 
-		if (!jeu.carteJouable(couleur, val_carte, coequipier)) {
-			cout << "\nLa carte ne peut être jouée.\nDéfausser la carte ? (Oui(o) ; Non(n)) : ";
-			cin >> choix;
+		if (!jeu.carteJouable(couleur, val_carte, coequipier) && peut_jouer) {
+			cout << "\nCette carte ne peut pas être jouée ! Choisissez-en une autre." << endl;
+			choix = 'n';
 		} else choix = 'o';
 
-	} while (choix == 'n' || choix == 'N');
+	} while (choix == 'n');
 
 	if (!jeu.carteJouable(couleur, val_carte, coequipier)) jeu.defausserCarte(val_carte, couleur);
 	else jeu.jouerCarte(val_carte, couleur, coequipier);
