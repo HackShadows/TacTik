@@ -146,10 +146,11 @@ class Jeu {
 		* @param val_carte Valeur de la carte jouée par le joueur.
 		* @param id_pion Id du pion à déplacer.
 		* @param test True pour ne pas effectuer l'action, False sinon (géré automatiquement).
+		* @param septx1 True si on avance le pion pour un 7x1, False sinon (géré automatiquement).
 		*
 		* @return True si le pion a pu avancer, False sinon.
 		*/
-		bool avancerPion(int val_carte, int id_pion, bool test = false);
+		bool avancerPion(int val_carte, int id_pion, bool test = false, bool septx1 = false);
 
 		/**
 		* @brief Avance le pion dans la maison du nombre passé en paramètre.

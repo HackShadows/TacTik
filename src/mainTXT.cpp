@@ -80,12 +80,13 @@ int jouer(){
 	
 	Jeu jeu(nbJoueurs);
 	int ordre[6] = {1, 2, 5, 3, 4, 6};
-	// Fractionner le 7x1
 	// Affichage du tableau ligne maison bas modifié à droite quand 2 chiffres dans maisons bas
 	while (true) {
 		jeu.distribuer();
 		echangeDeCartes(jeu);
-		/*Carte carte_tmp(-1);
+		/* 
+		//Enlever le const de getJoueur
+		Carte carte_tmp(-1);
 		for (int i = 0 ; i < 4 ; i++) {
 			for (int j = 0 ; j < nbJoueurs ; j++) {
 				Joueur &joueur = jeu.getJoueur(j);

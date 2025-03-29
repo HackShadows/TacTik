@@ -148,9 +148,9 @@ bool Jeu::demarrer(int couleur, bool test) {
 	return true;
 }
 
-bool Jeu::avancerPion(int val_carte, int id_pion, bool test) {
+bool Jeu::avancerPion(int val_carte, int id_pion, bool test, bool septx1) {
 	assert(1 <= id_pion && id_pion <= 4*nbJoueurs);
-	assert((val_carte == -4 || (1 <= val_carte && val_carte <= 13 && val_carte != 11 && val_carte != 4)));
+	assert((val_carte == -4 || (1 <= val_carte && val_carte <= 13 && val_carte != 11)));
 	
 	Pion &pion = pions[id_pion-1];
 	int position = pion.getPos(), case_dep = plateau.getCasesDepart((id_pion-1)/nbJoueurs+1);
@@ -164,6 +164,7 @@ bool Jeu::avancerPion(int val_carte, int id_pion, bool test) {
 	int nb_elimines = 0;
 	int ind, i_deb = position+1, i_fin = position+val_carte;
 	int maison = -1;
+	if (val_carte == 7) septx1 = true;
 	if (val_carte == -4) {i_deb = i_fin; i_fin = position-1;}
 	
 	for (int i = i_deb ; i <= i_fin ; i++) {
@@ -172,7 +173,7 @@ bool Jeu::avancerPion(int val_carte, int id_pion, bool test) {
 		if (id_tmp != 0) {
 			if (pions[id_tmp-1].estPieu()) {
 				return false;
-			} else if (val_carte == 7 || i == position+val_carte) {
+			} else if (septx1 || i == position+val_carte) {
 				a_eliminer[nb_elimines] = plateau.getIdPion(ind);
 				nb_elimines++;
 			}
@@ -359,7 +360,7 @@ bool Jeu::jouerCarte(int val_carte, int couleur, bool coequipier, bool joker) {
 			}
 			choix = (nb == 0) ? 'D':'0';
 		}
-		while (choix != 'D' && choix != 'A') {
+		while (choix != 'D' && choix != 'A' && choix != 'd' && choix != 'a') {
 			cout << "\nUtiliser la carte comme démarrer(D) ou avancer(A) : ";
 			cin >> choix;
 		}
@@ -378,6 +379,38 @@ bool Jeu::jouerCarte(int val_carte, int couleur, bool coequipier, bool joker) {
 				id_pion = cinProtection();
 			}
 			if (!avancerPion(val_carte, id_pion)) return false;
+		}
+	} else if (val_carte == 7 && joueur.getReserve() < 3) {
+		int val, somme = 0;
+		for (int i = (couleur-1)*4 +1 ; i <= couleur*4 ; i++) {
+			val = 1;
+			while (val < 7 && avancerPion(val, i, true)) val++;
+			somme += val-1;
+			if (val == 7 && avancerPion(val, i, true)) id_pion = i;
+		}
+		if (somme < 7 && id_pion == 0) return false;
+		if (somme == 6 && !avancerPion(7, id_pion)) return false;
+		else {
+			somme = 0;
+			while (somme < 7) {
+				bool continuer = true;
+				while (continuer) {
+					id_pion = 0;
+					while (id_pion < 1 || id_pion > 4*nbJoueurs || (id_pion-1)/4 != couleur-1) {
+						cout << "\nId du pion à avancer : ";
+						id_pion = cinProtection();
+					}
+					val = 0;
+					while (val < 1 || somme + val > 7) {
+						cout << "\nNombre de cases à avancer : ";
+						val = cinProtection();
+					}
+					if (!avancerPion(val, id_pion, true)) cout << "\nCe déplacement est impossible !" << endl;
+					else continuer = false;
+				}
+				avancerPion(val, id_pion, false, true);
+				somme += val;
+			}
 		}
 	} else {
 		for (int i = (couleur-1)*4 +1 ; i <= couleur*4 ; i++) {
@@ -399,7 +432,7 @@ bool Jeu::jouerCarte(int val_carte, int couleur, bool coequipier, bool joker) {
 	return true;
 }
 
-void Jeu::testRegression(){
+void Jeu::testRegression() {
     {
 		Jeu jeu;
 		assert(jeu.nbJoueurs == 4);
