@@ -4,7 +4,7 @@
 using namespace std;
 
 int main(){
-    Jeu jeu(6);
+    Jeu jeu(4);
     ImageViewer image(jeu);
     image.afficher(jeu);
     return 0;

@@ -1,17 +1,26 @@
 
 #include "AffichageSDL.h"
 
-int getIndiceCase(const Jeu & jeu, int posx, int posy, const int tab[][2]){
+int getIndiceCase(const Jeu & jeu, int posx, int posy, const int tab[][2], float zoom){
+  float rayon = 20 * zoom;
     if (jeu.getNbJoueurs() == 6){
         cout << posx << " " << posy << " " << tab[0][0] << " " << tab[0][1] << " ";
         for (int i = 0; i<96; i++){
-            if (abs(posx-tab[i][0]) < 20 && abs(posy - tab[i][1]) < 20){
+            if (abs(posx-tab[i][0]) < rayon && abs(posy - tab[i][1]) < rayon ){
                 //cout << i;
                 return i;
             }
         }
     }
-    return 0;
+    else{
+    	  for (int i = 0; i<64; i++){
+            if (abs(posx-tab[i][0]) < rayon && abs(posy - tab[i][1]) < rayon){
+                //cout << i;
+                return i;
+            }
+        }
+    }
+    return -1;
 }
 
 
@@ -81,14 +90,24 @@ void ImageViewer::afficher(const Jeu & jeu){
           	tab[i][0] = tmp[i][0] * zoom;
             tab[i][1] = tmp[i][1] * zoom;
         }
-        cout << "passage creattion tab \n";
+        cout << "passage creation tab \n";
     } 
     else {
         surface = IMG_Load("./data/plateau4.png");
-        int tmp[16][2] = {{355,715}, {300,715}, {230,720}, {235,780}, {235,840}, {170,840}, {115,825}, {70,780}, {50,715}, {50,660}, {50,600}, {50,530}, {50,475}, {110,480}, {170,475}, {175,415}};
-        tab = tmp;
-    }
-    cout << tab[0][0] <<  " " << tab[0][1] << endl;
+        tab = new int[64][2];
+        int tmp[64][2] = {{396,810}, {330,814}, {266,810}, {264,880}, {264,946}, {196,946}, {128,928}, {76,878}, {60,812},
+                           {62,744}, {56,678}, {62,608}, {60,540}, {128,542}, {194,540}, {198,476}, {196,404}, {200,338},
+                           {198,272}, {128,270}, {58,272}, {58,198}, {82,134}, {130,82}, {192,64}, {262,66}, {328,68},
+                           {400,66}, {466,66}, {464,134}, {468,202}, {532,202}, {600,200}, {666,198}, {736,200}, {736,134},
+                           {732,64}, {802,66}, {872,84}, {922,132}, {936,198}, {938,262}, {936,332}, {938,404}, {934,468},
+                           {868,472}, {802,470}, {802,538}, {800,606}, {802,672}, {804,742}, {870,744}, {938,738}, {938,808},
+                           {920,878}, {872,926}, {802,944}, {738,944}, {666,942}, {596,942}, {532,944}, {530,876}, {530,810},
+                           {468,810}};
+		for (int i = 0; i<64; i++){
+          	tab[i][0] = tmp[i][0] * zoom;
+            tab[i][1] = tmp[i][1] * zoom;
+        }
+        cout << "passage creation tab \n";    }
     if (surface == nullptr) {
         std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
         return;
@@ -116,8 +135,8 @@ void ImageViewer::afficher(const Jeu & jeu){
             }
             if (event.type == SDL_MOUSEBUTTONDOWN){
                 if(event.button.button==SDL_BUTTON_LEFT){
-                    //cout << "{" << event.button.x << "," << event.button.y << "}, ";
-                    cout << getIndiceCase(jeu, event.button.x, event.button.y, tab) << endl;
+                    //cout << "{" << 2*event.button.x << "," << 2*event.button.y << "}, ";
+                    cout << getIndiceCase(jeu, event.button.x, event.button.y, tab, zoom) << endl;
                 }
             }
         }
