@@ -15,7 +15,9 @@ class ImageViewer{
         SDL_Window * window; /// La fenetre
         SDL_Renderer * renderer;/// Le renderer
         SDL_Surface * surface;///La surface
-        int dimx, dimy;
+        int dimx, dimy; /// Les dimensions de la fenetre
+        float zoom; /// Le zoom de l'image
+        int nbJ; /// Le nombre de joueurs
 
 
     public :
