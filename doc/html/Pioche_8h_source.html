@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.10.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Tac-Tik: src/Pioche.h Source File</title>
+<title>Tac-Tik: src/core/Pioche.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -76,7 +76,7 @@ $(function() { codefold.init(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_aebb8dcc11953d78e620bbef0b9e2183.html">core</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -94,24 +94,33 @@ $(function() { codefold.init(0); });
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="classPioche.html">   17</a></span><span class="keyword">class </span><a class="code hl_class" href="classPioche.html">Pioche</a> {</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <a class="code hl_class" href="classCarte.html">Carte</a> tas; </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <a class="code hl_class" href="classCarte.html">Carte</a> * pile; </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <a class="code hl_class" href="classCarte.html">Carte</a> * tas; </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <a class="code hl_class" href="classCarte.html">Carte</a> pile[54]; </div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <a class="code hl_function" href="classPioche.html#affeb6e962382f96c90c4bbfffc715ac5">Pioche</a>();</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classPioche.html#ac9087dbc46294baf01b83630f481b0d0">setTas</a>(<span class="keyword">const</span> <a class="code hl_class" href="classCarte.html">Carte</a> &amp;carte);</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <a class="code hl_class" href="classCarte.html">Carte</a> <a class="code hl_function" href="classPioche.html#a0532690062f28e3615a1c51f62eaba0e">getTas</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>};</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <a class="code hl_function" href="classPioche.html#a70916e0713ecb21802fb29730a0fe0e8">~Pioche</a>();</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classPioche.html#a82a7f3f9ced4f5d25b7c6d20bf17d086">setTas</a>(<a class="code hl_class" href="classCarte.html">Carte</a> *carte);</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <a class="code hl_class" href="classCarte.html">Carte</a>* <a class="code hl_function" href="classPioche.html#aafe79961317f9bde9492dace934b6ef4">getTas</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <a class="code hl_class" href="classCarte.html">Carte</a>&amp; <a class="code hl_function" href="classPioche.html#ae9f3c0623bc2f0911ad0914bf63c037c">getCarte</a>(<span class="keywordtype">int</span> indice);</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classPioche.html#af32e127ca9b83d4090df9e03a9882eae">testRegression</a>();</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>};</div>
 </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aclassCarte_html"><div class="ttname"><a href="classCarte.html">Carte</a></div><div class="ttdoc">Représente une carte à jouer.</div><div class="ttdef"><b>Definition</b> Carte.h:16</div></div>
 <div class="ttc" id="aclassPioche_html"><div class="ttname"><a href="classPioche.html">Pioche</a></div><div class="ttdoc">Représente la pile de cartes et la carte sur le tas.</div><div class="ttdef"><b>Definition</b> Pioche.h:17</div></div>
-<div class="ttc" id="aclassPioche_html_a0532690062f28e3615a1c51f62eaba0e"><div class="ttname"><a href="classPioche.html#a0532690062f28e3615a1c51f62eaba0e">Pioche::getTas</a></div><div class="ttdeci">Carte getTas() const</div><div class="ttdoc">Renvoie la carte se trouvant sur le tas.</div><div class="ttdef"><b>Definition</b> Pioche.cpp:15</div></div>
-<div class="ttc" id="aclassPioche_html_ac9087dbc46294baf01b83630f481b0d0"><div class="ttname"><a href="classPioche.html#ac9087dbc46294baf01b83630f481b0d0">Pioche::setTas</a></div><div class="ttdeci">void setTas(const Carte &amp;carte)</div><div class="ttdoc">Met à jour le tas.</div><div class="ttdef"><b>Definition</b> Pioche.cpp:11</div></div>
-<div class="ttc" id="aclassPioche_html_affeb6e962382f96c90c4bbfffc715ac5"><div class="ttname"><a href="classPioche.html#affeb6e962382f96c90c4bbfffc715ac5">Pioche::Pioche</a></div><div class="ttdeci">Pioche()</div><div class="ttdoc">Constructeur de la pioche.</div><div class="ttdef"><b>Definition</b> Pioche.cpp:6</div></div>
+<div class="ttc" id="aclassPioche_html_a70916e0713ecb21802fb29730a0fe0e8"><div class="ttname"><a href="classPioche.html#a70916e0713ecb21802fb29730a0fe0e8">Pioche::~Pioche</a></div><div class="ttdeci">~Pioche()</div><div class="ttdoc">Destructeur de la pioche.</div><div class="ttdef"><b>Definition</b> Pioche.cpp:27</div></div>
+<div class="ttc" id="aclassPioche_html_a82a7f3f9ced4f5d25b7c6d20bf17d086"><div class="ttname"><a href="classPioche.html#a82a7f3f9ced4f5d25b7c6d20bf17d086">Pioche::setTas</a></div><div class="ttdeci">void setTas(Carte *carte)</div><div class="ttdoc">Met à jour le tas.</div><div class="ttdef"><b>Definition</b> Pioche.cpp:31</div></div>
+<div class="ttc" id="aclassPioche_html_aafe79961317f9bde9492dace934b6ef4"><div class="ttname"><a href="classPioche.html#aafe79961317f9bde9492dace934b6ef4">Pioche::getTas</a></div><div class="ttdeci">Carte * getTas() const</div><div class="ttdoc">Renvoie la carte se trouvant sur le tas.</div><div class="ttdef"><b>Definition</b> Pioche.cpp:35</div></div>
+<div class="ttc" id="aclassPioche_html_ae9f3c0623bc2f0911ad0914bf63c037c"><div class="ttname"><a href="classPioche.html#ae9f3c0623bc2f0911ad0914bf63c037c">Pioche::getCarte</a></div><div class="ttdeci">Carte &amp; getCarte(int indice)</div><div class="ttdoc">Renvoie la pile de cartes.</div><div class="ttdef"><b>Definition</b> Pioche.cpp:39</div></div>
+<div class="ttc" id="aclassPioche_html_af32e127ca9b83d4090df9e03a9882eae"><div class="ttname"><a href="classPioche.html#af32e127ca9b83d4090df9e03a9882eae">Pioche::testRegression</a></div><div class="ttdeci">static void testRegression()</div><div class="ttdoc">Test les fonctionnalités de la classe.</div><div class="ttdef"><b>Definition</b> Pioche.cpp:44</div></div>
+<div class="ttc" id="aclassPioche_html_affeb6e962382f96c90c4bbfffc715ac5"><div class="ttname"><a href="classPioche.html#affeb6e962382f96c90c4bbfffc715ac5">Pioche::Pioche</a></div><div class="ttdeci">Pioche()</div><div class="ttdoc">Constructeur de la pioche.</div><div class="ttdef"><b>Definition</b> Pioche.cpp:12</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

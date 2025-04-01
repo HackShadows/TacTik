@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['jouercarte_0',['jouerCarte',['../classJoueur.html#ab07d0a80a985e363a456050945e2b738',1,'Joueur']]],
-  ['joueur_1',['Joueur',['../classJoueur.html',1,'Joueur'],['../classJoueur.html#add6c98be3020651d84f6d75ccc1d867e',1,'Joueur::Joueur()']]]
+  ['ia_0',['IA',['../classIA.html',1,'IA'],['../classIA.html#a1105717ffef00df8cb87b2c3a5cb2332',1,'IA::IA()'],['../classIA.html#af0e62113e967c251d7f9c348f232a2ca',1,'IA::IA(int id_couleur)']]],
+  ['imageviewer_1',['ImageViewer',['../classImageViewer.html',1,'ImageViewer'],['../classImageViewer.html#a3b9b5cdced142770d726b6159dadc7a7',1,'ImageViewer::ImageViewer()']]]
 ];

@@ -73,6 +73,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="classJoueur-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">Joueur Class Reference</div></div>
 </div><!--header-->
@@ -87,44 +88,241 @@ $(function() {
 Public Member Functions</h2></td></tr>
 <tr class="memitem:add6c98be3020651d84f6d75ccc1d867e" id="r_add6c98be3020651d84f6d75ccc1d867e"><td class="memItemLeft" align="right" valign="top"><a id="add6c98be3020651d84f6d75ccc1d867e" name="add6c98be3020651d84f6d75ccc1d867e"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Joueur</b> ()</td></tr>
-<tr class="memdesc:add6c98be3020651d84f6d75ccc1d867e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructeur du joueur. <br /></td></tr>
+<tr class="memdesc:add6c98be3020651d84f6d75ccc1d867e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructeur par défaut du joueur. <br /></td></tr>
 <tr class="separator:add6c98be3020651d84f6d75ccc1d867e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4160167ad21e61fa1c3698531b2d3a04" id="r_a4160167ad21e61fa1c3698531b2d3a04"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4160167ad21e61fa1c3698531b2d3a04">setJoueur</a> (string nom, int id_couleur)</td></tr>
-<tr class="memdesc:a4160167ad21e61fa1c3698531b2d3a04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Défini la couleur et le pseudo du joueur.  <br /></td></tr>
-<tr class="separator:a4160167ad21e61fa1c3698531b2d3a04"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab07d0a80a985e363a456050945e2b738" id="r_ab07d0a80a985e363a456050945e2b738"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classCarte.html">Carte</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab07d0a80a985e363a456050945e2b738">jouerCarte</a> (int valeur)</td></tr>
-<tr class="memdesc:ab07d0a80a985e363a456050945e2b738"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renvoie la carte que le joueur souhaite jouer.  <br /></td></tr>
-<tr class="separator:ab07d0a80a985e363a456050945e2b738"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acfb113d6c21435fa43b654f47310eb04" id="r_acfb113d6c21435fa43b654f47310eb04"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acfb113d6c21435fa43b654f47310eb04">Joueur</a> (int id_couleur, bool ai=false)</td></tr>
+<tr class="memdesc:acfb113d6c21435fa43b654f47310eb04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructeur avec paramètres du joueur.  <br /></td></tr>
+<tr class="separator:acfb113d6c21435fa43b654f47310eb04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9fb594f755601ee77ce5884c4c0861f3" id="r_a9fb594f755601ee77ce5884c4c0861f3"><td class="memItemLeft" align="right" valign="top"><a id="a9fb594f755601ee77ce5884c4c0861f3" name="a9fb594f755601ee77ce5884c4c0861f3"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>~Joueur</b> ()</td></tr>
+<tr class="memdesc:a9fb594f755601ee77ce5884c4c0861f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructeur du joueur. <br /></td></tr>
+<tr class="separator:a9fb594f755601ee77ce5884c4c0861f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1712eeaf933c40ceb36dbc7a675be69f" id="r_a1712eeaf933c40ceb36dbc7a675be69f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1712eeaf933c40ceb36dbc7a675be69f">setMaison</a> (int indice, int id_pion)</td></tr>
+<tr class="memdesc:a1712eeaf933c40ceb36dbc7a675be69f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Modifie l'état d'une case de la maison (occupée = True, vide = False).  <br /></td></tr>
+<tr class="separator:a1712eeaf933c40ceb36dbc7a675be69f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77867d93e8ee69ef6c857e35f9b73600" id="r_a77867d93e8ee69ef6c857e35f9b73600"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a77867d93e8ee69ef6c857e35f9b73600">setReserve</a> (int quantite)</td></tr>
+<tr class="memdesc:a77867d93e8ee69ef6c857e35f9b73600"><td class="mdescLeft">&#160;</td><td class="mdescRight">Augmente ou diminue la réserve de 1.  <br /></td></tr>
+<tr class="separator:a77867d93e8ee69ef6c857e35f9b73600"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0eecc2fb8b30690cd2a386c5228178d0" id="r_a0eecc2fb8b30690cd2a386c5228178d0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0eecc2fb8b30690cd2a386c5228178d0">piocherCarte</a> (<a class="el" href="classCarte.html">Carte</a> *carte)</td></tr>
+<tr class="memdesc:a0eecc2fb8b30690cd2a386c5228178d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute la carte passée en paramètre à la main du joueur.  <br /></td></tr>
+<tr class="separator:a0eecc2fb8b30690cd2a386c5228178d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1daf7a3150aacce1d9ef033ba774b5b7" id="r_a1daf7a3150aacce1d9ef033ba774b5b7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classCarte.html">Carte</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1daf7a3150aacce1d9ef033ba774b5b7">getCarte</a> (int indice) const</td></tr>
+<tr class="memdesc:a1daf7a3150aacce1d9ef033ba774b5b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renvoie la carte se trouvant à l'indice 'indice'.  <br /></td></tr>
+<tr class="separator:a1daf7a3150aacce1d9ef033ba774b5b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ade0f17d11d91459bb7cef2526cf228" id="r_a7ade0f17d11d91459bb7cef2526cf228"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7ade0f17d11d91459bb7cef2526cf228">getReserve</a> () const</td></tr>
+<tr class="memdesc:a7ade0f17d11d91459bb7cef2526cf228"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renvoie le nombre de pions se trouvant dans la réserve.  <br /></td></tr>
+<tr class="separator:a7ade0f17d11d91459bb7cef2526cf228"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89e7f1dda161d4dcde7a98d5f1af1bf4" id="r_a89e7f1dda161d4dcde7a98d5f1af1bf4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a89e7f1dda161d4dcde7a98d5f1af1bf4">getCouleur</a> () const</td></tr>
+<tr class="memdesc:a89e7f1dda161d4dcde7a98d5f1af1bf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renvoie la couleur du joueur.  <br /></td></tr>
+<tr class="separator:a89e7f1dda161d4dcde7a98d5f1af1bf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6e63c10801c1cd569b4ee0d834f6a2a" id="r_ad6e63c10801c1cd569b4ee0d834f6a2a"><td class="memItemLeft" align="right" valign="top">const int *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad6e63c10801c1cd569b4ee0d834f6a2a">getMaison</a> () const</td></tr>
+<tr class="memdesc:ad6e63c10801c1cd569b4ee0d834f6a2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renvoie la maison du joueur.  <br /></td></tr>
+<tr class="separator:ad6e63c10801c1cd569b4ee0d834f6a2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac09dfcb7e0c97b984b337ec777a490c" id="r_aac09dfcb7e0c97b984b337ec777a490c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aac09dfcb7e0c97b984b337ec777a490c">estDansMain</a> (int val_carte) const</td></tr>
+<tr class="memdesc:aac09dfcb7e0c97b984b337ec777a490c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indique si la carte est dans la main.  <br /></td></tr>
+<tr class="separator:aac09dfcb7e0c97b984b337ec777a490c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a432502348ac1868d70321de1ef4d165c" id="r_a432502348ac1868d70321de1ef4d165c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a432502348ac1868d70321de1ef4d165c">mainVide</a> () const</td></tr>
+<tr class="memdesc:a432502348ac1868d70321de1ef4d165c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indique si la main est vide.  <br /></td></tr>
+<tr class="separator:a432502348ac1868d70321de1ef4d165c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab89e43790585886000d5476244732234" id="r_ab89e43790585886000d5476244732234"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classCarte.html">Carte</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab89e43790585886000d5476244732234">retirerCarte</a> (int valeur, int indice=-1)</td></tr>
+<tr class="memdesc:ab89e43790585886000d5476244732234"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retire une carte de valeur 'valeur' de la main du joueur.  <br /></td></tr>
+<tr class="separator:ab89e43790585886000d5476244732234"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa41373bca15c0a8c1ca7797e37c47092" id="r_aa41373bca15c0a8c1ca7797e37c47092"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classCarte.html">Carte</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa41373bca15c0a8c1ca7797e37c47092">defausserMain</a> ()</td></tr>
+<tr class="memdesc:aa41373bca15c0a8c1ca7797e37c47092"><td class="mdescLeft">&#160;</td><td class="mdescRight">Défausse toute la main et renvoie la dernière carte.  <br /></td></tr>
+<tr class="separator:aa41373bca15c0a8c1ca7797e37c47092"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1bb698bf4d38c47fac252efc02ee1888" id="r_a1bb698bf4d38c47fac252efc02ee1888"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1bb698bf4d38c47fac252efc02ee1888">maisonRemplie</a> () const</td></tr>
 <tr class="memdesc:a1bb698bf4d38c47fac252efc02ee1888"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renvoie True si la maison du joueur est remplie, False sinon.  <br /></td></tr>
 <tr class="separator:a1bb698bf4d38c47fac252efc02ee1888"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a26d38e39feb2ce8534139e7c7ac611cd" id="r_a26d38e39feb2ce8534139e7c7ac611cd"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a26d38e39feb2ce8534139e7c7ac611cd">testRegression</a> ()</td></tr>
+<tr class="memdesc:a26d38e39feb2ce8534139e7c7ac611cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test les fonctionnalités de la classe.  <br /></td></tr>
+<tr class="separator:a26d38e39feb2ce8534139e7c7ac611cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Représente un joueur, avec sa main et sa maison. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="ab07d0a80a985e363a456050945e2b738" name="ab07d0a80a985e363a456050945e2b738"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab07d0a80a985e363a456050945e2b738">&#9670;&#160;</a></span>jouerCarte()</h2>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="acfb113d6c21435fa43b654f47310eb04" name="acfb113d6c21435fa43b654f47310eb04"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acfb113d6c21435fa43b654f47310eb04">&#9670;&#160;</a></span>Joueur()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="classCarte.html">Carte</a> &amp; Joueur::jouerCarte </td>
+          <td class="memname">Joueur::Joueur </td>
           <td>(</td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>valeur</em></span></td><td>)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>id_couleur</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>ai</em><span class="paramdefsep"> = </span><span class="paramdefval">false</span></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Constructeur avec paramètres du joueur. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id_couleur</td><td>Couleur du joueur (1 : vert, 2 : rouge, 3 : bleu, 4 : jaune, 5 : noir, 6 : blanc). </td></tr>
+    <tr><td class="paramname">ai</td><td>True si le joueur est joué par une ia, false sinon. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="aa41373bca15c0a8c1ca7797e37c47092" name="aa41373bca15c0a8c1ca7797e37c47092"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa41373bca15c0a8c1ca7797e37c47092">&#9670;&#160;</a></span>defausserMain()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classCarte.html">Carte</a> * Joueur::defausserMain </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Renvoie la carte que le joueur souhaite jouer. </p>
+<p>Défausse toute la main et renvoie la dernière carte. </p>
+<dl class="section return"><dt>Returns</dt><dd>Dernière carte de la main. </dd></dl>
+
+</div>
+</div>
+<a id="aac09dfcb7e0c97b984b337ec777a490c" name="aac09dfcb7e0c97b984b337ec777a490c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac09dfcb7e0c97b984b337ec777a490c">&#9670;&#160;</a></span>estDansMain()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Joueur::estDansMain </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>val_carte</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Indique si la carte est dans la main. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">valeur</td><td>Valeur de la carte à renvoyer </td></tr>
+    <tr><td class="paramname">val_carte</td><td>Valeur de la carte à vérifier.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Pointeur constant vers la carte jouée </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>True si la carte est dans la main, False sinon. </dd></dl>
+
+</div>
+</div>
+<a id="a1daf7a3150aacce1d9ef033ba774b5b7" name="a1daf7a3150aacce1d9ef033ba774b5b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1daf7a3150aacce1d9ef033ba774b5b7">&#9670;&#160;</a></span>getCarte()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classCarte.html">Carte</a> * Joueur::getCarte </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>indice</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Renvoie la carte se trouvant à l'indice 'indice'. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">indice</td><td>Indice où chercher la carte (0-3).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classCarte.html" title="Représente une carte à jouer.">Carte</a> se trouvant à l'indice 'indice'. </dd></dl>
+
+</div>
+</div>
+<a id="a89e7f1dda161d4dcde7a98d5f1af1bf4" name="a89e7f1dda161d4dcde7a98d5f1af1bf4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89e7f1dda161d4dcde7a98d5f1af1bf4">&#9670;&#160;</a></span>getCouleur()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Joueur::getCouleur </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Renvoie la couleur du joueur. </p>
+<dl class="section return"><dt>Returns</dt><dd>Couleur du joueur (1 : vert, 2 : rouge, 3 : bleu, 4 : jaune, 5 : noir, 6 : blanc). </dd></dl>
+
+</div>
+</div>
+<a id="ad6e63c10801c1cd569b4ee0d834f6a2a" name="ad6e63c10801c1cd569b4ee0d834f6a2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6e63c10801c1cd569b4ee0d834f6a2a">&#9670;&#160;</a></span>getMaison()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int * Joueur::getMaison </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Renvoie la maison du joueur. </p>
+<dl class="section return"><dt>Returns</dt><dd>Maison du joueur. </dd></dl>
+
+</div>
+</div>
+<a id="a7ade0f17d11d91459bb7cef2526cf228" name="a7ade0f17d11d91459bb7cef2526cf228"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ade0f17d11d91459bb7cef2526cf228">&#9670;&#160;</a></span>getReserve()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Joueur::getReserve </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Renvoie le nombre de pions se trouvant dans la réserve. </p>
+<dl class="section return"><dt>Returns</dt><dd>Nombre de pions. </dd></dl>
+
+</div>
+</div>
+<a id="a432502348ac1868d70321de1ef4d165c" name="a432502348ac1868d70321de1ef4d165c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a432502348ac1868d70321de1ef4d165c">&#9670;&#160;</a></span>mainVide()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Joueur::mainVide </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Indique si la main est vide. </p>
+<dl class="section return"><dt>Returns</dt><dd>True si la main est vide, False sinon. </dd></dl>
 
 </div>
 </div>
@@ -148,39 +346,149 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a4160167ad21e61fa1c3698531b2d3a04" name="a4160167ad21e61fa1c3698531b2d3a04"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4160167ad21e61fa1c3698531b2d3a04">&#9670;&#160;</a></span>setJoueur()</h2>
+<a id="a0eecc2fb8b30690cd2a386c5228178d0" name="a0eecc2fb8b30690cd2a386c5228178d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0eecc2fb8b30690cd2a386c5228178d0">&#9670;&#160;</a></span>piocherCarte()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Joueur::setJoueur </td>
+          <td class="memname">bool Joueur::piocherCarte </td>
           <td>(</td>
-          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>nom</em>, </span></td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="classCarte.html">Carte</a> *</td>          <td class="paramname"><span class="paramname"><em>carte</em></span></td><td>)</td>
           <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>id_couleur</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Défini la couleur et le pseudo du joueur. </p>
+<p>Ajoute la carte passée en paramètre à la main du joueur. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">nom</td><td>Pseudonyme du joueur </td></tr>
-    <tr><td class="paramname">id_couleur</td><td>Couleur du joueur (1 : vert, 2 : rouge, 3 : bleu, 4 : jaune, 5 : blanc, 6 : noir) </td></tr>
+    <tr><td class="paramname">carte</td><td><a class="el" href="classCarte.html" title="Représente une carte à jouer.">Carte</a> à ajouter à la main.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True si la carte a pu être ajoutée, False sinon. </dd></dl>
+
+</div>
+</div>
+<a id="ab89e43790585886000d5476244732234" name="ab89e43790585886000d5476244732234"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab89e43790585886000d5476244732234">&#9670;&#160;</a></span>retirerCarte()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classCarte.html">Carte</a> * Joueur::retirerCarte </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>valeur</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>indice</em><span class="paramdefsep"> = </span><span class="paramdefval">-1</span></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retire une carte de valeur 'valeur' de la main du joueur. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">valeur</td><td>Valeur de la carte à retirer. </td></tr>
+    <tr><td class="paramname">indice</td><td>Indice de la carte à retirer (si préciser remplace la valeur).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classCarte.html" title="Représente une carte à jouer.">Carte</a> retirée. </dd></dl>
+
+</div>
+</div>
+<a id="a1712eeaf933c40ceb36dbc7a675be69f" name="a1712eeaf933c40ceb36dbc7a675be69f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1712eeaf933c40ceb36dbc7a675be69f">&#9670;&#160;</a></span>setMaison()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Joueur::setMaison </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>indice</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>id_pion</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Modifie l'état d'une case de la maison (occupée = True, vide = False). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">indice</td><td>Indice de la case à modifier. </td></tr>
+    <tr><td class="paramname">id_pion</td><td>Id du pion à mettre dans la case (0 si vide). </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
+<a id="a77867d93e8ee69ef6c857e35f9b73600" name="a77867d93e8ee69ef6c857e35f9b73600"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77867d93e8ee69ef6c857e35f9b73600">&#9670;&#160;</a></span>setReserve()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Joueur::setReserve </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>quantite</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Augmente ou diminue la réserve de 1. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">quantite</td><td>Nombre à ajouter à la réserve. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a26d38e39feb2ce8534139e7c7ac611cd" name="a26d38e39feb2ce8534139e7c7ac611cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26d38e39feb2ce8534139e7c7ac611cd">&#9670;&#160;</a></span>testRegression()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Joueur::testRegression </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Test les fonctionnalités de la classe. </p>
+<p>Effectue une série de tests pour vérifier que toutes les fonctions produisent uniquement le résultat attendu, et que les données membres de l'objet sont conformes en tout temps. </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>src/<a class="el" href="Joueur_8h_source.html">Joueur.h</a></li>
-<li>src/<b>Joueur.cpp</b></li>
+<li>src/core/<a class="el" href="Joueur_8h_source.html">Joueur.h</a></li>
+<li>src/core/<b>Joueur.cpp</b></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

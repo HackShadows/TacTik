@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['joueur_0',['Joueur',['../classJoueur.html',1,'']]]
+  ['ia_0',['IA',['../classIA.html',1,'']]],
+  ['imageviewer_1',['ImageViewer',['../classImageViewer.html',1,'']]]
 ];

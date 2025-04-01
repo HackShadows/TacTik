@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.10.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Tac-Tik: src/Pion.h Source File</title>
+<title>Tac-Tik: src/core/Pion.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -76,7 +76,7 @@ $(function() { codefold.init(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_aebb8dcc11953d78e620bbef0b9e2183.html">core</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -94,20 +94,40 @@ $(function() { codefold.init(0); });
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keyword">private</span>:</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        <span class="keywordtype">bool</span> pieu; </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <span class="keywordtype">string</span> image; </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <span class="keywordtype">int</span> position;   </div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <span class="keywordtype">int</span> id, couleur; </div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <a class="code hl_function" href="classPion.html#a971dd3abfc8440e2e6ff9a70b43a3580">Pion</a>();</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classPion.html#a249ee6b5410e36a92d042c8835b69656">setPion</a>(<span class="keywordtype">int</span> identifiant);</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>};</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <a class="code hl_function" href="classPion.html#a971dd3abfc8440e2e6ff9a70b43a3580">Pion</a>(<span class="keywordtype">int</span> identifiant);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <a class="code hl_function" href="classPion.html#a94f2fa0a967d781c32c16a32b439e298">~Pion</a>();</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classPion.html#a28b36e1a5bbf9b6c59da6b9c981f6ca3">setPos</a>(<span class="keywordtype">int</span> position);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classPion.html#a1b3841785e592760321ed74313fd5ca0">setPieu</a>(<span class="keywordtype">bool</span> etat);</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <span class="keywordtype">int</span> <a class="code hl_function" href="classPion.html#a7838a0587c72a261070bd1c1d86ec9e3">getId</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <span class="keywordtype">int</span> <a class="code hl_function" href="classPion.html#ad431777f43587611007e5c398aa2408e">getPos</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="classPion.html#a23c8ca7ed2550107f558c943f55c2fea">estPieu</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classPion.html#abb07f12752ba4b59d1fbd0050e220c22">testRegression</a>();</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>};</div>
 </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aclassPion_html"><div class="ttname"><a href="classPion.html">Pion</a></div><div class="ttdoc">Représente le pion d'un joueur.</div><div class="ttdef"><b>Definition</b> Pion.h:16</div></div>
-<div class="ttc" id="aclassPion_html_a249ee6b5410e36a92d042c8835b69656"><div class="ttname"><a href="classPion.html#a249ee6b5410e36a92d042c8835b69656">Pion::setPion</a></div><div class="ttdeci">void setPion(int identifiant)</div><div class="ttdoc">Défini les données membres du pion.</div><div class="ttdef"><b>Definition</b> Pion.cpp:17</div></div>
-<div class="ttc" id="aclassPion_html_a971dd3abfc8440e2e6ff9a70b43a3580"><div class="ttname"><a href="classPion.html#a971dd3abfc8440e2e6ff9a70b43a3580">Pion::Pion</a></div><div class="ttdeci">Pion()</div><div class="ttdoc">Constructeur du pion.</div><div class="ttdef"><b>Definition</b> Pion.cpp:10</div></div>
+<div class="ttc" id="aclassPion_html_a1b3841785e592760321ed74313fd5ca0"><div class="ttname"><a href="classPion.html#a1b3841785e592760321ed74313fd5ca0">Pion::setPieu</a></div><div class="ttdeci">void setPieu(bool etat)</div><div class="ttdoc">Modifie l'état du pion.</div><div class="ttdef"><b>Definition</b> Pion.cpp:27</div></div>
+<div class="ttc" id="aclassPion_html_a23c8ca7ed2550107f558c943f55c2fea"><div class="ttname"><a href="classPion.html#a23c8ca7ed2550107f558c943f55c2fea">Pion::estPieu</a></div><div class="ttdeci">bool estPieu() const</div><div class="ttdoc">Renvoie True si c'est un pieu, False pour un pion.</div><div class="ttdef"><b>Definition</b> Pion.cpp:39</div></div>
+<div class="ttc" id="aclassPion_html_a28b36e1a5bbf9b6c59da6b9c981f6ca3"><div class="ttname"><a href="classPion.html#a28b36e1a5bbf9b6c59da6b9c981f6ca3">Pion::setPos</a></div><div class="ttdeci">void setPos(int position)</div><div class="ttdoc">Modifie la position du pion.</div><div class="ttdef"><b>Definition</b> Pion.cpp:23</div></div>
+<div class="ttc" id="aclassPion_html_a7838a0587c72a261070bd1c1d86ec9e3"><div class="ttname"><a href="classPion.html#a7838a0587c72a261070bd1c1d86ec9e3">Pion::getId</a></div><div class="ttdeci">int getId() const</div><div class="ttdoc">Renvoie l'id du pion.</div><div class="ttdef"><b>Definition</b> Pion.cpp:31</div></div>
+<div class="ttc" id="aclassPion_html_a94f2fa0a967d781c32c16a32b439e298"><div class="ttname"><a href="classPion.html#a94f2fa0a967d781c32c16a32b439e298">Pion::~Pion</a></div><div class="ttdeci">~Pion()</div><div class="ttdoc">Destructeur du pion.</div><div class="ttdef"><b>Definition</b> Pion.cpp:16</div></div>
+<div class="ttc" id="aclassPion_html_a971dd3abfc8440e2e6ff9a70b43a3580"><div class="ttname"><a href="classPion.html#a971dd3abfc8440e2e6ff9a70b43a3580">Pion::Pion</a></div><div class="ttdeci">Pion()</div><div class="ttdoc">Constructeur par défaut du pion.</div><div class="ttdef"><b>Definition</b> Pion.cpp:12</div></div>
+<div class="ttc" id="aclassPion_html_abb07f12752ba4b59d1fbd0050e220c22"><div class="ttname"><a href="classPion.html#abb07f12752ba4b59d1fbd0050e220c22">Pion::testRegression</a></div><div class="ttdeci">static void testRegression()</div><div class="ttdoc">Test les fonctionnalités de la classe.</div><div class="ttdef"><b>Definition</b> Pion.cpp:43</div></div>
+<div class="ttc" id="aclassPion_html_ad431777f43587611007e5c398aa2408e"><div class="ttname"><a href="classPion.html#ad431777f43587611007e5c398aa2408e">Pion::getPos</a></div><div class="ttdeci">int getPos() const</div><div class="ttdoc">Renvoie la position du pion.</div><div class="ttdef"><b>Definition</b> Pion.cpp:35</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
