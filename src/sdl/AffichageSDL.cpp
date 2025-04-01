@@ -24,6 +24,20 @@ int getIndiceCase(const Jeu & jeu, int posx, int posy, const int tab[][2], float
     return -1;
 }
 
+void ImageViewer::setRGB(int couleur){
+      switch couleur{
+              case 1:
+              case 2:
+              case 3:
+              case 4:
+              case 5:
+              case 6:
+              default:
+                  break;
+          }
+}
+
+
 void ImageViewer::debugCoordonnees(const int tab[][2]){
     for (int i = 0; i<16*nbJ; i++){
         SDL_Rect rect = { tab[i][0]*zoom, tab[i][1]*zoom, 20*zoom, 20*zoom };
@@ -32,11 +46,23 @@ void ImageViewer::debugCoordonnees(const int tab[][2]){
 }
 
 void ImageViewer::afficherPions(const Jeu & jeu, const int tab[][2]){
-    for (int i = 0; i<16*nbJ; i++){
-    	int id = jeu.getPlateau().getIdPion(i);
-    	if (id != 0){
-    		SDL_Rect rect = { tab[i][0]*zoom, tab[i][1]*zoom, 20*zoom, 20*zoom };
-        	SDL_RenderFillRect(renderer, &rect);
+    for (int i = 0; i<4*nbJ; i++){
+        Pion pion = jeu.getPion(i);
+        int indice = pion.getPos();
+        if (indice >=0){
+            if (pion.estPieu()){
+                SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+                SDL_Rect rect = { tab[indice][0]*zoom, tab[indice][1]*zoom, 20*zoom, 20*zoom };
+                SDL_RenderFillRect(renderer, &rect);
+            }
+            else{
+                SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255); // Blanc
+                SDL_Rect rect = { tab[i][0]*zoom, tab[i][1]*zoom, 20*zoom, 20*zoom };
+                SDL_RenderFillRect(renderer, &rect);
+            }
+
+        }
+
     	}
     }
 }
