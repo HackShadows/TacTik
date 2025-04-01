@@ -1,7 +1,19 @@
 var searchData=
 [
-  ['getimage_0',['getImage',['../classCarte.html#af5e3467a72170b76be510dac8f7f3655',1,'Carte']]],
-  ['getnbjoueurs_1',['getNbJoueurs',['../classPlateau.html#a44d7473c017a5f65c9f2cbdca448f7d8',1,'Plateau']]],
-  ['gettas_2',['getTas',['../classPioche.html#a0532690062f28e3615a1c51f62eaba0e',1,'Pioche']]],
-  ['getvaleur_3',['getValeur',['../classCarte.html#ae42c8fda90c66ece6decfee629c40d2f',1,'Carte']]]
+  ['getcarte_0',['getCarte',['../classJoueur.html#a1daf7a3150aacce1d9ef033ba774b5b7',1,'Joueur::getCarte()'],['../classPioche.html#ae9f3c0623bc2f0911ad0914bf63c037c',1,'Pioche::getCarte()']]],
+  ['getcasesdepart_1',['getCasesDepart',['../classPlateau.html#a7a38beb40b9db44b445431f22117bf5c',1,'Plateau']]],
+  ['getcouleur_2',['getCouleur',['../classJoueur.html#a89e7f1dda161d4dcde7a98d5f1af1bf4',1,'Joueur']]],
+  ['getid_3',['getId',['../classPion.html#a7838a0587c72a261070bd1c1d86ec9e3',1,'Pion']]],
+  ['getidpion_4',['getIdPion',['../classPlateau.html#aaad8160f24dbfb8dcd39c29d5556c960',1,'Plateau']]],
+  ['getjoueur_5',['getJoueur',['../classJeu.html#a7aef08f16cbec87b184ec8a98f885885',1,'Jeu']]],
+  ['getmaison_6',['getMaison',['../classJoueur.html#ad6e63c10801c1cd569b4ee0d834f6a2a',1,'Joueur']]],
+  ['getnbcase_7',['getNbCase',['../classPlateau.html#aaa97e7e38b3233a2a66d787a57893ea1',1,'Plateau']]],
+  ['getnbjoueurs_8',['getNbJoueurs',['../classJeu.html#aeff6f475e352de56f61deb2789c9bdc4',1,'Jeu']]],
+  ['getpioche_9',['getPioche',['../classJeu.html#a9fdd24a353399ac15110063d77124ad3',1,'Jeu']]],
+  ['getpion_10',['getPion',['../classJeu.html#aa4118668f21ce421d3f6befc18e94ad6',1,'Jeu']]],
+  ['getplateau_11',['getPlateau',['../classJeu.html#a8b15f1a2daed6f67d1379bac897cfe71',1,'Jeu']]],
+  ['getpos_12',['getPos',['../classPion.html#ad431777f43587611007e5c398aa2408e',1,'Pion']]],
+  ['getreserve_13',['getReserve',['../classJoueur.html#a7ade0f17d11d91459bb7cef2526cf228',1,'Joueur']]],
+  ['gettas_14',['getTas',['../classPioche.html#aafe79961317f9bde9492dace934b6ef4',1,'Pioche']]],
+  ['getvaleur_15',['getValeur',['../classCarte.html#ae42c8fda90c66ece6decfee629c40d2f',1,'Carte']]]
 ];

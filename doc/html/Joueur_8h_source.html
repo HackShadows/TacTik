@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.10.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Tac-Tik: src/Joueur.h Source File</title>
+<title>Tac-Tik: src/core/Joueur.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -76,7 +76,7 @@ $(function() { codefold.init(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_aebb8dcc11953d78e620bbef0b9e2183.html">core</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -94,29 +94,64 @@ $(function() { codefold.init(0); });
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="classJoueur.html">   17</a></span><span class="keyword">class </span><a class="code hl_class" href="classJoueur.html">Joueur</a> {</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <span class="keywordtype">bool</span> maison[4]; </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <a class="code hl_class" href="classCarte.html">Carte</a> * main; </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keywordtype">string</span> pseudo; </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="keywordtype">int</span> couleur, reserve; </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <span class="keywordtype">int</span> couleur, reserve; </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <span class="keywordtype">bool</span> ia; </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <a class="code hl_class" href="classCarte.html">Carte</a>* main[4]; </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="keywordtype">int</span> maison[4] = {0}; </div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <a class="code hl_function" href="classJoueur.html#add6c98be3020651d84f6d75ccc1d867e">Joueur</a>();</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classJoueur.html#a4160167ad21e61fa1c3698531b2d3a04">setJoueur</a>(<span class="keywordtype">string</span> nom, <span class="keywordtype">int</span> id_couleur);</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        <a class="code hl_function" href="classJoueur.html#add6c98be3020651d84f6d75ccc1d867e">Joueur</a>(<span class="keywordtype">int</span> id_couleur, <span class="keywordtype">bool</span> ai = <span class="keyword">false</span>);</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="keyword">const</span> <a class="code hl_class" href="classCarte.html">Carte</a>&amp; <a class="code hl_function" href="classJoueur.html#ab07d0a80a985e363a456050945e2b738">jouerCarte</a>(<span class="keywordtype">int</span> valeur);</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="classJoueur.html#a1bb698bf4d38c47fac252efc02ee1888">maisonRemplie</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>};</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <a class="code hl_function" href="classJoueur.html#a9fb594f755601ee77ce5884c4c0861f3">~Joueur</a>();</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classJoueur.html#a1712eeaf933c40ceb36dbc7a675be69f">setMaison</a>(<span class="keywordtype">int</span> indice, <span class="keywordtype">int</span> id_pion);</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classJoueur.html#a77867d93e8ee69ef6c857e35f9b73600">setReserve</a>(<span class="keywordtype">int</span> quantite);</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="classJoueur.html#a0eecc2fb8b30690cd2a386c5228178d0">piocherCarte</a>(<a class="code hl_class" href="classCarte.html">Carte</a>* carte);</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <a class="code hl_class" href="classCarte.html">Carte</a>* <a class="code hl_function" href="classJoueur.html#a1daf7a3150aacce1d9ef033ba774b5b7">getCarte</a>(<span class="keywordtype">int</span> indice) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <span class="keywordtype">int</span> <a class="code hl_function" href="classJoueur.html#a7ade0f17d11d91459bb7cef2526cf228">getReserve</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        <span class="keywordtype">int</span> <a class="code hl_function" href="classJoueur.html#a89e7f1dda161d4dcde7a98d5f1af1bf4">getCouleur</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        <span class="keyword">const</span> <span class="keywordtype">int</span>* <a class="code hl_function" href="classJoueur.html#ad6e63c10801c1cd569b4ee0d834f6a2a">getMaison</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="classJoueur.html#aac09dfcb7e0c97b984b337ec777a490c">estDansMain</a>(<span class="keywordtype">int</span> val_carte) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="classJoueur.html#a432502348ac1868d70321de1ef4d165c">mainVide</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        <a class="code hl_class" href="classCarte.html">Carte</a>* <a class="code hl_function" href="classJoueur.html#ab89e43790585886000d5476244732234">retirerCarte</a>(<span class="keywordtype">int</span> valeur, <span class="keywordtype">int</span> indice = -1);</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        <a class="code hl_class" href="classCarte.html">Carte</a>* <a class="code hl_function" href="classJoueur.html#aa41373bca15c0a8c1ca7797e37c47092">defausserMain</a>();</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="classJoueur.html#a1bb698bf4d38c47fac252efc02ee1888">maisonRemplie</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span> </div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classJoueur.html#a26d38e39feb2ce8534139e7c7ac611cd">testRegression</a>();</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>};</div>
 </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aclassCarte_html"><div class="ttname"><a href="classCarte.html">Carte</a></div><div class="ttdoc">Représente une carte à jouer.</div><div class="ttdef"><b>Definition</b> Carte.h:16</div></div>
 <div class="ttc" id="aclassJoueur_html"><div class="ttname"><a href="classJoueur.html">Joueur</a></div><div class="ttdoc">Représente un joueur, avec sa main et sa maison.</div><div class="ttdef"><b>Definition</b> Joueur.h:17</div></div>
-<div class="ttc" id="aclassJoueur_html_a1bb698bf4d38c47fac252efc02ee1888"><div class="ttname"><a href="classJoueur.html#a1bb698bf4d38c47fac252efc02ee1888">Joueur::maisonRemplie</a></div><div class="ttdeci">bool maisonRemplie() const</div><div class="ttdoc">Renvoie True si la maison du joueur est remplie, False sinon.</div><div class="ttdef"><b>Definition</b> Joueur.cpp:34</div></div>
-<div class="ttc" id="aclassJoueur_html_a4160167ad21e61fa1c3698531b2d3a04"><div class="ttname"><a href="classJoueur.html#a4160167ad21e61fa1c3698531b2d3a04">Joueur::setJoueur</a></div><div class="ttdeci">void setJoueur(string nom, int id_couleur)</div><div class="ttdoc">Défini la couleur et le pseudo du joueur.</div><div class="ttdef"><b>Definition</b> Joueur.cpp:18</div></div>
-<div class="ttc" id="aclassJoueur_html_ab07d0a80a985e363a456050945e2b738"><div class="ttname"><a href="classJoueur.html#ab07d0a80a985e363a456050945e2b738">Joueur::jouerCarte</a></div><div class="ttdeci">const Carte &amp; jouerCarte(int valeur)</div><div class="ttdoc">Renvoie la carte que le joueur souhaite jouer.</div><div class="ttdef"><b>Definition</b> Joueur.cpp:24</div></div>
-<div class="ttc" id="aclassJoueur_html_add6c98be3020651d84f6d75ccc1d867e"><div class="ttname"><a href="classJoueur.html#add6c98be3020651d84f6d75ccc1d867e">Joueur::Joueur</a></div><div class="ttdeci">Joueur()</div><div class="ttdoc">Constructeur du joueur.</div><div class="ttdef"><b>Definition</b> Joueur.cpp:8</div></div>
+<div class="ttc" id="aclassJoueur_html_a0eecc2fb8b30690cd2a386c5228178d0"><div class="ttname"><a href="classJoueur.html#a0eecc2fb8b30690cd2a386c5228178d0">Joueur::piocherCarte</a></div><div class="ttdeci">bool piocherCarte(Carte *carte)</div><div class="ttdoc">Ajoute la carte passée en paramètre à la main du joueur.</div><div class="ttdef"><b>Definition</b> Joueur.cpp:77</div></div>
+<div class="ttc" id="aclassJoueur_html_a1712eeaf933c40ceb36dbc7a675be69f"><div class="ttname"><a href="classJoueur.html#a1712eeaf933c40ceb36dbc7a675be69f">Joueur::setMaison</a></div><div class="ttdeci">void setMaison(int indice, int id_pion)</div><div class="ttdoc">Modifie l'état d'une case de la maison (occupée = True, vide = False).</div><div class="ttdef"><b>Definition</b> Joueur.cpp:31</div></div>
+<div class="ttc" id="aclassJoueur_html_a1bb698bf4d38c47fac252efc02ee1888"><div class="ttname"><a href="classJoueur.html#a1bb698bf4d38c47fac252efc02ee1888">Joueur::maisonRemplie</a></div><div class="ttdeci">bool maisonRemplie() const</div><div class="ttdoc">Renvoie True si la maison du joueur est remplie, False sinon.</div><div class="ttdef"><b>Definition</b> Joueur.cpp:117</div></div>
+<div class="ttc" id="aclassJoueur_html_a1daf7a3150aacce1d9ef033ba774b5b7"><div class="ttname"><a href="classJoueur.html#a1daf7a3150aacce1d9ef033ba774b5b7">Joueur::getCarte</a></div><div class="ttdeci">Carte * getCarte(int indice) const</div><div class="ttdoc">Renvoie la carte se trouvant à l'indice 'indice'.</div><div class="ttdef"><b>Definition</b> Joueur.cpp:42</div></div>
+<div class="ttc" id="aclassJoueur_html_a26d38e39feb2ce8534139e7c7ac611cd"><div class="ttname"><a href="classJoueur.html#a26d38e39feb2ce8534139e7c7ac611cd">Joueur::testRegression</a></div><div class="ttdeci">static void testRegression()</div><div class="ttdoc">Test les fonctionnalités de la classe.</div><div class="ttdef"><b>Definition</b> Joueur.cpp:126</div></div>
+<div class="ttc" id="aclassJoueur_html_a432502348ac1868d70321de1ef4d165c"><div class="ttname"><a href="classJoueur.html#a432502348ac1868d70321de1ef4d165c">Joueur::mainVide</a></div><div class="ttdeci">bool mainVide() const</div><div class="ttdoc">Indique si la main est vide.</div><div class="ttdef"><b>Definition</b> Joueur.cpp:70</div></div>
+<div class="ttc" id="aclassJoueur_html_a77867d93e8ee69ef6c857e35f9b73600"><div class="ttname"><a href="classJoueur.html#a77867d93e8ee69ef6c857e35f9b73600">Joueur::setReserve</a></div><div class="ttdeci">void setReserve(int quantite)</div><div class="ttdoc">Augmente ou diminue la réserve de 1.</div><div class="ttdef"><b>Definition</b> Joueur.cpp:37</div></div>
+<div class="ttc" id="aclassJoueur_html_a7ade0f17d11d91459bb7cef2526cf228"><div class="ttname"><a href="classJoueur.html#a7ade0f17d11d91459bb7cef2526cf228">Joueur::getReserve</a></div><div class="ttdeci">int getReserve() const</div><div class="ttdoc">Renvoie le nombre de pions se trouvant dans la réserve.</div><div class="ttdef"><b>Definition</b> Joueur.cpp:47</div></div>
+<div class="ttc" id="aclassJoueur_html_a89e7f1dda161d4dcde7a98d5f1af1bf4"><div class="ttname"><a href="classJoueur.html#a89e7f1dda161d4dcde7a98d5f1af1bf4">Joueur::getCouleur</a></div><div class="ttdeci">int getCouleur() const</div><div class="ttdoc">Renvoie la couleur du joueur.</div><div class="ttdef"><b>Definition</b> Joueur.cpp:51</div></div>
+<div class="ttc" id="aclassJoueur_html_a9fb594f755601ee77ce5884c4c0861f3"><div class="ttname"><a href="classJoueur.html#a9fb594f755601ee77ce5884c4c0861f3">Joueur::~Joueur</a></div><div class="ttdeci">~Joueur()</div><div class="ttdoc">Destructeur du joueur.</div><div class="ttdef"><b>Definition</b> Joueur.cpp:25</div></div>
+<div class="ttc" id="aclassJoueur_html_aa41373bca15c0a8c1ca7797e37c47092"><div class="ttname"><a href="classJoueur.html#aa41373bca15c0a8c1ca7797e37c47092">Joueur::defausserMain</a></div><div class="ttdeci">Carte * defausserMain()</div><div class="ttdoc">Défausse toute la main et renvoie la dernière carte.</div><div class="ttdef"><b>Definition</b> Joueur.cpp:106</div></div>
+<div class="ttc" id="aclassJoueur_html_aac09dfcb7e0c97b984b337ec777a490c"><div class="ttname"><a href="classJoueur.html#aac09dfcb7e0c97b984b337ec777a490c">Joueur::estDansMain</a></div><div class="ttdeci">bool estDansMain(int val_carte) const</div><div class="ttdoc">Indique si la carte est dans la main.</div><div class="ttdef"><b>Definition</b> Joueur.cpp:59</div></div>
+<div class="ttc" id="aclassJoueur_html_ab89e43790585886000d5476244732234"><div class="ttname"><a href="classJoueur.html#ab89e43790585886000d5476244732234">Joueur::retirerCarte</a></div><div class="ttdeci">Carte * retirerCarte(int valeur, int indice=-1)</div><div class="ttdoc">Retire une carte de valeur 'valeur' de la main du joueur.</div><div class="ttdef"><b>Definition</b> Joueur.cpp:88</div></div>
+<div class="ttc" id="aclassJoueur_html_ad6e63c10801c1cd569b4ee0d834f6a2a"><div class="ttname"><a href="classJoueur.html#ad6e63c10801c1cd569b4ee0d834f6a2a">Joueur::getMaison</a></div><div class="ttdeci">const int * getMaison() const</div><div class="ttdoc">Renvoie la maison du joueur.</div><div class="ttdef"><b>Definition</b> Joueur.cpp:55</div></div>
+<div class="ttc" id="aclassJoueur_html_add6c98be3020651d84f6d75ccc1d867e"><div class="ttname"><a href="classJoueur.html#add6c98be3020651d84f6d75ccc1d867e">Joueur::Joueur</a></div><div class="ttdeci">Joueur()</div><div class="ttdoc">Constructeur par défaut du joueur.</div><div class="ttdef"><b>Definition</b> Joueur.cpp:12</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
