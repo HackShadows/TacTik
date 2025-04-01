@@ -21,14 +21,14 @@ doc: doc/doxyfile doc/html
 doc/html:
 	doxygen doc/doxyfile
 
-bin/mainTXT: obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/Plateau.o obj/Jeu.o obj/AffichageTXT.o obj/mainTXT.o
-	g++ obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/Plateau.o obj/Jeu.o obj/AffichageTXT.o obj/mainTXT.o -o bin/mainTXT
+bin/mainTXT: obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageTXT.o obj/mainTXT.o
+	g++ obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageTXT.o obj/mainTXT.o -o bin/mainTXT
 
-bin/test:obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/Plateau.o obj/Jeu.o obj/AffichageTXT.o obj/mainTest.o
-	g++ obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/Plateau.o obj/Jeu.o obj/AffichageTXT.o obj/mainTest.o -o bin/test
+bin/test:obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageTXT.o obj/mainTest.o
+	g++ obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageTXT.o obj/mainTest.o -o bin/test
 
-bin/mainSDL: obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/Plateau.o obj/Jeu.o obj/AffichageSDL.o obj/mainSDL.o
-	g++ obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/Plateau.o obj/Jeu.o obj/AffichageSDL.o obj/mainSDL.o -o bin/mainSDL $(LIB_SDL)
+bin/mainSDL: obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageSDL.o obj/mainSDL.o
+	g++ obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageSDL.o obj/mainSDL.o -o bin/mainSDL $(LIB_SDL)
 
 obj/mainTest.o: src/mainTest.cpp $(CORE)/Jeu.h
 	g++ $(CXXFLAGS) src/mainTest.cpp -o obj/mainTest.o
@@ -45,7 +45,7 @@ obj/mainTXT.o: src/mainTXT.cpp $(TXT)/Affichage.h
 obj/AffichageTXT.o: $(TXT)/Affichage.cpp $(TXT)/Affichage.h $(CORE)/Jeu.h
 	g++ $(CXXFLAGS) $(TXT)/Affichage.cpp -o obj/AffichageTXT.o
 
-obj/Jeu.o: $(CORE)/Jeu.cpp $(CORE)/Jeu.h $(CORE)/Joueur.h $(CORE)/Pioche.h $(CORE)/Plateau.h
+obj/Jeu.o: $(CORE)/Jeu.cpp $(CORE)/Jeu.h $(CORE)/Joueur.h $(CORE)/IA.h $(CORE)/Pioche.h $(CORE)/Plateau.h
 	g++ $(CXXFLAGS) $(CORE)/Jeu.cpp -o obj/Jeu.o
 
 obj/Carte.o: $(CORE)/Carte.cpp $(CORE)/Carte.h
@@ -59,6 +59,9 @@ obj/Pion.o: $(CORE)/Pion.cpp $(CORE)/Pion.h
 
 obj/Joueur.o: $(CORE)/Joueur.cpp $(CORE)/Joueur.h $(CORE)/Carte.h
 	g++ $(CXXFLAGS) $(CORE)/Joueur.cpp -o obj/Joueur.o
+
+obj/IA.o: $(CORE)/IA.cpp $(CORE)/IA.h
+	g++ $(CXXFLAGS) $(CORE)/IA.cpp -o obj/IA.o
 
 obj/Plateau.o: $(CORE)/Plateau.cpp $(CORE)/Plateau.h $(CORE)/Pion.h
 	g++ $(CXXFLAGS) $(CORE)/Plateau.cpp -o obj/Plateau.o
@@ -99,10 +102,13 @@ $(WIN_OBJ_DIR)/Pion.o: $(CORE)/Pion.cpp $(CORE)/Pion.h | $(WIN_OBJ_DIR)
 $(WIN_OBJ_DIR)/Joueur.o: $(CORE)/Joueur.cpp $(CORE)/Joueur.h $(CORE)/Carte.h | $(WIN_OBJ_DIR)
 	$(CROSS) $(CROSS_CXXFLAGS) $(CORE)/Joueur.cpp -o $(WIN_OBJ_DIR)/Joueur.o
 
+$(WIN_OBJ_DIR)/IA.o: $(CORE)/IA.cpp $(CORE)/IA.h | $(WIN_OBJ_DIR)
+	$(CROSS) $(CROSS_CXXFLAGS) $(CORE)/IA.cpp -o $(WIN_OBJ_DIR)/IA.o
+
 $(WIN_OBJ_DIR)/Plateau.o: $(CORE)/Plateau.cpp $(CORE)/Plateau.h $(CORE)/Pion.h | $(WIN_OBJ_DIR)
 	$(CROSS) $(CROSS_CXXFLAGS) $(CORE)/Plateau.cpp -o $(WIN_OBJ_DIR)/Plateau.o
 
-$(WIN_OBJ_DIR)/Jeu.o: $(CORE)/Jeu.cpp $(CORE)/Jeu.h $(CORE)/Joueur.h $(CORE)/Pioche.h $(CORE)/Plateau.h | $(WIN_OBJ_DIR)
+$(WIN_OBJ_DIR)/Jeu.o: $(CORE)/Jeu.cpp $(CORE)/Jeu.h $(CORE)/Joueur.h $(CORE)/IA.h $(CORE)/Pioche.h $(CORE)/Plateau.h | $(WIN_OBJ_DIR)
 	$(CROSS) $(CROSS_CXXFLAGS) $(CORE)/Jeu.cpp -o $(WIN_OBJ_DIR)/Jeu.o
 
 # Règles pour compiler les sources TXT spécifiques
@@ -113,7 +119,7 @@ $(WIN_OBJ_DIR)/mainTXT.o: src/mainTXT.cpp $(TXT)/Affichage.h | $(WIN_OBJ_DIR)
 	$(CROSS) $(CROSS_CXXFLAGS) src/mainTXT.cpp -o $(WIN_OBJ_DIR)/mainTXT.o
 
 # Règle de linkage pour générer l'exécutable Windows mainTXT.exe
-bin/mainTXT.exe: $(WIN_OBJ_DIR)/Carte.o $(WIN_OBJ_DIR)/Pioche.o $(WIN_OBJ_DIR)/Pion.o $(WIN_OBJ_DIR)/Joueur.o $(WIN_OBJ_DIR)/Plateau.o $(WIN_OBJ_DIR)/Jeu.o $(WIN_OBJ_DIR)/AffichageTXT.o $(WIN_OBJ_DIR)/mainTXT.o | bin
+bin/mainTXT.exe: $(WIN_OBJ_DIR)/Carte.o $(WIN_OBJ_DIR)/Pioche.o $(WIN_OBJ_DIR)/Pion.o $(WIN_OBJ_DIR)/Joueur.o $(WIN_OBJ_DIR)/IA.o $(WIN_OBJ_DIR)/Plateau.o $(WIN_OBJ_DIR)/Jeu.o $(WIN_OBJ_DIR)/AffichageTXT.o $(WIN_OBJ_DIR)/mainTXT.o | bin
 	$(CROSS) $^ -static -static-libgcc -static-libstdc++ -lmingw32 -o bin/mainTXT.exe
 
 # Assure que le dossier bin existe

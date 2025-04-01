@@ -18,6 +18,7 @@ class Joueur {
 
 	private:
 		int couleur, reserve; ///<La couleur et le nombre de pions en réserve du joueur
+        bool ia; ///<Booléen indiquant si le joueur est joué par une ia ou non
 		Carte* main[4]; ///<Les 4 cartes de la main du joueur
 		int maison[4] = {0}; ///<La maison du joueur
 
@@ -30,9 +31,10 @@ class Joueur {
 		/**
 		* @brief Constructeur du joueur.
 		*
-		* @param id_couleur Couleur du joueur (1 : vert, 2 : rouge, 3 : bleu, 4 : jaune, 5 : noir, 6 : blanc)
+		* @param id_couleur Couleur du joueur (1 : vert, 2 : rouge, 3 : bleu, 4 : jaune, 5 : noir, 6 : blanc).
+		* @param ai True si le joueur est joué par une ia, false sinon.
 		*/
-		Joueur(int id_couleur);
+		Joueur(int id_couleur, bool ai = false);
 
         /**
         * @brief Destructeur du joueur.

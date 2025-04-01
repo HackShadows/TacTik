@@ -5,6 +5,7 @@
 * @brief Contient la déclaration de la classe Jeu.
 */
 #include "Joueur.h"
+#include "IA.h"
 #include "Pioche.h"
 #include "Plateau.h"
 #include <iostream>

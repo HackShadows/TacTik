@@ -9,13 +9,13 @@
 using namespace std;
 
 
-Joueur::Joueur(): couleur(0), reserve(4) {
+Joueur::Joueur(): couleur(0), reserve(4), ia(false) {
     for (int i = 0; i<4; i++){
         main[i] = nullptr;
     }
 }
 
-Joueur::Joueur(int id_couleur): couleur(id_couleur), reserve(4) {
+Joueur::Joueur(int id_couleur, bool ai): couleur(id_couleur), reserve(4), ia(ai) {
     assert(1 <= id_couleur && id_couleur <= 6);
     for (int i = 0; i<4; i++){
         main[i] = nullptr;
