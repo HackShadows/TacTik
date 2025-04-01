@@ -92,7 +92,7 @@ class Jeu {
 		*
 		* @return Le joueur se trouvant à l'indice 'indice'.
         */
-	   	Joueur& getJoueur(int indice) const;
+	   	const Joueur& getJoueur(int indice) const;
 
 		/**
         * @brief Renvoie le pion d'identifiant 'id_pion'.

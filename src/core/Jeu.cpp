@@ -73,7 +73,7 @@ int Jeu::getNbJoueurs() const {
     return nbJoueurs;
 }
 
-Joueur& Jeu::getJoueur(int indice) const {
+const Joueur& Jeu::getJoueur(int indice) const {
 	assert(0 <= indice && indice < nbJoueurs);
 	return joueurs[indice];
 }
