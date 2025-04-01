@@ -325,6 +325,8 @@ bool Jeu::jouerCarte(int val_carte, int couleur, bool coequipier, bool affichage
 	Joueur& j1 = joueurs[couleur-1];
 	if (coequipier) couleur = 1 + ((couleur < 5) ? (couleur+1)%4 : 10-couleur);
 	Joueur& joueur = joueurs[couleur-1];
+	
+	// Cas du permutter
 	if (val_carte == 11) {
 		for (int i = (couleur-1)*4 ; i < couleur*4 ; i++) {
 			if (pions[i].getPos() >= 0) {
@@ -338,7 +340,10 @@ bool Jeu::jouerCarte(int val_carte, int couleur, bool coequipier, bool affichage
 		int id_pion2 = 0;
 		while (id_pion2 < 1 || id_pion2 > 4*nbJoueurs || pions[id_pion2-1].estPieu() || id_pion2 == id_pion) id_pion2 = cinProtectionInt("\nId du deuxième pion avec lequel permutter : ");
 		if (!permutter(id_pion, id_pion2)) return false;
-	} else if (val_carte == -1) {
+	} 
+	
+	// Cas du joker
+	else if (val_carte == -1) {
 		bool continuer = true;
 		while (continuer) {
 			do {
@@ -350,7 +355,10 @@ bool Jeu::jouerCarte(int val_carte, int couleur, bool coequipier, bool affichage
 		}
 		
 		return jouerCarte(val_carte, c1, coequipier, affichage_graphique, true);
-	} else if (val_carte == 1 || val_carte == 10 || val_carte == 13) {
+	} 
+	
+	// Cas du démarrer
+	else if (val_carte == 1 || val_carte == 10 || val_carte == 13) {
 		char choix = '0';
 		if (joueur.getReserve() == 4) choix = 'D';
 		else if (!demarrer(couleur, true)) choix = 'A';
@@ -378,7 +386,10 @@ bool Jeu::jouerCarte(int val_carte, int couleur, bool coequipier, bool affichage
 			while (id_pion < 1 || id_pion > 4*nbJoueurs || (id_pion-1)/4 != couleur-1) id_pion = cinProtectionInt("\nId du pion à avancer : ");
 			if (!avancerPion(val_carte, id_pion)) return false;
 		}
-	} else if (val_carte == 7 && joueur.getReserve() < 3) {
+	} 
+	
+	// Cas du 7x1
+	else if (val_carte == 7 && joueur.getReserve() < 3) {
 		int val, somme = 0;
 		for (int i = (couleur-1)*4 +1 ; i <= couleur*4 ; i++) {
 			val = 1;
@@ -405,7 +416,10 @@ bool Jeu::jouerCarte(int val_carte, int couleur, bool coequipier, bool affichage
 				somme += val;
 			}
 		}
-	} else {
+	} 
+	
+	// Cas du avancer
+	else {
 		for (int i = (couleur-1)*4 +1 ; i <= couleur*4 ; i++) {
 			if (avancerPion(val_carte, i, true)) {
 				id_pion = i;
@@ -417,6 +431,8 @@ bool Jeu::jouerCarte(int val_carte, int couleur, bool coequipier, bool affichage
 		while (id_pion < 1 || id_pion > 4*nbJoueurs || (id_pion-1)/4 != couleur-1) id_pion = cinProtectionInt("\nId du pion à avancer : ");
 		if (!avancerPion(val_carte, id_pion)) return false;
 	}
+	
+	// Affichage sur le tas
 	if (joker) val_carte = -1;
 	pioche.setTas(j1.retirerCarte(val_carte));
 	return true;
