@@ -53,7 +53,7 @@ void affichageCarte(const Jeu & jeu, int indiceJoueur, int joueurActif) {
     cout << "     Les cartes du joueur " << intToStr(indiceJoueur) << " : [ ";
     for (int j = 0; j < 4; j++) {
         if(jeu.getJoueur(indiceJoueur).getCarte(j) != nullptr) {
-            if (joueurActif == indiceJoueur) {
+            if (joueurActif == indiceJoueur || joueurActif == 7) {
                 cout << jeu.getJoueur(indiceJoueur).getCarte(j)->getValeur() << " ";
             }
             else {
@@ -99,7 +99,8 @@ void maisonHaut(const Jeu & jeu, int nbCase, int joueurActif) {
         affichageMaison(jeu, 2);
         cout << "                 Noir : ";
         affichageMaison(jeu, 5);
-        cout << "       ";
+        for (int i = 17 ; i <= 20 ; i++) cout << ((jeu.getPion(i).getPos() == -2) ? "":" ");
+        cout << "   ";
     }
     affichageId(jeu.getPlateau().getIdPion(8*(nbJ-2)), 8*(nbJ-2)); //16
     affichageCarte(jeu, 1, joueurActif);
@@ -214,18 +215,23 @@ void maisonBas(const Jeu & jeu, int nbCase, int joueurActif) {
     if (jeu.getNbJoueurs() == 4) {
         cout << "  " << "Jaune : ";
         affichageMaison(jeu, 4);
-        cout << "    " << "Bleu : ";
+        for (int i = 13 ; i <= 16 ; i++) cout << ((jeu.getPion(i).getPos() == -2) ? "":" ");
+        cout << "Bleu : ";
         affichageMaison(jeu, 3);
-        cout << "     ";
+        for (int i = 10 ; i <= 12 ; i++) cout << ((jeu.getPion(i).getPos() == -2) ? "":" ");
+        cout << "  ";
     }
     else {
         cout << "  Blanc : ";
         affichageMaison(jeu, 6);
-        cout << "                 Jaune : ";
+        for (int i = 21 ; i <= 24 ; i++) cout << ((jeu.getPion(i).getPos() == -2) ? "":" ");
+        cout << "             Jaune : ";
         affichageMaison(jeu, 4);
-        cout << "                 Bleu : ";
+        for (int i = 13 ; i <= 16 ; i++) cout << ((jeu.getPion(i).getPos() == -2) ? "":" ");
+        cout << "             Bleu : ";
         affichageMaison(jeu, 3);
-        cout << "       ";
+        for (int i = 10 ; i <= 12 ; i++) cout << ((jeu.getPion(i).getPos() == -2) ? "":" ");
+        cout << "    ";
     }
     affichageId(jeu.getPlateau().getIdPion(nbCase/2-1), nbCase/2-1);  // 31
     if (jeu.getNbJoueurs() == 6) {
