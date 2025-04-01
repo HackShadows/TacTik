@@ -45,6 +45,13 @@ class ImageViewer{
         void afficherTas(const Jeu & jeu);
 
         /**
+        * @brief Affiche les pions du jeu passé en parametre
+        * @param jeu Le jeu dont on veut afficher les pions
+        * @param tab Le tableau des coordonnées des cases sur le plateau
+        */
+        void afficherPions(const Jeu & jeu, const int tab[][2]);
+
+        /**
         * @brief Affiche le jeu passé en parametre
         * @param jeu Le jeu que l'on veut afficher
         */

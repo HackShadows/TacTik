@@ -31,6 +31,16 @@ void ImageViewer::debugCoordonnees(const int tab[][2]){
     }
 }
 
+void ImageViewer::afficherPions(const Jeu & jeu, const int tab[][2]){
+    for (int i = 0; i<16*nbJ; i++){
+    	int indice = jeu.getPlateau().getIdPion(i);
+    	if (indice != 0){
+    		SDL_Rect rect = { tab[indice][0]*zoom, tab[indice][1]*zoom, 20*zoom, 20*zoom };
+        	SDL_RenderFillRect(renderer, &rect);
+    	}
+    }
+}
+
 
 void ImageViewer::afficherTas(const Jeu & jeu){
     SDL_Surface * surfaceTas = IMG_Load("./data/cartes/dos.png");
@@ -164,35 +174,38 @@ void ImageViewer::afficher(const Jeu & jeu){
                 }
 				if (event.key.keysym.sym == SDLK_t){
                     zoom = zoom + 0.05;
-                    /*for (int i = 0; i<16*nbJ; i++){
-                        tab[i][0] = tab[i][0] * zoom;
-                        tab[i][1] = tab[i][1] * zoom;
-                    }*/
                     imgWidth = dimx * zoom;
                     imgHeight = dimy * zoom;
                     SDL_SetWindowSize(window, imgWidth, imgHeight);
                 }
                 if (event.key.keysym.sym == SDLK_q){
                     zoom = zoom - 0.05;
-                    /*for (int i = 0; i<16*nbJ; i++){
-                        tab[i][0] = tab[i][0] * zoom;
-                        tab[i][1] = tab[i][1] * zoom;
-                    }*/
                     imgWidth = dimx * zoom;
                     imgHeight = dimy * zoom;
                     SDL_SetWindowSize(window, imgWidth, imgHeight);
                 }
-            }
-            if (event.type == SDL_MOUSEBUTTONDOWN){
-                if(event.button.button==SDL_BUTTON_LEFT){
-                    //cout << "{" << event.button.x << "," << event.button.y << "}, ";
-                    cout << getIndiceCase(jeu, event.button.x, event.button.y, tab, zoom) << endl;
+                if (event.key.keysym.sym == SDLK_SPACE) {
+                	if (jeu.getPioche().getTas() != nullptr){
+						int tas = jeu.getPioche().getTas()->getValeur();
+						cout << tas << "\n";
+						SDL_Surface *newSurfaceTas = IMG_Load("./data/cartes/1.png");
+						SDL_Texture *newTextureTas = SDL_CreateTextureFromSurface(renderer, newSurfaceTas);
+						SDL_FreeSurface(newSurfaceTas);
+						if (newTextureTas != nullptr) {
+							SDL_DestroyTexture(textureTas);
+							textureTas = newTextureTas;
+						}
+                	}
+                }
+                if (event.type == SDL_MOUSEBUTTONDOWN){
+                    if(event.button.button==SDL_BUTTON_LEFT){
+                        //cout << "{" << event.button.x << "," << event.button.y << "}, ";
+                        cout << getIndiceCase(jeu, event.button.x, event.button.y, tab, zoom) << endl;
+                    }
                 }
             }
         }
-        surfaceTas = IMG_Load("./data/cartes/1.png");
-        SDL_Texture *textureTas = SDL_CreateTextureFromSurface(renderer, surfaceTas);
-        SDL_FreeSurface(surfaceTas);
+
         SDL_SetRenderDrawColor(renderer, 128, 128, 128, 255);
         SDL_RenderClear(renderer);
         SDL_Rect Rect = { 0, 0, imgWidth, imgHeight};
@@ -200,11 +213,13 @@ void ImageViewer::afficher(const Jeu & jeu){
         SDL_Rect RectTas = { imgWidth/2 - 100*zoom, imgHeight/2 - 150*zoom, 200*zoom, 300*zoom};
         SDL_RenderCopy(renderer, textureTas, NULL, &RectTas);
         //debugCoordonnees(tab);
+        afficherPions(jeu, tab);
         SDL_RenderPresent(renderer);
         SDL_Delay(100);
         //cout << "Fin de boucle \n";
     }
     SDL_DestroyTexture(texture);
+    SDL_DestroyTexture(textureTas);
 }
 
 
