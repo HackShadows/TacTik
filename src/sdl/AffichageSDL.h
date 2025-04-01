@@ -33,10 +33,23 @@ class ImageViewer{
         ~ImageViewer();
 
         /**
+        * @brief Affiche des carrés sur les cases du plateau
+        * @param tab Le tableau de coordonnées des cases que l'on veut afficher
+        */
+        void debugCoordonnees(const int tab[][2]);
+
+        /**
+        * @brief Affiche la carte du tas du jeu passé en parametre
+        * @param jeu Le jeu dont on veut afficher le tas
+        */
+        void afficherTas(const Jeu & jeu);
+
+        /**
         * @brief Affiche le jeu passé en parametre
         * @param jeu Le jeu que l'on veut afficher
         */
         void afficher(const Jeu & jeu);
+
 };
 
 
