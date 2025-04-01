@@ -19,4 +19,6 @@ int main(){
     Joueur::testRegression();
     cout << "\ntestRegression Jeu : " << endl;
     Jeu::testRegression();
+    cout << "\ntestRegression IA : " << endl;
+    IA::testRegression();
 }
