@@ -132,6 +132,9 @@ void ImageViewer::afficher(const Jeu & jeu){
                 if (event.key.keysym.sym == SDLK_ESCAPE) {
                     running = false;
                 }
+				if (event.key.keysym.sym == SDLK_PLUS){
+
+                }
             }
             if (event.type == SDL_MOUSEBUTTONDOWN){
                 if(event.button.button==SDL_BUTTON_LEFT){
