@@ -15,11 +15,12 @@ using namespace std;
 /**
 * @brief Permet de saisir un entier en gérant les erreurs de saisi.
 *
+* @param cout_message Message à afficher avant le cin (non obligatoire).
 * @param val_defaut Valeur par défaut de l'entier (non obligatoire).
 *
 * @return L'entier saisi par l'utilisateur.
 */
-int cinProtection(int val_defaut = 0);
+int cinProtection(string cout_message = "", int val_defaut = 0);
 
 /**
 * @class Jeu
@@ -209,11 +210,12 @@ class Jeu {
 		* @param val_carte Valeur de la carte jouée par le joueur.
 		* @param couleur Couleur du joueur.
 		* @param coequipier True si le joueur joue pour son coéquipier, false sinon (géré automatiquement).
+		* @param affichage_graphique True pour un affichage graphique, false pour un affichage console (géré automatiquement).
 		* @param joker True si la carte passée en paramètre est un joker, false sinon (géré automatiquement).
 		*
 		* @return True si la carte a pu être jouée, False sinon.
 		*/
-		bool jouerCarte(int val_carte, int couleur, bool coequipier = false, bool joker = false);
+		bool jouerCarte(int val_carte, int couleur, bool coequipier = false, bool affichage_graphique = false, bool joker = false);
 
         /**
         * @brief Test les fonctionnalités de la classe.

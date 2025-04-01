@@ -88,7 +88,7 @@ void tourJoueur(Jeu& jeu, int couleur) {
 	} while (choix == 'n');
 
 	if (!jeu.carteJouable(couleur, val_carte, coequipier)) jeu.defausserCarte(val_carte, couleur);
-	else jeu.jouerCarte(val_carte, couleur, coequipier);
+	else jeu.jouerCarte(val_carte, couleur, coequipier, false);
 }
 
 int jouer(){
