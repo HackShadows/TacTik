@@ -33,9 +33,9 @@ void ImageViewer::debugCoordonnees(const int tab[][2]){
 
 void ImageViewer::afficherPions(const Jeu & jeu, const int tab[][2]){
     for (int i = 0; i<16*nbJ; i++){
-    	int indice = jeu.getPlateau().getIdPion(i);
-    	if (indice != 0){
-    		SDL_Rect rect = { tab[indice][0]*zoom, tab[indice][1]*zoom, 20*zoom, 20*zoom };
+    	int id = jeu.getPlateau().getIdPion(i);
+    	if (id != 0){
+    		SDL_Rect rect = { tab[i][0]*zoom, tab[i][1]*zoom, 20*zoom, 20*zoom };
         	SDL_RenderFillRect(renderer, &rect);
     	}
     }
