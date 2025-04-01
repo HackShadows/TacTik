@@ -4,7 +4,7 @@
 #ifdef _WIN32
 #include <windows.h>
 #endif
-#include "./txt/Affichage.h"
+#include "./txt/AffichageConsole.h"
 #include <iostream>
 #include <ctime>
 
