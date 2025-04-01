@@ -1,3 +1,6 @@
+/**
+* @brief Contient l'implémentation de l'affichege graphique
+*/
 
 #include "AffichageSDL.h"
 
@@ -25,13 +28,25 @@ int getIndiceCase(const Jeu & jeu, int posx, int posy, const int tab[][2], float
 }
 
 void ImageViewer::setRGB(int couleur){
-      switch couleur{
+      switch (couleur){
               case 1:
+                  SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+                  break;
               case 2:
+                  SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+                  break;
               case 3:
+                  SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
+                  break;
               case 4:
+                  SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
+                  break;
               case 5:
+                  SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+                  break;
               case 6:
+                  SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+                  break;
               default:
                   break;
           }
@@ -46,24 +61,21 @@ void ImageViewer::debugCoordonnees(const int tab[][2]){
 }
 
 void ImageViewer::afficherPions(const Jeu & jeu, const int tab[][2]){
-    for (int i = 0; i<4*nbJ; i++){
+    for (int i = 1; i<4*nbJ+1; i++){
         Pion pion = jeu.getPion(i);
         int indice = pion.getPos();
         if (indice >=0){
+            setRGB(((i-1)/4)+1);
             if (pion.estPieu()){
-                SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
                 SDL_Rect rect = { tab[indice][0]*zoom, tab[indice][1]*zoom, 20*zoom, 20*zoom };
                 SDL_RenderFillRect(renderer, &rect);
             }
             else{
-                SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255); // Blanc
                 SDL_Rect rect = { tab[i][0]*zoom, tab[i][1]*zoom, 20*zoom, 20*zoom };
                 SDL_RenderFillRect(renderer, &rect);
             }
 
         }
-
-    	}
     }
 }
 

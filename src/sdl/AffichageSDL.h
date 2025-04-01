@@ -44,6 +44,13 @@ class ImageViewer{
         */
         void afficherTas(const Jeu & jeu);
 
+
+        /**
+        * @brief met la couleur du renderer selon la couleur passé en paramètre
+        * @param couleur L'indice de la couleur qu'on veut afficher
+        */
+        void setRGB(int couleur);
+
         /**
         * @brief Affiche les pions du jeu passé en parametre
         * @param jeu Le jeu dont on veut afficher les pions
