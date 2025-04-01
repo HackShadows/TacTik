@@ -18,9 +18,19 @@ using namespace std;
 * @param cout_message Message à afficher avant le cin (non obligatoire).
 * @param val_defaut Valeur par défaut de l'entier (non obligatoire).
 *
-* @return L'entier saisi par l'utilisateur.
+* @return Entier saisi par l'utilisateur.
 */
-int cinProtection(string cout_message = "", int val_defaut = 0);
+int cinProtectionInt(string cout_message = "", int val_defaut = 0);
+
+/**
+* @brief Permet de saisir un caractère en gérant les erreurs de saisi.
+*
+* @param cout_message Message à afficher avant le cin (non obligatoire).
+* @param val_defaut Valeur par défaut du caractère (non obligatoire).
+*
+* @return Caractère saisi par l'utilisateur.
+*/
+char cinProtectionChar(string cout_message = "", char val_defaut = '0');
 
 /**
 * @class Jeu
@@ -81,7 +91,7 @@ class Jeu {
 		*
 		* @return Le joueur se trouvant à l'indice 'indice'.
         */
-	   	const Joueur& getJoueur(int indice) const;
+	   	Joueur& getJoueur(int indice) const;
 
 		/**
         * @brief Renvoie le pion d'identifiant 'id_pion'.

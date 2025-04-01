@@ -15,7 +15,7 @@ int choixCarte(string message, const Joueur& joueur) {
 	do {
 		cin.clear();
 		cout << message;
-		val_carte = cinProtection();
+		val_carte = cinProtectionInt();
 	} while (!joueur.estDansMain(val_carte));
 	
 	return val_carte;
@@ -61,11 +61,11 @@ void tourJoueur(Jeu& jeu, int couleur) {
 	char choix = 'o';
 	int val_carte;
 	bool peut_jouer = true, coequipier = (jeu.getJoueur(couleur-1).maisonRemplie());
-	affichageTexte(jeu, -1);
+	
+	/*affichageTexte(jeu, -1);
 	cout << "\nTour de " << intToStr(couleur-1) << " (Entrée pour continuer)" << endl;
-	cin.clear();
-	cin.ignore(numeric_limits<streamsize>::max(), '\n');
-	cin.get();
+	cin.get();*/
+	
 	affichageTexte(jeu, couleur-1);
 	cout << "\nTour de " << intToStr(couleur-1) << " :" << endl;
 	if (!jeu.peutJouer(couleur, coequipier)) {
@@ -96,31 +96,33 @@ int jouer(){
 	int nbJoueurs = 4;
 	do {
 		cout << "\nNombre de joueurs (4 ou 6) : ";
-		nbJoueurs = cinProtection();
+		nbJoueurs = cinProtectionInt();
 	} while (nbJoueurs != 4 && nbJoueurs != 6);
 	
 	Jeu jeu(nbJoueurs);
 	int ordre[6] = {1, 2, 5, 3, 4, 6};
 	// Affichage du tableau ligne maison bas modifié à droite quand 2 chiffres dans maisons bas
 	while (true) {
-		jeu.distribuer();
-		echangeDeCartes(jeu);
-		/* 
+		//jeu.distribuer();
+		//echangeDeCartes(jeu);
+		
 		//Enlever le const de getJoueur
 		Carte carte_tmp(-1);
 		for (int i = 0 ; i < 4 ; i++) {
 			for (int j = 0 ; j < nbJoueurs ; j++) {
 				Joueur &joueur = jeu.getJoueur(j);
 				joueur.piocherCarte(&carte_tmp);
-		}}*/
+		}}
 		for (int i = 0 ; i < 4 ; i++) {
 			for (int j = 0 ; j < nbJoueurs ; j++) {
 				int couleur = (nbJoueurs == 6) ? ordre[j]:j+1;
 				tourJoueur(jeu, couleur);
-				if (jeu.partieGagnee()) return couleur;
+				if (jeu.partieGagnee()) {
+					affichageTexte(jeu, 7);
+					return couleur;
+				}
 			}
 		}
-
 	}
 }
 
