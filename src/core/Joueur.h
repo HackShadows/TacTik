@@ -24,12 +24,12 @@ class Joueur {
 
 	public:
 		/**
-        * @brief Constructeur du joueur.
+        * @brief Constructeur par défaut du joueur.
         */
 		Joueur();
 
 		/**
-		* @brief Constructeur du joueur.
+		* @brief Constructeur avec paramètres du joueur.
 		*
 		* @param id_couleur Couleur du joueur (1 : vert, 2 : rouge, 3 : bleu, 4 : jaune, 5 : noir, 6 : blanc).
 		* @param ai True si le joueur est joué par une ia, false sinon.
