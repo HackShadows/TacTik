@@ -45,17 +45,17 @@ ImageViewer::ImageViewer(const Jeu & jeu){
         exit(1);
     }
     if (nbJ == 6){
-        dimx = (int) 1500 * zoom;
-        dimy = (int) 900 * zoom;
+        dimx = (int) 1500;
+        dimy = (int) 900;
         
     }
     else{
-        dimx = (int) 1000 * zoom;
-        dimy = (int) 1000 * zoom;
+        dimx = (int) 1000;
+        dimy = (int) 1000;
     }
 
     // Creation de la fenetre
-    window = SDL_CreateWindow("Tac-Tik", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, dimx, dimy, 0);
+    window = SDL_CreateWindow("Tac-Tik", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, dimx * zoom, dimy * zoom, SDL_WINDOW_RESIZABLE);
     if (window == NULL)
     {
         cout << "Erreur lors de la creation de la fenetre : " << SDL_GetError() << endl;
@@ -75,6 +75,9 @@ ImageViewer::~ImageViewer(){
 
 
 void ImageViewer::afficher(const Jeu & jeu){
+    int imgWidth = (int) dimx * zoom;
+    int imgHeight = (int) dimy * zoom;
+
     int (*tab)[2] = nullptr;
 	cout << "Nouvel appel de fct \n";
     if (nbJ == 6) {
@@ -128,27 +131,45 @@ void ImageViewer::afficher(const Jeu & jeu){
             if (event.type == SDL_QUIT) {
                 running = false;
             }
-            if (event.type == SDL_KEYDOWN) {
+            if (event.type == SDL_KEYUP) {
                 if (event.key.keysym.sym == SDLK_ESCAPE) {
                     running = false;
                 }
-				if (event.key.keysym.sym == SDLK_PLUS){
-
+				if (event.key.keysym.sym == SDLK_t){
+                    zoom = zoom + 0.05;
+                    for (int i = 0; i<16*nbJ; i++){
+                        tab[i][0] = tab[i][0] * zoom;
+                        tab[i][1] = tab[i][1] * zoom;
+                    }
+                    imgWidth = dimx * zoom;
+                    imgHeight = dimy * zoom;
+                    SDL_SetWindowSize(window, imgWidth, imgHeight);
+                }
+                if (event.key.keysym.sym == SDLK_q){
+                    zoom = zoom - 0.05;
+                    for (int i = 0; i<16*nbJ; i++){
+                        tab[i][0] = tab[i][0] * zoom;
+                        tab[i][1] = tab[i][1] * zoom;
+                    }
+                    imgWidth = dimx * zoom;
+                    imgHeight = dimy * zoom;
+                    SDL_SetWindowSize(window, imgWidth, imgHeight);
                 }
             }
             if (event.type == SDL_MOUSEBUTTONDOWN){
                 if(event.button.button==SDL_BUTTON_LEFT){
-                    //cout << "{" << 2*event.button.x << "," << 2*event.button.y << "}, ";
+                    //cout << "{" << event.button.x << "," << event.button.y << "}, ";
                     cout << getIndiceCase(jeu, event.button.x, event.button.y, tab, zoom) << endl;
                 }
             }
         }
         SDL_SetRenderDrawColor(renderer, 128, 128, 128, 255);
         SDL_RenderClear(renderer);
-        SDL_Rect Rect = { 0, 0, dimx, dimy};
+        SDL_Rect Rect = { 0, 0, imgWidth, imgHeight};
         SDL_RenderCopy(renderer, texture, NULL, &Rect);
         SDL_RenderPresent(renderer);
         SDL_Delay(100);
+        //cout << "Fin de boucle \n";
     }
     SDL_DestroyTexture(texture);
 }
