@@ -15,7 +15,7 @@ int choixCarte(string message, const Joueur& joueur) {
 	do {
 		cin.clear();
 		cout << message;
-		val_carte = cinProtection();
+		val_carte = cinProtectionInt();
 	} while (!joueur.estDansMain(val_carte));
 	
 	return val_carte;
@@ -96,7 +96,7 @@ int jouer(){
 	int nbJoueurs = 4;
 	do {
 		cout << "\nNombre de joueurs (4 ou 6) : ";
-		nbJoueurs = cinProtection();
+		nbJoueurs = cinProtectionInt();
 	} while (nbJoueurs != 4 && nbJoueurs != 6);
 	
 	Jeu jeu(nbJoueurs);
