@@ -1,4 +1,4 @@
 obj/*.o
 .vscode
 doc/html
-bin/test
+bin/
