@@ -4,17 +4,18 @@
 int getIndiceCase(const Jeu & jeu, int posx, int posy, const int tab[][2], float zoom){
   float rayon = 20 * zoom;
     if (jeu.getNbJoueurs() == 6){
-        cout << posx << " " << posy << " " << tab[0][0] << " " << tab[0][1] << " ";
+        cout << posx << " " << posy << " " << tab[0][0]*zoom << " " << tab[0][1]*zoom << " ";
         for (int i = 0; i<96; i++){
-            if (abs(posx-tab[i][0]) < rayon && abs(posy - tab[i][1]) < rayon ){
+            if (abs(posx-tab[i][0]*zoom) < rayon && abs(posy - tab[i][1]*zoom) < rayon ){
                 //cout << i;
                 return i;
             }
         }
     }
     else{
+          cout << posx << " " << posy << " " << tab[0][0]*zoom << " " << tab[0][1]*zoom << " ";
     	  for (int i = 0; i<64; i++){
-            if (abs(posx-tab[i][0]) < rayon && abs(posy - tab[i][1]) < rayon){
+            if (abs(posx-tab[i][0]*zoom) < rayon && abs(posy - tab[i][1]*zoom) < rayon){
                 //cout << i;
                 return i;
             }
@@ -90,8 +91,8 @@ void ImageViewer::afficher(const Jeu & jeu){
         {1384,658}, {1442,658}, {1443,719}, {1428,780}, {1383,824}, {1321,838}, {1260,840}, {1200,841}, {1140,840}, {1078,840}, {1081,778}, {1080,719}, {1021,719}, {957,718}, {899,720}, {841,718}, 
         {840,778}, {839,840}, {777,839}, {719,839}, {716,777}, {656,779}, {595,775}, {597,839}, {533,838}, {472,841}, {474,778}, {475,717}, {415,717}};
         for (int i = 0; i<96; i++){
-          	tab[i][0] = tmp[i][0] * zoom;
-            tab[i][1] = tmp[i][1] * zoom;
+          	tab[i][0] = tmp[i][0];
+            tab[i][1] = tmp[i][1];
         }
         cout << "passage creation tab \n";
     } 
@@ -107,8 +108,8 @@ void ImageViewer::afficher(const Jeu & jeu){
                            {920,878}, {872,926}, {802,944}, {738,944}, {666,942}, {596,942}, {532,944}, {530,876}, {530,810},
                            {468,810}};
 		for (int i = 0; i<64; i++){
-          	tab[i][0] = tmp[i][0] * zoom;
-            tab[i][1] = tmp[i][1] * zoom;
+          	tab[i][0] = tmp[i][0];
+            tab[i][1] = tmp[i][1];
         }
         cout << "passage creation tab \n";    }
     if (surface == nullptr) {
@@ -137,20 +138,20 @@ void ImageViewer::afficher(const Jeu & jeu){
                 }
 				if (event.key.keysym.sym == SDLK_t){
                     zoom = zoom + 0.05;
-                    for (int i = 0; i<16*nbJ; i++){
+                    /*for (int i = 0; i<16*nbJ; i++){
                         tab[i][0] = tab[i][0] * zoom;
                         tab[i][1] = tab[i][1] * zoom;
-                    }
+                    }*/
                     imgWidth = dimx * zoom;
                     imgHeight = dimy * zoom;
                     SDL_SetWindowSize(window, imgWidth, imgHeight);
                 }
                 if (event.key.keysym.sym == SDLK_q){
                     zoom = zoom - 0.05;
-                    for (int i = 0; i<16*nbJ; i++){
+                    /*for (int i = 0; i<16*nbJ; i++){
                         tab[i][0] = tab[i][0] * zoom;
                         tab[i][1] = tab[i][1] * zoom;
-                    }
+                    }*/
                     imgWidth = dimx * zoom;
                     imgHeight = dimy * zoom;
                     SDL_SetWindowSize(window, imgWidth, imgHeight);
@@ -167,6 +168,10 @@ void ImageViewer::afficher(const Jeu & jeu){
         SDL_RenderClear(renderer);
         SDL_Rect Rect = { 0, 0, imgWidth, imgHeight};
         SDL_RenderCopy(renderer, texture, NULL, &Rect);
+        for (int i = 0; i<16*nbJ; i++){
+            SDL_Rect rect = { tab[i][0]*zoom, tab[i][1]*zoom, 20*zoom, 20*zoom };
+            SDL_RenderFillRect(renderer, &rect);
+        }
         SDL_RenderPresent(renderer);
         SDL_Delay(100);
         //cout << "Fin de boucle \n";
