@@ -55,7 +55,7 @@ void ImageViewer::setRGB(int couleur){
 
 void ImageViewer::debugCoordonnees(const int tab[][2]){
     for (int i = 0; i<16*nbJ; i++){
-        SDL_Rect rect = { tab[i][0]*zoom, tab[i][1]*zoom, 20*zoom, 20*zoom };
+        SDL_Rect rect = { (int)(tab[i][0]*zoom), (int)(tab[i][1]*zoom), (int)(20*zoom), (int)(20*zoom) };
         SDL_RenderFillRect(renderer, &rect);
     }
 }
@@ -67,11 +67,11 @@ void ImageViewer::afficherPions(const Jeu & jeu, const int tab[][2]){
         if (indice >=0){
             setRGB(((i-1)/4)+1);
             if (pion.estPieu()){
-                SDL_Rect rect = { tab[indice][0]*zoom, tab[indice][1]*zoom, 20*zoom, 20*zoom };
+                SDL_Rect rect = { (int)(tab[indice][0]*zoom), (int)(tab[indice][1]*zoom), (int)(20*zoom), (int)(20*zoom) };
                 SDL_RenderFillRect(renderer, &rect);
             }
             else{
-                SDL_Rect rect = { tab[i][0]*zoom, tab[i][1]*zoom, 20*zoom, 20*zoom };
+                SDL_Rect rect = { (int)(tab[i][0]*zoom), (int)(tab[i][1]*zoom), (int)(20*zoom), (int)(20*zoom) };
                 SDL_RenderFillRect(renderer, &rect);
             }
 
@@ -248,7 +248,7 @@ void ImageViewer::afficher(const Jeu & jeu){
         SDL_RenderClear(renderer);
         SDL_Rect Rect = { 0, 0, imgWidth, imgHeight};
         SDL_RenderCopy(renderer, texture, NULL, &Rect);
-        SDL_Rect RectTas = { imgWidth/2 - 100*zoom, imgHeight/2 - 150*zoom, 200*zoom, 300*zoom};
+        SDL_Rect RectTas = { (int)(imgWidth/2 - 100*zoom), (int)(imgHeight/2 - 150*zoom), (int) (200*zoom), (int) (300*zoom)};
         SDL_RenderCopy(renderer, textureTas, NULL, &RectTas);
         //debugCoordonnees(tab);
         afficherPions(jeu, tab);
