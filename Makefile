@@ -5,6 +5,12 @@ SDL = src/sdl
 INCLUDE_DIR = -I/usr/include/SDL2
 LIB_SDL = -lSDL2 -lSDL2_ttf -lSDL2_image
 
+#Pour installer SDL2 sous linux
+#sudo apt-get update
+#sudo apt-get install libsdl2-dev
+#sudo apt-get install libsdl2-image-dev libsdl2-ttf-dev
+
+
 all: clean test bin/mainTXT bin/mainSDL bin/mainTXT.exe
 
 test: memcheck_test
