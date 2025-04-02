@@ -5,6 +5,7 @@
 #include "../core/Jeu.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL2_gfxPrimitives.h>
 
 using namespace std;
 /**
@@ -14,7 +15,12 @@ class ImageViewer{
     private :
         SDL_Window * window; /// La fenetre
         SDL_Renderer * renderer;/// Le renderer
-        SDL_Surface * surface;///La surface
+        SDL_Surface * surfacePlateau;///La surface de l'image du plateau
+		SDL_Surface * surfaceTas;  ///La surface de l'image de la carte sur le tas
+		SDL_Surface * surfaceCarte1; ///La surface de l'image de la première carte
+		SDL_Surface * surfaceCarte2;  ///La surface de l'image de la deuxième carte
+		SDL_Surface * surfaceCarte3;  ///La surface de l'image de la troisième carte
+		SDL_Surface * surfaceCarte4;  ///La surface de l'image de la quatrième carte
         int dimx, dimy; /// Les dimensions de la fenetre
         float zoom; /// Le zoom de l'image
         int nbJ; /// Le nombre de joueurs
@@ -46,10 +52,20 @@ class ImageViewer{
 
 
         /**
-        * @brief met la couleur du renderer selon la couleur passé en paramètre
+        * @brief dessine le pion de couleur "couleur" aux coordonnées (x,y)
         * @param couleur L'indice de la couleur qu'on veut afficher
+        * @param x L'abscisse du point qu'on veut afficher
+        * @param y L'ordonnée du point qu'on veut afficher
         */
-        void setRGB(int couleur);
+        void dessineCercle(int couleur, int x, int y);
+
+        /**
+        * @brief dessine le pieu de couleur "couleur" aux coordonnées (x,y)
+        * @param couleur L'indice de la couleur qu'on veut afficher
+        * @param x L'abscisse du pieu qu'on veut afficher
+        * @param y L'ordonnée du pieu qu'on veut afficher
+        */
+        void dessineTriangle(int couleur, int x, int y);
 
         /**
         * @brief Affiche les pions du jeu passé en parametre

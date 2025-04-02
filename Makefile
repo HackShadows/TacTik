@@ -3,7 +3,7 @@ CORE = src/core
 TXT = src/txt
 SDL = src/sdl
 INCLUDE_DIR = -I/usr/include/SDL2
-LIB_SDL = -lSDL2 -lSDL2_ttf -lSDL2_image
+LIB_SDL = -lSDL2 -lSDL2_ttf -lSDL2_image -lSDL2_gfx
 
 all: clean test main
 
