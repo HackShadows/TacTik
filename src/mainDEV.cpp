@@ -13,6 +13,8 @@ int main() {
         SetConsoleOutputCP(CP_UTF8);
     #endif
 
+	/* Début de l'espace modifiable */	
+	
 	int vainqueurs = jouer(true);
 	int j1 = 4, j2 = 5;
 	if (vainqueurs < 5) {
@@ -20,5 +22,7 @@ int main() {
 		j2 = (vainqueurs+1)%4;
 	}
 	cout << "\nLes " << intToStr(j1) << "s et " << intToStr(j2) << "s ont gagné !\n" << endl;
+	
+	/* Fin de l'espace modifiable */	
 	return 0;
 }
