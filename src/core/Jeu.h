@@ -109,6 +109,16 @@ class Jeu {
 		void distribuer();
 
 		/**
+		* @brief Ajoute la carte passé en paramètre à la main du joueur.
+		*
+		* @param val_carte Valeur de la carte à ajouter.
+		* @param couleur Couleur du joueur.
+		*
+		* @return True si la carte a pu être ajoutée, False sinon.
+		*/
+		bool attribuerCarte(int val_carte, int couleur);
+
+		/**
         * @brief Echange une carte entre deux joueurs de la même équipe.
 		* 
 		* @param indJ1 Indice du joueur1 (indJ1 < indJ2).

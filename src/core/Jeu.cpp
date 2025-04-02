@@ -104,6 +104,27 @@ void Jeu::distribuer(){
     }
 }
 
+bool Jeu::attribuerCarte(int val_carte, int couleur) {
+	assert(1 <= couleur && couleur <= nbJoueurs);
+	assert((val_carte == -4 || val_carte == -1 || (1 <= val_carte && val_carte <= 13 && val_carte != 4)));
+	int ind;
+	switch (val_carte)
+	{
+		case -4:
+			ind = 12;
+			break;
+		
+		case -1:
+			ind = 52;
+			break;
+		
+		default:
+			ind = (val_carte-1)*4;
+			break;
+	}
+	return joueurs[couleur-1].piocherCarte(&pioche.getCarte(ind));
+}
+
 void Jeu::echangerCartes(int indJ1, int indJ2, int val_carteJ1, int val_carteJ2) {
 	assert((indJ1 == 0 && indJ2 == 2) || (indJ1 == 1 && indJ2 == 3) || (indJ1 == 4 && indJ2 == 5 && nbJoueurs == 6));
 	Carte* carteJ1 = joueurs[indJ1].retirerCarte(val_carteJ1);
@@ -468,8 +489,22 @@ void Jeu::testRegression() {
 		assert(pion.getId() == 9);
 		cout << "getPion valide !" << endl;
 
+		Joueur& joueur2 = jeu.joueurs[0];
+		assert(jeu.attribuerCarte(-1, 1));
+		assert(joueur2.getCarte(0)->getValeur() == -1);
+		assert(jeu.attribuerCarte(-4, 1));
+		assert(joueur2.getCarte(1)->getValeur() == -4);
+		assert(jeu.attribuerCarte(3, 1));
+		assert(joueur2.getCarte(2)->getValeur() == 3);
+		assert(jeu.attribuerCarte(13, 1));
+		assert(joueur2.getCarte(3)->getValeur() == 13);
+		joueur2.defausserMain();
+
 		jeu.distribuer();
 		cout << "distribuer valide !" << endl;
+
+		assert(!jeu.attribuerCarte(-1, 1));
+		cout << "attribuerCarte valide !" << endl;
 		
 		int valJ1 = jeu.getJoueur(0).getCarte(0)->getValeur();
 		int valJ2 = jeu.getJoueur(2).getCarte(0)->getValeur();
@@ -545,7 +580,6 @@ void Jeu::testRegression() {
 		assert(jeu.partieGagnee());
 		cout << "partieGagnee valide !" << endl;
 
-		Joueur& joueur2 = jeu.joueurs[0];
 		for (int i = 0 ; i < 4 ; i++) {
 			joueur2.retirerCarte(0, i);
 		}
