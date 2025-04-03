@@ -3,9 +3,9 @@
 #define AFFICHERSDL_H
 
 #include "../core/Jeu.h"
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <SDL2/SDL2_gfxPrimitives.h>
+#include <SDL.h>
+#include <SDL_image.h>
+#include <SDL2_gfxPrimitives.h>
 
 using namespace std;
 /**
@@ -73,6 +73,12 @@ class ImageViewer{
         * @param tab Le tableau des coordonnées des cases sur le plateau
         */
         void afficherPions(const Jeu & jeu, const int tab[][2]);
+
+		/**
+		* @brief Affiche les cartes du jeu passé en parametre
+		* @param jeu Le jeu dont on veut afficher les pions
+		*/
+		void afficherCartes(const Jeu & jeu);
 
         /**
         * @brief Affiche le jeu passé en parametre
