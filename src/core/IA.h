@@ -4,8 +4,13 @@
 /**
 * @brief Contient la déclaration de la classe IA.
 */
+#include "Joueur.h"
 #include <iostream>
+#include <vector>
+#include <utility>
 using namespace std;
+
+class Jeu;
 
 /**
 * @class IA
@@ -35,6 +40,18 @@ class IA {
         * @brief Destructeur de l'ia.
         */
 		~IA();
+
+        /**
+		* @brief C
+		*/
+        void jouerCoup(Jeu &jeu, vector<pair<int, int>> vect) const;
+
+        /**
+		* @brief Génère la liste des coups possibles.
+        *
+        * @return Liste de pairs de coups possible contenant l'id du pion et sa nouvelle position.
+		*/
+		vector<pair<int, int>> genererCoups(Jeu &jeu) const;
 
         /**
         * @brief Test les fonctionnalités de la classe.

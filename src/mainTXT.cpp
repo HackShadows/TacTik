@@ -11,6 +11,7 @@ int main() {
         SetConsoleOutputCP(CP_UTF8);
     #endif
 
+	srand(time(NULL));
 	int vainqueurs = jouer();
 	int j1 = 4, j2 = 5;
 	if (vainqueurs < 5) {

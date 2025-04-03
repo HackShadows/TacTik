@@ -2,8 +2,6 @@
 #include "AffichageConsole.h"
 #include <iostream>
 #include <cassert>
-#include <cstdlib>
-#include <ctime>
 
 using namespace std;
 
@@ -367,7 +365,6 @@ void tourJoueur(Jeu& jeu, int couleur, bool dev) {
 }
 
 int jouer(bool dev){
-	srand(time(NULL));
 	int nbJoueurs = 4;
 	do {
 		cout << "\nNombre de joueurs (4 ou 6) : ";

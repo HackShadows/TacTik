@@ -2,6 +2,7 @@
 * @brief Contient l'implémentation de la classe IA.
 */
 #include "IA.h"
+#include "Jeu.h"
 
 #include <iostream>
 #include <cassert>
@@ -15,6 +16,23 @@ IA::IA(int id_couleur): couleur(id_couleur) {
 }
 
 IA::~IA() {}
+
+void IA::jouerCoup(Jeu &jeu, vector<pair<int, int>> vect) const {
+    if (vect.size() == 0) jeu.defausserJoueur(couleur);
+}
+
+vector<pair<int, int>> IA::genererCoups(Jeu &jeu) const {
+    vector<pair<int, int>> coups;
+    const Joueur &joueur = jeu.getJoueur(couleur-1);
+    bool coequipier = joueur.maisonRemplie();
+    for (int i = (couleur-1)*4 ; i < couleur*4 ; i++) {
+        for (int j = 0 ; j < 4 ; j++) {
+            int val = joueur.getCarte(j)->getValeur();
+            if (jeu.carteJouable(couleur, val, coequipier)) coups.push_back({i+1, val});
+        }
+    }
+    return coups;
+}
 
 void IA::testRegression() {
     {

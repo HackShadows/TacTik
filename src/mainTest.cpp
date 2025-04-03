@@ -7,6 +7,7 @@
 using namespace std;
 
 int main(){
+    srand(time(NULL));
     cout << "testRegression Carte : " << endl;
     Carte::testRegression();
     cout << "\ntestRegression Pion : " << endl;
