@@ -18,7 +18,7 @@ int getIndiceCase(const Jeu &jeu, int posx, int posy, const int tab[][2], float 
 void ImageViewer::dessineCercle(int couleur, int x, int y) {
     filledCircleRGBA(renderer, x, y, 20 * zoom, 0, 0, 0, 255);
     filledCircleRGBA(renderer, x, y, 17 * zoom, 255, 255, 255, 255);
-    float rayon = 15 * zoom;
+    float rayon = 13 * zoom;
     switch (couleur) {
         case 1:
             filledCircleRGBA(renderer, x, y, rayon, 0, 255, 0, 255);
@@ -83,8 +83,10 @@ void ImageViewer::dessineTriangle(int couleur, int x, int y) {
 
 void ImageViewer::debugCoordonnees(const int tab[][2]) {
     for (int i = 0; i < 16 * nbJ; i++) {
-        SDL_Rect rect = {(int) (tab[i][0] * zoom), (int) (tab[i][1] * zoom), (int) (20 * zoom), (int) (20 * zoom)};
-        SDL_RenderFillRect(renderer, &rect);
+        dessineCercle(1, tab[i][0] * zoom, tab[i][1]*zoom);
+        //filledCircleRGBA(renderer, tab[i][0]*zoom, tab[i][1], 20 * zoom, 0, 0, 0, 255);
+        /*SDL_Rect rect = {(int) (tab[i][0] * zoom), (int) (tab[i][1] * zoom), (int) (20 * zoom), (int) (20 * zoom)};
+        SDL_RenderFillRect(renderer, &rect);*/
     }
 }
 
@@ -232,7 +234,7 @@ void ImageViewer::afficher(const Jeu &jeu) {
     if (nbJ == 6) {
         tab = new int[96][2];
         int tmp[96][2] = {
-            {355, 715}, {300, 715}, {230, 720}, {235, 780}, {235, 840}, {170, 840}, {115, 825}, {70, 780}, {50, 715},
+            {355, 725}, {295, 725}, {234, 725}, {234, 788}, {234, 848}, {175, 848}, {112, 832}, {66, 787}, {50, 715},
             {50, 660}, {50, 600}, {50, 530}, {50, 475}, {110, 480}, {170, 475}, {175, 415},
             {172, 354}, {171, 292}, {174, 235}, {112, 231}, {51, 232}, {50, 175}, {66, 110}, {110, 67}, {170, 49},
             {231, 50}, {292, 51}, {354, 50}, {412, 49}, {416, 111}, {415, 170}, {476, 170}, {534, 171}, {596, 172},
@@ -332,8 +334,8 @@ void ImageViewer::afficher(const Jeu &jeu) {
             (int) (300 * zoom)
         };
         SDL_RenderCopy(renderer, textureTas, NULL, &RectTas);
-        //debugCoordonnees(tab);
-        setTextureCartes(jeu, 1);
+        debugCoordonnees(tab);
+        /*setTextureCartes(jeu, 1);
         SDL_Texture *textureMain1 = SDL_CreateTextureFromSurface(renderer, surfaceCartes[0]);
         SDL_FreeSurface(surfaceCartes[0]);
         SDL_Rect RectMain1 = {0, 0, 200, 100};
@@ -353,14 +355,14 @@ void ImageViewer::afficher(const Jeu &jeu) {
         SDL_FreeSurface(surfaceCartes[3]);
         SDL_Rect RectMain4 = {600, 0, 200, 100};
         SDL_RenderCopy(renderer, textureMain4, NULL, &RectMain4);
-
-        afficherPions(jeu, tab);
+*/
+        //afficherPions(jeu, tab);
         SDL_RenderPresent(renderer);
         SDL_Delay(100);
-        SDL_DestroyTexture(textureMain1);
+        /*SDL_DestroyTexture(textureMain1);
         SDL_DestroyTexture(textureMain2);
         SDL_DestroyTexture(textureMain3);
-        SDL_DestroyTexture(textureMain4);
+        SDL_DestroyTexture(textureMain4);*/
     }
     SDL_DestroyTexture(texturePlateau);
     SDL_DestroyTexture(textureTas);

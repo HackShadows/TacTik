@@ -13,14 +13,14 @@ using namespace std;
 */
 class ImageViewer{
     private :
-        SDL_Window * window; /// La fenetre
-        SDL_Renderer * renderer;/// Le renderer
-        SDL_Surface * surfacePlateau;///La surface de l'image du plateau
-		SDL_Surface * surfaceTas;  ///La surface de l'image de la carte sur le tas
-		SDL_Surface * surfaceCartes[4]; ///Les surfaces des quatres cartes
-        int dimx, dimy; /// Les dimensions de la fenetre
-        float zoom; /// Le zoom de l'image
-        int nbJ; /// Le nombre de joueurs
+        SDL_Window * window; ///<La fenetre
+        SDL_Renderer * renderer;///<Le renderer
+        SDL_Surface * surfacePlateau;///<La surface de l'image du plateau
+		SDL_Surface * surfaceTas;  ///<La surface de l'image de la carte sur le tas
+		SDL_Surface * surfaceCartes[4]; ///<Les surfaces des quatres cartes
+        int dimx, dimy; ///<Les dimensions de la fenetre
+        float zoom; ///<Le zoom de l'image
+        int nbJ; ///<Le nombre de joueurs
 
 
     public :
