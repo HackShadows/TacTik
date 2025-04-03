@@ -14,28 +14,27 @@ int main() {
     #endif
 
 	srand(time(NULL));
-	/* Début de l'espace modifiable */	
-	
 	//int vainqueurs = jouer(true);
+	
+	/* Début de l'espace modifiable */	
 	
 	Jeu jeu(4);
 	jeu.distribuer();
 	affichageTexte(jeu, 7);
-	IA j1(1);
-	IA j2(2);
-	IA j3(3);
-	IA j4(4);
-	vector<pair<int, int>> vect1 = j1.genererCoups(jeu);
-	for (auto val : vect1) cout << '(' << val.first << " ; " << val.second << ')';
-	cout << endl;
-	vector<pair<int, int>> vect2 = j2.genererCoups(jeu);
-	for (auto val : vect2) cout << '(' << val.first << " ; " << val.second << ')';
-	cout << endl;
-	vector<pair<int, int>> vect3 = j3.genererCoups(jeu);
-	for (auto val : vect3) cout << '(' << val.first << " ; " << val.second << ')';
-	cout << endl;
-	vector<pair<int, int>> vect4 = j4.genererCoups(jeu);
-	for (auto val : vect4) cout << '(' << val.first << " ; " << val.second << ')';
+	IA ia;
+	for (int j = 0 ; j < 4 ; j++) {
+		for (int i = 0 ; i < 4 ; i++) {
+			cout << intToStr(i) << " : ";
+			vector<pair<int, int>> vect = ia.genererCoups(jeu, i+1);
+			for (auto val : vect) cout << '(' << val.first << " ; " << val.second << ')';
+			cout << endl;
+		}
+		
+		cin.get();
+		affichageTexte(jeu, 7);
+	}
+
+	/* Fin de l'espace modifiable */
 
 	int vainqueurs = 1;
 	int joueur1 = 4, joueur2 = 5;
@@ -44,7 +43,6 @@ int main() {
 		joueur2 = (vainqueurs+1)%4;
 	}
 	cout << "\nLes " << intToStr(joueur1) << "s et " << intToStr(joueur2) << "s ont gagné !\n" << endl;
-	
-	/* Fin de l'espace modifiable */	
+		
 	return 0;
 }

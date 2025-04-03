@@ -19,22 +19,12 @@ class Jeu;
 */
 
 class IA {
-
-    private:
-		int couleur; ///<Couleur du joueur auquel est associée l'ia.
         
 	public:
 		/**
         * @brief Constructeur par défaut de l'ia.
         */
 		IA();
-
-        /**
-		* @brief Constructeur avec paramètres de l'ia.
-		*
-		* @param id_couleur Couleur du joueur (1 : vert, 2 : rouge, 3 : bleu, 4 : jaune, 5 : noir, 6 : blanc).
-		*/
-		IA(int id_couleur);
 
         /**
         * @brief Destructeur de l'ia.
@@ -44,14 +34,14 @@ class IA {
         /**
 		* @brief C
 		*/
-        void jouerCoup(Jeu &jeu, vector<pair<int, int>> vect) const;
+        void jouerCoup(Jeu &jeu, vector<pair<int, int>> vect, int couleur) const;
 
         /**
 		* @brief Génère la liste des coups possibles.
         *
         * @return Liste de pairs de coups possible contenant l'id du pion et sa nouvelle position.
 		*/
-		vector<pair<int, int>> genererCoups(Jeu &jeu) const;
+		vector<pair<int, int>> genererCoups(Jeu &jeu, int couleur) const;
 
         /**
         * @brief Test les fonctionnalités de la classe.

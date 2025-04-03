@@ -9,40 +9,43 @@
 
 using namespace std;
 
-IA::IA(): couleur(0) {}
-
-IA::IA(int id_couleur): couleur(id_couleur) {
-    assert(1 <= id_couleur && id_couleur <= 6);
-}
+IA::IA() {}
 
 IA::~IA() {}
 
-void IA::jouerCoup(Jeu &jeu, vector<pair<int, int>> vect) const {
-    if (vect.size() == 0) jeu.defausserJoueur(couleur);
+void IA::jouerCoup(Jeu &jeu, vector<pair<int, int>> vect, int couleur) const {
+    const Joueur &joueur = jeu.getJoueur(couleur-1);
+    int valeurs [11] = {-4, 1, 2, 3, 5, 6, 8, 9, 10, 12, 13};
+    if (vect.size() == 0 && joueur.getReserve() == 4) jeu.defausserJoueur(couleur);
+    else if (vect.size() == 0) cout << "Non traité" << endl;
+    else {
+        int val = vect[rand()%vect.size()].second;
+        if (val == -1 && jeu.demarrer(couleur)) return ;
+        else if (val == -1) jeu.jouerCarte(valeurs[rand()%11], couleur);
+        else jeu.jouerCarte(val, couleur);
+    }
 }
 
-vector<pair<int, int>> IA::genererCoups(Jeu &jeu) const {
+vector<pair<int, int>> IA::genererCoups(Jeu &jeu, int couleur) const {
     vector<pair<int, int>> coups;
     const Joueur &joueur = jeu.getJoueur(couleur-1);
     bool coequipier = joueur.maisonRemplie();
     for (int i = (couleur-1)*4 ; i < couleur*4 ; i++) {
         for (int j = 0 ; j < 4 ; j++) {
-            int val = joueur.getCarte(j)->getValeur();
+            Carte* carte = joueur.getCarte(j);
+            if (carte == nullptr) continue;
+            int val = carte->getValeur();
             if (jeu.carteJouable(couleur, val, coequipier)) coups.push_back({i+1, val});
         }
     }
+    jouerCoup(jeu, coups, couleur);
     return coups;
 }
 
 void IA::testRegression() {
     {
         IA ia;
-		assert(ia.couleur == 0);
 		cout << "Constructeur par défaut valide !" << endl;
-
-		IA ia2(3);
-		assert(ia2.couleur == 3);
-		cout << "Constructeur avec paramètres valide !" << endl;
     }
     cout << "Destructeur valide !" << endl;
 }

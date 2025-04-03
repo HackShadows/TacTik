@@ -67,6 +67,10 @@ bool Joueur::estDansMain(int val_carte) const {
 	return false;
 }
 
+bool Joueur::estIA() const {
+	return ia;
+}
+
 bool Joueur::mainVide() const {
 	for (auto carte : main) {
 		if (carte != nullptr) return false;
@@ -133,7 +137,7 @@ void Joueur::testRegression(){
 		}
 		cout << "Constructeur par défaut valide !" << endl;
 
-		Joueur joueur2(3);
+		Joueur joueur2(3, true);
 		assert(joueur2.couleur == 3);
 		for (int i = 0 ; i < 4 ; i++) {
 			assert(joueur2.maison[i] == 0);
@@ -178,6 +182,10 @@ void Joueur::testRegression(){
 
 		for (int i = 9 ; i < 13 ; i++) assert(joueur.estDansMain(i));
 		cout << "estDansMain valide !" << endl;
+
+		assert(!joueur.estIA());
+		assert(joueur2.estIA());
+		cout << "estIA valide !" << endl;
 
 		assert(!joueur.mainVide());
 		assert(joueur2.mainVide());

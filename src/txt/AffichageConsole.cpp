@@ -333,45 +333,53 @@ void tourJoueur(Jeu& jeu, int couleur, bool dev) {
 	char choix = 'o';
 	int val_carte;
 	bool peut_jouer = true, coequipier = (jeu.getJoueur(couleur-1).maisonRemplie());
-	
+    IA ia;
 	if (!dev) {
 		affichageTexte(jeu, -1);
 		cout << "\nTour de " << intToStr(couleur-1) << " (Entrée pour continuer)" << endl;
 		cin.get();
 	}
-	affichageTexte(jeu, couleur-1);
-	cout << "\nTour de " << intToStr(couleur-1) << " :" << endl;
-	if (!jeu.peutJouer(couleur, coequipier)) {
-		cout << "Aucune carte ne peut être jouée. Défausser toutes les cartes ? (Oui(o) ; Non(n)) : ";
-		cin >> choix;
-		if (choix == 'o' || choix == 'O') {
-			jeu.defausserJoueur(couleur);
-			return ;
-		}
-		peut_jouer = false;
-	}
-	do {
-		val_carte = choixCarte(((peut_jouer) ? "\nCarte à jouer : " : "\nCarte à défausser : "), jeu.getJoueur(couleur-1));
+    if (jeu.getJoueur(couleur-1).estIA()) ia.genererCoups(jeu, couleur);
+    else {
+        affichageTexte(jeu, couleur-1);
+        cout << "\nTour de " << intToStr(couleur-1) << " :" << endl;
+        if (!jeu.peutJouer(couleur, coequipier)) {
+            cout << "Aucune carte ne peut être jouée. Défausser toutes les cartes ? (Oui(o) ; Non(n)) : ";
+            cin >> choix;
+            if (choix == 'o' || choix == 'O') {
+                jeu.defausserJoueur(couleur);
+                return ;
+            }
+            peut_jouer = false;
+        }
+        do {
+            val_carte = choixCarte(((peut_jouer) ? "\nCarte à jouer : " : "\nCarte à défausser : "), jeu.getJoueur(couleur-1));
 
-		if (!jeu.carteJouable(couleur, val_carte, coequipier) && peut_jouer) {
-			cout << "\nCette carte ne peut pas être jouée ! Choisissez-en une autre." << endl;
-			choix = 'n';
-		} else choix = 'o';
+            if (!jeu.carteJouable(couleur, val_carte, coequipier) && peut_jouer) {
+                cout << "\nCette carte ne peut pas être jouée ! Choisissez-en une autre." << endl;
+                choix = 'n';
+            } else choix = 'o';
 
-	} while (choix == 'n');
+        } while (choix == 'n');
 
-	if (!jeu.carteJouable(couleur, val_carte, coequipier)) jeu.defausserCarte(val_carte, couleur);
-	else jeu.jouerCarte(val_carte, couleur, coequipier, false);
+        if (!jeu.carteJouable(couleur, val_carte, coequipier)) jeu.defausserCarte(val_carte, couleur);
+        else jeu.jouerCarte(val_carte, couleur, coequipier, false);
+    }
 }
 
 int jouer(bool dev){
-	int nbJoueurs = 4;
+	int nbIA = 0, nbJoueurs = 4;
 	do {
 		cout << "\nNombre de joueurs (4 ou 6) : ";
 		nbJoueurs = cinProtectionInt();
 	} while (nbJoueurs != 4 && nbJoueurs != 6);
+
+    do {
+		cout << "\nNombre d'IA (0-" << nbJoueurs << ") : ";
+		nbIA = cinProtectionInt();
+	} while (nbIA < 0 || nbIA > nbJoueurs);
 	
-	Jeu jeu(nbJoueurs);
+	Jeu jeu(nbJoueurs, nbIA);
 	int ordre[6] = {1, 2, 5, 3, 4, 6};
 	while (true) {
 		if (!dev) {
