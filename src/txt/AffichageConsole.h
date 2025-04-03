@@ -166,14 +166,17 @@ void echangeDeCartes(Jeu& jeu);
 *
 * @param jeu Jeu en cours.
 * @param couleur Couleur du joueur qui joue.
+* @param dev True si exécuté en mode développeur, false sinon (géré automatiquement).
 */
-void tourJoueur(Jeu& jeu, int couleur);
+void tourJoueur(Jeu& jeu, int couleur, bool dev = false);
 
 /**
 * @brief Lance le jeu.
 * 
+* @param dev True si exécuté en mode développeur, false sinon (géré automatiquement).
+*
 * @return Couleur du gagnant.
 */
-int jouer();
+int jouer(bool dev = false);
 
 #endif

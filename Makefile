@@ -5,11 +5,20 @@ SDL = src/sdl
 INCLUDE_DIR = -I/usr/include/SDL2
 LIB_SDL = -lSDL2 -lSDL2_ttf -lSDL2_image -lSDL2_gfx
 
-all: clean test main
+# Pour installer SDL2 sous linux
+# sudo apt-get update
+# sudo apt-get install libsdl2-dev
+# sudo apt-get install libsdl2-image-dev libsdl2-ttf-dev
+
+
+all: clean test bin/mainTXT bin/mainSDL bin/mainTXT.exe
 
 test: memcheck_test
 
-main: bin/mainTXT
+main: bin/mainDEV
+	./bin/mainDEV
+
+txt: bin/mainTXT
 	./bin/mainTXT
 
 sdl: bin/mainSDL
@@ -21,29 +30,35 @@ doc: doc/doxyfile doc/html
 doc/html:
 	doxygen doc/doxyfile
 
+bin/test:obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageConsole.o obj/mainTEST.o
+	g++ obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageConsole.o obj/mainTEST.o -o bin/test
+
 bin/mainTXT: obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageConsole.o obj/mainTXT.o
 	g++ obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageConsole.o obj/mainTXT.o -o bin/mainTXT
-
-bin/test:obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageConsole.o obj/mainTest.o
-	g++ obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageConsole.o obj/mainTest.o -o bin/test
 
 bin/mainSDL: obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageSDL.o obj/mainSDL.o
 	g++ obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageSDL.o obj/mainSDL.o -o bin/mainSDL $(LIB_SDL)
 
-obj/mainTest.o: src/mainTest.cpp $(CORE)/Jeu.h
-	g++ $(CXXFLAGS) src/mainTest.cpp -o obj/mainTest.o
+bin/mainDEV: obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageConsole.o obj/AffichageSDL.o obj/mainDEV.o
+	g++ obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageConsole.o obj/AffichageSDL.o obj/mainDEV.o -o bin/mainDEV $(LIB_SDL)
 
-obj/mainSDL.o: src/mainSDL.cpp $(SDL)/AffichageSDL.h
-	g++ $(CXXFLAGS) $(INCLUDE_DIR) src/mainSDL.cpp -o obj/mainSDL.o
-
-obj/AffichageSDL.o: $(SDL)/AffichageSDL.cpp $(SDL)/AffichageSDL.h
-	g++ $(CXXFLAGS) $(INCLUDE_DIR) $(SDL)/AffichageSDL.cpp -o obj/AffichageSDL.o
+obj/mainTEST.o: src/mainTEST.cpp $(CORE)/Jeu.h
+	g++ $(CXXFLAGS) src/mainTEST.cpp -o obj/mainTEST.o
 
 obj/mainTXT.o: src/mainTXT.cpp $(TXT)/AffichageConsole.h
 	g++ $(CXXFLAGS) src/mainTXT.cpp -o obj/mainTXT.o
 
+obj/mainSDL.o: src/mainSDL.cpp $(SDL)/AffichageSDL.h
+	g++ $(CXXFLAGS) $(INCLUDE_DIR) src/mainSDL.cpp -o obj/mainSDL.o
+
+obj/mainDEV.o: src/mainDEV.cpp $(TXT)/AffichageConsole.h $(SDL)/AffichageSDL.h
+	g++ $(CXXFLAGS) $(INCLUDE_DIR) src/mainDEV.cpp -o obj/mainDEV.o
+
 obj/AffichageConsole.o: $(TXT)/AffichageConsole.cpp $(TXT)/AffichageConsole.h $(CORE)/Jeu.h
 	g++ $(CXXFLAGS) $(TXT)/AffichageConsole.cpp -o obj/AffichageConsole.o
+
+obj/AffichageSDL.o: $(SDL)/AffichageSDL.cpp $(SDL)/AffichageSDL.h
+	g++ $(CXXFLAGS) $(INCLUDE_DIR) $(SDL)/AffichageSDL.cpp -o obj/AffichageSDL.o
 
 obj/Jeu.o: $(CORE)/Jeu.cpp $(CORE)/Jeu.h $(CORE)/Joueur.h $(CORE)/IA.h $(CORE)/Pioche.h $(CORE)/Plateau.h
 	g++ $(CXXFLAGS) $(CORE)/Jeu.cpp -o obj/Jeu.o

@@ -3,6 +3,7 @@
 #include <iostream>
 #include <cassert>
 #include <cstdlib>
+#include <ctime>
 
 using namespace std;
 
@@ -329,16 +330,17 @@ void echangeDeCartes(Jeu& jeu) {
 		}
 }
 
-void tourJoueur(Jeu& jeu, int couleur) {
+void tourJoueur(Jeu& jeu, int couleur, bool dev) {
 	if (jeu.getJoueur(couleur-1).mainVide()) return ;
 	char choix = 'o';
 	int val_carte;
 	bool peut_jouer = true, coequipier = (jeu.getJoueur(couleur-1).maisonRemplie());
 	
-	affichageTexte(jeu, -1);
-	cout << "\nTour de " << intToStr(couleur-1) << " (Entrée pour continuer)" << endl;
-	cin.get();
-	
+	if (!dev) {
+		affichageTexte(jeu, -1);
+		cout << "\nTour de " << intToStr(couleur-1) << " (Entrée pour continuer)" << endl;
+		cin.get();
+	}
 	affichageTexte(jeu, couleur-1);
 	cout << "\nTour de " << intToStr(couleur-1) << " :" << endl;
 	if (!jeu.peutJouer(couleur, coequipier)) {
@@ -364,7 +366,7 @@ void tourJoueur(Jeu& jeu, int couleur) {
 	else jeu.jouerCarte(val_carte, couleur, coequipier, false);
 }
 
-int jouer(){
+int jouer(bool dev){
 	srand(time(NULL));
 	int nbJoueurs = 4;
 	do {
@@ -375,20 +377,21 @@ int jouer(){
 	Jeu jeu(nbJoueurs);
 	int ordre[6] = {1, 2, 5, 3, 4, 6};
 	while (true) {
-		jeu.distribuer();
-		echangeDeCartes(jeu);
-		/*
-		//Enlever le const de getJoueur
-		Carte carte_tmp(-1);
-		for (int i = 0 ; i < 4 ; i++) {
-			for (int j = 0 ; j < nbJoueurs ; j++) {
-				Joueur &joueur = jeu.getJoueur(j);
-				joueur.piocherCarte(&carte_tmp);
-		}}*/
+		if (!dev) {
+			jeu.distribuer();
+			echangeDeCartes(jeu);
+		} else {
+			for (int i = 0 ; i < 4 ; i++) {
+				for (int j = 0 ; j < nbJoueurs ; j++) {
+					jeu.attribuerCarte(-1, j+1);
+				}
+			}
+		}
+
 		for (int i = 0 ; i < 4 ; i++) {
 			for (int j = 0 ; j < nbJoueurs ; j++) {
 				int couleur = (nbJoueurs == 6) ? ordre[j]:j+1;
-				tourJoueur(jeu, couleur);
+				tourJoueur(jeu, couleur, dev);
 				if (jeu.partieGagnee()) {
 					affichageTexte(jeu, 7);
 					return couleur;
