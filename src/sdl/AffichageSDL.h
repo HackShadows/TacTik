@@ -17,10 +17,7 @@ class ImageViewer{
         SDL_Renderer * renderer;/// Le renderer
         SDL_Surface * surfacePlateau;///La surface de l'image du plateau
 		SDL_Surface * surfaceTas;  ///La surface de l'image de la carte sur le tas
-		SDL_Surface * surfaceCarte1; ///La surface de l'image de la première carte
-		SDL_Surface * surfaceCarte2;  ///La surface de l'image de la deuxième carte
-		SDL_Surface * surfaceCarte3;  ///La surface de l'image de la troisième carte
-		SDL_Surface * surfaceCarte4;  ///La surface de l'image de la quatrième carte
+		SDL_Surface * surfaceCartes[4]; ///Les surfaces des quatres cartes
         int dimx, dimy; /// Les dimensions de la fenetre
         float zoom; /// Le zoom de l'image
         int nbJ; /// Le nombre de joueurs
@@ -77,8 +74,9 @@ class ImageViewer{
 		/**
 		* @brief Affiche les cartes du jeu passé en parametre
 		* @param jeu Le jeu dont on veut afficher les pions
+		* @param joueur Le joueur dont on affiche les cartes
 		*/
-		void afficherCartes(const Jeu & jeu);
+		void setTextureCartes(const Jeu & jeu, int joueur);
 
         /**
         * @brief Affiche le jeu passé en parametre

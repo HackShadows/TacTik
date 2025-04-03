@@ -111,8 +111,20 @@ void ImageViewer::afficherPions(const Jeu &jeu, const int tab[][2]) {
     }
 }
 
-void ImageViewer::afficherCartes(const Jeu &jeu) {
-
+void ImageViewer::setTextureCartes(const Jeu &jeu, int joueur) {
+    for (int i = 0; i<3; i++) {
+        Carte * carte = jeu.getJoueur(joueur).getCarte(0);
+        if (carte == nullptr) {
+            surfaceCartes[i] = IMG_Load("./data/cartes/dos.png");
+        }
+        else {
+            int valeur = carte->getValeur();
+            if (valeur > 0) {
+                if (valeur < 10) {
+                }
+            }
+        }
+    }
 }
 
 
@@ -166,10 +178,10 @@ ImageViewer::ImageViewer(const Jeu &jeu) {
 
     surfacePlateau = nbJ == 4 ? IMG_Load("./data/plateau/plateau4.png") : IMG_Load("./data/plateau/plateau6.png");
     surfaceTas = IMG_Load("./data/cartes/dos.png");
-    surfaceCarte1 = IMG_Load("./data/cartes/dos.png");
-    surfaceCarte2 = IMG_Load("./data/cartes/dos.png");
-    surfaceCarte3 = IMG_Load("./data/cartes/dos.png");
-    surfaceCarte4 = IMG_Load("./data/cartes/dos.png");
+    surfaceCartes[0] = IMG_Load("./data/cartes/dos.png");
+    surfaceCartes[1] = IMG_Load("./data/cartes/dos.png");
+    surfaceCartes[2] = IMG_Load("./data/cartes/dos.png");
+    surfaceCartes[3] = IMG_Load("./data/cartes/dos.png");
     if (surfacePlateau == nullptr) {
         std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
         return;
@@ -178,19 +190,19 @@ ImageViewer::ImageViewer(const Jeu &jeu) {
         std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
         return;
     }
-    if (surfaceCarte1 == nullptr) {
+    if (surfaceCartes[0] == nullptr) {
         std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
         return;
     }
-    if (surfaceCarte2 == nullptr) {
+    if (surfaceCartes[1] == nullptr) {
         std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
         return;
     }
-    if (surfaceCarte3 == nullptr) {
+    if (surfaceCartes[2] == nullptr) {
         std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
         return;
     }
-    if (surfaceCarte4 == nullptr) {
+    if (surfaceCartes[3] == nullptr) {
         std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
         return;
     }
@@ -316,7 +328,6 @@ void ImageViewer::afficher(const Jeu &jeu) {
         afficherPions(jeu, tab);
         SDL_RenderPresent(renderer);
         SDL_Delay(100);
-        //cout << "Fin de boucle \n";
     }
     SDL_DestroyTexture(texturePlateau);
     SDL_DestroyTexture(textureTas);
