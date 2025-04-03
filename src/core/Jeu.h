@@ -59,8 +59,11 @@ class Jeu {
 
         /**
         * @brief Constructeur du jeu.
+		* 
+		* @param nbJ Nombre de joueurs.
+		* @param nbIA Nombre d'IA.
         */
-		Jeu(int nbJ);
+		Jeu(int nbJ, int nbIA = 0);
 
         /**
         * @brief Destructeur du jeu.

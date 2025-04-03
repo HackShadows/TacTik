@@ -104,6 +104,13 @@ class Joueur {
         */
 	   	bool estDansMain(int val_carte) const;
 
+        /**
+        * @brief Indique si le joueur est joué par une IA.
+        * 
+        * @return True si le joueur est joué par une IA, False sinon.
+        */
+	   	bool estIA() const;
+
 		/**
         * @brief Indique si la main est vide.
         * 
