@@ -4,7 +4,7 @@
 using namespace std;
 
 int main(){
-    Jeu jeu(6);
+    Jeu jeu(4);
     jeu.demarrer(1);
     jeu.demarrer(2);
     jeu.demarrer(3);
