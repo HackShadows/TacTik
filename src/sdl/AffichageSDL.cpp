@@ -6,19 +6,10 @@
 
 int getIndiceCase(const Jeu &jeu, int posx, int posy, const int tab[][2], float zoom) {
     float rayon = 20 * zoom;
-    if (jeu.getNbJoueurs() == 6) {
-        cout << posx << " " << posy << " " << tab[0][0] * zoom << " " << tab[0][1] * zoom << " ";
-        for (int i = 0; i < 96; i++) {
-            if (abs(posx - tab[i][0] * zoom) < rayon && abs(posy - tab[i][1] * zoom) < rayon) {
-                return i;
-            }
-        }
-    } else {
-        cout << posx << " " << posy << " " << tab[0][0] * zoom << " " << tab[0][1] * zoom << " ";
-        for (int i = 0; i < 64; i++) {
-            if (abs(posx - tab[i][0] * zoom) < rayon && abs(posy - tab[i][1] * zoom) < rayon) {
-                return i;
-            }
+    //cout << posx << " " << posy << " " << tab[0][0] * zoom << " " << tab[0][1] * zoom << " ";
+    for (int i = 0; i < 16*jeu.getNbJoueurs(); i++) {
+        if (abs(posx - tab[i][0] * zoom) < rayon && abs(posy - tab[i][1] * zoom) < rayon) {
+            return i;
         }
     }
     return -1;
@@ -112,15 +103,32 @@ void ImageViewer::afficherPions(const Jeu &jeu, const int tab[][2]) {
 }
 
 void ImageViewer::setTextureCartes(const Jeu &jeu, int joueur) {
-    for (int i = 0; i<3; i++) {
-        Carte * carte = jeu.getJoueur(joueur).getCarte(0);
+
+    for (int i = 0; i<4; i++) {
+        Carte * carte = jeu.getJoueur(joueur).getCarte(i);
         if (carte == nullptr) {
-            surfaceCartes[i] = IMG_Load("./data/cartes/dos.png");
+            surfaceCartes[i] = IMG_Load("./data/cartes/0.png");
+            if (surfaceCartes[i] == nullptr) {
+                std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
+                return;
+            }
         }
         else {
             int valeur = carte->getValeur();
             if (valeur > 0) {
-                if (valeur < 10) {
+                char chemin [30];
+                sprintf(chemin, "./data/cartes/%d.png", valeur);
+                surfaceCartes[i] = IMG_Load(chemin);
+                if (surfaceCartes[i] == nullptr) {
+                    std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
+                    return;
+                }
+            }
+            else {
+                surfaceCartes[i] = IMG_Load("./data/cartes/joker.png");
+                if (surfaceCartes[i] == nullptr) {
+                    std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
+                    return;
                 }
             }
         }
@@ -130,7 +138,7 @@ void ImageViewer::setTextureCartes(const Jeu &jeu, int joueur) {
 
 
 void ImageViewer::afficherTas(const Jeu &jeu) {
-    surfaceTas = IMG_Load("./data/cartes/dos.png");
+    surfaceTas = IMG_Load("./data/cartes/0.png");
     if (surfaceTas == nullptr) {
         std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
         return;
@@ -177,11 +185,11 @@ ImageViewer::ImageViewer(const Jeu &jeu) {
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
     surfacePlateau = nbJ == 4 ? IMG_Load("./data/plateau/plateau4.png") : IMG_Load("./data/plateau/plateau6.png");
-    surfaceTas = IMG_Load("./data/cartes/dos.png");
-    surfaceCartes[0] = IMG_Load("./data/cartes/dos.png");
-    surfaceCartes[1] = IMG_Load("./data/cartes/dos.png");
-    surfaceCartes[2] = IMG_Load("./data/cartes/dos.png");
-    surfaceCartes[3] = IMG_Load("./data/cartes/dos.png");
+    surfaceTas = IMG_Load("./data/cartes/0.png");
+    surfaceCartes[0] = IMG_Load("./data/cartes/0.png");
+    surfaceCartes[1] = IMG_Load("./data/cartes/0.png");
+    surfaceCartes[2] = IMG_Load("./data/cartes/0.png");
+    surfaceCartes[3] = IMG_Load("./data/cartes/0.png");
     if (surfacePlateau == nullptr) {
         std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
         return;
@@ -219,9 +227,8 @@ ImageViewer::~ImageViewer() {
 void ImageViewer::afficher(const Jeu &jeu) {
     int imgWidth = (int) dimx * zoom;
     int imgHeight = (int) dimy * zoom;
-
     int (*tab)[2] = nullptr;
-    cout << "Nouvel appel de fct \n";
+
     if (nbJ == 6) {
         tab = new int[96][2];
         int tmp[96][2] = {
@@ -242,7 +249,8 @@ void ImageViewer::afficher(const Jeu &jeu) {
             tab[i][0] = tmp[i][0];
             tab[i][1] = tmp[i][1];
         }
-    } else {
+    }
+    else {
         tab = new int[64][2];
         int tmp[64][2] = {
             {396, 810}, {330, 814}, {266, 810}, {264, 880}, {264, 946}, {196, 946}, {128, 928}, {76, 878}, {60, 812},
@@ -325,10 +333,36 @@ void ImageViewer::afficher(const Jeu &jeu) {
         };
         SDL_RenderCopy(renderer, textureTas, NULL, &RectTas);
         //debugCoordonnees(tab);
+        setTextureCartes(jeu, 1);
+        SDL_Texture *textureMain1 = SDL_CreateTextureFromSurface(renderer, surfaceCartes[0]);
+        SDL_FreeSurface(surfaceCartes[0]);
+        SDL_Rect RectMain1 = {0, 0, 200, 100};
+        SDL_RenderCopy(renderer, textureMain1, NULL, &RectMain1);
+
+        SDL_Texture *textureMain2 = SDL_CreateTextureFromSurface(renderer, surfaceCartes[1]);
+        SDL_FreeSurface(surfaceCartes[1]);
+        SDL_Rect RectMain2 = {200, 0, 200, 100};
+        SDL_RenderCopy(renderer, textureMain2, NULL, &RectMain2);
+
+        SDL_Texture *textureMain3 = SDL_CreateTextureFromSurface(renderer, surfaceCartes[2]);
+        SDL_FreeSurface(surfaceCartes[2]);
+        SDL_Rect RectMain3 = {400, 0, 200, 100};
+        SDL_RenderCopy(renderer, textureMain3, NULL, &RectMain3);
+
+        SDL_Texture *textureMain4 = SDL_CreateTextureFromSurface(renderer, surfaceCartes[3]);
+        SDL_FreeSurface(surfaceCartes[3]);
+        SDL_Rect RectMain4 = {600, 0, 200, 100};
+        SDL_RenderCopy(renderer, textureMain4, NULL, &RectMain4);
+
         afficherPions(jeu, tab);
         SDL_RenderPresent(renderer);
         SDL_Delay(100);
+        SDL_DestroyTexture(textureMain1);
+        SDL_DestroyTexture(textureMain2);
+        SDL_DestroyTexture(textureMain3);
+        SDL_DestroyTexture(textureMain4);
     }
     SDL_DestroyTexture(texturePlateau);
     SDL_DestroyTexture(textureTas);
+    delete [] tab;
 }
