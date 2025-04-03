@@ -217,8 +217,11 @@ void ImageViewer::afficherPions(const Jeu &jeu) {
 }
 
 void ImageViewer::setTextureCartes(const Jeu &jeu, int joueur) {
-
     for (int i = 0; i<4; i++) {
+        if (textureCartes[i] != nullptr) {
+            SDL_DestroyTexture(textureCartes[i]);
+        }
+
         Carte * carte = jeu.getJoueur(joueur).getCarte(i);
         if (carte == nullptr) {
             textureCartes[i] = IMG_LoadTexture(renderer, "./data/cartes/0.png");
@@ -301,7 +304,7 @@ void ImageViewer::afficher(const Jeu &jeu) {
                     imgHeight = dimy * zoom;
                     SDL_SetWindowSize(window, imgWidth, imgHeight);
                 }
-                if (event.key.keysym.sym == SDLK_SPACE) {
+                /*if (event.key.keysym.sym == SDLK_SPACE) {
                     if (jeu.getPioche().getTas() != nullptr) {
                         int tas = jeu.getPioche().getTas()->getValeur();
                         cout << tas << "\n";
@@ -313,7 +316,7 @@ void ImageViewer::afficher(const Jeu &jeu) {
                             textureTas = newTextureTas;
                         }
                     }
-                }
+                }*/
                 if (event.key.keysym.sym == SDLK_u) {
                     phase = 1-phase;
                 }
@@ -352,9 +355,9 @@ void ImageViewer::afficher(const Jeu &jeu) {
             SDL_Rect RectMain4 = {600, 0, (int)(200*zoom), (int)(300*zoom)};
             SDL_RenderCopy(renderer, textureCartes[3], NULL, &RectMain4);
         }
-        debugCoordonnees();
+        //debugCoordonnees();
 
-        //afficherPions(jeu, coordonnees);
+        afficherPions(jeu);
         SDL_RenderPresent(renderer);
         SDL_Delay(100);
     }
