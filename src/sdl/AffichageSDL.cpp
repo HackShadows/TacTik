@@ -338,16 +338,16 @@ void ImageViewer::afficher(const Jeu &jeu) {
         }
         if (phase == 1) {
             setTextureCartes(jeu, 1);
-            SDL_Rect RectMain1 = {0, 0, 200, 100};
+            SDL_Rect RectMain1 = {0, 0, 200*zoom, 300*zoom};
             SDL_RenderCopy(renderer, textureCartes[0], NULL, &RectMain1);
 
-            SDL_Rect RectMain2 = {200, 0, 200, 100};
+            SDL_Rect RectMain2 = {200, 0, 200*zoom, 300*zoom};
             SDL_RenderCopy(renderer, textureCartes[1], NULL, &RectMain2);
 
-            SDL_Rect RectMain3 = {400, 0, 200, 100};
+            SDL_Rect RectMain3 = {400, 0, 200*zoom, 300*zoom};
             SDL_RenderCopy(renderer, textureCartes[2], NULL, &RectMain3);
 
-            SDL_Rect RectMain4 = {600, 0, 200, 100};
+            SDL_Rect RectMain4 = {600, 0, 200*zoom, 300*zoom};
             SDL_RenderCopy(renderer, textureCartes[3], NULL, &RectMain4);
         }
         debugCoordonnees(tab);
@@ -355,10 +355,6 @@ void ImageViewer::afficher(const Jeu &jeu) {
         //afficherPions(jeu, tab);
         SDL_RenderPresent(renderer);
         SDL_Delay(100);
-        /*SDL_DestroyTexture(textureMain1);
-        SDL_DestroyTexture(textureMain2);
-        SDL_DestroyTexture(textureMain3);
-        SDL_DestroyTexture(textureMain4);*/
     }
     SDL_DestroyTexture(texturePlateau);
     SDL_DestroyTexture(textureTas);
