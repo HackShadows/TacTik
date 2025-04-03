@@ -340,16 +340,16 @@ void ImageViewer::afficher(const Jeu &jeu) {
         }
         if (phase == 1) {
             setTextureCartes(jeu, 1);
-            SDL_Rect RectMain1 = {0, 0, 200*zoom, 300*zoom};
+            SDL_Rect RectMain1 = {0, 0, (int)(200*zoom), (int)(300*zoom)};
             SDL_RenderCopy(renderer, textureCartes[0], NULL, &RectMain1);
 
-            SDL_Rect RectMain2 = {200, 0, 200*zoom, 300*zoom};
+            SDL_Rect RectMain2 = {200, 0, (int)(200*zoom), (int)(300*zoom)};
             SDL_RenderCopy(renderer, textureCartes[1], NULL, &RectMain2);
 
-            SDL_Rect RectMain3 = {400, 0, 200*zoom, 300*zoom};
+            SDL_Rect RectMain3 = {400, 0, (int)(200*zoom), (int)(300*zoom)};
             SDL_RenderCopy(renderer, textureCartes[2], NULL, &RectMain3);
 
-            SDL_Rect RectMain4 = {600, 0, 200*zoom, 300*zoom};
+            SDL_Rect RectMain4 = {600, 0, (int)(200*zoom), (int)(300*zoom)};
             SDL_RenderCopy(renderer, textureCartes[3], NULL, &RectMain4);
         }
         debugCoordonnees();
