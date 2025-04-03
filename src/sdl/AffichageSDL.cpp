@@ -15,10 +15,84 @@ int getIndiceCase(const Jeu &jeu, int posx, int posy, const int tab[][2], float 
     return -1;
 }
 
+ImageViewer::ImageViewer(const Jeu &jeu) {
+    zoom = 0.75;
+    nbJ = jeu.getNbJoueurs();
+    phase = 0;
+    cout << "SDL: init" << endl;
+    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+        cout << "Erreur lors de l'initialisation de la SDL : " << SDL_GetError() << endl;
+        SDL_Quit();
+        exit(1);
+    }
+
+    int imgFlags = IMG_INIT_PNG | IMG_INIT_JPG;
+    cout << "SDL_image: init" << endl;
+    if (!(IMG_Init(imgFlags) & imgFlags)) {
+        cout << "SDL_m_image could not initialize! SDL_m_image Error: " << IMG_GetError() << endl;
+        SDL_Quit();
+        exit(1);
+    }
+    if (nbJ == 6) {
+        dimx = (int) 1500;
+        dimy = (int) 900;
+    } else {
+        dimx = (int) 1000;
+        dimy = (int) 1000;
+    }
+
+    window = SDL_CreateWindow("Tac-Tik", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, dimx * zoom, dimy * zoom,
+                              SDL_WINDOW_RESIZABLE);
+    if (window == NULL) {
+        cout << "Erreur lors de la creation de la fenetre : " << SDL_GetError() << endl;
+        SDL_Quit();
+        exit(1);
+    }
+
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+
+    surfacePlateau = nbJ == 4 ? IMG_Load("./data/plateau/plateau4.png") : IMG_Load("./data/plateau/plateau6.png");
+    surfaceTas = IMG_Load("./data/cartes/0.png");
+    surfaceCartes[0] = IMG_Load("./data/cartes/0.png");
+    surfaceCartes[1] = IMG_Load("./data/cartes/0.png");
+    surfaceCartes[2] = IMG_Load("./data/cartes/0.png");
+    surfaceCartes[3] = IMG_Load("./data/cartes/0.png");
+    if (surfacePlateau == nullptr) {
+        std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
+        return;
+    }
+    if (surfaceTas == nullptr) {
+        std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
+        return;
+    }
+    if (surfaceCartes[0] == nullptr) {
+        std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
+        return;
+    }
+    if (surfaceCartes[1] == nullptr) {
+        std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
+        return;
+    }
+    if (surfaceCartes[2] == nullptr) {
+        std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
+        return;
+    }
+    if (surfaceCartes[3] == nullptr) {
+        std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
+        return;
+    }
+}
+
+ImageViewer::~ImageViewer() {
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+    SDL_Quit();
+}
+
 void ImageViewer::dessineCercle(int couleur, int x, int y) {
-    filledCircleRGBA(renderer, x, y, 20 * zoom, 0, 0, 0, 255);
-    filledCircleRGBA(renderer, x, y, 17 * zoom, 255, 255, 255, 255);
-    float rayon = 13 * zoom;
+    filledCircleRGBA(renderer, x, y, 22 * zoom, 0, 0, 0, 255);
+    filledCircleRGBA(renderer, x, y, 19 * zoom, 255, 255, 255, 255);
+    float rayon = 15 * zoom;
     switch (couleur) {
         case 1:
             filledCircleRGBA(renderer, x, y, rayon, 0, 255, 0, 255);
@@ -151,81 +225,6 @@ void ImageViewer::afficherTas(const Jeu &jeu) {
     SDL_RenderCopy(renderer, textureTas, NULL, &RectTas);
 }
 
-ImageViewer::ImageViewer(const Jeu &jeu) {
-    zoom = 0.75;
-    nbJ = jeu.getNbJoueurs();
-    cout << "SDL: init" << endl;
-    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-        cout << "Erreur lors de l'initialisation de la SDL : " << SDL_GetError() << endl;
-        SDL_Quit();
-        exit(1);
-    }
-
-    int imgFlags = IMG_INIT_PNG | IMG_INIT_JPG;
-    cout << "SDL_image: init" << endl;
-    if (!(IMG_Init(imgFlags) & imgFlags)) {
-        cout << "SDL_m_image could not initialize! SDL_m_image Error: " << IMG_GetError() << endl;
-        SDL_Quit();
-        exit(1);
-    }
-    if (nbJ == 6) {
-        dimx = (int) 1500;
-        dimy = (int) 900;
-    } else {
-        dimx = (int) 1000;
-        dimy = (int) 1000;
-    }
-
-    window = SDL_CreateWindow("Tac-Tik", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, dimx * zoom, dimy * zoom,
-                              SDL_WINDOW_RESIZABLE);
-    if (window == NULL) {
-        cout << "Erreur lors de la creation de la fenetre : " << SDL_GetError() << endl;
-        SDL_Quit();
-        exit(1);
-    }
-
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-
-    surfacePlateau = nbJ == 4 ? IMG_Load("./data/plateau/plateau4.png") : IMG_Load("./data/plateau/plateau6.png");
-    surfaceTas = IMG_Load("./data/cartes/0.png");
-    surfaceCartes[0] = IMG_Load("./data/cartes/0.png");
-    surfaceCartes[1] = IMG_Load("./data/cartes/0.png");
-    surfaceCartes[2] = IMG_Load("./data/cartes/0.png");
-    surfaceCartes[3] = IMG_Load("./data/cartes/0.png");
-    if (surfacePlateau == nullptr) {
-        std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
-        return;
-    }
-    if (surfaceTas == nullptr) {
-        std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
-        return;
-    }
-    if (surfaceCartes[0] == nullptr) {
-        std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
-        return;
-    }
-    if (surfaceCartes[1] == nullptr) {
-        std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
-        return;
-    }
-    if (surfaceCartes[2] == nullptr) {
-        std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
-        return;
-    }
-    if (surfaceCartes[3] == nullptr) {
-        std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
-        return;
-    }
-}
-
-
-ImageViewer::~ImageViewer() {
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
-    SDL_Quit();
-}
-
-
 void ImageViewer::afficher(const Jeu &jeu) {
     int imgWidth = (int) dimx * zoom;
     int imgHeight = (int) dimy * zoom;
@@ -316,10 +315,14 @@ void ImageViewer::afficher(const Jeu &jeu) {
                         }
                     }
                 }
+                if (event.key.keysym.sym == SDLK_u) {
+                    phase = 1-phase;
+                }
                 if (event.type == SDL_MOUSEBUTTONDOWN) {
                     if (event.button.button == SDL_BUTTON_LEFT) {
                         //cout << "{" << event.button.x << "," << event.button.y << "}, ";
-                        cout << getIndiceCase(jeu, event.button.x, event.button.y, tab, zoom) << endl;
+                        //cout << getIndiceCase(jeu, event.button.x, event.button.y, tab, zoom) << endl;
+                        phase = 1-phase;
                     }
                 }
             }
@@ -329,33 +332,37 @@ void ImageViewer::afficher(const Jeu &jeu) {
         SDL_RenderClear(renderer);
         SDL_Rect Rect = {0, 0, imgWidth, imgHeight};
         SDL_RenderCopy(renderer, texturePlateau, NULL, &Rect);
-        SDL_Rect RectTas = {
-            (int) (imgWidth / 2 - 100 * zoom), (int) (imgHeight / 2 - 150 * zoom), (int) (200 * zoom),
-            (int) (300 * zoom)
-        };
-        SDL_RenderCopy(renderer, textureTas, NULL, &RectTas);
+        if (phase == 0) {
+            SDL_Rect RectTas = {
+                (int) (imgWidth / 2 - 100 * zoom), (int) (imgHeight / 2 - 150 * zoom), (int) (200 * zoom),
+                (int) (300 * zoom)
+            };
+            SDL_RenderCopy(renderer, textureTas, NULL, &RectTas);
+        }
+        if (phase == 1) {
+            setTextureCartes(jeu, 1);
+            SDL_Texture *textureMain1 = SDL_CreateTextureFromSurface(renderer, surfaceCartes[0]);
+            SDL_FreeSurface(surfaceCartes[0]);
+            SDL_Rect RectMain1 = {0, 0, 200, 100};
+            SDL_RenderCopy(renderer, textureMain1, NULL, &RectMain1);
+
+            SDL_Texture *textureMain2 = SDL_CreateTextureFromSurface(renderer, surfaceCartes[1]);
+            SDL_FreeSurface(surfaceCartes[1]);
+            SDL_Rect RectMain2 = {200, 0, 200, 100};
+            SDL_RenderCopy(renderer, textureMain2, NULL, &RectMain2);
+
+            SDL_Texture *textureMain3 = SDL_CreateTextureFromSurface(renderer, surfaceCartes[2]);
+            SDL_FreeSurface(surfaceCartes[2]);
+            SDL_Rect RectMain3 = {400, 0, 200, 100};
+            SDL_RenderCopy(renderer, textureMain3, NULL, &RectMain3);
+
+            SDL_Texture *textureMain4 = SDL_CreateTextureFromSurface(renderer, surfaceCartes[3]);
+            SDL_FreeSurface(surfaceCartes[3]);
+            SDL_Rect RectMain4 = {600, 0, 200, 100};
+            SDL_RenderCopy(renderer, textureMain4, NULL, &RectMain4);
+        }
         debugCoordonnees(tab);
-        /*setTextureCartes(jeu, 1);
-        SDL_Texture *textureMain1 = SDL_CreateTextureFromSurface(renderer, surfaceCartes[0]);
-        SDL_FreeSurface(surfaceCartes[0]);
-        SDL_Rect RectMain1 = {0, 0, 200, 100};
-        SDL_RenderCopy(renderer, textureMain1, NULL, &RectMain1);
 
-        SDL_Texture *textureMain2 = SDL_CreateTextureFromSurface(renderer, surfaceCartes[1]);
-        SDL_FreeSurface(surfaceCartes[1]);
-        SDL_Rect RectMain2 = {200, 0, 200, 100};
-        SDL_RenderCopy(renderer, textureMain2, NULL, &RectMain2);
-
-        SDL_Texture *textureMain3 = SDL_CreateTextureFromSurface(renderer, surfaceCartes[2]);
-        SDL_FreeSurface(surfaceCartes[2]);
-        SDL_Rect RectMain3 = {400, 0, 200, 100};
-        SDL_RenderCopy(renderer, textureMain3, NULL, &RectMain3);
-
-        SDL_Texture *textureMain4 = SDL_CreateTextureFromSurface(renderer, surfaceCartes[3]);
-        SDL_FreeSurface(surfaceCartes[3]);
-        SDL_Rect RectMain4 = {600, 0, 200, 100};
-        SDL_RenderCopy(renderer, textureMain4, NULL, &RectMain4);
-*/
         //afficherPions(jeu, tab);
         SDL_RenderPresent(renderer);
         SDL_Delay(100);

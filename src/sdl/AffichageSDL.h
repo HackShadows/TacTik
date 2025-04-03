@@ -19,6 +19,7 @@ class ImageViewer{
 		SDL_Surface * surfaceTas;  ///<La surface de l'image de la carte sur le tas
 		SDL_Surface * surfaceCartes[4]; ///<Les surfaces des quatres cartes
         int dimx, dimy; ///<Les dimensions de la fenetre
+		int phase; ///<L'indicateur de la phase dans laquelle on est
         float zoom; ///<Le zoom de l'image
         int nbJ; ///<Le nombre de joueurs
 
