@@ -27,25 +27,56 @@ int getIndiceCase(const Jeu & jeu, int posx, int posy, const int tab[][2], float
     return -1;
 }
 
-void ImageViewer::setRGB(int couleur){
+void ImageViewer::dessineCercle(int couleur, int x, int y){
+	  filledCircleRGBA(renderer, x, y, 15*zoom, 0, 0, 0, 255);
+	  filledCircleRGBA(renderer, x, y, 12*zoom, 255, 255, 255, 255);
+	  float rayon = 10*zoom;
       switch (couleur){
               case 1:
-                  SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+              	  filledCircleRGBA(renderer, x, y, rayon, 0, 255, 0, 255);
                   break;
               case 2:
-                  SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+                  filledCircleRGBA(renderer, x, y, rayon, 255, 0, 0, 255);
                   break;
               case 3:
-                  SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
+                  filledCircleRGBA(renderer, x, y, rayon, 0, 0, 255, 255);
                   break;
               case 4:
-                  SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
+                  filledCircleRGBA(renderer, x, y, rayon, 255, 255, 0, 255);
                   break;
               case 5:
-                  SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+                  filledCircleRGBA(renderer, x, y, rayon, 0, 0, 0, 255);
                   break;
               case 6:
-                  SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+                  filledCircleRGBA(renderer, x, y, rayon, 255, 255, 255, 255);
+                  break;
+              default:
+                  break;
+          }
+}
+
+void ImageViewer::dessineTriangle(int couleur, int x, int y){
+	  filledTrigonRGBA(renderer, x, y-8*zoom, , 0, 0, 0, 255);
+	  filledTrigonRGBA(renderer, x, y, 12*zoom, 255, 255, 255, 255);
+	  float rayon = 10*zoom;
+      switch (couleur){
+              case 1:
+              	  filledCircleRGBA(renderer, x, y, rayon, 0, 255, 0, 255);
+                  break;
+              case 2:
+                  filledCircleRGBA(renderer, x, y, rayon, 255, 0, 0, 255);
+                  break;
+              case 3:
+                  filledCircleRGBA(renderer, x, y, rayon, 0, 0, 255, 255);
+                  break;
+              case 4:
+                  filledCircleRGBA(renderer, x, y, rayon, 255, 255, 0, 255);
+                  break;
+              case 5:
+                  filledCircleRGBA(renderer, x, y, rayon, 0, 0, 0, 255);
+                  break;
+              case 6:
+                  filledCircleRGBA(renderer, x, y, rayon, 255, 255, 255, 255);
                   break;
               default:
                   break;
@@ -65,23 +96,19 @@ void ImageViewer::afficherPions(const Jeu & jeu, const int tab[][2]){
         Pion pion = jeu.getPion(i);
         int indice = pion.getPos();
         if (indice >=0){
-            setRGB(((i-1)/4)+1);
-            if (pion.estPieu()){
-                SDL_Rect rect = { (int)(tab[indice][0]*zoom), (int)(tab[indice][1]*zoom), (int)(20*zoom), (int)(20*zoom) };
-                SDL_RenderFillRect(renderer, &rect);
-            }
-            else{
-                SDL_Rect rect = { (int)(tab[i][0]*zoom), (int)(tab[i][1]*zoom), (int)(20*zoom), (int)(20*zoom) };
-                SDL_RenderFillRect(renderer, &rect);
-            }
-
+        	if (pion.estPieu()){
+        		//dessineTriangle( (i-1)/4 + 1, tab[indice][0]*zoom, tab[indice][1]*zoom);
+        	}
+        	else{
+            	dessineCercle( (i-1)/4 + 1, tab[indice][0]*zoom, tab[indice][1]*zoom);
+        	}
         }
     }
 }
 
 
 void ImageViewer::afficherTas(const Jeu & jeu){
-    SDL_Surface * surfaceTas = IMG_Load("./data/cartes/dos.png");
+    surfaceTas = IMG_Load("./data/cartes/dos.png");
     if (surfaceTas == nullptr) {
         std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
         return;
@@ -114,14 +141,12 @@ ImageViewer::ImageViewer(const Jeu & jeu){
     if (nbJ == 6){
         dimx = (int) 1500;
         dimy = (int) 900;
-        
     }
     else{
         dimx = (int) 1000;
         dimy = (int) 1000;
     }
 
-    // Creation de la fenetre
     window = SDL_CreateWindow("Tac-Tik", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, dimx * zoom, dimy * zoom, SDL_WINDOW_RESIZABLE);
     if (window == NULL)
     {
@@ -131,6 +156,38 @@ ImageViewer::ImageViewer(const Jeu & jeu){
     }
 
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+
+    surfacePlateau = nbJ==4 ? IMG_Load("./data/plateau/plateau4.png") : IMG_Load("./data/plateau/plateau6.png");
+    surfaceTas = IMG_Load("./data/cartes/dos.png");
+	surfaceCarte1 = IMG_Load("./data/cartes/dos.png");
+	surfaceCarte2 = IMG_Load("./data/cartes/dos.png");
+	surfaceCarte3 = IMG_Load("./data/cartes/dos.png");
+	surfaceCarte4 = IMG_Load("./data/cartes/dos.png");
+	if (surfacePlateau == nullptr) {
+        std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
+        return;
+    }
+    if (surfaceTas == nullptr) {
+        std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
+        return;
+    }
+    if (surfaceCarte1 == nullptr) {
+        std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
+        return;
+    }
+    if (surfaceCarte2 == nullptr) {
+        std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
+        return;
+    }
+    if (surfaceCarte3 == nullptr) {
+        std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
+        return;
+    }
+    if (surfaceCarte4 == nullptr) {
+        std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
+        return;
+    }
+
 }
 
 
@@ -148,7 +205,6 @@ void ImageViewer::afficher(const Jeu & jeu){
     int (*tab)[2] = nullptr;
 	cout << "Nouvel appel de fct \n";
     if (nbJ == 6) {
-        surface = IMG_Load("./data/plateau/plateau6.png");
         tab = new int[96][2];
         int tmp[96][2] = {{355,715}, {300,715}, {230,720}, {235,780}, {235,840}, {170,840}, {115,825}, {70,780}, {50,715}, {50,660}, {50,600}, {50,530}, {50,475}, {110,480}, {170,475}, {175,415},
         {172,354}, {171,292}, {174,235}, {112,231}, {51,232}, {50,175}, {66,110}, {110,67}, {170,49}, {231,50}, {292,51}, {354,50}, {412,49}, {416,111}, {415,170}, {476,170}, {534,171}, {596,172}, 
@@ -160,10 +216,8 @@ void ImageViewer::afficher(const Jeu & jeu){
           	tab[i][0] = tmp[i][0];
             tab[i][1] = tmp[i][1];
         }
-        cout << "passage creation tab \n";
-    } 
+    }
     else {
-        surface = IMG_Load("./data/plateau/plateau4.png");
         tab = new int[64][2];
         int tmp[64][2] = {{396,810}, {330,814}, {266,810}, {264,880}, {264,946}, {196,946}, {128,928}, {76,878}, {60,812},
                            {62,744}, {56,678}, {62,608}, {60,540}, {128,542}, {194,540}, {198,476}, {196,404}, {200,338},
@@ -177,26 +231,16 @@ void ImageViewer::afficher(const Jeu & jeu){
           	tab[i][0] = tmp[i][0];
             tab[i][1] = tmp[i][1];
         }
-        cout << "passage creation tab \n";    }
-    if (surface == nullptr) {
-        std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
-        return;
-    }
-
-    SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surface);
-    SDL_FreeSurface(surface);
-    if (texture == nullptr) {
+	}
+    SDL_Texture *texturePlateau = SDL_CreateTextureFromSurface(renderer, surfacePlateau);
+    SDL_FreeSurface(surfacePlateau);
+    if (texturePlateau == nullptr) {
         std::cerr << "Erreur de création de la texture : " << SDL_GetError() << std::endl;
-        SDL_FreeSurface(surface);
+        SDL_FreeSurface(surfacePlateau);
         return;
     }
 
-    SDL_Surface * surfaceTas = IMG_Load("./data/cartes/dos.png");
-    if (surfaceTas == nullptr) {
-        std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
-        return;
-    }
-    SDL_Texture *textureTas = SDL_CreateTextureFromSurface(renderer, surfaceTas);
+    SDL_Texture * textureTas = SDL_CreateTextureFromSurface(renderer, surfaceTas);
     SDL_FreeSurface(surfaceTas);
 
     bool running = true;
@@ -247,7 +291,7 @@ void ImageViewer::afficher(const Jeu & jeu){
         SDL_SetRenderDrawColor(renderer, 128, 128, 128, 255);
         SDL_RenderClear(renderer);
         SDL_Rect Rect = { 0, 0, imgWidth, imgHeight};
-        SDL_RenderCopy(renderer, texture, NULL, &Rect);
+        SDL_RenderCopy(renderer, texturePlateau, NULL, &Rect);
         SDL_Rect RectTas = { (int)(imgWidth/2 - 100*zoom), (int)(imgHeight/2 - 150*zoom), (int) (200*zoom), (int) (300*zoom)};
         SDL_RenderCopy(renderer, textureTas, NULL, &RectTas);
         //debugCoordonnees(tab);
@@ -256,7 +300,7 @@ void ImageViewer::afficher(const Jeu & jeu){
         SDL_Delay(100);
         //cout << "Fin de boucle \n";
     }
-    SDL_DestroyTexture(texture);
+    SDL_DestroyTexture(texturePlateau);
     SDL_DestroyTexture(textureTas);
 }
 
