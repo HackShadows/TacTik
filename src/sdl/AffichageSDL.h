@@ -22,6 +22,7 @@ class ImageViewer{
 		int phase; ///<L'indicateur de la phase dans laquelle on est
         float zoom; ///<Le zoom de l'image
         int nbJ; ///<Le nombre de joueurs
+		int (* coordonnees)[2]; ///< Le tableau des coordonnées des points
 
 
     public :
@@ -38,9 +39,8 @@ class ImageViewer{
 
         /**
         * @brief Affiche des carrés sur les cases du plateau
-        * @param tab Le tableau de coordonnées des cases que l'on veut afficher
         */
-        void debugCoordonnees(const int tab[][2]);
+        void debugCoordonnees();
 
         /**
         * @brief Affiche la carte du tas du jeu passé en parametre
@@ -68,9 +68,8 @@ class ImageViewer{
         /**
         * @brief Affiche les pions du jeu passé en parametre
         * @param jeu Le jeu dont on veut afficher les pions
-        * @param tab Le tableau des coordonnées des cases sur le plateau
         */
-        void afficherPions(const Jeu & jeu, const int tab[][2]);
+        void afficherPions(const Jeu & jeu);
 
 		/**
 		* @brief Affiche les cartes du jeu passé en parametre
