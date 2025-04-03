@@ -53,10 +53,10 @@ ImageViewer::ImageViewer(const Jeu &jeu) {
 
     surfacePlateau = nbJ == 4 ? IMG_Load("./data/plateau/plateau4.png") : IMG_Load("./data/plateau/plateau6.png");
     surfaceTas = IMG_Load("./data/cartes/0.png");
-    surfaceCartes[0] = IMG_Load("./data/cartes/0.png");
-    surfaceCartes[1] = IMG_Load("./data/cartes/0.png");
-    surfaceCartes[2] = IMG_Load("./data/cartes/0.png");
-    surfaceCartes[3] = IMG_Load("./data/cartes/0.png");
+    textureCartes[0] = IMG_LoadTexture(renderer, "./data/cartes/0.png");
+    textureCartes[1] = IMG_LoadTexture(renderer, "./data/cartes/0.png");
+    textureCartes[2] = IMG_LoadTexture(renderer, "./data/cartes/0.png");
+    textureCartes[3] = IMG_LoadTexture(renderer, "./data/cartes/0.png");
     if (surfacePlateau == nullptr) {
         std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
         return;
@@ -65,19 +65,19 @@ ImageViewer::ImageViewer(const Jeu &jeu) {
         std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
         return;
     }
-    if (surfaceCartes[0] == nullptr) {
+    if (textureCartes[0] == nullptr) {
         std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
         return;
     }
-    if (surfaceCartes[1] == nullptr) {
+    if (textureCartes[1] == nullptr) {
         std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
         return;
     }
-    if (surfaceCartes[2] == nullptr) {
+    if (textureCartes[2] == nullptr) {
         std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
         return;
     }
-    if (surfaceCartes[3] == nullptr) {
+    if (textureCartes[3] == nullptr) {
         std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
         return;
     }
@@ -158,9 +158,6 @@ void ImageViewer::dessineTriangle(int couleur, int x, int y) {
 void ImageViewer::debugCoordonnees(const int tab[][2]) {
     for (int i = 0; i < 16 * nbJ; i++) {
         dessineCercle(1, tab[i][0] * zoom, tab[i][1]*zoom);
-        //filledCircleRGBA(renderer, tab[i][0]*zoom, tab[i][1], 20 * zoom, 0, 0, 0, 255);
-        /*SDL_Rect rect = {(int) (tab[i][0] * zoom), (int) (tab[i][1] * zoom), (int) (20 * zoom), (int) (20 * zoom)};
-        SDL_RenderFillRect(renderer, &rect);*/
     }
 }
 
@@ -183,8 +180,8 @@ void ImageViewer::setTextureCartes(const Jeu &jeu, int joueur) {
     for (int i = 0; i<4; i++) {
         Carte * carte = jeu.getJoueur(joueur).getCarte(i);
         if (carte == nullptr) {
-            surfaceCartes[i] = IMG_Load("./data/cartes/0.png");
-            if (surfaceCartes[i] == nullptr) {
+            textureCartes[i] = IMG_LoadTexture(renderer, "./data/cartes/0.png");
+            if (textureCartes[i] == nullptr) {
                 std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
                 return;
             }
@@ -194,15 +191,15 @@ void ImageViewer::setTextureCartes(const Jeu &jeu, int joueur) {
             if (valeur > 0) {
                 char chemin [30];
                 sprintf(chemin, "./data/cartes/%d.png", valeur);
-                surfaceCartes[i] = IMG_Load(chemin);
-                if (surfaceCartes[i] == nullptr) {
+                textureCartes[i] = IMG_LoadTexture(renderer, chemin);
+                if (textureCartes[i] == nullptr) {
                     std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
                     return;
                 }
             }
             else {
-                surfaceCartes[i] = IMG_Load("./data/cartes/joker.png");
-                if (surfaceCartes[i] == nullptr) {
+                textureCartes[i] = IMG_LoadTexture(renderer, "./data/cartes/joker.png");
+                if (textureCartes[i] == nullptr) {
                     std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
                     return;
                 }
@@ -341,25 +338,17 @@ void ImageViewer::afficher(const Jeu &jeu) {
         }
         if (phase == 1) {
             setTextureCartes(jeu, 1);
-            SDL_Texture *textureMain1 = SDL_CreateTextureFromSurface(renderer, surfaceCartes[0]);
-            SDL_FreeSurface(surfaceCartes[0]);
             SDL_Rect RectMain1 = {0, 0, 200, 100};
-            SDL_RenderCopy(renderer, textureMain1, NULL, &RectMain1);
+            SDL_RenderCopy(renderer, textureCartes[0], NULL, &RectMain1);
 
-            SDL_Texture *textureMain2 = SDL_CreateTextureFromSurface(renderer, surfaceCartes[1]);
-            SDL_FreeSurface(surfaceCartes[1]);
             SDL_Rect RectMain2 = {200, 0, 200, 100};
-            SDL_RenderCopy(renderer, textureMain2, NULL, &RectMain2);
+            SDL_RenderCopy(renderer, textureCartes[1], NULL, &RectMain2);
 
-            SDL_Texture *textureMain3 = SDL_CreateTextureFromSurface(renderer, surfaceCartes[2]);
-            SDL_FreeSurface(surfaceCartes[2]);
             SDL_Rect RectMain3 = {400, 0, 200, 100};
-            SDL_RenderCopy(renderer, textureMain3, NULL, &RectMain3);
+            SDL_RenderCopy(renderer, textureCartes[2], NULL, &RectMain3);
 
-            SDL_Texture *textureMain4 = SDL_CreateTextureFromSurface(renderer, surfaceCartes[3]);
-            SDL_FreeSurface(surfaceCartes[3]);
             SDL_Rect RectMain4 = {600, 0, 200, 100};
-            SDL_RenderCopy(renderer, textureMain4, NULL, &RectMain4);
+            SDL_RenderCopy(renderer, textureCartes[3], NULL, &RectMain4);
         }
         debugCoordonnees(tab);
 
@@ -373,5 +362,9 @@ void ImageViewer::afficher(const Jeu &jeu) {
     }
     SDL_DestroyTexture(texturePlateau);
     SDL_DestroyTexture(textureTas);
+    SDL_DestroyTexture(textureCartes[0]);
+    SDL_DestroyTexture(textureCartes[1]);
+    SDL_DestroyTexture(textureCartes[2]);
+    SDL_DestroyTexture(textureCartes[3]);
     delete [] tab;
 }

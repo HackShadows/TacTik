@@ -17,7 +17,7 @@ class ImageViewer{
         SDL_Renderer * renderer;///<Le renderer
         SDL_Surface * surfacePlateau;///<La surface de l'image du plateau
 		SDL_Surface * surfaceTas;  ///<La surface de l'image de la carte sur le tas
-		SDL_Surface * surfaceCartes[4]; ///<Les surfaces des quatres cartes
+		SDL_Texture * textureCartes[4]; ///<Les surfaces des quatres cartes
         int dimx, dimy; ///<Les dimensions de la fenetre
 		int phase; ///<L'indicateur de la phase dans laquelle on est
         float zoom; ///<Le zoom de l'image
