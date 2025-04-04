@@ -41,7 +41,7 @@ ImageViewer::ImageViewer(const Jeu &jeu) {
         dimy = (int) 1000;
     }
 
-    window = SDL_CreateWindow("Tac-Tik", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, dimx * zoom, dimy * zoom,
+    window = SDL_CreateWindow("Tac-Tik", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, (dimx+200) * zoom, dimy * zoom,
                               SDL_WINDOW_RESIZABLE);
     if (window == NULL) {
         cout << "Erreur lors de la creation de la fenetre : " << SDL_GetError() << endl;
@@ -296,13 +296,13 @@ void ImageViewer::afficher(const Jeu &jeu) {
                     zoom = zoom + 0.05;
                     imgWidth = dimx * zoom;
                     imgHeight = dimy * zoom;
-                    SDL_SetWindowSize(window, imgWidth, imgHeight);
+                    SDL_SetWindowSize(window, imgWidth+200*zoom, imgHeight);
                 }
                 if (event.key.keysym.sym == SDLK_q) {
                     zoom = zoom - 0.05;
                     imgWidth = dimx * zoom;
                     imgHeight = dimy * zoom;
-                    SDL_SetWindowSize(window, imgWidth, imgHeight);
+                    SDL_SetWindowSize(window, imgWidth+200*zoom, imgHeight);
                 }
                 /*if (event.key.keysym.sym == SDLK_SPACE) {
                     if (jeu.getPioche().getTas() != nullptr) {
@@ -343,16 +343,16 @@ void ImageViewer::afficher(const Jeu &jeu) {
         }
         if (phase == 1) {
             setTextureCartes(jeu, 1);
-            SDL_Rect RectMain1 = {0, 0, (int)(200*zoom), (int)(300*zoom)};
+            SDL_Rect RectMain1 = {imgWidth, 0, (int)(200*zoom), (int)(300*zoom)};
             SDL_RenderCopy(renderer, textureCartes[0], NULL, &RectMain1);
 
-            SDL_Rect RectMain2 = {200, 0, (int)(200*zoom), (int)(300*zoom)};
+            SDL_Rect RectMain2 = {imgWidth, 350*zoom, (int)(200*zoom), (int)(300*zoom)};
             SDL_RenderCopy(renderer, textureCartes[1], NULL, &RectMain2);
 
-            SDL_Rect RectMain3 = {400, 0, (int)(200*zoom), (int)(300*zoom)};
+            SDL_Rect RectMain3 = {imgWidth, 700*zoom, (int)(200*zoom), (int)(300*zoom)};
             SDL_RenderCopy(renderer, textureCartes[2], NULL, &RectMain3);
 
-            SDL_Rect RectMain4 = {600, 0, (int)(200*zoom), (int)(300*zoom)};
+            SDL_Rect RectMain4 = {imgWidth, 1050*zoom, (int)(200*zoom), (int)(300*zoom)};
             SDL_RenderCopy(renderer, textureCartes[3], NULL, &RectMain4);
         }
         //debugCoordonnees();
