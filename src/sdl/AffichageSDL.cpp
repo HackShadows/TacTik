@@ -281,6 +281,15 @@ void ImageViewer::afficher(const Jeu &jeu) {
     SDL_Texture *textureTas = SDL_CreateTextureFromSurface(renderer, surfaceTas);
     SDL_FreeSurface(surfaceTas);
 
+    SDL_Rect RectMain1 = {imgWidth, 0, (int)(200*zoom), (int)(250*zoom)};
+    SDL_Rect RectMain2 = {imgWidth, 250*zoom, (int)(200*zoom), (int)(250*zoom)};
+    SDL_Rect RectMain3 = {imgWidth, 500*zoom, (int)(200*zoom), (int)(250*zoom)};
+    SDL_Rect RectMain4 = {imgWidth, 750*zoom, (int)(200*zoom), (int)(250*zoom)};
+    SDL_Rect RectTas = {
+        (int) (imgWidth / 2 - 100 * zoom), (int) (imgHeight / 2 - 150 * zoom), (int) (200 * zoom),
+        (int) (300 * zoom)
+    };
+
     bool running = true;
     SDL_Event event;
     while (running) {
@@ -335,29 +344,19 @@ void ImageViewer::afficher(const Jeu &jeu) {
         SDL_Rect Rect = {0, 0, imgWidth, imgHeight};
         SDL_RenderCopy(renderer, texturePlateau, NULL, &Rect);
         if (phase == 0) {
-            SDL_Rect RectTas = {
-                (int) (imgWidth / 2 - 100 * zoom), (int) (imgHeight / 2 - 150 * zoom), (int) (200 * zoom),
-                (int) (300 * zoom)
-            };
-            SDL_RenderCopy(renderer, textureTas, NULL, &RectTas);
         }
         if (phase == 1) {
             setTextureCartes(jeu, 1);
-            SDL_Rect RectMain1 = {imgWidth, 0, (int)(200*zoom), (int)(250*zoom)};
-            SDL_RenderCopy(renderer, textureCartes[0], NULL, &RectMain1);
-
-            SDL_Rect RectMain2 = {imgWidth, 250*zoom, (int)(200*zoom), (int)(250*zoom)};
-            SDL_RenderCopy(renderer, textureCartes[1], NULL, &RectMain2);
-
-            SDL_Rect RectMain3 = {imgWidth, 500*zoom, (int)(200*zoom), (int)(250*zoom)};
-            SDL_RenderCopy(renderer, textureCartes[2], NULL, &RectMain3);
-
-            SDL_Rect RectMain4 = {imgWidth, 750*zoom, (int)(200*zoom), (int)(250*zoom)};
-            SDL_RenderCopy(renderer, textureCartes[3], NULL, &RectMain4);
+            phase = 2;
         }
         //debugCoordonnees();
 
         afficherPions(jeu);
+        SDL_RenderCopy(renderer, textureTas, NULL, &RectTas);
+        SDL_RenderCopy(renderer, textureCartes[0], NULL, &RectMain1);
+        SDL_RenderCopy(renderer, textureCartes[1], NULL, &RectMain2);
+        SDL_RenderCopy(renderer, textureCartes[2], NULL, &RectMain3);
+        SDL_RenderCopy(renderer, textureCartes[3], NULL, &RectMain4);
         SDL_RenderPresent(renderer);
         SDL_Delay(100);
     }
