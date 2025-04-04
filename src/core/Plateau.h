@@ -53,7 +53,7 @@ class Plateau {
 		* @param id_pion Id du pion à ajouter.
 		* @param indice Indice de la nouvelle case du pion.
 		*/
-		void setPion(int id_pion, int indice);
+		void setPion(int id_pion, int indice) const;
 
 		/**
         * @brief Renvoie le nombre de cases du plateau.
@@ -87,7 +87,7 @@ class Plateau {
 		*
 		* @return Id du pion se trouvant à l'indice 'indice'.
 		*/
-		int viderCase(int indice);
+		int viderCase(int indice) const;
 
         /**
         * @brief Test les fonctionnalités de la classe.

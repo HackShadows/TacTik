@@ -40,7 +40,7 @@ class ImageViewer{
         /**
         * @brief Affiche des carrés sur les cases du plateau
         */
-        void debugCoordonnees();
+        void debugCoordonnees() const;
 
         /**
         * @brief Affiche la carte du tas du jeu passé en parametre
@@ -55,7 +55,7 @@ class ImageViewer{
         * @param x L'abscisse du point qu'on veut afficher
         * @param y L'ordonnée du point qu'on veut afficher
         */
-        void dessineCercle(int couleur, int x, int y);
+        void dessineCercle(int couleur, int x, int y) const;
 
         /**
         * @brief dessine le pieu de couleur "couleur" aux coordonnées (x,y)
@@ -63,13 +63,13 @@ class ImageViewer{
         * @param x L'abscisse du pieu qu'on veut afficher
         * @param y L'ordonnée du pieu qu'on veut afficher
         */
-        void dessineTriangle(int couleur, int x, int y);
+        void dessineTriangle(int couleur, int x, int y) const;
 
         /**
         * @brief Affiche les pions du jeu passé en parametre
         * @param jeu Le jeu dont on veut afficher les pions
         */
-        void afficherPions(const Jeu & jeu);
+        void afficherPions(const Jeu & jeu) const;
 
 		/**
 		* @brief Affiche les cartes du jeu passé en parametre
@@ -82,7 +82,7 @@ class ImageViewer{
         * @brief Affiche le jeu passé en parametre
         * @param jeu Le jeu que l'on veut afficher
         */
-        void afficher(const Jeu & jeu);
+        void afficher(Jeu & jeu);
 
 };
 

@@ -28,6 +28,12 @@ char cinProtectionChar(string cout_message, char val_defaut) {
 	return val;
 }
 
+bool intInTab(int element, const int * tab, int taille) {
+	for (int i = 0 ; i < taille ; i++) {
+		if (tab[i] == element) return true;
+	}
+	return false;
+}
 Jeu::Jeu() : nbJoueurs(4), plateau(nbJoueurs), pioche(){
     joueurs = new Joueur [nbJoueurs];
 	pions = new Pion [4*nbJoueurs];
@@ -83,12 +89,6 @@ const Pion& Jeu::getPion(int id_pion) const {
 	return pions[id_pion-1];
 }
 
-bool intInTab(int element, const int * tab, int taille) {
-    for (int i = 0 ; i < taille ; i++) {
-        if (tab[i] == element) return true;
-    }
-    return false;
-}
 
 void Jeu::distribuer(){
     int indice_carte[4*nbJoueurs];
@@ -125,7 +125,7 @@ bool Jeu::attribuerCarte(int val_carte, int couleur) {
 	return joueurs[couleur-1].piocherCarte(&pioche.getCarte(ind));
 }
 
-void Jeu::echangerCartes(int indJ1, int indJ2, int val_carteJ1, int val_carteJ2) {
+void Jeu::echangerCartes(int indJ1, int indJ2, int val_carteJ1, int val_carteJ2) const {
 	assert((indJ1 == 0 && indJ2 == 2) || (indJ1 == 1 && indJ2 == 3) || (indJ1 == 4 && indJ2 == 5 && nbJoueurs == 6));
 	Carte* carteJ1 = joueurs[indJ1].retirerCarte(val_carteJ1);
 	Carte* carteJ2 = joueurs[indJ2].retirerCarte(val_carteJ2);
@@ -285,14 +285,14 @@ bool Jeu::permutter(int id_pion1, int id_pion2, bool test) {
 	return true;
 }
 
-bool Jeu::partieGagnee() {
+bool Jeu::partieGagnee() const {
 	if ((joueurs[0].maisonRemplie() && joueurs[2].maisonRemplie()) || 
 	(joueurs[1].maisonRemplie() && joueurs[3].maisonRemplie()) ||
 	(nbJoueurs == 6 && joueurs[4].maisonRemplie() && joueurs[5].maisonRemplie())) return true;
 	return false;
 }
 
-bool Jeu::carteJouable(int couleur, int val_carte, bool coequipier, bool joker) {
+bool Jeu::carteJouable(int couleur, int val_carte, bool coequipier, bool joker){
 	assert(1 <= couleur && couleur <= nbJoueurs);
 	assert(val_carte == -4 || (-1 <= val_carte && val_carte <= 13 && val_carte != 0 && val_carte != 4));
 	

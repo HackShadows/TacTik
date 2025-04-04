@@ -132,7 +132,7 @@ class Jeu {
 		* @param val_carteJ1 Valeur de la carte du joueur1 à donner au joueur2.
 		* @param val_carteJ2 Valeur de la carte du joueur2 à donner au joueur1.
         */
-	   	void echangerCartes(int indJ1, int indJ2, int val_carteJ1, int val_carteJ2);
+	   	void echangerCartes(int indJ1, int indJ2, int val_carteJ1, int val_carteJ2) const;
 
 		/**
 		* @brief Défausse la carte passée en paramètre.
@@ -207,7 +207,7 @@ class Jeu {
 		*
 		* @return Le booléen correspondant.
         */
-	   	bool partieGagnee();
+	   	bool partieGagnee() const;
 
 		/**
 		* @brief Détermine si la carte passée en paramètre peut être jouée.

@@ -130,7 +130,7 @@ ImageViewer::~ImageViewer() {
     SDL_Quit();
 }
 
-void ImageViewer::dessineCercle(int couleur, int x, int y) {
+void ImageViewer::dessineCercle(int couleur, int x, int y) const {
     filledCircleRGBA(renderer, x, y, 22 * zoom, 0, 0, 0, 255);
     filledCircleRGBA(renderer, x, y, 19 * zoom, 255, 255, 255, 255);
     float rayon = 15 * zoom;
@@ -158,7 +158,7 @@ void ImageViewer::dessineCercle(int couleur, int x, int y) {
     }
 }
 
-void ImageViewer::dessineTriangle(int couleur, int x, int y) {
+void ImageViewer::dessineTriangle(int couleur, int x, int y) const {
     float grandRayon = 20 * zoom;
     float moyenRayon = 15 * zoom;
     float petitRayon = 10 * zoom;
@@ -196,13 +196,13 @@ void ImageViewer::dessineTriangle(int couleur, int x, int y) {
     }
 }
 
-void ImageViewer::debugCoordonnees() {
+void ImageViewer::debugCoordonnees() const {
     for (int i = 0; i < 16 * nbJ; i++) {
         dessineCercle(1, coordonnees[i][0] * zoom, coordonnees[i][1] * zoom);
     }
 }
 
-void ImageViewer::afficherPions(const Jeu &jeu) {
+void ImageViewer::afficherPions(const Jeu &jeu) const {
     for (int i = 1; i < 4 * nbJ + 1; i++) {
         Pion pion = jeu.getPion(i);
         int indice = pion.getPos();
@@ -231,9 +231,9 @@ void ImageViewer::setTextureCartes(const Jeu &jeu, int joueur) {
             }
         } else {
             int valeur = carte->getValeur();
-            if (valeur > 0) {
+            if (valeur !=-1) {
                 char chemin[30];
-                sprintf(chemin, "./data/cartes/%d.png", valeur);
+                sprintf(chemin, "./data/cartes/%d.png", abs(valeur));
                 textureCartes[i] = IMG_LoadTexture(renderer, chemin);
                 if (textureCartes[i] == nullptr) {
                     std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
@@ -263,7 +263,7 @@ void ImageViewer::afficherTas(const Jeu &jeu) {
     SDL_RenderCopy(renderer, textureTas, NULL, &RectTas);
 }
 
-void ImageViewer::afficher(const Jeu &jeu) {
+void ImageViewer::afficher(Jeu &jeu) {
     int imgWidth = (int) dimx * zoom;
     int imgHeight = (int) dimy * zoom;
 
