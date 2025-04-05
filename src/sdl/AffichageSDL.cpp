@@ -16,7 +16,7 @@ int getIndiceCase(const Jeu &jeu, int posx, int posy, const int tab[][2], float 
 }
 
 ImageViewer::ImageViewer(const Jeu &jeu) {
-    zoom = 0.75;
+    zoom = 0.5;
     nbJ = jeu.getNbJoueurs();
     phase = 0;
     cout << "SDL: init" << endl;
@@ -34,8 +34,8 @@ ImageViewer::ImageViewer(const Jeu &jeu) {
         exit(1);
     }
     if (nbJ == 6) {
-        dimx = (int) 1500;
-        dimy = (int) 900;
+        dimx = (int) 1666;
+        dimy = (int) 1000;
     } else {
         dimx = (int) 1000;
         dimy = (int) 1000;
@@ -303,12 +303,28 @@ void ImageViewer::afficher(Jeu &jeu) {
                     imgWidth = dimx * zoom;
                     imgHeight = dimy * zoom;
                     SDL_SetWindowSize(window, imgWidth + 200 * zoom, imgHeight);
+                    RectMain1 = {imgWidth, 0, (int) (200 * zoom), (int) (250 * zoom)};
+                    RectMain2 = {imgWidth, (int)(250 * zoom), (int) (200 * zoom), (int) (250 * zoom)};
+                    RectMain3 = {imgWidth, (int)(500 * zoom), (int) (200 * zoom), (int) (250 * zoom)};
+                    RectMain4 = {imgWidth, (int)(750 * zoom), (int) (200 * zoom), (int) (250 * zoom)};
+                    RectTas = {
+                        (int) (imgWidth / 2 - 100 * zoom), (int) (imgHeight / 2 - 150 * zoom), (int) (200 * zoom),
+                        (int) (300 * zoom)
+                    };
                 }
                 if (event.key.keysym.sym == SDLK_q) {
                     zoom = zoom - 0.05;
                     imgWidth = dimx * zoom;
                     imgHeight = dimy * zoom;
                     SDL_SetWindowSize(window, imgWidth + 200 * zoom, imgHeight);
+                    RectMain1 = {imgWidth, 0, (int) (200 * zoom), (int) (250 * zoom)};
+                    RectMain2 = {imgWidth, (int)(250 * zoom), (int) (200 * zoom), (int) (250 * zoom)};
+                    RectMain3 = {imgWidth, (int)(500 * zoom), (int) (200 * zoom), (int) (250 * zoom)};
+                    RectMain4 = {imgWidth, (int)(750 * zoom), (int) (200 * zoom), (int) (250 * zoom)};
+                    RectTas = {
+                        (int) (imgWidth / 2 - 100 * zoom), (int) (imgHeight / 2 - 150 * zoom), (int) (200 * zoom),
+                        (int) (300 * zoom)
+                    };
                 }
                 /*if (event.key.keysym.sym == SDLK_SPACE) {
                     if (jeu.getPioche().getTas() != nullptr) {
@@ -344,21 +360,23 @@ void ImageViewer::afficher(Jeu &jeu) {
                 }
             }
         }
-
-
         SDL_SetRenderDrawColor(renderer, 128, 128, 128, 255);
         SDL_RenderClear(renderer);
         SDL_Rect Rect = {0, 0, imgWidth, imgHeight};
         SDL_RenderCopy(renderer, texturePlateau, NULL, &Rect);
-        if (phase == 0) {
+        /*if (phase == 0) {
         }
         if (phase == 1) {
             setTextureCartes(jeu, 1);
-            phase = 2;
+            phase = 1;
+        }
+        if (phase == 2) {
+            setTextureCartes(jeu, 2);
         }
         //debugCoordonnees();
-
+*/
         afficherPions(jeu);
+        //setTextureCartes(jeu, 1);
         SDL_RenderCopy(renderer, textureTas, NULL, &RectTas);
         SDL_RenderCopy(renderer, textureCartes[0], NULL, &RectMain1);
         SDL_RenderCopy(renderer, textureCartes[1], NULL, &RectMain2);
@@ -366,6 +384,7 @@ void ImageViewer::afficher(Jeu &jeu) {
         SDL_RenderCopy(renderer, textureCartes[3], NULL, &RectMain4);
         SDL_RenderPresent(renderer);
         SDL_Delay(100);
+        cout << "Fin de boucle \n";
     }
     SDL_DestroyTexture(texturePlateau);
     SDL_DestroyTexture(textureTas);
