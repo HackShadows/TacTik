@@ -33,7 +33,7 @@ Plateau::~Plateau() {
     nbCases = 0;
 }
 
-void Plateau::setPion(int id_pion, int indice) const {
+void Plateau::setPion(int id_pion, int indice) {
 	assert(0 <= indice && indice < nbCases);
 	assert(0 < id_pion && id_pion <= nbCases/4);
 	assert(cases[indice] == 0);
@@ -54,7 +54,7 @@ int Plateau::getCasesDepart(int couleur) const {
 	return casesDepart[couleur-1];
 }
 
-int Plateau::viderCase(int indice) const {
+int Plateau::viderCase(int indice) {
 	assert(0 <= indice && indice < nbCases);
 	int id_pion = cases[indice];
     cases[indice] = 0;

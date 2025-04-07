@@ -34,6 +34,7 @@ bool intInTab(int element, const int * tab, int taille) {
 	}
 	return false;
 }
+
 Jeu::Jeu() : nbJoueurs(4), plateau(nbJoueurs), pioche(){
     joueurs = new Joueur [nbJoueurs];
 	pions = new Pion [4*nbJoueurs];
@@ -90,7 +91,7 @@ const Pion& Jeu::getPion(int id_pion) const {
 }
 
 
-void Jeu::distribuer(){
+void Jeu::distribuer() {
     int indice_carte[4*nbJoueurs];
     for (int i = 0; i<nbJoueurs; i++) {
         int random_int;
@@ -125,7 +126,7 @@ bool Jeu::attribuerCarte(int val_carte, int couleur) {
 	return joueurs[couleur-1].piocherCarte(&pioche.getCarte(ind));
 }
 
-void Jeu::echangerCartes(int indJ1, int indJ2, int val_carteJ1, int val_carteJ2) const {
+void Jeu::echangerCartes(int indJ1, int indJ2, int val_carteJ1, int val_carteJ2) {
 	assert((indJ1 == 0 && indJ2 == 2) || (indJ1 == 1 && indJ2 == 3) || (indJ1 == 4 && indJ2 == 5 && nbJoueurs == 6));
 	Carte* carteJ1 = joueurs[indJ1].retirerCarte(val_carteJ1);
 	Carte* carteJ2 = joueurs[indJ2].retirerCarte(val_carteJ2);
