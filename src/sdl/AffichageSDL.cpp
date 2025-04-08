@@ -315,11 +315,14 @@ void ImageViewer::gestionEvent(SDL_Event event, bool &running, int &imgWidth, in
             //cout << "{" << event.button.x << "," << event.button.y << "}, ";
             //cout << getIndiceCase(jeu, event.button.x, event.button.y, coordonnees, zoom) << endl;
             if (event.button.x > imgWidth) {
+                int couleur = 3;
+                cout << "Tour de " << intToStr(couleur-1) << endl;
+                cout << "Position : " << jeu.getPion(4*(couleur-1)+1).getPos() << endl;
                 int indiceCase = event.button.y / (250 * zoom);
                 cout << indiceCase << endl;
-                int valeur = jeu.getJoueur(1).getCarte(indiceCase)->getValeur();
+                int valeur = jeu.getJoueur(couleur-1).getCarte(indiceCase)->getValeur();
                 cout << "La valeur de la carte : " << valeur << endl;
-                if (jeu.carteJouable(1, valeur)) {
+                if (jeu.carteJouable(couleur, valeur)) {
                     cout << "La carte est jouable" << endl;
                 }
             }
