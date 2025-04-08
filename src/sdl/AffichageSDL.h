@@ -54,9 +54,9 @@ class ImageViewer{
 
 		/**
 		* @brief renvoie l'indice du pion sans clic
-		* @param jeu Le jeu courant
+		* @param plateau Le plateau courant
 		*/
-		int getIndicePionEvent(const Jeu &jeu);
+		int getIndicePionEvent(const Plateau &plateau);
 
         /**
         * @brief dessine le pion de couleur "couleur" aux coordonnées (x,y)

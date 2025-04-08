@@ -180,12 +180,23 @@ int ImageViewer::getIndicePion(const Jeu &jeu, int posx, int posy) {
     return -1;
 }
 
-int ImageViewer::getIndicePionEvent(const Jeu & jeu) {
+int ImageViewer::getIndicePionEvent(const Plateau & plateau) {
+    cout << "entrée \n";
     SDL_Event event;
     while (true) {
         while (SDL_PollEvent(&event)) {
+            if (event.type == SDL_QUIT) {
+                return 0;
+            }
             if (event.type == SDL_MOUSEBUTTONDOWN) {
-                return getIndicePion(jeu, event.button.x, event.button.y);
+                float rayon = 20 * zoom;
+                for (int i = 0; i < 16 * nbJ; i++) {
+                    if (abs(event.button.x - coordonnees[i][0] * zoom) < rayon && abs(event.button.y - coordonnees[i][1] * zoom) < rayon) {
+                        cout << "sortie \n";
+                        return plateau.getIdPion(i);
+                        //return getIndicePion(jeu, event.button.x, event.button.y);
+                    }
+                }
             }
         }
     }
@@ -389,6 +400,7 @@ void ImageViewer::gestionEvent(SDL_Event event, bool &running, int &imgWidth, in
         if (event.key.keysym.sym == SDLK_u) {
             //setTextureCartes(jeu, 1);
             //phase = 1 - phase;
+            cout << getIndicePionEvent(jeu.getPlateau());
         }
         if (event.key.keysym.sym == SDLK_0) {
             setTextureCartes(jeu, 0);
@@ -441,7 +453,8 @@ void ImageViewer::gestionEvent(SDL_Event event, bool &running, int &imgWidth, in
                     cout << "La valeur de la carte : " << valeur << endl;
                     if (jeu.carteJouable(couleur, valeur)) {
                         cout << "La carte est jouable" << endl;
-                        //jeu.jouerCarte(valeur, couleur);
+                        //jeu.jouerCarte(valeur, couleur, getIndicePionEvent(jeu), 'D', '');
+                        cout << getIndicePionEvent(jeu.getPlateau()) << endl;
                         setTextureCartes(jeu, couleur-1);
                     }
                 }
