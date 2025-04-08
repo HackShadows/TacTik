@@ -222,13 +222,13 @@ void ImageViewer::afficherPions(const Jeu &jeu) const {
     }
 }
 
-void ImageViewer::setTextureCartes(const Jeu &jeu, int joueur) {
+void ImageViewer::setTextureCartes(const Jeu &jeu, int id_joueur) {
     for (int i = 0; i < 4; i++) {
         if (textureCartes[i] != nullptr) {
             SDL_DestroyTexture(textureCartes[i]);
         }
 
-        Carte *carte = jeu.getJoueur(joueur).getCarte(i);
+        Carte *carte = jeu.getJoueur(id_joueur).getCarte(i);
         if (carte == nullptr) {
             textureCartes[i] = IMG_LoadTexture(renderer, "./data/cartes/0.png");
             if (textureCartes[i] == nullptr) {
@@ -315,8 +315,8 @@ void ImageViewer::gestionEvent(SDL_Event event, bool &running, int &imgWidth, in
             //cout << "{" << event.button.x << "," << event.button.y << "}, ";
             //cout << getIndiceCase(jeu, event.button.x, event.button.y, coordonnees, zoom) << endl;
             if (event.button.x > imgWidth) {
-                int couleur = 3;
-                cout << "Tour de " << intToStr(couleur-1) << endl;
+                int couleur = 1;
+                setTextureCartes(jeu, couleur-1);
                 cout << "Position : " << jeu.getPion(4*(couleur-1)+1).getPos() << endl;
                 int indiceCase = event.button.y / (250 * zoom);
                 cout << indiceCase << endl;
@@ -356,12 +356,6 @@ void ImageViewer::afficher(Jeu &jeu) {
         SDL_RenderClear(renderer);
         SDL_Rect Rect = {0, 0, imgWidth, imgHeight};
         SDL_RenderCopy(renderer, texturePlateau, NULL, &Rect);
-        if (phase == 0) {
-        }
-        if (phase == 1) {
-            setTextureCartes(jeu, 1);
-            phase = 2;
-        }
         //debugCoordonnees();
 
         afficherPions(jeu);
