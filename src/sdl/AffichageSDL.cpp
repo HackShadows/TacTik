@@ -52,17 +52,17 @@ ImageViewer::ImageViewer(const Jeu &jeu) {
 
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
-    surfacePlateau = nbJ == 4 ? IMG_Load("./data/plateau/plateau4.png") : IMG_Load("./data/plateau/plateau6.png");
-    surfaceTas = IMG_Load("./data/cartes/0.png");
+    texturePlateau = nbJ == 4 ? IMG_LoadTexture(renderer, "./data/plateau/plateau4.png") : IMG_LoadTexture(renderer, "./data/plateau/plateau6.png");
+    textureTas = IMG_LoadTexture(renderer, "./data/cartes/0.png");
     textureCartes[0] = IMG_LoadTexture(renderer, "./data/cartes/0.png");
     textureCartes[1] = IMG_LoadTexture(renderer, "./data/cartes/0.png");
     textureCartes[2] = IMG_LoadTexture(renderer, "./data/cartes/0.png");
     textureCartes[3] = IMG_LoadTexture(renderer, "./data/cartes/0.png");
-    if (surfacePlateau == nullptr) {
+    if (texturePlateau == nullptr) {
         std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
         return;
     }
-    if (surfaceTas == nullptr) {
+    if (textureTas == nullptr) {
         std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
         return;
     }
@@ -125,6 +125,12 @@ ImageViewer::ImageViewer(const Jeu &jeu) {
 
 ImageViewer::~ImageViewer() {
     delete [] coordonnees;
+    SDL_DestroyTexture(texturePlateau);
+    SDL_DestroyTexture(textureTas);
+    SDL_DestroyTexture(textureCartes[0]);
+    SDL_DestroyTexture(textureCartes[1]);
+    SDL_DestroyTexture(textureCartes[2]);
+    SDL_DestroyTexture(textureCartes[3]);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
@@ -326,17 +332,6 @@ void ImageViewer::afficher(Jeu &jeu) {
     int imgWidth = (int) dimx * zoom;
     int imgHeight = (int) dimy * zoom;
 
-    SDL_Texture *texturePlateau = SDL_CreateTextureFromSurface(renderer, surfacePlateau);
-    SDL_FreeSurface(surfacePlateau);
-    if (texturePlateau == nullptr) {
-        std::cerr << "Erreur de création de la texture : " << SDL_GetError() << std::endl;
-        SDL_FreeSurface(surfacePlateau);
-        return;
-    }
-
-    SDL_Texture *textureTas = SDL_CreateTextureFromSurface(renderer, surfaceTas);
-    SDL_FreeSurface(surfaceTas);
-
     SDL_Rect RectMain1 = {imgWidth, 0, (int) (200 * zoom), (int) (250 * zoom)};
     SDL_Rect RectMain2 = {imgWidth, (int)(250 * zoom), (int) (200 * zoom), (int) (250 * zoom)};
     SDL_Rect RectMain3 = {imgWidth, (int)(500 * zoom), (int) (200 * zoom), (int) (250 * zoom)};
@@ -375,10 +370,4 @@ void ImageViewer::afficher(Jeu &jeu) {
         SDL_RenderPresent(renderer);
         SDL_Delay(100);
     }
-    SDL_DestroyTexture(texturePlateau);
-    SDL_DestroyTexture(textureTas);
-    SDL_DestroyTexture(textureCartes[0]);
-    SDL_DestroyTexture(textureCartes[1]);
-    SDL_DestroyTexture(textureCartes[2]);
-    SDL_DestroyTexture(textureCartes[3]);
 }
