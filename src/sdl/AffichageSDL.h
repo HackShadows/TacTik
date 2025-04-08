@@ -68,9 +68,9 @@ class ImageViewer{
 		/**
 		* @brief Affiche les cartes du jeu passé en parametre
 		* @param jeu Le jeu dont on veut afficher les pions
-		* @param joueur Le joueur dont on affiche les cartes
+		* @param id_joueur L'identifiant du joueur dont on affiche les cartes
 		*/
-		void setTextureCartes(const Jeu & jeu, int joueur);
+		void setTextureCartes(const Jeu & jeu, int id_joueur);
 
 
 		/**
