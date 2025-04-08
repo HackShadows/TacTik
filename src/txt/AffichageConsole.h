@@ -28,6 +28,13 @@ int cinProtectionInt(string coutMessage = "");
 char cinProtectionChar(string coutMessage = "");
 
 /**
+* @brief Permet d'afficher le message passé en paramètre.
+*
+* @param coutMessage Message à afficher.
+*/
+void message(string coutMessage = "");
+
+/**
 * @brief Affiche un nombre prenant 2 espaces dans le terminal.
 *
 * @param id Le nombre que l'on veut afficher.

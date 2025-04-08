@@ -218,13 +218,13 @@ class Jeu {
 		* @param couleur Couleur du joueur.
 		* @param cinInt Fonction permettant de récupérer un entier.
 		* @param cinChar Fonction permettant de récupérer un caractère.
+		* @param message Fonction permettant d'afficher un message.
 		* @param coequipier True si le joueur joue pour son coéquipier, false sinon (géré automatiquement).
-		* @param affichageGraphique True pour un affichage graphique, false pour un affichage console (géré automatiquement).
 		* @param joker True si la carte passée en paramètre est un joker, false sinon (géré automatiquement).
 		*
 		* @return True si la carte a pu être jouée, False sinon.
 		*/
-		bool jouerCarte(int valCarte, int couleur, int (cinInt)(string), char (cinChar)(string), bool coequipier = false, bool affichageGraphique = false, bool joker = false);
+		bool jouerCarte(int valCarte, int couleur, int (cinInt)(string), char (cinChar)(string), void (message)(string), bool coequipier = false, bool joker = false);
 
         /**
         * @brief Test les fonctionnalités de la classe.
