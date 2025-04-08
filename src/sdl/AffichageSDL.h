@@ -52,6 +52,12 @@ class ImageViewer{
 		*/
 		int getIndicePion(const Jeu &jeu, int posx, int posy);
 
+		/**
+		* @brief renvoie l'indice du pion sans clic
+		* @param jeu Le jeu courant
+		*/
+		int getIndicePionEvent(const Jeu &jeu);
+
         /**
         * @brief dessine le pion de couleur "couleur" aux coordonnées (x,y)
         * @param couleur L'indice de la couleur qu'on veut afficher

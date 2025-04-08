@@ -180,6 +180,17 @@ int ImageViewer::getIndicePion(const Jeu &jeu, int posx, int posy) {
     return -1;
 }
 
+int ImageViewer::getIndicePionEvent(const Jeu & jeu) {
+    SDL_Event event;
+    while (true) {
+        while (SDL_PollEvent(&event)) {
+            if (event.type == SDL_MOUSEBUTTONDOWN) {
+                return getIndicePion(jeu, event.button.x, event.button.y);
+            }
+        }
+    }
+}
+
 void ImageViewer::dessineCercle(int couleur, int x, int y) const {
     filledCircleRGBA(renderer, x, y, 22 * zoom, 0, 0, 0, 255);
     filledCircleRGBA(renderer, x, y, 19 * zoom, 255, 255, 255, 255);
@@ -258,7 +269,6 @@ void ImageViewer::debugCoordonnees() const {
     }
 }
 
-
 void ImageViewer::afficherPions(const Jeu &jeu) const {
     for (int i = 1; i < 4 * nbJ + 1; i++) {
         Pion pion = jeu.getPion(i);
@@ -292,7 +302,6 @@ void ImageViewer::afficherMaison(const Jeu &jeu) const {
         }
     }
 }
-
 
 void ImageViewer::setTextureCartes(const Jeu &jeu, int id_joueur) {
     for (int i = 0; i < 4; i++) {
@@ -400,9 +409,9 @@ void ImageViewer::gestionEvent(SDL_Event event, bool &running, int &imgWidth, in
     }
     if (event.type == SDL_MOUSEBUTTONDOWN) {
         if (event.button.button == SDL_BUTTON_LEFT) {
-            cout << "{" << event.button.x << "," << event.button.y << "}, ";
+            //cout << "{" << event.button.x << "," << event.button.y << "}, ";
             //cout << getIndiceCase(jeu, event.button.x, event.button.y, coordonnees, zoom) << endl;
-            /*cout << getIndicePion(jeu, event.button.x, event.button.y) << endl;
+            cout << getIndicePion(jeu, event.button.x, event.button.y) << endl;
             if (event.button.x > imgWidth) {
                 int couleur = 1;
                 setTextureCartes(jeu, couleur-1);
@@ -416,7 +425,7 @@ void ImageViewer::gestionEvent(SDL_Event event, bool &running, int &imgWidth, in
                         cout << "La carte est jouable" << endl;
                     }
                 }
-            }*/
+            }
         }
         if (event.button.button == SDL_BUTTON_RIGHT) {
             //cout << "{" << event.button.x << "," << event.button.y << "}, ";
@@ -440,7 +449,6 @@ void ImageViewer::gestionEvent(SDL_Event event, bool &running, int &imgWidth, in
         }
     }
 }
-
 
 void ImageViewer::afficher(Jeu &jeu) {
     int imgWidth = (int) dimx * zoom;
