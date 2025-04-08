@@ -23,6 +23,8 @@ class ImageViewer{
         float zoom; ///<Le zoom de l'image
         int nbJ; ///<Le nombre de joueurs
 		int (* coordonnees)[2]; ///< Le tableau des coordonnées des points
+        int (* coordonneesMaison)[2]; ///< Le tableau des coordonnées des maisons
+        int (* coordonneesReserve)[2]; ///< Le tableau des coordonnées des reserves
 
 
     public :
