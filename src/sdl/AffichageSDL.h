@@ -42,12 +42,6 @@ class ImageViewer{
         */
         void debugCoordonnees() const;
 
-        /**
-        * @brief Affiche la carte du tas du jeu passé en parametre
-        * @param jeu Le jeu dont on veut afficher le tas
-        */
-        void afficherTas(const Jeu & jeu);
-
 
         /**
         * @brief dessine le pion de couleur "couleur" aux coordonnées (x,y)
@@ -77,6 +71,22 @@ class ImageViewer{
 		* @param joueur Le joueur dont on affiche les cartes
 		*/
 		void setTextureCartes(const Jeu & jeu, int joueur);
+
+
+		/**
+		* @brief Gère les évenenements
+		* @param event L'évenement à gérer
+		* @param running Booléen qui definit si le jeu continue de tourner
+		* @param imgWidth Largeur de l'image
+		* @param imgHeight Hauteur de l'image
+		* @param RectMain1 Rectangle de la premiere carte de la main
+		* @param RectMain2 Rectangle de la deuxieme carte de la main
+		* @param RectMain3 Rectangle de la troisieme carte de la main
+		* @param RectMain4 Rectangle de la quatrieme carte de la main
+		* @param RectTas Rectanlge du tas
+		* @param jeu Le jeu en cours
+		*/
+		void gestionEvent(SDL_Event event, bool &running, int &imgWidth, int &imgHeight, SDL_Rect &RectMain1,SDL_Rect &RectMain2, SDL_Rect &RectMain3, SDL_Rect &RectMain4, SDL_Rect &RectTas, Jeu & jeu);
 
         /**
         * @brief Affiche le jeu passé en parametre

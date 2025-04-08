@@ -16,7 +16,7 @@ int getIndiceCase(const Jeu &jeu, int posx, int posy, const int tab[][2], float 
 }
 
 ImageViewer::ImageViewer(const Jeu &jeu) {
-    zoom = 0.5;
+    zoom = 0.75;
     nbJ = jeu.getNbJoueurs();
     phase = 0;
     cout << "SDL: init" << endl;
@@ -34,8 +34,8 @@ ImageViewer::ImageViewer(const Jeu &jeu) {
         exit(1);
     }
     if (nbJ == 6) {
-        dimx = (int) 1666;
-        dimy = (int) 1000;
+        dimx = (int) 1500;
+        dimy = (int) 900;
     } else {
         dimx = (int) 1000;
         dimy = (int) 1000;
@@ -250,18 +250,77 @@ void ImageViewer::setTextureCartes(const Jeu &jeu, int joueur) {
     }
 }
 
-
-void ImageViewer::afficherTas(const Jeu &jeu) {
-    surfaceTas = IMG_Load("./data/cartes/0.png");
-    if (surfaceTas == nullptr) {
-        std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
-        return;
+void ImageViewer::gestionEvent(SDL_Event event, bool &running, int &imgWidth, int &imgHeight, SDL_Rect &RectMain1,SDL_Rect &RectMain2, SDL_Rect &RectMain3, SDL_Rect &RectMain4, SDL_Rect &RectTas,Jeu &jeu) {
+    if (event.type == SDL_QUIT) {
+        running = false;
     }
-    SDL_Texture *textureTas = SDL_CreateTextureFromSurface(renderer, surfaceTas);
-    SDL_FreeSurface(surfaceTas);
-    SDL_Rect RectTas = {0, 0, 100, 50};
-    SDL_RenderCopy(renderer, textureTas, NULL, &RectTas);
+    if (event.type == SDL_KEYUP) {
+        if (event.key.keysym.sym == SDLK_ESCAPE) {
+            running = false;
+        }
+        if (event.key.keysym.sym == SDLK_t) {
+            zoom = zoom + 0.05;
+            imgWidth = dimx * zoom;
+            imgHeight = dimy * zoom;
+            SDL_SetWindowSize(window, imgWidth + 200 * zoom, imgHeight);
+            RectMain1 = {imgWidth, 0, (int) (200 * zoom), (int) (250 * zoom)};
+            RectMain2 = {imgWidth, (int) (250 * zoom), (int) (200 * zoom), (int) (250 * zoom)};
+            RectMain3 = {imgWidth, (int) (500 * zoom), (int) (200 * zoom), (int) (250 * zoom)};
+            RectMain4 = {imgWidth, (int) (750 * zoom), (int) (200 * zoom), (int) (250 * zoom)};
+            RectTas = {
+                (int) (imgWidth / 2 - 100 * zoom), (int) (imgHeight / 2 - 150 * zoom), (int) (200 * zoom),
+                (int) (300 * zoom)
+            };
+        }
+        if (event.key.keysym.sym == SDLK_q) {
+            zoom = zoom - 0.05;
+            imgWidth = dimx * zoom;
+            imgHeight = dimy * zoom;
+            SDL_SetWindowSize(window, imgWidth + 200 * zoom, imgHeight);
+            RectMain1 = {imgWidth, 0, (int) (200 * zoom), (int) (250 * zoom)};
+            RectMain2 = {imgWidth, (int) (250 * zoom), (int) (200 * zoom), (int) (250 * zoom)};
+            RectMain3 = {imgWidth, (int) (500 * zoom), (int) (200 * zoom), (int) (250 * zoom)};
+            RectMain4 = {imgWidth, (int) (750 * zoom), (int) (200 * zoom), (int) (250 * zoom)};
+            RectTas = {
+                (int) (imgWidth / 2 - 100 * zoom), (int) (imgHeight / 2 - 150 * zoom), (int) (200 * zoom),
+                (int) (300 * zoom)
+            };
+        }
+        /*if (event.key.keysym.sym == SDLK_SPACE) {
+            if (jeu.getPioche().getTas() != nullptr) {
+                int tas = jeu.getPioche().getTas()->getValeur();
+                cout << tas << "\n";
+                SDL_Surface *newSurfaceTas = IMG_Load("./data/cartes/1.png");
+                SDL_Texture *newTextureTas = SDL_CreateTextureFromSurface(renderer, newSurfaceTas);
+                SDL_FreeSurface(newSurfaceTas);
+                if (newTextureTas != nullptr) {
+                    SDL_DestroyTexture(textureTas);
+                    textureTas = newTextureTas;
+                }
+            }
+        }*/
+        if (event.key.keysym.sym == SDLK_u) {
+            setTextureCartes(jeu, 1);
+            //phase = 1 - phase;
+        }
+    }
+    if (event.type == SDL_MOUSEBUTTONDOWN) {
+        if (event.button.button == SDL_BUTTON_LEFT) {
+            //cout << "{" << event.button.x << "," << event.button.y << "}, ";
+            //cout << getIndiceCase(jeu, event.button.x, event.button.y, coordonnees, zoom) << endl;
+            if (event.button.x > imgWidth) {
+                int indiceCase = event.button.y / (250 * zoom);
+                cout << indiceCase << endl;
+                int valeur = jeu.getJoueur(1).getCarte(indiceCase)->getValeur();
+                cout << "La valeur de la carte : " << valeur << endl;
+                if (jeu.carteJouable(1, valeur)) {
+                    cout << "La carte est jouable" << endl;
+                }
+            }
+        }
+    }
 }
+
 
 void ImageViewer::afficher(Jeu &jeu) {
     int imgWidth = (int) dimx * zoom;
@@ -291,92 +350,23 @@ void ImageViewer::afficher(Jeu &jeu) {
     SDL_Event event;
     while (running) {
         while (SDL_PollEvent(&event)) {
-            if (event.type == SDL_QUIT) {
-                running = false;
-            }
-            if (event.type == SDL_KEYUP) {
-                if (event.key.keysym.sym == SDLK_ESCAPE) {
-                    running = false;
-                }
-                if (event.key.keysym.sym == SDLK_t) {
-                    zoom = zoom + 0.05;
-                    imgWidth = dimx * zoom;
-                    imgHeight = dimy * zoom;
-                    SDL_SetWindowSize(window, imgWidth + 200 * zoom, imgHeight);
-                    RectMain1 = {imgWidth, 0, (int) (200 * zoom), (int) (250 * zoom)};
-                    RectMain2 = {imgWidth, (int)(250 * zoom), (int) (200 * zoom), (int) (250 * zoom)};
-                    RectMain3 = {imgWidth, (int)(500 * zoom), (int) (200 * zoom), (int) (250 * zoom)};
-                    RectMain4 = {imgWidth, (int)(750 * zoom), (int) (200 * zoom), (int) (250 * zoom)};
-                    RectTas = {
-                        (int) (imgWidth / 2 - 100 * zoom), (int) (imgHeight / 2 - 150 * zoom), (int) (200 * zoom),
-                        (int) (300 * zoom)
-                    };
-                }
-                if (event.key.keysym.sym == SDLK_q) {
-                    zoom = zoom - 0.05;
-                    imgWidth = dimx * zoom;
-                    imgHeight = dimy * zoom;
-                    SDL_SetWindowSize(window, imgWidth + 200 * zoom, imgHeight);
-                    RectMain1 = {imgWidth, 0, (int) (200 * zoom), (int) (250 * zoom)};
-                    RectMain2 = {imgWidth, (int)(250 * zoom), (int) (200 * zoom), (int) (250 * zoom)};
-                    RectMain3 = {imgWidth, (int)(500 * zoom), (int) (200 * zoom), (int) (250 * zoom)};
-                    RectMain4 = {imgWidth, (int)(750 * zoom), (int) (200 * zoom), (int) (250 * zoom)};
-                    RectTas = {
-                        (int) (imgWidth / 2 - 100 * zoom), (int) (imgHeight / 2 - 150 * zoom), (int) (200 * zoom),
-                        (int) (300 * zoom)
-                    };
-                }
-                /*if (event.key.keysym.sym == SDLK_SPACE) {
-                    if (jeu.getPioche().getTas() != nullptr) {
-                        int tas = jeu.getPioche().getTas()->getValeur();
-                        cout << tas << "\n";
-                        SDL_Surface *newSurfaceTas = IMG_Load("./data/cartes/1.png");
-                        SDL_Texture *newTextureTas = SDL_CreateTextureFromSurface(renderer, newSurfaceTas);
-                        SDL_FreeSurface(newSurfaceTas);
-                        if (newTextureTas != nullptr) {
-                            SDL_DestroyTexture(textureTas);
-                            textureTas = newTextureTas;
-                        }
-                    }
-                }*/
-                if (event.key.keysym.sym == SDLK_u) {
-                    phase = 1 - phase;
-                }
-            }
-            if (event.type == SDL_MOUSEBUTTONDOWN) {
-                if (event.button.button == SDL_BUTTON_LEFT) {
-                    //cout << "{" << event.button.x << "," << event.button.y << "}, ";
-                    //cout << getIndiceCase(jeu, event.button.x, event.button.y, coordonnees, zoom) << endl;
-                    if (event.button.x > imgWidth) {
-                        int indiceCase = event.button.y/(250*zoom);
-                        cout << indiceCase << endl;
-                        int valeur = jeu.getJoueur(1).getCarte(indiceCase)->getValeur();
-                        cout << "La valeur de la carte : " << valeur << endl;
-                        if (jeu.carteJouable(1,valeur)) {
-                            cout << "La carte est jouable" << endl;
-                        }
-                        phase++;
-                    }
-                }
-            }
-        }
+            gestionEvent(event, running, imgWidth, imgHeight, RectMain1, RectMain2, RectMain3, RectMain4,
+                                     RectTas, jeu);        }
+
+
         SDL_SetRenderDrawColor(renderer, 128, 128, 128, 255);
         SDL_RenderClear(renderer);
         SDL_Rect Rect = {0, 0, imgWidth, imgHeight};
         SDL_RenderCopy(renderer, texturePlateau, NULL, &Rect);
-        /*if (phase == 0) {
+        if (phase == 0) {
         }
         if (phase == 1) {
             setTextureCartes(jeu, 1);
-            phase = 1;
-        }
-        if (phase == 2) {
-            setTextureCartes(jeu, 2);
+            phase = 2;
         }
         //debugCoordonnees();
-*/
+
         afficherPions(jeu);
-        //setTextureCartes(jeu, 1);
         SDL_RenderCopy(renderer, textureTas, NULL, &RectTas);
         SDL_RenderCopy(renderer, textureCartes[0], NULL, &RectMain1);
         SDL_RenderCopy(renderer, textureCartes[1], NULL, &RectMain2);
@@ -384,7 +374,6 @@ void ImageViewer::afficher(Jeu &jeu) {
         SDL_RenderCopy(renderer, textureCartes[3], NULL, &RectMain4);
         SDL_RenderPresent(renderer);
         SDL_Delay(100);
-        cout << "Fin de boucle \n";
     }
     SDL_DestroyTexture(texturePlateau);
     SDL_DestroyTexture(textureTas);
