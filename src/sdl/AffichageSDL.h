@@ -23,6 +23,8 @@ class ImageViewer{
         float zoom; ///<Le zoom de l'image
         int nbJ; ///<Le nombre de joueurs
 		int (* coordonnees)[2]; ///< Le tableau des coordonnées des points
+        int (* coordonneesMaison)[2]; ///< Le tableau des coordonnées des maisons
+        int (* coordonneesReserve)[2]; ///< Le tableau des coordonnées des reserves
 
 
     public :
@@ -71,6 +73,18 @@ class ImageViewer{
         * @param jeu Le jeu dont on veut afficher les pions
         */
         void afficherPions(const Jeu & jeu) const;
+
+		/**
+		* @brief Affiche les reverves du jeu passé en parametre
+		* @param jeu Le jeu dont on veut afficher les reserves
+		*/
+		void afficherReserve(const Jeu & jeu) const;
+
+		/**
+		* @brief Affiche les maisons du jeu passé en parametre
+		* @param jeu Le jeu dont on veut afficher les maisons
+		*/
+		void afficherMaison(const Jeu & jeu) const;
 
 		/**
 		* @brief Affiche les cartes du jeu passé en parametre
