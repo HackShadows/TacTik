@@ -269,10 +269,10 @@ void ImageViewer::gestionEvent(SDL_Event event, bool &running, int &imgWidth, in
             imgWidth = dimx * zoom;
             imgHeight = dimy * zoom;
             SDL_SetWindowSize(window, imgWidth + 200 * zoom, imgHeight);
-            RectMain1 = {imgWidth, 0, (int) (200 * zoom), (int) (250 * zoom)};
-            RectMain2 = {imgWidth, (int) (250 * zoom), (int) (200 * zoom), (int) (250 * zoom)};
-            RectMain3 = {imgWidth, (int) (500 * zoom), (int) (200 * zoom), (int) (250 * zoom)};
-            RectMain4 = {imgWidth, (int) (750 * zoom), (int) (200 * zoom), (int) (250 * zoom)};
+            RectMain1 = {imgWidth, 0, (int) (200 * zoom), (int) (imgHeight/4 )};
+            RectMain2 = {imgWidth, (int)(imgHeight/4), (int) (200 * zoom), (int) (imgHeight/4 )};
+            RectMain3 = {imgWidth, (int)(2*imgHeight/4), (int) (200 * zoom), (int) (imgHeight/4 )};
+            RectMain4 = {imgWidth, (int)(3*imgHeight/4), (int) (200 * zoom), (int) (imgHeight/4 )};
             RectTas = {
                 (int) (imgWidth / 2 - 100 * zoom), (int) (imgHeight / 2 - 150 * zoom), (int) (200 * zoom),
                 (int) (300 * zoom)
@@ -283,10 +283,10 @@ void ImageViewer::gestionEvent(SDL_Event event, bool &running, int &imgWidth, in
             imgWidth = dimx * zoom;
             imgHeight = dimy * zoom;
             SDL_SetWindowSize(window, imgWidth + 200 * zoom, imgHeight);
-            RectMain1 = {imgWidth, 0, (int) (200 * zoom), (int) (250 * zoom)};
-            RectMain2 = {imgWidth, (int) (250 * zoom), (int) (200 * zoom), (int) (250 * zoom)};
-            RectMain3 = {imgWidth, (int) (500 * zoom), (int) (200 * zoom), (int) (250 * zoom)};
-            RectMain4 = {imgWidth, (int) (750 * zoom), (int) (200 * zoom), (int) (250 * zoom)};
+            RectMain1 = {imgWidth, 0, (int) (200 * zoom), (int) (imgHeight/4 )};
+            RectMain2 = {imgWidth, (int)(imgHeight/4), (int) (200 * zoom), (int) (imgHeight/4 )};
+            RectMain3 = {imgWidth, (int)(2*imgHeight/4), (int) (200 * zoom), (int) (imgHeight/4 )};
+            RectMain4 = {imgWidth, (int)(3*imgHeight/4), (int) (200 * zoom), (int) (imgHeight/4 )};
             RectTas = {
                 (int) (imgWidth / 2 - 100 * zoom), (int) (imgHeight / 2 - 150 * zoom), (int) (200 * zoom),
                 (int) (300 * zoom)
@@ -306,8 +306,8 @@ void ImageViewer::gestionEvent(SDL_Event event, bool &running, int &imgWidth, in
             }
         }*/
         if (event.key.keysym.sym == SDLK_u) {
-            setTextureCartes(jeu, 1);
-            //phase = 1 - phase;
+            //setTextureCartes(jeu, 1);
+            phase = 1 - phase;
         }
     }
     if (event.type == SDL_MOUSEBUTTONDOWN) {
@@ -332,10 +332,10 @@ void ImageViewer::afficher(Jeu &jeu) {
     int imgWidth = (int) dimx * zoom;
     int imgHeight = (int) dimy * zoom;
 
-    SDL_Rect RectMain1 = {imgWidth, 0, (int) (200 * zoom), (int) (250 * zoom)};
-    SDL_Rect RectMain2 = {imgWidth, (int)(250 * zoom), (int) (200 * zoom), (int) (250 * zoom)};
-    SDL_Rect RectMain3 = {imgWidth, (int)(500 * zoom), (int) (200 * zoom), (int) (250 * zoom)};
-    SDL_Rect RectMain4 = {imgWidth, (int)(750 * zoom), (int) (200 * zoom), (int) (250 * zoom)};
+    SDL_Rect RectMain1 = {imgWidth, 0, (int) (200 * zoom), (int) (imgHeight/4 )};
+    SDL_Rect RectMain2 = {imgWidth, (int)(imgHeight/4), (int) (200 * zoom), (int) (imgHeight/4 )};
+    SDL_Rect RectMain3 = {imgWidth, (int)(2*imgHeight/4), (int) (200 * zoom), (int) (imgHeight/4 )};
+    SDL_Rect RectMain4 = {imgWidth, (int)(3*imgHeight/4), (int) (200 * zoom), (int) (imgHeight/4 )};
     SDL_Rect RectTas = {
         (int) (imgWidth / 2 - 100 * zoom), (int) (imgHeight / 2 - 150 * zoom), (int) (200 * zoom),
         (int) (300 * zoom)
