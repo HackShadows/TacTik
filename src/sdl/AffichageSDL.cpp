@@ -250,6 +250,29 @@ int ImageViewer::getEventNumber(string s) {
     }
 }
 
+char ImageViewer::getEventChar(string s) {
+    cout << s;
+    cout << "entrée \n";
+    SDL_Event event;
+    while (true) {
+        while (SDL_PollEvent(&event)) {
+            if (event.type == SDL_QUIT) {
+                cout << "sortie \n";
+                return 0;
+            }
+            if (event.key.keysym.sym == SDLK_a) {
+                cout << "sortie \n";
+                return 'a';
+            }
+            if (event.key.keysym.sym == SDLK_d) {
+                cout << "sortie \n";
+                return 'd';
+            }
+        }
+    }
+}
+
+
 void ImageViewer::dessineCercle(int couleur, int x, int y) const {
     filledCircleRGBA(renderer, x, y, 22 * zoom, 0, 0, 0, 255);
     filledCircleRGBA(renderer, x, y, 19 * zoom, 255, 255, 255, 255);
@@ -448,7 +471,7 @@ void ImageViewer::gestionEvent(SDL_Event event, bool &running, int &imgWidth, in
         if (event.key.keysym.sym == SDLK_u) {
             //setTextureCartes(jeu, 1);
             //phase = 1 - phase;
-            cout << getEventNumber();
+            cout << getEventChar();
         }
         if (event.key.keysym.sym == SDLK_0) {
             setTextureCartes(jeu, 0);
@@ -501,7 +524,7 @@ void ImageViewer::gestionEvent(SDL_Event event, bool &running, int &imgWidth, in
                     cout << "La valeur de la carte : " << valeur << endl;
                     if (jeu.carteJouable(couleur, valeur)) {
                         cout << "La carte est jouable" << endl;
-                        //jeu.jouerCarte(valeur, couleur, getIndicePionEvent, , '');
+                        jeu.jouerCarte(valeur, couleur, getIndicePionEvent, getEventNumber, getEventChar);
                         cout << getIndicePionEvent(jeu.getPlateau()) << endl;
                         setTextureCartes(jeu, couleur-1);
                     }

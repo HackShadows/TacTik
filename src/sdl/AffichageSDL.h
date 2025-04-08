@@ -65,6 +65,12 @@ class ImageViewer{
 		*/
 		int getEventNumber( string s="");
 
+		/**
+		* @brief renvoie le caractère saisi par l'utilisateur
+		* @param s La string à afficher
+		*/
+		char getEventChar( string s="");
+
         /**
         * @brief dessine le pion de couleur "couleur" aux coordonnées (x,y)
         * @param couleur L'indice de la couleur qu'on veut afficher
