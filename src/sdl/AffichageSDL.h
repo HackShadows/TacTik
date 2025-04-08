@@ -55,8 +55,15 @@ class ImageViewer{
 		/**
 		* @brief renvoie l'indice du pion sans clic
 		* @param plateau Le plateau courant
+		* @param s La string à afficher
 		*/
-		int getIndicePionEvent(const Plateau &plateau);
+		int getIndicePionEvent(const Plateau &plateau, string s="");
+
+		/**
+		* @brief renvoie le chiffre saisi par l'utilisateur
+		* @param s La string à afficher
+		*/
+		int getEventNumber( string s="");
 
         /**
         * @brief dessine le pion de couleur "couleur" aux coordonnées (x,y)
