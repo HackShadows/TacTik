@@ -31,10 +31,10 @@ class Joueur {
 		/**
 		* @brief Constructeur avec paramètres du joueur.
 		*
-		* @param id_couleur Couleur du joueur (1 : vert, 2 : rouge, 3 : bleu, 4 : jaune, 5 : noir, 6 : blanc).
+		* @param idCouleur Couleur du joueur (1 : vert, 2 : rouge, 3 : bleu, 4 : jaune, 5 : noir, 6 : blanc).
 		* @param ai True si le joueur est joué par une ia, false sinon.
 		*/
-		Joueur(int id_couleur, bool ai = false);
+		Joueur(int idCouleur, bool ai = false);
 
         /**
         * @brief Destructeur du joueur.
@@ -45,9 +45,9 @@ class Joueur {
         * @brief Modifie l'état d'une case de la maison (occupée = True, vide = False).
         * 
         * @param indice Indice de la case à modifier.
-        * @param id_pion Id du pion à mettre dans la case (0 si vide).
+        * @param idPion Id du pion à mettre dans la case (0 si vide).
         */
-		void setMaison(int indice, int id_pion);
+		void setMaison(int indice, int idPion);
 
 		/**
         * @brief Augmente ou diminue la réserve de 1.
@@ -98,11 +98,11 @@ class Joueur {
         /**
         * @brief Indique si la carte est dans la main.
 		* 
-		* @param val_carte Valeur de la carte à vérifier.
+		* @param valCarte Valeur de la carte à vérifier.
         * 
         * @return True si la carte est dans la main, False sinon.
         */
-	   	bool estDansMain(int val_carte) const;
+	   	bool estDansMain(int valCarte) const;
 
         /**
         * @brief Indique si le joueur est joué par une IA.

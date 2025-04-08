@@ -33,11 +33,11 @@ Plateau::~Plateau() {
     nbCases = 0;
 }
 
-void Plateau::setPion(int id_pion, int indice) {
+void Plateau::setPion(int idPion, int indice) {
 	assert(0 <= indice && indice < nbCases);
-	assert(0 < id_pion && id_pion <= nbCases/4);
+	assert(0 < idPion && idPion <= nbCases/4);
 	assert(cases[indice] == 0);
-    cases[indice] = id_pion;
+    cases[indice] = idPion;
 }
 
 int Plateau::getNbCase() const {
@@ -56,9 +56,9 @@ int Plateau::getCasesDepart(int couleur) const {
 
 int Plateau::viderCase(int indice) {
 	assert(0 <= indice && indice < nbCases);
-	int id_pion = cases[indice];
+	int idPion = cases[indice];
     cases[indice] = 0;
-	return id_pion;
+	return idPion;
 }
 
 
@@ -80,8 +80,8 @@ void Plateau::testRegression(){
 		assert(plateau6.getNbCase() == 96);
 		cout << "getNbCase valide !" << endl;
 
-		int id_pion = plateau.getIdPion(4);
-		assert(id_pion == 2);
+		int idPion = plateau.getIdPion(4);
+		assert(idPion == 2);
 		cout << "getIdPion valide !" << endl;
 
 		int case_dep = plateau.getCasesDepart(4);
@@ -90,8 +90,8 @@ void Plateau::testRegression(){
 		assert(case_dep == 80);
 		cout << "getCasesDepart valide !" << endl;
 
-		int id_pion2 = plateau.viderCase(4);
-		assert(plateau.cases[4] == 0 && id_pion2 == 2);
+		int idPion2 = plateau.viderCase(4);
+		assert(plateau.cases[4] == 0 && idPion2 == 2);
 		cout << "viderCase valide !" << endl;
 	}
     cout << "Destructeur valide !" << endl;

@@ -81,13 +81,13 @@ class Jeu {
 	   	const Joueur& getJoueur(int indice) const;
 
 		/**
-        * @brief Renvoie le pion d'identifiant 'id_pion'.
+        * @brief Renvoie le pion d'identifiant 'idPion'.
 		* 
-		* @param id_pion Id du pion à retourner.
+		* @param idPion Id du pion à retourner.
 		*
-		* @return Le pion d'identifiant 'id_pion'.
+		* @return Le pion d'identifiant 'idPion'.
         */
-	   	const Pion& getPion(int id_pion) const;
+	   	const Pion& getPion(int idPion) const;
 
         /**
         * @brief Distribue 4 cartes à chaque joueur.
@@ -97,32 +97,32 @@ class Jeu {
 		/**
 		* @brief Ajoute la carte passé en paramètre à la main du joueur.
 		*
-		* @param val_carte Valeur de la carte à ajouter.
+		* @param valCarte Valeur de la carte à ajouter.
 		* @param couleur Couleur du joueur.
 		*
 		* @return True si la carte a pu être ajoutée, False sinon.
 		*/
-		bool attribuerCarte(int val_carte, int couleur);
+		bool attribuerCarte(int valCarte, int couleur);
 
 		/**
         * @brief Echange une carte entre deux joueurs de la même équipe.
 		* 
 		* @param indJ1 Indice du joueur1 (indJ1 < indJ2).
 		* @param indJ2 Indice du joueur2 (indJ2 > indJ1).
-		* @param val_carteJ1 Valeur de la carte du joueur1 à donner au joueur2.
-		* @param val_carteJ2 Valeur de la carte du joueur2 à donner au joueur1.
+		* @param valCarteJ1 Valeur de la carte du joueur1 à donner au joueur2.
+		* @param valCarteJ2 Valeur de la carte du joueur2 à donner au joueur1.
         */
-	   	void echangerCartes(int indJ1, int indJ2, int val_carteJ1, int val_carteJ2);
+	   	void echangerCartes(int indJ1, int indJ2, int valCarteJ1, int valCarteJ2);
 
 		/**
 		* @brief Défausse la carte passée en paramètre.
 		*
-		* @param val_carte Valeur de la carte défaussée par le joueur.
+		* @param valCarte Valeur de la carte défaussée par le joueur.
 		* @param couleur Couleur du joueur qui défausse la carte.
 		*
 		* @return True si la carte a pu être défaussée, False sinon.
 		*/
-		bool defausserCarte(int val_carte, int couleur);
+		bool defausserCarte(int valCarte, int couleur);
 
 		/**
 		* @brief Défausse la main du joueur passé en paramètre.
@@ -151,36 +151,36 @@ class Jeu {
 		/**
 		* @brief Avance le pion du nombre passé en paramètre.
 		*
-		* @param val_carte Valeur de la carte jouée par le joueur.
-		* @param id_pion Id du pion à déplacer.
+		* @param valCarte Valeur de la carte jouée par le joueur.
+		* @param idPion Id du pion à déplacer.
 		* @param test True pour ne pas effectuer l'action, False sinon (géré automatiquement).
 		* @param septx1 True si on avance le pion pour un 7x1, False sinon (géré automatiquement).
 		*
 		* @return True si le pion a pu avancer, False sinon.
 		*/
-		bool avancerPion(int val_carte, int id_pion, bool test = false, bool septx1 = false);
+		bool avancerPion(int valCarte, int idPion, bool test = false, bool septx1 = false);
 
 		/**
 		* @brief Avance le pion dans la maison du nombre passé en paramètre.
 		*
-		* @param val_carte Valeur de la carte jouée par le joueur.
-		* @param id_pion Id du pion à déplacer.
+		* @param valCarte Valeur de la carte jouée par le joueur.
+		* @param idPion Id du pion à déplacer.
 		* @param test True pour ne pas effectuer l'action, False sinon (géré automatiquement).
 		*
 		* @return True si le pion a pu avancer, False sinon.
 		*/
-		bool avancerMaison(int val_carte, int id_pion, bool test = false);
+		bool avancerMaison(int valCarte, int idPion, bool test = false);
 
 		/**
 		* @brief Permutte le pion du joueur avec un autre pion.
 		*
-		* @param id_pion1 Id du pion du joueur.
-		* @param id_pion2 Id du pion avec lequel permutter.
+		* @param idPion1 Id du pion du joueur.
+		* @param idPion2 Id du pion avec lequel permutter.
 		* @param test True pour ne pas effectuer l'action, False sinon (géré automatiquement).
 		*
 		* @return True si le pion a pu être permutté, False sinon.
 		*/
-		bool permutter(int id_pion1, int id_pion2, bool test = false);
+		bool permutter(int idPion1, int idPion2, bool test = false);
 
 		/**
         * @brief Renvoie True si la partie a été gagnée par une équipe, False sinon.
@@ -193,13 +193,13 @@ class Jeu {
 		* @brief Détermine si la carte passée en paramètre peut être jouée.
 		*
 		* @param couleur Couleur du joueur.
-		* @param val_carte Valeur de la carte jouée par le joueur.
+		* @param valCarte Valeur de la carte jouée par le joueur.
 		* @param coequipier True si le joueur joue pour son coéquipier, false sinon (géré automatiquement).
 		* @param joker True si la carte passée en paramètre est la valeur choisie pour un joker, false sinon (géré automatiquement).
 		*
 		* @return True si la carte peut être jouée, False sinon.
 		*/
-		bool carteJouable(int couleur, int val_carte, bool coequipier = false, bool joker = false);
+		bool carteJouable(int couleur, int valCarte, bool coequipier = false, bool joker = false);
 
 		/**
 		* @brief Détermine si le joueur peut jouer.
@@ -214,17 +214,17 @@ class Jeu {
 		/**
 		* @brief Joue la carte passée en paramètre.
 		*
-		* @param val_carte Valeur de la carte jouée par le joueur.
+		* @param valCarte Valeur de la carte jouée par le joueur.
 		* @param couleur Couleur du joueur.
-		* @param cin_int Fonction permettant de récupérer un entier.
-		* @param cin_char Fonction permettant de récupérer un caractère.
+		* @param cinInt Fonction permettant de récupérer un entier.
+		* @param cinChar Fonction permettant de récupérer un caractère.
 		* @param coequipier True si le joueur joue pour son coéquipier, false sinon (géré automatiquement).
-		* @param affichage_graphique True pour un affichage graphique, false pour un affichage console (géré automatiquement).
+		* @param affichageGraphique True pour un affichage graphique, false pour un affichage console (géré automatiquement).
 		* @param joker True si la carte passée en paramètre est un joker, false sinon (géré automatiquement).
 		*
 		* @return True si la carte a pu être jouée, False sinon.
 		*/
-		bool jouerCarte(int val_carte, int couleur, int (cin_int)(string), char (cin_char)(string), bool coequipier = false, bool affichage_graphique = false, bool joker = false);
+		bool jouerCarte(int valCarte, int couleur, int (cinInt)(string), char (cinChar)(string), bool coequipier = false, bool affichageGraphique = false, bool joker = false);
 
         /**
         * @brief Test les fonctionnalités de la classe.
