@@ -10,6 +10,16 @@
 void clearTerminal();
 
 /**
+* @brief Permet de saisir un entier l'identifiant d'un pion.
+*
+* @param coutMessage Message à afficher avant le cin (non obligatoire).
+* @param plateau Plateau de jeu (géré automatiquement).
+*
+* @return Identifiant saisi par l'utilisateur (valeur renvoyée par défaut 0).
+*/
+int getIdPion(const Plateau &plateau, string coutMessage);
+
+/**
 * @brief Permet de saisir un entier en gérant les erreurs de saisi.
 *
 * @param coutMessage Message à afficher avant le cin (non obligatoire).

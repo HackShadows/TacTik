@@ -13,6 +13,10 @@ void clearTerminal() {
 	#endif
 }
 
+int getIdPion(const Plateau &plateau, string coutMessage) {
+    return cinProtectionInt(coutMessage);
+}
+
 int cinProtectionInt(string coutMessage) {
 	int val = 0;
 	cout << "\n" + coutMessage;
@@ -385,7 +389,7 @@ void tourJoueur(Jeu& jeu, int couleur, bool dev) {
         } while (choix == 'n');
 
         if (!jeu.carteJouable(couleur, valCarte, coequipier)) jeu.defausserCarte(valCarte, couleur);
-        else jeu.jouerCarte(valCarte, couleur, cinProtectionInt, cinProtectionChar, message, coequipier);
+        else jeu.jouerCarte(valCarte, couleur, getIdPion, cinProtectionInt, cinProtectionChar, message, coequipier);
     }
 }
 

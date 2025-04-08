@@ -216,6 +216,7 @@ class Jeu {
 		*
 		* @param valCarte Valeur de la carte jouée par le joueur.
 		* @param couleur Couleur du joueur.
+		* @param getIdPion Fonction permettant de récupérer l'identifiant d'un pion.
 		* @param cinInt Fonction permettant de récupérer un entier.
 		* @param cinChar Fonction permettant de récupérer un caractère.
 		* @param message Fonction permettant d'afficher un message.
@@ -224,7 +225,7 @@ class Jeu {
 		*
 		* @return True si la carte a pu être jouée, False sinon.
 		*/
-		bool jouerCarte(int valCarte, int couleur, int (cinInt)(string), char (cinChar)(string), void (message)(string), bool coequipier = false, bool joker = false);
+		bool jouerCarte(int valCarte, int couleur, int (getIdPion)(const Plateau &, string), int (cinInt)(string), char (cinChar)(string), void (message)(string), bool coequipier = false, bool joker = false);
 
         /**
         * @brief Test les fonctionnalités de la classe.
