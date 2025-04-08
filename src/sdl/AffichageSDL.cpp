@@ -15,18 +15,6 @@ int getIndiceCase(const Jeu &jeu, int posx, int posy, const int tab[][2], float 
     return -1;
 }
 
-int ImageViewer::getIndicePion(const Jeu &jeu, int posx, int posy) {
-    float rayon = 20 * zoom;
-    //cout << posx << " " << posy << " " << tab[0][0] * zoom << " " << tab[0][1] * zoom << " ";
-    for (int i = 0; i < 16 * jeu.getNbJoueurs(); i++) {
-        if (abs(posx - coordonnees[i][0] * zoom) < rayon && abs(posy - coordonnees[i][1] * zoom) < rayon) {
-            return jeu.getPlateau().getIdPion(i);
-            //return i;
-        }
-    }
-    return -1;
-}
-
 ImageViewer::ImageViewer(const Jeu &jeu) {
     zoom = 0.75;
     nbJ = jeu.getNbJoueurs();
@@ -148,6 +136,18 @@ ImageViewer::~ImageViewer() {
     SDL_Quit();
 }
 
+int ImageViewer::getIndicePion(const Jeu &jeu, int posx, int posy) {
+    float rayon = 20 * zoom;
+    //cout << posx << " " << posy << " " << tab[0][0] * zoom << " " << tab[0][1] * zoom << " ";
+    for (int i = 0; i < 16 * jeu.getNbJoueurs(); i++) {
+        if (abs(posx - coordonnees[i][0] * zoom) < rayon && abs(posy - coordonnees[i][1] * zoom) < rayon) {
+            return jeu.getPlateau().getIdPion(i);
+            //return i;
+        }
+    }
+    return -1;
+}
+
 void ImageViewer::dessineCercle(int couleur, int x, int y) const {
     filledCircleRGBA(renderer, x, y, 22 * zoom, 0, 0, 0, 255);
     filledCircleRGBA(renderer, x, y, 19 * zoom, 255, 255, 255, 255);
@@ -233,6 +233,15 @@ void ImageViewer::afficherPions(const Jeu &jeu) const {
         }
     }
 }
+
+void ImageViewer::afficherReserve(const Jeu & jeu) const {
+
+}
+
+void ImageViewer::afficherMaison(const Jeu &jeu) const {
+
+}
+
 
 void ImageViewer::setTextureCartes(const Jeu &jeu, int id_joueur) {
     for (int i = 0; i < 4; i++) {

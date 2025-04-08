@@ -73,6 +73,18 @@ class ImageViewer{
         void afficherPions(const Jeu & jeu) const;
 
 		/**
+		* @brief Affiche les reverves du jeu passé en parametre
+		* @param jeu Le jeu dont on veut afficher les reserves
+		*/
+		void afficherReserve(const Jeu & jeu) const;
+
+		/**
+		* @brief Affiche les maisons du jeu passé en parametre
+		* @param jeu Le jeu dont on veut afficher les maisons
+		*/
+		void afficherMaison(const Jeu & jeu) const;
+
+		/**
 		* @brief Affiche les cartes du jeu passé en parametre
 		* @param jeu Le jeu dont on veut afficher les pions
 		* @param id_joueur L'identifiant du joueur dont on affiche les cartes
