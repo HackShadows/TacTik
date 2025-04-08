@@ -5,7 +5,7 @@ using namespace std;
 
 int main(){
     srand(time(NULL));
-    Jeu jeu(4);
+    Jeu jeu(6);
     jeu.demarrer(1);
     jeu.demarrer(2);
     jeu.demarrer(3);

@@ -86,6 +86,7 @@ ImageViewer::ImageViewer(const Jeu &jeu) {
     if (nbJ == 6) {
         coordonnees = new int[96][2];
         coordonneesMaison = new int[24][2];
+        coordonneesReserve = new int[24][2];
         int tmp[96][2] = {
             {355, 725}, {295, 725}, {234, 725}, {234, 788}, {234, 848}, {175, 848}, {112, 832}, {66, 787}, {51, 726},
             {51, 665}, {51, 605}, {51, 543}, {51, 480}, {112, 480}, {172, 480}, {172, 420},
@@ -103,6 +104,9 @@ ImageViewer::ImageViewer(const Jeu &jeu) {
         int tmpMaison[24][2] = {{266,493}, {219,492}, {175,494}, {129,492}, {179,267}, {179,221}, {178,176}, {179,130}, {854,182}, 
         {900,183}, {946,182}, {992,183}, {940,406}, {940,451}, {940,498}, {940,542}, {401,182}, {447,180}, {492,181}, {537,181}, {718,492}, 
         {673,493}, {628,491}, {583,493}};
+        int tmpReserve[24][2] = {{399,831}, {366,803}, {335,831}, {314,803}, {62,405}, {104,372}, {58,335}, {95,308}, {1091,73}, {1119,99}, 
+        {1150,65}, {1192,96}, {1426,488}, {1389,529}, {1435,561}, {1400,584}, {485,64}, {511,96}, {548,66}, {578,91}, {1005,830}, {986,800}, 
+        {951,827}, {914,810}};
         for (int i = 0; i < 96; i++) {
             coordonnees[i][0] = tmp[i][0];
             coordonnees[i][1] = tmp[i][1];
@@ -111,9 +115,14 @@ ImageViewer::ImageViewer(const Jeu &jeu) {
             coordonneesMaison[i][0] = tmpMaison[i][0]*1.33;
             coordonneesMaison[i][1] = tmpMaison[i][1]*1.33;
         }
+        for (int i = 0; i<24; i++){
+            coordonneesReserve[i][0] = tmpReserve[i][0];
+            coordonneesReserve[i][1] = tmpReserve[i][1];
+        }
     } else {
         coordonnees = new int[64][2];
         coordonneesMaison = new int[16][2];
+        coordonneesReserve = new int[16][2];
         int tmp[64][2] = {
             {398, 808}, {330, 807}, {263, 807}, {263, 875}, {263, 943}, {195, 943}, {127, 926}, {76, 875}, {59, 808},
             {59, 741}, {59, 672}, {59, 605}, {59, 537}, {127, 537}, {195, 537}, {195, 470}, {194, 402}, {194, 334},
@@ -134,6 +143,12 @@ ImageViewer::ImageViewer(const Jeu &jeu) {
         for (int i = 0; i<16; i++){
             coordonneesMaison[i][0] = tmpMaison[i][0];
             coordonneesMaison[i][1] = tmpMaison[i][1];
+        }
+        int tmpReserve[16][2] = {{346,915}, {379,881}, {419,920}, {446,889}, {77,453}, {113,414}, {72,382}, 
+        {119,346}, {548,80}, {580,118}, {620,79}, {644,112}, {883,550}, {916,578}, {884,611}, {911,650}};
+        for (int i = 0; i<16; i++){
+            coordonneesReserve[i][0] = tmpReserve[i][0];
+            coordonneesReserve[i][1] = tmpReserve[i][1];
         }
     }
 }
@@ -236,6 +251,9 @@ void ImageViewer::debugCoordonnees() const {
     for (int i = 0; i<4*nbJ; i++){
         dessineTriangle(i/4+1, coordonneesMaison[i][0]*zoom, coordonneesMaison[i][1]*zoom);
     }
+    for (int i = 0; i<4*nbJ; i++){
+        dessineCercle(i/4+1, coordonneesReserve[i][0]*zoom, coordonneesReserve[i][1]*zoom);
+    }
 }
 
 
@@ -254,7 +272,12 @@ void ImageViewer::afficherPions(const Jeu &jeu) const {
 }
 
 void ImageViewer::afficherReserve(const Jeu & jeu) const {
-
+    for (int i = 0; i<nbJ; i++){
+        int reserve = jeu.getJoueur(i).getReserve();
+        for (int j = 0; j<reserve; j++){
+            dessineCercle(i+1, coordonneesReserve[i*nbJ+j][0]*zoom, coordonneesReserve[i*nbJ+j][1]*zoom);
+        }
+    }
 }
 
 void ImageViewer::afficherMaison(const Jeu &jeu) const {
@@ -442,10 +465,11 @@ void ImageViewer::afficher(Jeu &jeu) {
         SDL_RenderClear(renderer);
         SDL_Rect Rect = {0, 0, imgWidth, imgHeight};
         SDL_RenderCopy(renderer, texturePlateau, NULL, &Rect);
-        debugCoordonnees();
+        //debugCoordonnees();
 
         afficherPions(jeu);
-        //afficherMaison(jeu);
+        afficherMaison(jeu);
+        afficherReserve(jeu);
         SDL_RenderCopy(renderer, textureTas, NULL, &RectTas);
         SDL_RenderCopy(renderer, textureCartes[0], NULL, &RectMain1);
         SDL_RenderCopy(renderer, textureCartes[1], NULL, &RectMain2);
