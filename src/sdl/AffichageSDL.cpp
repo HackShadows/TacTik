@@ -15,6 +15,18 @@ int getIndiceCase(const Jeu &jeu, int posx, int posy, const int tab[][2], float 
     return -1;
 }
 
+int ImageViewer::getIndicePion(const Jeu &jeu, int posx, int posy) {
+    float rayon = 20 * zoom;
+    //cout << posx << " " << posy << " " << tab[0][0] * zoom << " " << tab[0][1] * zoom << " ";
+    for (int i = 0; i < 16 * jeu.getNbJoueurs(); i++) {
+        if (abs(posx - coordonnees[i][0] * zoom) < rayon && abs(posy - coordonnees[i][1] * zoom) < rayon) {
+            return jeu.getPlateau().getIdPion(i);
+            //return i;
+        }
+    }
+    return -1;
+}
+
 ImageViewer::ImageViewer(const Jeu &jeu) {
     zoom = 0.75;
     nbJ = jeu.getNbJoueurs();
@@ -307,23 +319,42 @@ void ImageViewer::gestionEvent(SDL_Event event, bool &running, int &imgWidth, in
         }*/
         if (event.key.keysym.sym == SDLK_u) {
             //setTextureCartes(jeu, 1);
-            phase = 1 - phase;
+            //phase = 1 - phase;
+        }
+        if (event.key.keysym.sym == SDLK_0) {
+            setTextureCartes(jeu, 0);
+            //phase = 1 - phase;
+        }
+        if (event.key.keysym.sym == SDLK_1) {
+            setTextureCartes(jeu, 1);
+            //phase = 1 - phase;
+        }
+        if (event.key.keysym.sym == SDLK_2) {
+            setTextureCartes(jeu, 2);
+            //phase = 1 - phase;
+        }
+        if (event.key.keysym.sym == SDLK_3) {
+            setTextureCartes(jeu, 3);
+            //phase = 1 - phase;
         }
     }
     if (event.type == SDL_MOUSEBUTTONDOWN) {
         if (event.button.button == SDL_BUTTON_LEFT) {
             //cout << "{" << event.button.x << "," << event.button.y << "}, ";
             //cout << getIndiceCase(jeu, event.button.x, event.button.y, coordonnees, zoom) << endl;
+            cout << getIndicePion(jeu, event.button.x, event.button.y) << endl;
             if (event.button.x > imgWidth) {
                 int couleur = 1;
                 setTextureCartes(jeu, couleur-1);
                 cout << "Position : " << jeu.getPion(4*(couleur-1)+1).getPos() << endl;
                 int indiceCase = event.button.y / (250 * zoom);
                 cout << indiceCase << endl;
-                int valeur = jeu.getJoueur(couleur-1).getCarte(indiceCase)->getValeur();
-                cout << "La valeur de la carte : " << valeur << endl;
-                if (jeu.carteJouable(couleur, valeur)) {
-                    cout << "La carte est jouable" << endl;
+                if (jeu.getJoueur(couleur-1).getCarte(indiceCase)) {
+                    int valeur = jeu.getJoueur(couleur-1).getCarte(indiceCase)->getValeur();
+                    cout << "La valeur de la carte : " << valeur << endl;
+                    if (jeu.carteJouable(couleur, valeur)) {
+                        cout << "La carte est jouable" << endl;
+                    }
                 }
             }
         }
@@ -336,11 +367,14 @@ void ImageViewer::gestionEvent(SDL_Event event, bool &running, int &imgWidth, in
                 cout << "Position : " << jeu.getPion(4*(couleur-1)+1).getPos() << endl;
                 int indiceCase = event.button.y / (250 * zoom);
                 cout << indiceCase << endl;
-                int valeur = jeu.getJoueur(couleur-1).getCarte(indiceCase)->getValeur();
-                cout << "La valeur de la carte : " << valeur << endl;
-                if (jeu.carteJouable(couleur, valeur)) {
-                    cout << "La carte est jouable" << endl;
-                    jeu.jouerCarte(valeur, couleur);
+                if (jeu.getJoueur(couleur-1).getCarte(indiceCase)) {
+                    int valeur = jeu.getJoueur(couleur-1).getCarte(indiceCase)->getValeur();
+                    cout << "La valeur de la carte : " << valeur << endl;
+                    if (jeu.carteJouable(couleur, valeur)) {
+                        cout << "La carte est jouable" << endl;
+                        jeu.jouerCarte(valeur, couleur);
+                        setTextureCartes(jeu, couleur-1);
+                    }
                 }
             }
         }

@@ -42,6 +42,13 @@ class ImageViewer{
         */
         void debugCoordonnees() const;
 
+		/**
+		* @brief renvoie l'indice du pion sur lequel on a cliqué
+		* @param jeu Le jeu courant
+		* @param posx Les coordonnées x du clic
+		* @param posy Les coordonnées y du clic
+		*/
+		int getIndicePion(const Jeu &jeu, int posx, int posy);
 
         /**
         * @brief dessine le pion de couleur "couleur" aux coordonnées (x,y)
