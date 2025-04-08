@@ -16,6 +16,8 @@
 using namespace std;
 
 
+void messageDefaut(string message = "");
+
 /**
 * @class Jeu
 *
@@ -225,7 +227,7 @@ class Jeu {
 		*
 		* @return True si la carte a pu être jouée, False sinon.
 		*/
-		bool jouerCarte(int valCarte, int couleur, int (getIdPion)(const Plateau &, string), int (cinInt)(string), char (cinChar)(string), void (message)(string), bool coequipier = false, bool joker = false);
+		bool jouerCarte(int valCarte, int couleur, int (getIdPion)(const Plateau &, string), int (cinInt)(string), char (cinChar)(string), void (message)(string) = messageDefaut, bool coequipier = false, bool joker = false);
 
         /**
         * @brief Test les fonctionnalités de la classe.

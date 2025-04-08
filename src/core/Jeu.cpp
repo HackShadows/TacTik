@@ -13,6 +13,10 @@ bool intInTab(int element, const int * tab, int taille) {
 	return false;
 }
 
+void messageDefaut(string message) {
+	cout << message << endl;
+}
+
 Jeu::Jeu() : nbJoueurs(4), plateau(nbJoueurs), pioche(){
     joueurs = new Joueur [nbJoueurs];
 	pions = new Pion [4*nbJoueurs];
