@@ -180,7 +180,8 @@ int ImageViewer::getIndicePion(const Jeu &jeu, int posx, int posy) {
     return -1;
 }
 
-int ImageViewer::getIndicePionEvent(const Plateau & plateau) {
+int ImageViewer::getIndicePionEvent(const Plateau & plateau, string s) {
+    cout << s;
     cout << "entrée \n";
     SDL_Event event;
     while (true) {
@@ -201,6 +202,76 @@ int ImageViewer::getIndicePionEvent(const Plateau & plateau) {
         }
     }
 }
+
+int ImageViewer::getEventNumber(string s) {
+    cout << s;
+    cout << "entrée \n";
+    SDL_Event event;
+    while (true) {
+        while (SDL_PollEvent(&event)) {
+            if (event.type == SDL_QUIT) {
+                cout << "sortie \n";
+                return 0;
+            }
+            if (event.key.keysym.sym == SDLK_0) {
+                cout << "sortie \n";
+                return 0;
+            }
+            if (event.key.keysym.sym == SDLK_1) {
+                cout << "sortie \n";
+                return 1;
+            }
+            if (event.key.keysym.sym == SDLK_2) {
+                cout << "sortie \n";
+                return 2;
+            }
+            if (event.key.keysym.sym == SDLK_3) {
+                cout << "sortie \n";
+                return 3;
+            }
+            if (event.key.keysym.sym == SDLK_4) {
+                cout << "sortie \n";
+                return 4;
+            }
+            if (event.key.keysym.sym == SDLK_5) {
+                cout << "sortie \n";
+                return 5;
+            }
+            if (event.key.keysym.sym == SDLK_6) {
+                cout << "sortie \n";
+                return 6;
+            }
+            if (event.key.keysym.sym == SDLK_7) {
+                cout << "sortie \n";
+                return 7;
+            }
+
+        }
+    }
+}
+
+char ImageViewer::getEventChar(string s) {
+    cout << s;
+    cout << "entrée \n";
+    SDL_Event event;
+    while (true) {
+        while (SDL_PollEvent(&event)) {
+            if (event.type == SDL_QUIT) {
+                cout << "sortie \n";
+                return 0;
+            }
+            if (event.key.keysym.sym == SDLK_a) {
+                cout << "sortie \n";
+                return 'a';
+            }
+            if (event.key.keysym.sym == SDLK_d) {
+                cout << "sortie \n";
+                return 'd';
+            }
+        }
+    }
+}
+
 
 void ImageViewer::dessineCercle(int couleur, int x, int y) const {
     filledCircleRGBA(renderer, x, y, 22 * zoom, 0, 0, 0, 255);
@@ -400,7 +471,7 @@ void ImageViewer::gestionEvent(SDL_Event event, bool &running, int &imgWidth, in
         if (event.key.keysym.sym == SDLK_u) {
             //setTextureCartes(jeu, 1);
             //phase = 1 - phase;
-            cout << getIndicePionEvent(jeu.getPlateau());
+            cout << getEventChar();
         }
         if (event.key.keysym.sym == SDLK_0) {
             setTextureCartes(jeu, 0);
@@ -453,7 +524,7 @@ void ImageViewer::gestionEvent(SDL_Event event, bool &running, int &imgWidth, in
                     cout << "La valeur de la carte : " << valeur << endl;
                     if (jeu.carteJouable(couleur, valeur)) {
                         cout << "La carte est jouable" << endl;
-                        //jeu.jouerCarte(valeur, couleur, getIndicePionEvent(jeu), 'D', '');
+                        jeu.jouerCarte(valeur, couleur, getIndicePionEvent, getEventNumber, getEventChar);
                         cout << getIndicePionEvent(jeu.getPlateau()) << endl;
                         setTextureCartes(jeu, couleur-1);
                     }
