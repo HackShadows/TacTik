@@ -4,6 +4,7 @@
 using namespace std;
 
 int main(){
+    srand(time(NULL));
     Jeu jeu(6);
     jeu.demarrer(1);
     jeu.demarrer(2);
