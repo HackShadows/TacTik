@@ -21,8 +21,8 @@ void IA::jouerCoup(Jeu &jeu, vector<pair<int, int>> vect, int couleur) const {
     else {
         int val = vect[rand()%vect.size()].second;
         if (val == -1 && jeu.demarrer(couleur)) return ;
-        else if (val == -1) jeu.jouerCarte(valeurs[rand()%11], couleur);
-        else jeu.jouerCarte(val, couleur);
+        //else if (val == -1) jeu.jouerCarte(valeurs[rand()%11], couleur);
+        //else jeu.jouerCarte(val, couleur);
     }
 }
 

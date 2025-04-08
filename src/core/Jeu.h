@@ -17,26 +17,6 @@ using namespace std;
 
 
 /**
-* @brief Permet de saisir un entier en gérant les erreurs de saisi.
-*
-* @param cout_message Message à afficher avant le cin (non obligatoire).
-* @param val_defaut Valeur par défaut de l'entier (non obligatoire).
-*
-* @return Entier saisi par l'utilisateur.
-*/
-int cinProtectionInt(string cout_message = "", int val_defaut = 0);
-
-/**
-* @brief Permet de saisir un caractère en gérant les erreurs de saisi.
-*
-* @param cout_message Message à afficher avant le cin (non obligatoire).
-* @param val_defaut Valeur par défaut du caractère (non obligatoire).
-*
-* @return Caractère saisi par l'utilisateur.
-*/
-char cinProtectionChar(string cout_message = "", char val_defaut = '0');
-
-/**
 * @class Jeu
 *
 * @brief Représente l'ensemble des règles du jeu.
@@ -236,13 +216,15 @@ class Jeu {
 		*
 		* @param val_carte Valeur de la carte jouée par le joueur.
 		* @param couleur Couleur du joueur.
+		* @param cin_int Fonction permettant de récupérer un entier.
+		* @param cin_char Fonction permettant de récupérer un caractère.
 		* @param coequipier True si le joueur joue pour son coéquipier, false sinon (géré automatiquement).
 		* @param affichage_graphique True pour un affichage graphique, false pour un affichage console (géré automatiquement).
 		* @param joker True si la carte passée en paramètre est un joker, false sinon (géré automatiquement).
 		*
 		* @return True si la carte a pu être jouée, False sinon.
 		*/
-		bool jouerCarte(int val_carte, int couleur, bool coequipier = false, bool affichage_graphique = false, bool joker = false);
+		bool jouerCarte(int val_carte, int couleur, int (cin_int)(string), char (cin_char)(string), bool coequipier = false, bool affichage_graphique = false, bool joker = false);
 
         /**
         * @brief Test les fonctionnalités de la classe.

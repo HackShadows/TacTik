@@ -6,28 +6,6 @@
 
 using namespace std;
 
-int cinProtectionInt(string cout_message, int val_defaut) {
-	int val = val_defaut;
-	cout << cout_message;
-	if(!(cin >> val)) {
-		cin.clear();
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
-		val = val_defaut;
-	}
-	return val;
-}
-
-char cinProtectionChar(string cout_message, char val_defaut) {
-	char val = val_defaut;
-	cout << cout_message;
-	if(!(cin >> val)) {
-		cin.clear();
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
-		val = val_defaut;
-	}
-	return val;
-}
-
 bool intInTab(int element, const int * tab, int taille) {
 	for (int i = 0 ; i < taille ; i++) {
 		if (tab[i] == element) return true;
@@ -340,7 +318,7 @@ bool Jeu::peutJouer(int couleur, bool coequipier) {
 }
 
 
-bool Jeu::jouerCarte(int val_carte, int couleur, bool coequipier, bool affichage_graphique, bool joker) {
+bool Jeu::jouerCarte(int val_carte, int couleur, int (cin_int)(string), char (cin_char)(string), bool coequipier, bool affichage_graphique, bool joker) {
 	assert(val_carte == -4 || (-1 <= val_carte && val_carte <= 13 && val_carte != 0 && val_carte != 4));
 	assert(1 <= couleur && couleur <= nbJoueurs);
 	int nb_possible = 0, id_pion = 0, c1 = couleur;
@@ -358,9 +336,9 @@ bool Jeu::jouerCarte(int val_carte, int couleur, bool coequipier, bool affichage
 		}
 		if (nb_possible > 1) id_pion = 0;
 		nb_possible = 0;
-		while (id_pion < 1 || id_pion > 4*nbJoueurs || pions[id_pion-1].getPos() < 0 || (id_pion-1)/4 != couleur-1) id_pion = cinProtectionInt("\nId du pion à permutter (pion du joueur) : ");
+		while (id_pion < 1 || id_pion > 4*nbJoueurs || pions[id_pion-1].getPos() < 0 || (id_pion-1)/4 != couleur-1) id_pion = cin_int("\nId du pion à permutter (pion du joueur) : ");
 		int id_pion2 = 0;
-		while (id_pion2 < 1 || id_pion2 > 4*nbJoueurs || pions[id_pion2-1].estPieu() || id_pion2 == id_pion) id_pion2 = cinProtectionInt("\nId du deuxième pion avec lequel permutter : ");
+		while (id_pion2 < 1 || id_pion2 > 4*nbJoueurs || pions[id_pion2-1].estPieu() || id_pion2 == id_pion) id_pion2 = cin_int("\nId du deuxième pion avec lequel permutter : ");
 		if (!permutter(id_pion, id_pion2)) return false;
 	} 
 	
@@ -369,14 +347,14 @@ bool Jeu::jouerCarte(int val_carte, int couleur, bool coequipier, bool affichage
 		bool continuer = true;
 		while (continuer) {
 			do {
-				val_carte = cinProtectionInt("\nValeur désirée pour le joker : ");
+				val_carte = cin_int("\nValeur désirée pour le joker : ");
 			} while (val_carte != -4 && (val_carte < 1 || val_carte > 13 || val_carte == 4));
 			if (!carteJouable(c1, val_carte, coequipier, true)) {
 				if (!affichage_graphique) cout << "\nAction impossible ! Choisissez une autre valeur pour le joker." << endl;
 			} else continuer = false;
 		}
 		
-		return jouerCarte(val_carte, c1, coequipier, affichage_graphique, true);
+		return jouerCarte(val_carte, c1, cin_int, cin_char, coequipier, affichage_graphique, true);
 	} 
 	
 	// Cas du démarrer
@@ -394,7 +372,7 @@ bool Jeu::jouerCarte(int val_carte, int couleur, bool coequipier, bool affichage
 			}
 			choix = (nb == 0) ? 'D':'0';
 		}
-		while (choix != 'D' && choix != 'A' && choix != 'd' && choix != 'a') choix = cinProtectionChar("\nUtiliser la carte comme démarrer(D) ou avancer(A) : ");
+		while (choix != 'D' && choix != 'A' && choix != 'd' && choix != 'a') choix = cin_char("\nUtiliser la carte comme démarrer(D) ou avancer(A) : ");
 		if ((choix == 'D' || choix == 'd') && !demarrer(couleur)) return false;
 		else if (choix == 'A' || choix == 'a') {
 			for (int i = (couleur-1)*4 +1 ; i <= couleur*4 ; i++) {
@@ -405,7 +383,7 @@ bool Jeu::jouerCarte(int val_carte, int couleur, bool coequipier, bool affichage
 			}
 			if (nb_possible == 0) return false;
 			if (nb_possible > 1 ) id_pion = 0;
-			while (id_pion < 1 || id_pion > 4*nbJoueurs || (id_pion-1)/4 != couleur-1) id_pion = cinProtectionInt("\nId du pion à avancer : ");
+			while (id_pion < 1 || id_pion > 4*nbJoueurs || (id_pion-1)/4 != couleur-1) id_pion = cin_int("\nId du pion à avancer : ");
 			if (!avancerPion(val_carte, id_pion)) return false;
 		}
 	} 
@@ -428,9 +406,9 @@ bool Jeu::jouerCarte(int val_carte, int couleur, bool coequipier, bool affichage
 				bool continuer = true;
 				while (continuer) {
 					id_pion = 0;
-					while (id_pion < 1 || id_pion > 4*nbJoueurs || (id_pion-1)/4 != couleur-1) id_pion = cinProtectionInt("\nId du pion à avancer : ");
+					while (id_pion < 1 || id_pion > 4*nbJoueurs || (id_pion-1)/4 != couleur-1) id_pion = cin_int("\nId du pion à avancer : ");
 					val = 0;
-					while (val < 1 || somme + val > 7) val = cinProtectionInt("\nNombre de cases à avancer : ");
+					while (val < 1 || somme + val > 7) val = cin_int("\nNombre de cases à avancer : ");
 					if (!avancerPion(val, id_pion, true)) cout << "\nCe déplacement est impossible !" << endl;
 					else continuer = false;
 				}
@@ -450,7 +428,7 @@ bool Jeu::jouerCarte(int val_carte, int couleur, bool coequipier, bool affichage
 		}
 		if (nb_possible == 0) return false;
 		if (nb_possible > 1 ) id_pion = 0;
-		while (id_pion < 1 || id_pion > 4*nbJoueurs || (id_pion-1)/4 != couleur-1) id_pion = cinProtectionInt("\nId du pion à avancer : ");
+		while (id_pion < 1 || id_pion > 4*nbJoueurs || (id_pion-1)/4 != couleur-1) id_pion = cin_int("\nId du pion à avancer : ");
 		if (!avancerPion(val_carte, id_pion)) return false;
 	}
 	

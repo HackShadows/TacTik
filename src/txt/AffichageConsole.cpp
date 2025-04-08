@@ -13,6 +13,28 @@ void clearTerminal() {
 	#endif
 }
 
+int cinProtectionInt(string cout_message) {
+	int val = 0;
+	cout << cout_message;
+	if(!(cin >> val)) {
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		val = 0;
+	}
+	return val;
+}
+
+char cinProtectionChar(string cout_message) {
+	char val = '0';
+	cout << cout_message;
+	if(!(cin >> val)) {
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		val = '0';
+	}
+	return val;
+}
+
 void affichageId(int id, int indice){
     assert(indice>=0 && indice<96);
     if (indice%16 == 0 && id == 0){
@@ -337,7 +359,9 @@ void tourJoueur(Jeu& jeu, int couleur, bool dev) {
 	if (!dev) {
 		affichageTexte(jeu, -1);
 		cout << "\nTour de " << intToStr(couleur-1) << " (Entrée pour continuer)" << endl;
-		cin.get();
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin.get();
 	}
     if (jeu.getJoueur(couleur-1).estIA()) ia.genererCoups(jeu, couleur);
     else {
@@ -363,7 +387,7 @@ void tourJoueur(Jeu& jeu, int couleur, bool dev) {
         } while (choix == 'n');
 
         if (!jeu.carteJouable(couleur, val_carte, coequipier)) jeu.defausserCarte(val_carte, couleur);
-        else jeu.jouerCarte(val_carte, couleur, coequipier, false);
+        else jeu.jouerCarte(val_carte, couleur, cinProtectionInt, cinProtectionChar, coequipier, false);
     }
 }
 
