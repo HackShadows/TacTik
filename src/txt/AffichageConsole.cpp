@@ -13,9 +13,9 @@ void clearTerminal() {
 	#endif
 }
 
-int cinProtectionInt(string cout_message) {
+int cinProtectionInt(string coutMessage) {
 	int val = 0;
-	cout << cout_message;
+	cout << coutMessage;
 	if(!(cin >> val)) {
 		cin.clear();
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -24,9 +24,9 @@ int cinProtectionInt(string cout_message) {
 	return val;
 }
 
-char cinProtectionChar(string cout_message) {
+char cinProtectionChar(string coutMessage) {
 	char val = '0';
-	cout << cout_message;
+	cout << coutMessage;
 	if(!(cin >> val)) {
 		cin.clear();
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -305,18 +305,18 @@ void affichageTexte(const Jeu & jeu, int joueurActif){
 // Fonctions pour le déroulé du jeu
 
 int choixCarte(string message, const Joueur& joueur) {
-	int val_carte = 0;
+	int valCarte = 0;
 	do {
 		cin.clear();
 		cout << message;
-		val_carte = cinProtectionInt();
-	} while (!joueur.estDansMain(val_carte));
+		valCarte = cinProtectionInt();
+	} while (!joueur.estDansMain(valCarte));
 	
-	return val_carte;
+	return valCarte;
 }
 
 void echangeDeCartes(Jeu& jeu) {
-	int val_carte, couleur, nbJoueurs = jeu.getNbJoueurs();
+	int valCarte, couleur, nbJoueurs = jeu.getNbJoueurs();
 	int ordre[6] = {1, 2, 5, 3, 4, 6};
 	int echange_carte[3] = {0, 0, 0};
 		for (int i = 0 ; i < nbJoueurs/2 ; i++) {
@@ -328,8 +328,8 @@ void echangeDeCartes(Jeu& jeu) {
 			cin.get();
 			affichageTexte(jeu, couleur-1);
 			cout << "\nTour de " << intToStr(couleur-1) << " :" << endl;
-			val_carte = choixCarte("\nCarte à donner à ton coéquipier : ", jeu.getJoueur(couleur-1));
-			echange_carte[i] = val_carte;
+			valCarte = choixCarte("\nCarte à donner à ton coéquipier : ", jeu.getJoueur(couleur-1));
+			echange_carte[i] = valCarte;
 		}
 
 		for (int i = nbJoueurs/2 ; i < nbJoueurs ; i++) {
@@ -341,19 +341,19 @@ void echangeDeCartes(Jeu& jeu) {
 			cin.get();
 			affichageTexte(jeu, couleur-1);
 			cout << "\nTour de " << intToStr(couleur-1) << " :" << endl;
-			val_carte = choixCarte("\nCarte à donner à ton coéquipier : ", jeu.getJoueur(couleur-1));
+			valCarte = choixCarte("\nCarte à donner à ton coéquipier : ", jeu.getJoueur(couleur-1));
 			
 			int indJ1;
 			if (nbJoueurs == 6) indJ1 = (i != 5) ? (couleur-1)-(nbJoueurs/2-1):4;
 			else indJ1 = (couleur-1)-nbJoueurs/2;
-			jeu.echangerCartes(indJ1, (couleur-1), echange_carte[((i!=5)?indJ1:2)], val_carte);
+			jeu.echangerCartes(indJ1, (couleur-1), echange_carte[((i!=5)?indJ1:2)], valCarte);
 		}
 }
 
 void tourJoueur(Jeu& jeu, int couleur, bool dev) {
 	if (jeu.getJoueur(couleur-1).mainVide()) return ;
 	char choix = 'o';
-	int val_carte;
+	int valCarte;
 	bool peut_jouer = true, coequipier = (jeu.getJoueur(couleur-1).maisonRemplie());
     IA ia;
 	if (!dev) {
@@ -377,17 +377,17 @@ void tourJoueur(Jeu& jeu, int couleur, bool dev) {
             peut_jouer = false;
         }
         do {
-            val_carte = choixCarte(((peut_jouer) ? "\nCarte à jouer : " : "\nCarte à défausser : "), jeu.getJoueur(couleur-1));
+            valCarte = choixCarte(((peut_jouer) ? "\nCarte à jouer : " : "\nCarte à défausser : "), jeu.getJoueur(couleur-1));
 
-            if (!jeu.carteJouable(couleur, val_carte, coequipier) && peut_jouer) {
+            if (!jeu.carteJouable(couleur, valCarte, coequipier) && peut_jouer) {
                 cout << "\nCette carte ne peut pas être jouée ! Choisissez-en une autre." << endl;
                 choix = 'n';
             } else choix = 'o';
 
         } while (choix == 'n');
 
-        if (!jeu.carteJouable(couleur, val_carte, coequipier)) jeu.defausserCarte(val_carte, couleur);
-        else jeu.jouerCarte(val_carte, couleur, cinProtectionInt, cinProtectionChar, coequipier, false);
+        if (!jeu.carteJouable(couleur, valCarte, coequipier)) jeu.defausserCarte(valCarte, couleur);
+        else jeu.jouerCarte(valCarte, couleur, cinProtectionInt, cinProtectionChar, coequipier, false);
     }
 }
 

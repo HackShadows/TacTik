@@ -15,8 +15,8 @@ Joueur::Joueur(): couleur(0), reserve(4), ia(false) {
     }
 }
 
-Joueur::Joueur(int id_couleur, bool ai): couleur(id_couleur), reserve(4), ia(ai) {
-    assert(1 <= id_couleur && id_couleur <= 6);
+Joueur::Joueur(int idCouleur, bool ai): couleur(idCouleur), reserve(4), ia(ai) {
+    assert(1 <= idCouleur && idCouleur <= 6);
     for (int i = 0; i<4; i++){
         main[i] = nullptr;
     }
@@ -28,10 +28,10 @@ Joueur::~Joueur() {
     }
 }
 
-void Joueur::setMaison(int indice, int id_pion) {
+void Joueur::setMaison(int indice, int idPion) {
     assert(0 <= indice && indice < 4);
-	assert(0 <= id_pion && id_pion <=24);
-    maison[indice] = id_pion;
+	assert(0 <= idPion && idPion <=24);
+    maison[indice] = idPion;
 }
 
 void Joueur::setReserve(int quantite) {
@@ -56,11 +56,11 @@ const int* Joueur::getMaison() const {
 	return maison;
 }
 
-bool Joueur::estDansMain(int val_carte) const {
-	if (val_carte == 4 || val_carte == 0 ||(val_carte < -1 && val_carte != -4)  || val_carte > 13) return false;
+bool Joueur::estDansMain(int valCarte) const {
+	if (valCarte == 4 || valCarte == 0 ||(valCarte < -1 && valCarte != -4)  || valCarte > 13) return false;
 	for (int i = 0; i<4; i++){
         Carte* carte = main[i];
-        if (carte != nullptr && val_carte == carte->getValeur()) {
+        if (carte != nullptr && valCarte == carte->getValeur()) {
             return true;
         }
     }

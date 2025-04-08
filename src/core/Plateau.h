@@ -50,10 +50,10 @@ class Plateau {
 		/**
 		* @brief Définit la valeur de la case d'indice 'indice'.
 		*
-		* @param id_pion Id du pion à ajouter.
+		* @param idPion Id du pion à ajouter.
 		* @param indice Indice de la nouvelle case du pion.
 		*/
-		void setPion(int id_pion, int indice);
+		void setPion(int idPion, int indice);
 
 		/**
         * @brief Renvoie le nombre de cases du plateau.
