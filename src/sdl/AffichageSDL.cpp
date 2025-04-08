@@ -16,7 +16,7 @@ int getIndiceCase(const Jeu &jeu, int posx, int posy, const int tab[][2], float 
 }
 
 ImageViewer::ImageViewer(const Jeu &jeu) {
-    zoom = 1;
+    zoom = 0.5;
     nbJ = jeu.getNbJoueurs();
     phase = 0;
     cout << "SDL: init" << endl;
@@ -155,6 +155,8 @@ ImageViewer::ImageViewer(const Jeu &jeu) {
 
 ImageViewer::~ImageViewer() {
     delete [] coordonnees;
+    delete [] coordonneesMaison;
+    delete [] coordonneesReserve;
     SDL_DestroyTexture(texturePlateau);
     SDL_DestroyTexture(textureTas);
     SDL_DestroyTexture(textureCartes[0]);
@@ -275,7 +277,7 @@ void ImageViewer::afficherReserve(const Jeu & jeu) const {
     for (int i = 0; i<nbJ; i++){
         int reserve = jeu.getJoueur(i).getReserve();
         for (int j = 0; j<reserve; j++){
-            dessineCercle(i+1, coordonneesReserve[i*nbJ+j][0]*zoom, coordonneesReserve[i*nbJ+j][1]*zoom);
+            dessineCercle(i+1, coordonneesReserve[i*4+j][0]*zoom, coordonneesReserve[i*4+j][1]*zoom);
         }
     }
 }
@@ -430,7 +432,7 @@ void ImageViewer::gestionEvent(SDL_Event event, bool &running, int &imgWidth, in
                     cout << "La valeur de la carte : " << valeur << endl;
                     if (jeu.carteJouable(couleur, valeur)) {
                         cout << "La carte est jouable" << endl;
-                        jeu.jouerCarte(valeur, couleur);
+                        //jeu.jouerCarte(valeur, couleur);
                         setTextureCartes(jeu, couleur-1);
                     }
                 }
