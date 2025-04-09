@@ -177,41 +177,4 @@ void affichageCarte(const Jeu & jeu, int indiceJoueur, int joueurActif);
 void affichageTexte(const Jeu & jeu, int joueurActif);
 
 
-// Fonctions pour le déroulé du jeu
-
-/**
-* @brief Récupère la carte que le joueur souhaite jouer.
-*
-* @param message Message à afficher avant le cin.
-* @param joueur Le joueur à qui est demandée la carte.
-* 
-* @return Valeur de la carte choisie par le joueur.
-*/
-int choixCarte(string message, const Joueur& joueur);
-
-/**
-* @brief Effectue l'échange de cartes entre les joueurs au début de chaque tour.
-*
-* @param jeu Jeu en cours.
-*/
-void echangeDeCartes(Jeu& jeu);
-
-/**
-* @brief Effectue un tour de jeu pour un joueur.
-*
-* @param jeu Jeu en cours.
-* @param couleur Couleur du joueur qui joue.
-* @param dev True si exécuté en mode développeur, false sinon (géré automatiquement).
-*/
-void tourJoueur(Jeu& jeu, int couleur, bool dev = false);
-
-/**
-* @brief Lance le jeu.
-* 
-* @param dev True si exécuté en mode développeur, false sinon (géré automatiquement).
-*
-* @return Couleur du gagnant.
-*/
-int jouer(bool dev = false);
-
 #endif

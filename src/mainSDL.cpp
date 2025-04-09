@@ -1,10 +1,17 @@
+#ifdef _WIN32
+#include <windows.h>
+#endif
 
-#include "./sdl/AffichageSDL.h"
+#include "controleur.h"
+#include <iostream>
 
 using namespace std;
 
 int main(){
-    srand(time(NULL));
+	#ifdef _WIN32
+        SetConsoleOutputCP(CP_UTF8);
+    #endif
+    // jouer(true);
     Jeu jeu(6);
     jeu.demarrer(1);
     jeu.demarrer(2);
@@ -15,7 +22,5 @@ int main(){
     jeu.distribuer();
     jeu.avancerPion(2, 1);
     cout << jeu.getPlateau().getIdPion(0) << "\n";
-    ImageViewer image(jeu);
-    image.afficher(jeu);
     return 0;
 }

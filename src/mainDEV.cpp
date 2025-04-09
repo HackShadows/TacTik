@@ -2,8 +2,7 @@
 #include <windows.h>
 #endif
 
-#include "./txt/AffichageConsole.h"
-#include "./sdl/AffichageSDL.h"
+#include "controleur.h"
 #include <iostream>
 
 using namespace std;
@@ -35,14 +34,6 @@ int main() {
 	}
 
 	/* Fin de l'espace modifiable */
-
-	int vainqueurs = 1;
-	int joueur1 = 4, joueur2 = 5;
-	if (vainqueurs < 5) {
-		joueur1 = (vainqueurs+3)%4;
-		joueur2 = (vainqueurs+1)%4;
-	}
-	cout << "\nLes " << intToStr(joueur1) << "s et " << intToStr(joueur2) << "s ont gagné !\n" << endl;
 		
 	return 0;
 }

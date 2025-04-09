@@ -30,29 +30,32 @@ doc: doc/doxyfile doc/html
 doc/html:
 	doxygen doc/doxyfile
 
-bin/test:obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageConsole.o obj/mainTEST.o
-	g++ obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageConsole.o obj/mainTEST.o -o bin/test
+bin/test:obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageConsole.o obj/controleur.o obj/mainTEST.o
+	g++ obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageConsole.o obj/controleur.o obj/mainTEST.o -o bin/test
 
-bin/mainTXT: obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageConsole.o obj/mainTXT.o
-	g++ obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageConsole.o obj/mainTXT.o -o bin/mainTXT
+bin/mainTXT: obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageConsole.o obj/controleur.o obj/mainTXT.o
+	g++ obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageConsole.o obj/controleur.o obj/mainTXT.o -o bin/mainTXT
 
-bin/mainSDL: obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageSDL.o obj/mainSDL.o
-	g++ obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageSDL.o obj/mainSDL.o -o bin/mainSDL $(LIB_SDL)
+bin/mainSDL: obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageSDL.o obj/controleur.o obj/mainSDL.o
+	g++ obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageSDL.o obj/controleur.o obj/mainSDL.o -o bin/mainSDL $(LIB_SDL)
 
-bin/mainDEV: obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageConsole.o obj/AffichageSDL.o obj/mainDEV.o
-	g++ obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageConsole.o obj/AffichageSDL.o obj/mainDEV.o -o bin/mainDEV $(LIB_SDL)
+bin/mainDEV: obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageConsole.o obj/AffichageSDL.o obj/controleur.o obj/mainDEV.o
+	g++ obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageConsole.o obj/AffichageSDL.o obj/controleur.o obj/mainDEV.o -o bin/mainDEV $(LIB_SDL)
 
 obj/mainTEST.o: src/mainTEST.cpp $(CORE)/Jeu.h
 	g++ $(CXXFLAGS) src/mainTEST.cpp -o obj/mainTEST.o
 
-obj/mainTXT.o: src/mainTXT.cpp $(TXT)/AffichageConsole.h
+obj/mainTXT.o: src/mainTXT.cpp src/controleur.h
 	g++ $(CXXFLAGS) src/mainTXT.cpp -o obj/mainTXT.o
 
-obj/mainSDL.o: src/mainSDL.cpp $(SDL)/AffichageSDL.h
+obj/mainSDL.o: src/mainSDL.cpp src/controleur.h
 	g++ $(CXXFLAGS) $(INCLUDE_DIR) src/mainSDL.cpp -o obj/mainSDL.o
 
-obj/mainDEV.o: src/mainDEV.cpp $(TXT)/AffichageConsole.h $(SDL)/AffichageSDL.h
+obj/mainDEV.o: src/mainDEV.cpp src/controleur.h
 	g++ $(CXXFLAGS) $(INCLUDE_DIR) src/mainDEV.cpp -o obj/mainDEV.o
+
+obj/controleur.o: src/controleur.cpp src/controleur.h $(TXT)/AffichageConsole.h $(SDL)/AffichageSDL.h
+	g++ $(CXXFLAGS) $(INCLUDE_DIR) src/controleur.cpp -o obj/controleur.o
 
 obj/AffichageConsole.o: $(TXT)/AffichageConsole.cpp $(TXT)/AffichageConsole.h $(CORE)/Jeu.h
 	g++ $(CXXFLAGS) $(TXT)/AffichageConsole.cpp -o obj/AffichageConsole.o
@@ -126,21 +129,36 @@ $(WIN_OBJ_DIR)/Plateau.o: $(CORE)/Plateau.cpp $(CORE)/Plateau.h $(CORE)/Pion.h |
 $(WIN_OBJ_DIR)/Jeu.o: $(CORE)/Jeu.cpp $(CORE)/Jeu.h $(CORE)/Joueur.h $(CORE)/IA.h $(CORE)/Pioche.h $(CORE)/Plateau.h | $(WIN_OBJ_DIR)
 	$(CROSS) $(CROSS_CXXFLAGS) $(CORE)/Jeu.cpp -o $(WIN_OBJ_DIR)/Jeu.o
 
-# Règles pour compiler les sources TXT spécifiques
+# Règles pour compiler les sources spécifiques
 $(WIN_OBJ_DIR)/AffichageConsole.o: $(TXT)/AffichageConsole.cpp $(TXT)/AffichageConsole.h $(CORE)/Jeu.h | $(WIN_OBJ_DIR)
 	$(CROSS) $(CROSS_CXXFLAGS) $(TXT)/AffichageConsole.cpp -o $(WIN_OBJ_DIR)/AffichageConsole.o
 
-$(WIN_OBJ_DIR)/mainTXT.o: src/mainTXT.cpp $(TXT)/AffichageConsole.h | $(WIN_OBJ_DIR)
+$(WIN_OBJ_DIR)/AffichageSDL.o: $(TXT)/AffichageSDL.cpp $(TXT)/AffichageSDL.h $(CORE)/Jeu.h | $(WIN_OBJ_DIR)
+	$(CROSS) $(CROSS_CXXFLAGS) $(TXT)/AffichageSDL.cpp -o $(WIN_OBJ_DIR)/AffichageSDL.o
+
+$(WIN_OBJ_DIR)/controleur.o: src/controleur.cpp src/controleur.h $(TXT)/AffichageConsole.h $(SDL)/AffichageSDL.h | $(WIN_OBJ_DIR)
+	$(CROSS) $(CROSS_CXXFLAGS) src/controleur.cpp -o $(WIN_OBJ_DIR)/controleur.o
+
+$(WIN_OBJ_DIR)/mainTXT.o: src/mainTXT.cpp src/controleur.h | $(WIN_OBJ_DIR)
 	$(CROSS) $(CROSS_CXXFLAGS) src/mainTXT.cpp -o $(WIN_OBJ_DIR)/mainTXT.o
 
-# Règle de linkage pour générer l'exécutable Windows mainTXT.exe
-bin/mainTXT.exe: $(WIN_OBJ_DIR)/Carte.o $(WIN_OBJ_DIR)/Pioche.o $(WIN_OBJ_DIR)/Pion.o $(WIN_OBJ_DIR)/Joueur.o $(WIN_OBJ_DIR)/IA.o $(WIN_OBJ_DIR)/Plateau.o $(WIN_OBJ_DIR)/Jeu.o $(WIN_OBJ_DIR)/AffichageConsole.o $(WIN_OBJ_DIR)/mainTXT.o | bin
+$(WIN_OBJ_DIR)/mainSDL.o: src/mainSDL.cpp src/controleur.h | $(WIN_OBJ_DIR)
+	$(CROSS) $(CROSS_CXXFLAGS) src/mainSDL.cpp -o $(WIN_OBJ_DIR)/mainSDL.o
+
+# Règle de linkage pour générer les exécutables Windows
+bin/mainTXT.exe: $(WIN_OBJ_DIR)/Carte.o $(WIN_OBJ_DIR)/Pioche.o $(WIN_OBJ_DIR)/Pion.o $(WIN_OBJ_DIR)/Joueur.o $(WIN_OBJ_DIR)/IA.o $(WIN_OBJ_DIR)/Plateau.o $(WIN_OBJ_DIR)/Jeu.o $(WIN_OBJ_DIR)/AffichageConsole.o $(WIN_OBJ_DIR)/AffichageSDL.o $(WIN_OBJ_DIR)/controleur.o $(WIN_OBJ_DIR)/mainTXT.o | bin
 	$(CROSS) $^ -static -static-libgcc -static-libstdc++ -lmingw32 -o bin/mainTXT.exe
+
+bin/mainSDL.exe: $(WIN_OBJ_DIR)/Carte.o $(WIN_OBJ_DIR)/Pioche.o $(WIN_OBJ_DIR)/Pion.o $(WIN_OBJ_DIR)/Joueur.o $(WIN_OBJ_DIR)/IA.o $(WIN_OBJ_DIR)/Plateau.o $(WIN_OBJ_DIR)/Jeu.o $(WIN_OBJ_DIR)/AffichageConsole.o $(WIN_OBJ_DIR)/AffichageSDL.o $(WIN_OBJ_DIR)/controleur.o $(WIN_OBJ_DIR)/mainSDL.o | bin
+	$(CROSS) $^ -static -static-libgcc -static-libstdc++ -lmingw32 -o bin/mainSDL.exe
 
 # Assure que le dossier bin existe
 bin:
 	mkdir -p bin
 
 # Cible mainWindows qui génère l'exécutable Windows
-mainWindows: clean bin/mainTXT.exe
+mainTXTWindows: clean bin/mainTXT.exe
 	@echo "Windows executable generated: bin/mainTXT.exe"
+
+mainSDLWindows: clean bin/mainSDL.exe
+	@echo "Windows executable generated: bin/mainSDL.exe"
