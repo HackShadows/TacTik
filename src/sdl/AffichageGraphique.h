@@ -13,6 +13,7 @@ using namespace std;
 */
 class ImageViewer{
     private :
+		Jeu jeu; ///<Jeu à afficher
         SDL_Window * window; ///<La fenetre
         SDL_Renderer * renderer;///<Le renderer
         SDL_Texture * texturePlateau;///<La surface de l'image du plateau
@@ -30,9 +31,11 @@ class ImageViewer{
     public :
         /**
         * @brief Constructeur qui initialise tout SDL2 et crée la fenêtre et le renderer
-        * @param jeu Le jeu que l'on veut afficher.
+        * 
+		* @param nbJoueurs Nombre de joueurs
+		* @param nbIA Nombre d'IA
         */
-        ImageViewer(const Jeu & jeu);
+        ImageViewer(int nbJoueurs = 4, int nbIA = 0);
 
         /**
         * @brief Detruit et ferme SDL2
@@ -46,18 +49,17 @@ class ImageViewer{
 
 		/**
 		* @brief renvoie l'indice du pion sur lequel on a cliqué
-		* @param jeu Le jeu courant
 		* @param posx Les coordonnées x du clic
 		* @param posy Les coordonnées y du clic
 		*/
-		int getIndicePion(const Jeu &jeu, int posx, int posy);
+		int getIndicePion(int posx, int posy);
 
 		/**
 		* @brief renvoie l'indice du pion sans clic
 		* @param plateau Le plateau courant
 		* @param s La string à afficher
 		*/
-		int getIndicePionEvent(const Plateau &plateau, string s="");
+		int getIndicePionEvent(string s="");
 
 		/**
 		* @brief renvoie le chiffre saisi par l'utilisateur
@@ -89,28 +91,24 @@ class ImageViewer{
 
         /**
         * @brief Affiche les pions du jeu passé en parametre
-        * @param jeu Le jeu dont on veut afficher les pions
         */
-        void afficherPions(const Jeu & jeu) const;
+        void afficherPions() const;
 
 		/**
 		* @brief Affiche les reverves du jeu passé en parametre
-		* @param jeu Le jeu dont on veut afficher les reserves
 		*/
-		void afficherReserve(const Jeu & jeu) const;
+		void afficherReserve() const;
 
 		/**
 		* @brief Affiche les maisons du jeu passé en parametre
-		* @param jeu Le jeu dont on veut afficher les maisons
 		*/
-		void afficherMaison(const Jeu & jeu) const;
+		void afficherMaison() const;
 
 		/**
 		* @brief Affiche les cartes du jeu passé en parametre
-		* @param jeu Le jeu dont on veut afficher les pions
 		* @param id_joueur L'identifiant du joueur dont on affiche les cartes
 		*/
-		void setTextureCartes(const Jeu & jeu, int id_joueur);
+		void setTextureCartes(int id_joueur);
 
 
 		/**
@@ -126,13 +124,12 @@ class ImageViewer{
 		* @param RectTas Rectanlge du tas
 		* @param jeu Le jeu en cours
 		*/
-		void gestionEvent(SDL_Event event, bool &running, int &imgWidth, int &imgHeight, SDL_Rect &RectMain1,SDL_Rect &RectMain2, SDL_Rect &RectMain3, SDL_Rect &RectMain4, SDL_Rect &RectTas, Jeu & jeu);
+		void gestionEvent(SDL_Event event, bool &running, int &imgWidth, int &imgHeight, SDL_Rect &RectMain1,SDL_Rect &RectMain2, SDL_Rect &RectMain3, SDL_Rect &RectMain4, SDL_Rect &RectTas);
 
         /**
         * @brief Affiche le jeu passé en parametre
-        * @param jeu Le jeu que l'on veut afficher
         */
-        void afficher(Jeu & jeu);
+        void afficher();
 
 };
 

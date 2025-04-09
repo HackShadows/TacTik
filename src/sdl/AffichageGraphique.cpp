@@ -1,10 +1,11 @@
-/**
-* @brief Contient l'implémentation de l'affichege graphique
-*/
-
 #include "AffichageGraphique.h"
 
-int getIndiceCase(const Jeu &jeu, int posx, int posy, const int tab[][2], float zoom) {
+#include <iostream>
+#include <cassert>
+
+using namespace std;
+
+int getIndiceCase(Jeu &jeu, int posx, int posy, const int tab[][2], float zoom) {
     float rayon = 20 * zoom;
     //cout << posx << " " << posy << " " << tab[0][0] * zoom << " " << tab[0][1] * zoom << " ";
     for (int i = 0; i < 16 * jeu.getNbJoueurs(); i++) {
@@ -15,7 +16,18 @@ int getIndiceCase(const Jeu &jeu, int posx, int posy, const int tab[][2], float 
     return -1;
 }
 
-ImageViewer::ImageViewer(const Jeu &jeu) {
+ImageViewer::ImageViewer(int nbJoueurs, int nbIA) : jeu(nbJoueurs, nbIA) {
+	assert(nbIA >= 0 && nbJoueurs >= 0 && (nbJoueurs + nbIA == 4 || nbJoueurs + nbIA == 6));
+
+	jeu.demarrer(1);
+    jeu.demarrer(2);
+    jeu.demarrer(3);
+    jeu.demarrer(4);
+    /*jeu.demarrer(5);
+    jeu.demarrer(6);*/
+    jeu.distribuer();
+    jeu.avancerPion(2, 1);
+
     zoom = 0.5;
     nbJ = jeu.getNbJoueurs();
     phase = 0;
@@ -168,7 +180,7 @@ ImageViewer::~ImageViewer() {
     SDL_Quit();
 }
 
-int ImageViewer::getIndicePion(const Jeu &jeu, int posx, int posy) {
+int ImageViewer::getIndicePion(int posx, int posy) {
     float rayon = 20 * zoom;
     //cout << posx << " " << posy << " " << tab[0][0] * zoom << " " << tab[0][1] * zoom << " ";
     for (int i = 0; i < 16 * jeu.getNbJoueurs(); i++) {
@@ -180,7 +192,7 @@ int ImageViewer::getIndicePion(const Jeu &jeu, int posx, int posy) {
     return -1;
 }
 
-int ImageViewer::getIndicePionEvent(const Plateau & plateau, string s) {
+int ImageViewer::getIndicePionEvent(string s) {
     cout << s;
     cout << "entrée \n";
     SDL_Event event;
@@ -194,7 +206,7 @@ int ImageViewer::getIndicePionEvent(const Plateau & plateau, string s) {
                 for (int i = 0; i < 16 * nbJ; i++) {
                     if (abs(event.button.x - coordonnees[i][0] * zoom) < rayon && abs(event.button.y - coordonnees[i][1] * zoom) < rayon) {
                         cout << "sortie \n";
-                        return plateau.getIdPion(i);
+                        return jeu.getPlateau().getIdPion(i);
                         //return getIndicePion(jeu, event.button.x, event.button.y);
                     }
                 }
@@ -351,7 +363,7 @@ void ImageViewer::debugCoordonnees() const {
     }
 }
 
-void ImageViewer::afficherPions(const Jeu &jeu) const {
+void ImageViewer::afficherPions() const {
     for (int i = 1; i < 4 * nbJ + 1; i++) {
         Pion pion = jeu.getPion(i);
         int indice = pion.getPos();
@@ -365,7 +377,7 @@ void ImageViewer::afficherPions(const Jeu &jeu) const {
     }
 }
 
-void ImageViewer::afficherReserve(const Jeu & jeu) const {
+void ImageViewer::afficherReserve() const {
     for (int i = 0; i<nbJ; i++){
         int reserve = jeu.getJoueur(i).getReserve();
         for (int j = 0; j<reserve; j++){
@@ -374,7 +386,7 @@ void ImageViewer::afficherReserve(const Jeu & jeu) const {
     }
 }
 
-void ImageViewer::afficherMaison(const Jeu &jeu) const {
+void ImageViewer::afficherMaison() const {
     for (int i = 0; i<nbJ; i++){
         const int * maison = jeu.getJoueur(i).getMaison();
         for (int j = 0; j<4; j++){
@@ -385,7 +397,7 @@ void ImageViewer::afficherMaison(const Jeu &jeu) const {
     }
 }
 
-void ImageViewer::setTextureCartes(const Jeu &jeu, int id_joueur) {
+void ImageViewer::setTextureCartes(int id_joueur) {
     for (int i = 0; i < 4; i++) {
         if (textureCartes[i] != nullptr) {
             SDL_DestroyTexture(textureCartes[i]);
@@ -419,7 +431,7 @@ void ImageViewer::setTextureCartes(const Jeu &jeu, int id_joueur) {
     }
 }
 
-void ImageViewer::gestionEvent(SDL_Event event, bool &running, int &imgWidth, int &imgHeight, SDL_Rect &RectMain1,SDL_Rect &RectMain2, SDL_Rect &RectMain3, SDL_Rect &RectMain4, SDL_Rect &RectTas,Jeu &jeu) {
+void ImageViewer::gestionEvent(SDL_Event event, bool &running, int &imgWidth, int &imgHeight, SDL_Rect &RectMain1,SDL_Rect &RectMain2, SDL_Rect &RectMain3, SDL_Rect &RectMain4, SDL_Rect &RectTas) {
     if (event.type == SDL_QUIT) {
         running = false;
     }
@@ -469,35 +481,35 @@ void ImageViewer::gestionEvent(SDL_Event event, bool &running, int &imgWidth, in
             }
         }*/
         if (event.key.keysym.sym == SDLK_u) {
-            //setTextureCartes(jeu, 1);
+            //setTextureCartes(1);
             //phase = 1 - phase;
             cout << getEventChar();
         }
         if (event.key.keysym.sym == SDLK_0) {
-            setTextureCartes(jeu, 0);
+            setTextureCartes(0);
             //phase = 1 - phase;
         }
         if (event.key.keysym.sym == SDLK_1) {
-            setTextureCartes(jeu, 1);
+            setTextureCartes(1);
             //phase = 1 - phase;
         }
         if (event.key.keysym.sym == SDLK_2) {
-            setTextureCartes(jeu, 2);
+            setTextureCartes(2);
             //phase = 1 - phase;
         }
         if (event.key.keysym.sym == SDLK_3) {
-            setTextureCartes(jeu, 3);
+            setTextureCartes(3);
             //phase = 1 - phase;
         }
     }
     if (event.type == SDL_MOUSEBUTTONDOWN) {
         if (event.button.button == SDL_BUTTON_LEFT) {
             //cout << "{" << event.button.x << "," << event.button.y << "}, ";
-            //cout << getIndiceCase(jeu, event.button.x, event.button.y, coordonnees, zoom) << endl;
-            cout << getIndicePion(jeu, event.button.x, event.button.y) << endl;
+            //cout << getIndiceCase(event.button.x, event.button.y, coordonnees, zoom) << endl;
+            cout << getIndicePion(event.button.x, event.button.y) << endl;
             if (event.button.x > imgWidth) {
                 int couleur = 1;
-                setTextureCartes(jeu, couleur-1);
+                setTextureCartes(couleur-1);
                 cout << "Position : " << jeu.getPion(4*(couleur-1)+1).getPos() << endl;
                 int indiceCase = event.button.y / (250 * zoom);
                 cout << indiceCase << endl;
@@ -512,10 +524,10 @@ void ImageViewer::gestionEvent(SDL_Event event, bool &running, int &imgWidth, in
         }
         if (event.button.button == SDL_BUTTON_RIGHT) {
             //cout << "{" << event.button.x << "," << event.button.y << "}, ";
-            //cout << getIndiceCase(jeu, event.button.x, event.button.y, coordonnees, zoom) << endl;
+            //cout << getIndiceCase(event.button.x, event.button.y, coordonnees, zoom) << endl;
             if (event.button.x > imgWidth) {
                 int couleur = 1;
-                setTextureCartes(jeu, couleur-1);
+                setTextureCartes(couleur-1);
                 cout << "Position : " << jeu.getPion(4*(couleur-1)+1).getPos() << endl;
                 int indiceCase = event.button.y / (250 * zoom);
                 cout << indiceCase << endl;
@@ -525,8 +537,8 @@ void ImageViewer::gestionEvent(SDL_Event event, bool &running, int &imgWidth, in
                     if (jeu.carteJouable(couleur, valeur)) {
                         cout << "La carte est jouable" << endl;
                         //jeu.jouerCarte(valeur, couleur, getIndicePionEvent, getEventNumber, getEventChar);
-                        cout << getIndicePionEvent(jeu.getPlateau()) << endl;
-                        setTextureCartes(jeu, couleur-1);
+                        cout << getIndicePionEvent() << endl;
+                        setTextureCartes(couleur-1);
                     }
                 }
             }
@@ -534,7 +546,7 @@ void ImageViewer::gestionEvent(SDL_Event event, bool &running, int &imgWidth, in
     }
 }
 
-void ImageViewer::afficher(Jeu &jeu) {
+void ImageViewer::afficher() {
     int imgWidth = (int) dimx * zoom;
     int imgHeight = (int) dimy * zoom;
 
@@ -552,7 +564,7 @@ void ImageViewer::afficher(Jeu &jeu) {
     while (running) {
         while (SDL_PollEvent(&event)) {
             gestionEvent(event, running, imgWidth, imgHeight, RectMain1, RectMain2, RectMain3, RectMain4,
-                                     RectTas, jeu);        }
+                                     RectTas);        }
 
 
         SDL_SetRenderDrawColor(renderer, 128, 128, 128, 255);
@@ -561,9 +573,9 @@ void ImageViewer::afficher(Jeu &jeu) {
         SDL_RenderCopy(renderer, texturePlateau, NULL, &Rect);
         //debugCoordonnees();
 
-        afficherPions(jeu);
-        afficherMaison(jeu);
-        afficherReserve(jeu);
+        afficherPions();
+        afficherMaison();
+        afficherReserve();
         SDL_RenderCopy(renderer, textureTas, NULL, &RectTas);
         SDL_RenderCopy(renderer, textureCartes[0], NULL, &RectMain1);
         SDL_RenderCopy(renderer, textureCartes[1], NULL, &RectMain2);

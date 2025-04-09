@@ -13,18 +13,9 @@ int main(){
     #endif
 	srand(time(NULL));
     // jouer(true);
-    Jeu jeu(6);
-    jeu.demarrer(1);
-    jeu.demarrer(2);
-    jeu.demarrer(3);
-    jeu.demarrer(4);
-    /*jeu.demarrer(5);
-    jeu.demarrer(6);*/
-    jeu.distribuer();
-    jeu.avancerPion(2, 1);
-    cout << jeu.getPlateau().getIdPion(0) << "\n";
-	// A retirer
-	ImageViewer image(jeu);
-    image.afficher(jeu);
-    return 0;
+    
+	ImageViewer image(4);
+    image.afficher();
+    
+	return 0;
 }
