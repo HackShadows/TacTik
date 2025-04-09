@@ -2,7 +2,7 @@
 * @brief Contient l'implémentation de l'affichege graphique
 */
 
-#include "AffichageSDL.h"
+#include "AffichageGraphique.h"
 
 int getIndiceCase(const Jeu &jeu, int posx, int posy, const int tab[][2], float zoom) {
     float rayon = 20 * zoom;

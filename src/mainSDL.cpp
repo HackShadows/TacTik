@@ -11,6 +11,7 @@ int main(){
 	#ifdef _WIN32
         SetConsoleOutputCP(CP_UTF8);
     #endif
+	srand(time(NULL));
     // jouer(true);
     Jeu jeu(6);
     jeu.demarrer(1);
@@ -22,6 +23,7 @@ int main(){
     jeu.distribuer();
     jeu.avancerPion(2, 1);
     cout << jeu.getPlateau().getIdPion(0) << "\n";
+	// A retirer
 	ImageViewer image(jeu);
     image.afficher(jeu);
     return 0;
