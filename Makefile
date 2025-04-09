@@ -37,7 +37,7 @@ bin/mainTXT: obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plate
 	g++ obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageConsole.o obj/AffichageSDL.o obj/controleur.o obj/mainTXT.o -o bin/mainTXT $(LIB_SDL)
 
 bin/mainSDL: obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageConsole.o obj/AffichageSDL.o obj/controleur.o obj/mainSDL.o
-	g++ obj/Cartej.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageConsole.o obj/AffichageSDL.o obj/controleur.o obj/mainSDL.o -o bin/mainSDL $(LIB_SDL)
+	g++ obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageConsole.o obj/AffichageSDL.o obj/controleur.o obj/mainSDL.o -o bin/mainSDL $(LIB_SDL)
 
 bin/mainDEV: obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageConsole.o obj/AffichageSDL.o obj/controleur.o obj/mainDEV.o
 	g++ obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageConsole.o obj/AffichageSDL.o obj/controleur.o obj/mainDEV.o -o bin/mainDEV $(LIB_SDL)
