@@ -52,6 +52,13 @@ class Jeu {
         */
 		~Jeu();
 
+		/**
+        * @brief Met à jour le tas.
+		* 
+		* @param carte Carte à mettre sur le tas.
+        */
+	   	void setTas(Carte* carte);
+
         /**
         * @brief Renvoie le plateau de jeu.
 		*
@@ -81,6 +88,15 @@ class Jeu {
 		* @return Le joueur se trouvant à l'indice 'indice'.
         */
 	   	const Joueur& getJoueur(int indice) const;
+
+		/**
+        * @brief Renvoie le joueur se trouvant à l'indice 'indice'.
+		* 
+		* @param indice Indice du joueur à retourner.
+		*
+		* @return Le joueur se trouvant à l'indice 'indice'.
+        */
+	   	Joueur& getJoueurNonConst(int indice);
 
 		/**
         * @brief Renvoie le pion d'identifiant 'idPion'.

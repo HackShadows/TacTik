@@ -13,36 +13,6 @@ void clearTerminal() {
 	#endif
 }
 
-int getIdPion(const Plateau &plateau, string coutMessage) {
-    return cinProtectionInt(coutMessage);
-}
-
-int cinProtectionInt(string coutMessage) {
-	int val = 0;
-	cout << "\n" + coutMessage;
-    cin.clear();
-	if(!(cin >> val)) {
-		cin.clear();
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
-		val = 0;
-	}
-	return val;
-}
-
-char cinProtectionChar(string coutMessage) {
-	char val = '0';
-	cout << "\n" + coutMessage;
-    cin.clear();
-	if(!(cin >> val)) {
-		cin.clear();
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
-		val = '0';
-	}
-	return val;
-}
-
-void message(string coutMessage) {cout << "\n" + coutMessage << endl;}
-
 void affichageId(int id, int indice){
     assert(indice>=0 && indice<96);
     if (indice%16 == 0 && id == 0){

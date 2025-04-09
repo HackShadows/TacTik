@@ -30,7 +30,7 @@ Jeu::Jeu() : nbJoueurs(4), plateau(nbJoueurs), pioche(){
 }
 
 Jeu::Jeu(int nbJ, int nbIA) : nbJoueurs(nbJ), plateau(nbJ), pioche(){
-    assert(nbJ == 4 || nbJ == 6);
+    assert(nbIA >= 0 && nbJ >= 0 && (nbJ + nbIA == 4 || nbJ + nbIA == 6));
     joueurs = new Joueur [nbJoueurs];
 	pions = new Pion [4*nbJoueurs];
     for (int i = 0; i < nbJoueurs; i++) {
@@ -50,6 +50,10 @@ Jeu::~Jeu() {
     pions = nullptr;
 }
 
+void Jeu::setTas(Carte* carte) {
+	pioche.setTas(carte);
+}
+
 const Plateau& Jeu::getPlateau() const {
     return plateau;
 }
@@ -63,6 +67,11 @@ int Jeu::getNbJoueurs() const {
 }
 
 const Joueur& Jeu::getJoueur(int indice) const {
+	assert(0 <= indice && indice < nbJoueurs);
+	return joueurs[indice];
+}
+
+Joueur& Jeu::getJoueurNonConst(int indice) {
 	assert(0 <= indice && indice < nbJoueurs);
 	return joueurs[indice];
 }

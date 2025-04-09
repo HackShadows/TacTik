@@ -1,27 +1,81 @@
 #include "controleur.h"
 
-bool Jeu::jouerCarte(int valCarte, int couleur, int (getIdPion)(const Plateau &, string), int (cinInt)(string), char (cinChar)(string), void (message)(string), bool coequipier, bool joker) {
+#include <iostream>
+#include <cassert>
+
+using namespace std;
+
+int getIdPion(const Plateau &plateau, string coutMessage) {
+    return cinProtectionInt(coutMessage);
+}
+
+int cinProtectionInt(string coutMessage) {
+	int val = 0;
+	cout << "\n" + coutMessage;
+    cin.clear();
+	if(!(cin >> val)) {
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		val = 0;
+	}
+	return val;
+}
+
+char cinProtectionChar(string coutMessage) {
+	char val = '0';
+	cout << "\n" + coutMessage;
+    cin.clear();
+	if(!(cin >> val)) {
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		val = '0';
+	}
+	return val;
+}
+
+void message(string coutMessage) {cout << "\n" + coutMessage << endl;}
+
+//Controleur::Controleur() : jeu(), im(jeu), versionGraphique(false) {}
+
+Controleur::Controleur() : jeu(), versionGraphique(false) {}
+
+Controleur::Controleur(int nbJ, int nbIA, bool affichageGraphique) : jeu(nbJ, nbIA), versionGraphique(affichageGraphique) {
+	assert(nbIA >= 0 && nbJ >= 0 && (nbJ + nbIA == 4 || nbJ + nbIA == 6));
+}
+
+/*Controleur::Controleur(int nbJ, int nbIA, bool affichageGraphique) : jeu(nbJ, nbIA), im(jeu), versionGraphique(affichageGraphique) {
+	assert(nbIA >= 0 && nbJ >= 0 && (nbJ + nbIA == 4 || nbJ + nbIA == 6));
+}*/
+
+Controleur::~Controleur() {}
+
+Jeu& Controleur::getJeu() {
+	return jeu;
+}
+
+bool Controleur::jouerCarte(int valCarte, int couleur, int (getIdPion)(const Plateau &, string), int (cinInt)(string), char (cinChar)(string), void (message)(string), bool coequipier, bool joker) {
+	int nbJoueurs = jeu.getNbJoueurs();
 	assert(valCarte == -4 || (-1 <= valCarte && valCarte <= 13 && valCarte != 0 && valCarte != 4));
 	assert(1 <= couleur && couleur <= nbJoueurs);
 	int nb_possible = 0, idPion = 0, c1 = couleur;
-	Joueur& j1 = joueurs[couleur-1];
+	Joueur& j1 = jeu.getJoueurNonConst(couleur-1);
 	if (coequipier) couleur = 1 + ((couleur < 5) ? (couleur+1)%4 : 10-couleur);
-	Joueur& joueur = joueurs[couleur-1];
+	Joueur& joueur = jeu.getJoueurNonConst(couleur-1);
 	
 	// Cas du permutter
 	if (valCarte == 11) {
 		for (int i = (couleur-1)*4 ; i < couleur*4 ; i++) {
-			if (pions[i].getPos() >= 0) {
+			if (jeu.getPion(i+1).getPos() >= 0) {
 				idPion = i+1;
 				nb_possible++;
 			}
 		}
 		if (nb_possible > 1) idPion = 0;
 		nb_possible = 0;
-		while (idPion < 1 || idPion > 4*nbJoueurs || pions[idPion-1].getPos() < 0 || (idPion-1)/4 != couleur-1) idPion = getIdPion(plateau, "Id du pion à permutter (pion du joueur) : ");
+		while (idPion < 1 || idPion > 4*nbJoueurs || jeu.getPion(idPion).getPos() < 0 || (idPion-1)/4 != couleur-1) idPion = getIdPion(jeu.getPlateau(), "Id du pion à permutter (pion du joueur) : ");
 		int idPion2 = 0;
-		while (idPion2 < 1 || idPion2 > 4*nbJoueurs || pions[idPion2-1].estPieu() || idPion2 == idPion) idPion2 = getIdPion(plateau, "Id du deuxième pion avec lequel permutter : ");
-		if (!permutter(idPion, idPion2)) return false;
+		while (idPion2 < 1 || idPion2 > 4*nbJoueurs || jeu.getPion(idPion2).estPieu() || idPion2 == idPion) idPion2 = getIdPion(jeu.getPlateau(), "Id du deuxième pion avec lequel permutter : ");
+		if (!jeu.permutter(idPion, idPion2)) return false;
 	} 
 	
 	// Cas du joker
@@ -31,7 +85,7 @@ bool Jeu::jouerCarte(int valCarte, int couleur, int (getIdPion)(const Plateau &,
 			do {
 				valCarte = cinInt("Valeur désirée pour le joker : ");
 			} while (valCarte != -4 && (valCarte < 1 || valCarte > 13 || valCarte == 4));
-			if (!carteJouable(c1, valCarte, coequipier, true)) message("Action impossible ! Choisissez une autre valeur pour le joker.");
+			if (!jeu.carteJouable(c1, valCarte, coequipier, true)) message("Action impossible ! Choisissez une autre valeur pour le joker.");
 			else continuer = false;
 		}
 		
@@ -42,11 +96,11 @@ bool Jeu::jouerCarte(int valCarte, int couleur, int (getIdPion)(const Plateau &,
 	else if (valCarte == 1 || valCarte == 10 || valCarte == 13) {
 		char choix = '0';
 		if (joueur.getReserve() == 4) choix = 'D';
-		else if (!demarrer(couleur, true)) choix = 'A';
+		else if (!jeu.demarrer(couleur, true)) choix = 'A';
 		else if (joueur.getReserve() > 0) {
 			int nb = 0;
 			for (int id = (couleur-1)*4+1 ; id <= 4*couleur ; id++) {
-				if (avancerPion(valCarte, id, true)) {
+				if (jeu.avancerPion(valCarte, id, true)) {
 					nb = 1;
 					break;
 				}
@@ -54,18 +108,18 @@ bool Jeu::jouerCarte(int valCarte, int couleur, int (getIdPion)(const Plateau &,
 			choix = (nb == 0) ? 'D':'0';
 		}
 		while (choix != 'D' && choix != 'A' && choix != 'd' && choix != 'a') choix = cinChar("Utiliser la carte comme démarrer(D) ou avancer(A) : ");
-		if ((choix == 'D' || choix == 'd') && !demarrer(couleur)) return false;
+		if ((choix == 'D' || choix == 'd') && !jeu.demarrer(couleur)) return false;
 		else if (choix == 'A' || choix == 'a') {
 			for (int i = (couleur-1)*4 +1 ; i <= couleur*4 ; i++) {
-				if (avancerPion(valCarte, i, true)) {
+				if (jeu.avancerPion(valCarte, i, true)) {
 					idPion = i;
 					nb_possible++;
 				}
 			}
 			if (nb_possible == 0) return false;
 			if (nb_possible > 1 ) idPion = 0;
-			while (idPion < 1 || idPion > 4*nbJoueurs || (idPion-1)/4 != couleur-1) idPion = getIdPion(plateau, "Id du pion à avancer : ");
-			if (!avancerPion(valCarte, idPion)) return false;
+			while (idPion < 1 || idPion > 4*nbJoueurs || (idPion-1)/4 != couleur-1) idPion = getIdPion(jeu.getPlateau(), "Id du pion à avancer : ");
+			if (!jeu.avancerPion(valCarte, idPion)) return false;
 		}
 	} 
 	
@@ -74,12 +128,12 @@ bool Jeu::jouerCarte(int valCarte, int couleur, int (getIdPion)(const Plateau &,
 		int val, somme = 0;
 		for (int i = (couleur-1)*4 +1 ; i <= couleur*4 ; i++) {
 			val = 1;
-			while (val < 7 && avancerPion(val, i, true)) val++;
+			while (val < 7 && jeu.avancerPion(val, i, true)) val++;
 			somme += val-1;
-			if (val == 7 && avancerPion(val, i, true)) idPion = i;
+			if (val == 7 && jeu.avancerPion(val, i, true)) idPion = i;
 		}
 		if (somme < 7 && idPion == 0) return false;
-		if (somme == 6 && !avancerPion(7, idPion)) return false;
+		if (somme == 6 && !jeu.avancerPion(7, idPion)) return false;
 		else if (somme == 6) ;
 		else {
 			somme = 0;
@@ -87,13 +141,13 @@ bool Jeu::jouerCarte(int valCarte, int couleur, int (getIdPion)(const Plateau &,
 				bool continuer = true;
 				while (continuer) {
 					idPion = 0;
-					while (idPion < 1 || idPion > 4*nbJoueurs || (idPion-1)/4 != couleur-1) idPion = getIdPion(plateau, "Id du pion à avancer : ");
+					while (idPion < 1 || idPion > 4*nbJoueurs || (idPion-1)/4 != couleur-1) idPion = getIdPion(jeu.getPlateau(), "Id du pion à avancer : ");
 					val = 0;
 					while (val < 1 || somme + val > 7) val = cinInt("Nombre de cases à avancer : ");
-					if (!avancerPion(val, idPion, true)) message("Ce déplacement est impossible !");
+					if (!jeu.avancerPion(val, idPion, true)) message("Ce déplacement est impossible !");
 					else continuer = false;
 				}
-				avancerPion(val, idPion, false, true);
+				jeu.avancerPion(val, idPion, false, true);
 				somme += val;
 			}
 		}
@@ -102,30 +156,30 @@ bool Jeu::jouerCarte(int valCarte, int couleur, int (getIdPion)(const Plateau &,
 	// Cas du avancer
 	else {
 		for (int i = (couleur-1)*4 +1 ; i <= couleur*4 ; i++) {
-			if (avancerPion(valCarte, i, true)) {
+			if (jeu.avancerPion(valCarte, i, true)) {
 				idPion = i;
 				nb_possible++;
 			}
 		}
 		if (nb_possible == 0) return false;
 		if (nb_possible > 1 ) idPion = 0;
-		while (idPion < 1 || idPion > 4*nbJoueurs || (idPion-1)/4 != couleur-1) idPion = getIdPion(plateau, "Id du pion à avancer : ");
-		if (!avancerPion(valCarte, idPion)) return false;
+		while (idPion < 1 || idPion > 4*nbJoueurs || (idPion-1)/4 != couleur-1) idPion = getIdPion(jeu.getPlateau(), "Id du pion à avancer : ");
+		if (!jeu.avancerPion(valCarte, idPion)) return false;
 	}
 	
 	// Affichage sur le tas
 	if (joker) valCarte = -1;
-	pioche.setTas(j1.retirerCarte(valCarte));
+	jeu.setTas(j1.retirerCarte(valCarte));
 	return true;
 }
 
-int choixCarte(string message, const Joueur& joueur) {
+int Controleur::choixCarte(string message, const Joueur& joueur) {
 	int valCarte = 0;
     while (!joueur.estDansMain(valCarte)) valCarte = cinProtectionInt(message);	
 	return valCarte;
 }
 
-void echangeDeCartes(Jeu& jeu) {
+void Controleur::echangeDeCartes() {
 	int valCarte, couleur, nbJoueurs = jeu.getNbJoueurs();
 	int ordre[6] = {1, 2, 5, 3, 4, 6};
 	int echange_carte[3] = {0, 0, 0};
@@ -160,7 +214,7 @@ void echangeDeCartes(Jeu& jeu) {
 		}
 }
 
-void tourJoueur(Jeu& jeu, int couleur, bool dev) {
+void Controleur::tourJoueur(int couleur, bool dev) {
 	if (jeu.getJoueur(couleur-1).mainVide()) return ;
 	char choix = 'o';
 	int valCarte;
@@ -196,11 +250,11 @@ void tourJoueur(Jeu& jeu, int couleur, bool dev) {
         } while (choix == 'n');
 
         if (!jeu.carteJouable(couleur, valCarte, coequipier)) jeu.defausserCarte(valCarte, couleur);
-        else jeu.jouerCarte(valCarte, couleur, getIdPion, cinProtectionInt, cinProtectionChar, message, coequipier);
+        else jouerCarte(valCarte, couleur, getIdPion, cinProtectionInt, cinProtectionChar, message, coequipier);
     }
 }
 
-void afficherVainqueur(int couleurVainqueur, bool versionGraphique) {
+void Controleur::afficherVainqueur(int couleurVainqueur) {
 	int vainqueurs = couleurVainqueur;
 	int j1 = 4, j2 = 5;
 	if (vainqueurs < 5) {
@@ -214,24 +268,27 @@ void afficherVainqueur(int couleurVainqueur, bool versionGraphique) {
 	}
 }
 
+void Controleur::afficherImage() {//im.afficher(jeu);
+}
+
 void jouer(bool versionGraphique, bool dev){
 	srand(time(NULL));
 	if (versionGraphique) {
 
 	}
-	ImageViewer image(jeu);
-    image.afficher(jeu);
-	int nbIA = 0, nbJoueurs = 4;
+	int nbIA = -1, nbJoueurs = 0;
+	
 	while (nbJoueurs != 4 && nbJoueurs != 6) nbJoueurs = cinProtectionInt("Nombre de joueurs (4 ou 6) : ");
 
-    while (nbIA < 0 || nbIA > nbJoueurs) nbIA = cinProtectionInt("Nombre d'IA (0-" + to_string(nbJoueurs) + ") : ");
+    while (nbIA < 0 || nbIA > nbJoueurs) nbIA = cinProtectionInt("Nombre d'IA parmis les joueurs (0-" + to_string(nbJoueurs) + ") : ");
 	
-	Jeu jeu(nbJoueurs, nbIA);
+	Controleur controleur(nbJoueurs, nbIA, versionGraphique);
+	Jeu &jeu = controleur.getJeu();
 	int ordre[6] = {1, 2, 5, 3, 4, 6};
 	while (true) {
 		if (!dev) {
 			jeu.distribuer();
-			echangeDeCartes(jeu);
+			controleur.echangeDeCartes();
 		} else {
 			for (int i = 0 ; i < 4 ; i++) {
 				for (int j = 0 ; j < nbJoueurs ; j++) {
@@ -243,10 +300,10 @@ void jouer(bool versionGraphique, bool dev){
 		for (int i = 0 ; i < 4 ; i++) {
 			for (int j = 0 ; j < nbJoueurs ; j++) {
 				int couleur = (nbJoueurs == 6) ? ordre[j]:j+1;
-				tourJoueur(jeu, couleur, dev);
+				controleur.tourJoueur(couleur, dev);
 				if (jeu.partieGagnee()) {
 					affichageTexte(jeu, 7);
-					return afficherVainqueur(couleur, versionGraphique);
+					return controleur.afficherVainqueur(couleur);
 				}
 			}
 		}
