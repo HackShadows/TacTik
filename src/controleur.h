@@ -41,8 +41,8 @@ void message(string coutMessage = "");
 class Controleur {
 
 	private:
-		Jeu * jeu; ///<Représente l'ensemble des éléments du jeu.
-		ImageViewer * im; ///<Représente la fenêtre à afficher lors d'un affichage graphique.
+		ImageConsole * console; ///<Représente le contenu à afficher lors d'un affichage console.
+		ImageViewer * graphique; ///<Représente la fenêtre à afficher lors d'un affichage graphique.
 		bool versionGraphique; ///<True pour une version graphique, false pour une version console.
 
 	public:
@@ -143,9 +143,9 @@ class Controleur {
 		void afficherVainqueur(int couleurVainqueur);
 
 		/**
-		* @brief Affiche l'image de jeu en version graphique.
+		* @brief Affiche le jeu.
 		*/
-		void afficherImage();
+		void afficherJeu();
 };
 
 /**

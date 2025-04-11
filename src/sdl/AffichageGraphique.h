@@ -8,8 +8,9 @@
 #include <SDL2/SDL2_gfxPrimitives.h>
 
 using namespace std;
+
 /**
-* @brief Contient la déclaration de la classe Image.
+* @brief Contient la déclaration de la classe ImageViewer.
 */
 class ImageViewer{
     private :
