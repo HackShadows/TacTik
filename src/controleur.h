@@ -8,30 +8,6 @@
 #include "sdl/AffichageGraphique.h"
 #include "txt/AffichageConsole.h"
 
-/**
-* @brief Permet de saisir un entier depuis la console en gérant les erreurs de saisi.
-*
-* @param coutMessage Message à afficher avant le cin (non obligatoire).
-*
-* @return Entier saisi par l'utilisateur (valeur renvoyée par défaut 0).
-*/
-int cinProtectionInt(string coutMessage = "");
-
-/**
-* @brief Permet de saisir un caractère depuis la console en gérant les erreurs de saisi.
-*
-* @param coutMessage Message à afficher avant le cin (non obligatoire).
-*
-* @return Caractère saisi par l'utilisateur (valeur renvoyée par défaut '0').
-*/
-char cinProtectionChar(string coutMessage = "");
-
-/**
-* @brief Permet d'afficher le message passé en paramètre.
-*
-* @param coutMessage Message à afficher.
-*/
-void message(string coutMessage = "");
 
 /**
 * @class Controleur

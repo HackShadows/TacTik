@@ -6,31 +6,6 @@
 using namespace std;
 
 
-int cinProtectionInt(string coutMessage) {
-	int val = 0;
-	cout << "\n" + coutMessage;
-    cin.clear();
-	if(!(cin >> val)) {
-		cin.clear();
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
-		val = 0;
-	}
-	return val;
-}
-
-char cinProtectionChar(string coutMessage) {
-	char val = '0';
-	cout << "\n" + coutMessage;
-    cin.clear();
-	if(!(cin >> val)) {
-		cin.clear();
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
-		val = '0';
-	}
-	return val;
-}
-
-void message(string coutMessage) {cout << "\n" + coutMessage << endl;}
 
 Controleur::Controleur() {
 	console = new ImageConsole;

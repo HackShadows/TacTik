@@ -48,6 +48,34 @@ string intToStr(int entier) {
     }
 }
 
+int cinProtectionInt(string coutMessage) {
+	int val = 0;
+	cout << "\n" + coutMessage;
+    cin.clear();
+	if(!(cin >> val)) {
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		val = 0;
+	}
+	return val;
+}
+
+char cinProtectionChar(string coutMessage) {
+	char val = '0';
+	cout << "\n" + coutMessage;
+    cin.clear();
+	if(!(cin >> val)) {
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		val = '0';
+	}
+	return val;
+}
+
+void message(string coutMessage) {cout << "\n" + coutMessage << endl;}
+
+
+
 ImageConsole::ImageConsole(int nbJoueurs, int nbIA) : jeu(nbJoueurs, nbIA), nbCase(jeu.getPlateau().getNbCase()) {
 	assert(nbIA >= 0 && nbJoueurs >= nbIA && (nbJoueurs == 4 || nbJoueurs == 6));
 }
@@ -282,7 +310,6 @@ void ImageConsole::grille(int joueurActif) {
 
 
 void ImageConsole::affichageTexte(int joueurActif){
-    int nbCase = jeu.getPlateau().getNbCase();
 	clearTerminal();
     grille(joueurActif);
 }
