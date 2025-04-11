@@ -41,8 +41,8 @@ void message(string coutMessage = "");
 class Controleur {
 
 	private:
-		Jeu jeu; ///<Représente l'ensemble des éléments du jeu.
-		ImageViewer im; ///<Représente la fenêtre à afficher lors d'un affichage graphique.
+		Jeu * jeu; ///<Représente l'ensemble des éléments du jeu.
+		ImageViewer * im; ///<Représente la fenêtre à afficher lors d'un affichage graphique.
 		bool versionGraphique; ///<True pour une version graphique, false pour une version console.
 
 	public:

@@ -148,6 +148,10 @@ ImageViewer::~ImageViewer() {
     SDL_Quit();*/
 }
 
+Jeu& ImageViewer::getJeu() {
+	return jeu;
+}
+
 int ImageViewer::getIndicePion(int posx, int posy) {
     float rayon = 20 * zoom;
     //cout << posx << " " << posy << " " << tab[0][0] * zoom << " " << tab[0][1] * zoom << " ";

@@ -48,6 +48,13 @@ class ImageViewer{
         void debugCoordonnees() const;
 
 		/**
+		* @brief Renvoie le jeu en cours.
+		*
+		* @return Le jeu en cours.
+		*/
+		Jeu& getJeu();
+
+		/**
 		* @brief renvoie l'indice du pion sur lequel on a cliqué
 		* @param posx Les coordonnées x du clic
 		* @param posy Les coordonnées y du clic
