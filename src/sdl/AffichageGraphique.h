@@ -132,7 +132,7 @@ class ImageViewer{
 		* @param RectTas Rectanlge du tas
 		* @param jeu Le jeu en cours
 		*/
-		void gestionEvent(SDL_Event event, bool &running, int &imgWidth, int &imgHeight, SDL_Rect &RectMain1,SDL_Rect &RectMain2, SDL_Rect &RectMain3, SDL_Rect &RectMain4, SDL_Rect &RectTas);
+		void gestionEvent(SDL_Event event, bool &running, int &imgWidth, int &imgHeight, SDL_Rect RectMain[4], SDL_Rect &RectTas);
 
         /**
         * @brief Affiche le jeu passé en parametre

@@ -15,8 +15,10 @@ int main() {
 	srand(time(NULL));
 	
 	/* Début de l'espace modifiable */	
-	
-	
+	Jeu jeu(4);
+	ImageViewer image(4,0);
+	image.afficher();
+
 
 	/* Fin de l'espace modifiable */
 		

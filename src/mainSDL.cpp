@@ -11,8 +11,7 @@ int main(){
 	#ifdef _WIN32
         SetConsoleOutputCP(CP_UTF8);
     #endif
-    
+
 	jouer(true);
-    
 	return 0;
 }

@@ -403,7 +403,7 @@ void ImageViewer::setTextureCartes(int id_joueur) {
     }
 }
 
-void ImageViewer::gestionEvent(SDL_Event event, bool &running, int &imgWidth, int &imgHeight, SDL_Rect &RectMain1,SDL_Rect &RectMain2, SDL_Rect &RectMain3, SDL_Rect &RectMain4, SDL_Rect &RectTas) {
+void ImageViewer::gestionEvent(SDL_Event event, bool &running, int &imgWidth, int &imgHeight, SDL_Rect RectMain[4], SDL_Rect &RectTas) {
     if (event.type == SDL_QUIT) {
         running = false;
     }
@@ -416,10 +416,9 @@ void ImageViewer::gestionEvent(SDL_Event event, bool &running, int &imgWidth, in
             imgWidth = dimx * zoom;
             imgHeight = dimy * zoom;
             SDL_SetWindowSize(window, imgWidth + 200 * zoom, imgHeight);
-            RectMain1 = {imgWidth, 0, (int) (200 * zoom), (int) (imgHeight/4 )};
-            RectMain2 = {imgWidth, (int)(imgHeight/4), (int) (200 * zoom), (int) (imgHeight/4 )};
-            RectMain3 = {imgWidth, (int)(2*imgHeight/4), (int) (200 * zoom), (int) (imgHeight/4 )};
-            RectMain4 = {imgWidth, (int)(3*imgHeight/4), (int) (200 * zoom), (int) (imgHeight/4 )};
+            for (int i = 0; i<4; i++) {
+                RectMain[i] = {imgWidth, (int)(i*imgHeight/4), (int) (200 * zoom), (int) (imgHeight/4 )};
+            }
             RectTas = {
                 (int) (imgWidth / 2 - 100 * zoom), (int) (imgHeight / 2 - 150 * zoom), (int) (200 * zoom),
                 (int) (300 * zoom)
@@ -430,10 +429,9 @@ void ImageViewer::gestionEvent(SDL_Event event, bool &running, int &imgWidth, in
             imgWidth = dimx * zoom;
             imgHeight = dimy * zoom;
             SDL_SetWindowSize(window, imgWidth + 200 * zoom, imgHeight);
-            RectMain1 = {imgWidth, 0, (int) (200 * zoom), (int) (imgHeight/4 )};
-            RectMain2 = {imgWidth, (int)(imgHeight/4), (int) (200 * zoom), (int) (imgHeight/4 )};
-            RectMain3 = {imgWidth, (int)(2*imgHeight/4), (int) (200 * zoom), (int) (imgHeight/4 )};
-            RectMain4 = {imgWidth, (int)(3*imgHeight/4), (int) (200 * zoom), (int) (imgHeight/4 )};
+            for (int i = 0; i<4; i++) {
+                RectMain[i] = {imgWidth, (int)(i*imgHeight/4), (int) (200 * zoom), (int) (imgHeight/4 )};
+            }
             RectTas = {
                 (int) (imgWidth / 2 - 100 * zoom), (int) (imgHeight / 2 - 150 * zoom), (int) (200 * zoom),
                 (int) (300 * zoom)
@@ -553,10 +551,10 @@ void ImageViewer::afficher() {
     int imgWidth = (int) dimx * zoom;
     int imgHeight = (int) dimy * zoom;
 
-    SDL_Rect RectMain1 = {imgWidth, 0, (int) (200 * zoom), (int) (imgHeight/4 )};
-    SDL_Rect RectMain2 = {imgWidth, (int)(imgHeight/4), (int) (200 * zoom), (int) (imgHeight/4 )};
-    SDL_Rect RectMain3 = {imgWidth, (int)(2*imgHeight/4), (int) (200 * zoom), (int) (imgHeight/4 )};
-    SDL_Rect RectMain4 = {imgWidth, (int)(3*imgHeight/4), (int) (200 * zoom), (int) (imgHeight/4 )};
+    SDL_Rect RectMain[4];
+    for (int i =0; i<4; i++) {
+        RectMain[i] = {imgWidth, (int)(i*imgHeight/4), (int) (200 * zoom), (int) (imgHeight/4 )};
+    }
     SDL_Rect RectTas = {
         (int) (imgWidth / 2 - 100 * zoom), (int) (imgHeight / 2 - 150 * zoom), (int) (200 * zoom),
         (int) (300 * zoom)
@@ -566,10 +564,8 @@ void ImageViewer::afficher() {
     SDL_Event event;
     while (running) {
         while (SDL_PollEvent(&event)) {
-            gestionEvent(event, running, imgWidth, imgHeight, RectMain1, RectMain2, RectMain3, RectMain4,
-                                     RectTas);        }
-
-
+            gestionEvent(event, running, imgWidth, imgHeight, RectMain,RectTas);
+        }
         SDL_SetRenderDrawColor(renderer, 128, 128, 128, 255);
         SDL_RenderClear(renderer);
         SDL_Rect Rect = {0, 0, imgWidth, imgHeight};
@@ -580,10 +576,10 @@ void ImageViewer::afficher() {
         afficherMaison();
         afficherReserve();
         SDL_RenderCopy(renderer, textureTas, NULL, &RectTas);
-        SDL_RenderCopy(renderer, textureCartes[0], NULL, &RectMain1);
-        SDL_RenderCopy(renderer, textureCartes[1], NULL, &RectMain2);
-        SDL_RenderCopy(renderer, textureCartes[2], NULL, &RectMain3);
-        SDL_RenderCopy(renderer, textureCartes[3], NULL, &RectMain4);
+        SDL_RenderCopy(renderer, textureCartes[0], NULL, &RectMain[0]);
+        SDL_RenderCopy(renderer, textureCartes[1], NULL, &RectMain[1]);
+        SDL_RenderCopy(renderer, textureCartes[2], NULL, &RectMain[2]);
+        SDL_RenderCopy(renderer, textureCartes[3], NULL, &RectMain[3]);
         SDL_RenderPresent(renderer);
         SDL_Delay(100);
     }
