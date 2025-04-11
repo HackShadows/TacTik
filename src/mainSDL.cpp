@@ -11,10 +11,8 @@ int main(){
 	#ifdef _WIN32
         SetConsoleOutputCP(CP_UTF8);
     #endif
-	srand(time(NULL));
-    //jouer(true);
-	ImageViewer image(4, 0);
-    //image.afficher();
+    
+	jouer(true);
     
 	return 0;
 }

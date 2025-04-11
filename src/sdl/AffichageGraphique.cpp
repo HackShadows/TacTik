@@ -508,7 +508,7 @@ void ImageViewer::gestionEvent(SDL_Event event, bool &running, int &imgWidth, in
                     cout << "La valeur de la carte : " << valeur << endl;
                     if (jeu.carteJouable(couleur, valeur)) {
                         cout << "La carte est jouable" << endl;
-                        //jeu.jouerCarte(valeur, couleur, getIndicePionEvent, getEventNumber, getEventChar);
+                        //jeu.jouerCarte(valeur, couleur);
                         //cout << getIndicePionEvent() << endl;
                         setTextureCartes(couleur-1);
                     }

@@ -307,7 +307,7 @@ void Controleur::afficherImage() {im->afficher();}
 void jouer(bool versionGraphique, bool dev){
 	srand(time(NULL));
 	if (versionGraphique) {
-
+		
 	}
 	int nbIA = -1, nbJoueurs = 0;
 	
@@ -318,6 +318,9 @@ void jouer(bool versionGraphique, bool dev){
 	Controleur controleur(nbJoueurs, nbIA, versionGraphique);
 	Jeu &jeu = controleur.getJeu();
 	int ordre[6] = {1, 2, 5, 3, 4, 6};
+	
+	if (versionGraphique) controleur.afficherImage();
+	
 	while (true) {
 		if (!dev) {
 			jeu.distribuer();
