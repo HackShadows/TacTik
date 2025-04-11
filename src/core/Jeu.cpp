@@ -30,11 +30,11 @@ Jeu::Jeu() : nbJoueurs(4), plateau(nbJoueurs), pioche(){
 }
 
 Jeu::Jeu(int nbJ, int nbIA) : nbJoueurs(nbJ), plateau(nbJ), pioche(){
-    assert(nbIA >= 0 && nbJ >= 0 && (nbJ + nbIA == 4 || nbJ + nbIA == 6));
+    assert(nbIA >= 0 && nbJ >= nbIA && (nbJ == 4 || nbJ == 6));
     joueurs = new Joueur [nbJoueurs];
 	pions = new Pion [4*nbJoueurs];
     for (int i = 0; i < nbJoueurs; i++) {
-        joueurs[i] = Joueur(i+1, (i >= nbJ - nbIA));
+        joueurs[i] = Joueur(i+1, (i < nbIA));
 		for (int j = 0 ; j < 4 ; j++) {
 			int idPion = i*4+j+1;
 			pions[idPion-1] = Pion(idPion);

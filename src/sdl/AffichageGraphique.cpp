@@ -17,7 +17,7 @@ int getIndiceCase(Jeu &jeu, int posx, int posy, const int tab[][2], float zoom) 
 }
 
 ImageViewer::ImageViewer(int nbJoueurs, int nbIA) : jeu(nbJoueurs, nbIA) {
-	assert(nbIA >= 0 && nbJoueurs >= 0 && (nbJoueurs + nbIA == 4 || nbJoueurs + nbIA == 6));
+	assert(nbIA >= 0 && nbJ >= nbIA && (nbJ == 4 || nbJ == 6));
 
 	jeu.demarrer(1);
     jeu.demarrer(2);

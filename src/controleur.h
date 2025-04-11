@@ -9,34 +9,6 @@
 #include "txt/AffichageConsole.h"
 
 /**
-* @brief Permet de saisir un entier l'identifiant d'un pion.
-*
-* @param coutMessage Message à afficher avant le cin (non obligatoire).
-* @param plateau Plateau de jeu (géré automatiquement).
-*
-* @return Identifiant saisi par l'utilisateur (valeur renvoyée par défaut 0).
-*/
-int getIdPion(const Plateau &plateau, string coutMessage);
-
-/**
-* @brief Permet de saisir un entier en gérant les erreurs de saisi.
-*
-* @param coutMessage Message à afficher avant le cin (non obligatoire).
-*
-* @return Entier saisi par l'utilisateur (valeur renvoyée par défaut 0).
-*/
-int cinProtectionInt(string coutMessage = "");
-
-/**
-* @brief Permet de saisir un caractère en gérant les erreurs de saisi.
-*
-* @param coutMessage Message à afficher avant le cin (non obligatoire).
-*
-* @return Caractère saisi par l'utilisateur (valeur renvoyée par défaut '0').
-*/
-char cinProtectionChar(string coutMessage = "");
-
-/**
 * @brief Permet d'afficher le message passé en paramètre.
 *
 * @param coutMessage Message à afficher.
@@ -52,7 +24,7 @@ class Controleur {
 
 	private:
 		Jeu jeu; ///<Représente l'ensemble des éléments du jeu.
-		//ImageViewer im; ///<Représente la fenêtre à afficher lors d'un affichage graphique.
+		ImageViewer im; ///<Représente la fenêtre à afficher lors d'un affichage graphique.
 		bool versionGraphique; ///<True pour une version graphique, false pour une version console.
 
 	public:
@@ -83,20 +55,44 @@ class Controleur {
 		Jeu& getJeu();
 
 		/**
+		* @brief Permet de saisir un entier l'identifiant d'un pion.
+		*
+		* @param coutMessage Message à afficher (non obligatoire).
+		*
+		* @return Identifiant saisi par l'utilisateur (valeur renvoyée par défaut 0).
+		*/
+		int getIdPion(string coutMessage);
+
+		/**
+		* @brief Permet de saisir un entier en gérant les erreurs de saisi.
+		*
+		* @param coutMessage Message à afficher (non obligatoire).
+		*
+		* @return Entier saisi par l'utilisateur (valeur renvoyée par défaut 0).
+		*/
+		int saisirEntier(string coutMessage = "");
+
+		/**
+		* @brief Permet de saisir un caractère en gérant les erreurs de saisi.
+		*
+		* @param coutMessage Message à afficher (non obligatoire).
+		*
+		* @return Caractère saisi par l'utilisateur (valeur renvoyée par défaut '0').
+		*/
+		char saisirCaractere(string coutMessage = "");
+
+		/**
 		* @brief Joue la carte passée en paramètre.
 		*
 		* @param valCarte Valeur de la carte jouée par le joueur.
 		* @param couleur Couleur du joueur.
-		* @param getIdPion Fonction permettant de récupérer l'identifiant d'un pion.
-		* @param cinInt Fonction permettant de récupérer un entier.
-		* @param cinChar Fonction permettant de récupérer un caractère.
 		* @param message Fonction permettant d'afficher un message.
 		* @param coequipier True si le joueur joue pour son coéquipier, false sinon (géré automatiquement).
 		* @param joker True si la carte passée en paramètre est un joker, false sinon (géré automatiquement).
 		*
 		* @return True si la carte a pu être jouée, False sinon.
 		*/
-		bool jouerCarte(int valCarte, int couleur, int (getIdPion)(const Plateau &, string), int (cinInt)(string), char (cinChar)(string), void (message)(string) = messageDefaut, bool coequipier = false, bool joker = false);
+		bool jouerCarte(int valCarte, int couleur, void (message)(string) = messageDefaut, bool coequipier = false, bool joker = false);
 
 		/**
 		* @brief Récupère la carte que le joueur souhaite jouer.

@@ -5,9 +5,6 @@
 
 using namespace std;
 
-int getIdPion(const Plateau &plateau, string coutMessage) {
-    return cinProtectionInt(coutMessage);
-}
 
 int cinProtectionInt(string coutMessage) {
 	int val = 0;
@@ -21,7 +18,38 @@ int cinProtectionInt(string coutMessage) {
 	return val;
 }
 
-char cinProtectionChar(string coutMessage) {
+void message(string coutMessage) {cout << "\n" + coutMessage << endl;}
+
+Controleur::Controleur() : jeu(), im(), versionGraphique(false) {}
+
+/*Controleur::Controleur() : jeu(), versionGraphique(false) {}
+
+Controleur::Controleur(int nbJ, int nbIA, bool affichageGraphique) : jeu(nbJ, nbIA), versionGraphique(affichageGraphique) {
+	assert(nbIA >= 0 && nbJ >= 0 && (nbJ + nbIA == 4 || nbJ + nbIA == 6));
+}*/
+
+Controleur::Controleur(int nbJ, int nbIA, bool affichageGraphique) : jeu(nbJ, nbIA), im(nbJ, nbIA), versionGraphique(affichageGraphique) {
+	assert(nbIA >= 0 && nbJ >= nbIA && (nbJ == 4 || nbJ == 6));
+}
+
+Controleur::~Controleur() {}
+
+Jeu& Controleur::getJeu() {
+	return jeu;
+}
+
+int Controleur::getIdPion(string coutMessage) {
+	if (versionGraphique) return im.getIndicePionEvent(coutMessage);
+    return saisirEntier(coutMessage);
+}
+
+int Controleur::saisirEntier(string coutMessage) {
+	if (versionGraphique) return im.getEventNumber(coutMessage);
+	return cinProtectionInt(coutMessage);
+}
+
+char Controleur::saisirCaractere(string coutMessage) {
+	if (versionGraphique) return im.getEventChar(coutMessage);
 	char val = '0';
 	cout << "\n" + coutMessage;
     cin.clear();
@@ -33,27 +61,7 @@ char cinProtectionChar(string coutMessage) {
 	return val;
 }
 
-void message(string coutMessage) {cout << "\n" + coutMessage << endl;}
-
-//Controleur::Controleur() : jeu(), im(jeu), versionGraphique(false) {}
-
-Controleur::Controleur() : jeu(), versionGraphique(false) {}
-
-Controleur::Controleur(int nbJ, int nbIA, bool affichageGraphique) : jeu(nbJ, nbIA), versionGraphique(affichageGraphique) {
-	assert(nbIA >= 0 && nbJ >= 0 && (nbJ + nbIA == 4 || nbJ + nbIA == 6));
-}
-
-/*Controleur::Controleur(int nbJ, int nbIA, bool affichageGraphique) : jeu(nbJ, nbIA), im(jeu), versionGraphique(affichageGraphique) {
-	assert(nbIA >= 0 && nbJ >= 0 && (nbJ + nbIA == 4 || nbJ + nbIA == 6));
-}*/
-
-Controleur::~Controleur() {}
-
-Jeu& Controleur::getJeu() {
-	return jeu;
-}
-
-bool Controleur::jouerCarte(int valCarte, int couleur, int (getIdPion)(const Plateau &, string), int (cinInt)(string), char (cinChar)(string), void (message)(string), bool coequipier, bool joker) {
+bool Controleur::jouerCarte(int valCarte, int couleur, void (message)(string), bool coequipier, bool joker) {
 	int nbJoueurs = jeu.getNbJoueurs();
 	assert(valCarte == -4 || (-1 <= valCarte && valCarte <= 13 && valCarte != 0 && valCarte != 4));
 	assert(1 <= couleur && couleur <= nbJoueurs);
@@ -72,9 +80,9 @@ bool Controleur::jouerCarte(int valCarte, int couleur, int (getIdPion)(const Pla
 		}
 		if (nb_possible > 1) idPion = 0;
 		nb_possible = 0;
-		while (idPion < 1 || idPion > 4*nbJoueurs || jeu.getPion(idPion).getPos() < 0 || (idPion-1)/4 != couleur-1) idPion = getIdPion(jeu.getPlateau(), "Id du pion à permutter (pion du joueur) : ");
+		while (idPion < 1 || idPion > 4*nbJoueurs || jeu.getPion(idPion).getPos() < 0 || (idPion-1)/4 != couleur-1) idPion = getIdPion("Id du pion à permutter (pion du joueur) : ");
 		int idPion2 = 0;
-		while (idPion2 < 1 || idPion2 > 4*nbJoueurs || jeu.getPion(idPion2).estPieu() || idPion2 == idPion) idPion2 = getIdPion(jeu.getPlateau(), "Id du deuxième pion avec lequel permutter : ");
+		while (idPion2 < 1 || idPion2 > 4*nbJoueurs || jeu.getPion(idPion2).estPieu() || idPion2 == idPion) idPion2 = getIdPion("Id du deuxième pion avec lequel permutter : ");
 		if (!jeu.permutter(idPion, idPion2)) return false;
 	} 
 	
@@ -83,13 +91,13 @@ bool Controleur::jouerCarte(int valCarte, int couleur, int (getIdPion)(const Pla
 		bool continuer = true;
 		while (continuer) {
 			do {
-				valCarte = cinInt("Valeur désirée pour le joker : ");
+				valCarte = saisirEntier("Valeur désirée pour le joker : ");
 			} while (valCarte != -4 && (valCarte < 1 || valCarte > 13 || valCarte == 4));
 			if (!jeu.carteJouable(c1, valCarte, coequipier, true)) message("Action impossible ! Choisissez une autre valeur pour le joker.");
 			else continuer = false;
 		}
 		
-		return jouerCarte(valCarte, c1, getIdPion, cinInt, cinChar, message, coequipier, true);
+		return jouerCarte(valCarte, c1, message, coequipier, true);
 	} 
 	
 	// Cas du démarrer
@@ -107,7 +115,7 @@ bool Controleur::jouerCarte(int valCarte, int couleur, int (getIdPion)(const Pla
 			}
 			choix = (nb == 0) ? 'D':'0';
 		}
-		while (choix != 'D' && choix != 'A' && choix != 'd' && choix != 'a') choix = cinChar("Utiliser la carte comme démarrer(D) ou avancer(A) : ");
+		while (choix != 'D' && choix != 'A' && choix != 'd' && choix != 'a') choix = saisirCaractere("Utiliser la carte comme démarrer(D) ou avancer(A) : ");
 		if ((choix == 'D' || choix == 'd') && !jeu.demarrer(couleur)) return false;
 		else if (choix == 'A' || choix == 'a') {
 			for (int i = (couleur-1)*4 +1 ; i <= couleur*4 ; i++) {
@@ -118,7 +126,7 @@ bool Controleur::jouerCarte(int valCarte, int couleur, int (getIdPion)(const Pla
 			}
 			if (nb_possible == 0) return false;
 			if (nb_possible > 1 ) idPion = 0;
-			while (idPion < 1 || idPion > 4*nbJoueurs || (idPion-1)/4 != couleur-1) idPion = getIdPion(jeu.getPlateau(), "Id du pion à avancer : ");
+			while (idPion < 1 || idPion > 4*nbJoueurs || (idPion-1)/4 != couleur-1) idPion = getIdPion("Id du pion à avancer : ");
 			if (!jeu.avancerPion(valCarte, idPion)) return false;
 		}
 	} 
@@ -141,9 +149,9 @@ bool Controleur::jouerCarte(int valCarte, int couleur, int (getIdPion)(const Pla
 				bool continuer = true;
 				while (continuer) {
 					idPion = 0;
-					while (idPion < 1 || idPion > 4*nbJoueurs || (idPion-1)/4 != couleur-1) idPion = getIdPion(jeu.getPlateau(), "Id du pion à avancer : ");
+					while (idPion < 1 || idPion > 4*nbJoueurs || (idPion-1)/4 != couleur-1) idPion = getIdPion("Id du pion à avancer : ");
 					val = 0;
-					while (val < 1 || somme + val > 7) val = cinInt("Nombre de cases à avancer : ");
+					while (val < 1 || somme + val > 7) val = saisirEntier("Nombre de cases à avancer : ");
 					if (!jeu.avancerPion(val, idPion, true)) message("Ce déplacement est impossible !");
 					else continuer = false;
 				}
@@ -163,7 +171,7 @@ bool Controleur::jouerCarte(int valCarte, int couleur, int (getIdPion)(const Pla
 		}
 		if (nb_possible == 0) return false;
 		if (nb_possible > 1 ) idPion = 0;
-		while (idPion < 1 || idPion > 4*nbJoueurs || (idPion-1)/4 != couleur-1) idPion = getIdPion(jeu.getPlateau(), "Id du pion à avancer : ");
+		while (idPion < 1 || idPion > 4*nbJoueurs || (idPion-1)/4 != couleur-1) idPion = getIdPion("Id du pion à avancer : ");
 		if (!jeu.avancerPion(valCarte, idPion)) return false;
 	}
 	
@@ -175,7 +183,7 @@ bool Controleur::jouerCarte(int valCarte, int couleur, int (getIdPion)(const Pla
 
 int Controleur::choixCarte(string message, const Joueur& joueur) {
 	int valCarte = 0;
-    while (!joueur.estDansMain(valCarte)) valCarte = cinProtectionInt(message);	
+    while (!joueur.estDansMain(valCarte)) valCarte = saisirEntier(message);	
 	return valCarte;
 }
 
@@ -232,7 +240,7 @@ void Controleur::tourJoueur(int couleur, bool dev) {
         affichageTexte(jeu, couleur-1);
         message("\nTour de " + intToStr(couleur-1) + " :");
         if (!jeu.peutJouer(couleur, coequipier)) {
-            choix = cinProtectionChar("Aucune carte ne peut être jouée. Défausser toutes les cartes ? (Oui(o) ; Non(n)) : ");
+            choix = saisirCaractere("Aucune carte ne peut être jouée. Défausser toutes les cartes ? (Oui(o) ; Non(n)) : ");
             if (choix == 'o' || choix == 'O') {
                 jeu.defausserJoueur(couleur);
                 return ;
@@ -250,7 +258,7 @@ void Controleur::tourJoueur(int couleur, bool dev) {
         } while (choix == 'n');
 
         if (!jeu.carteJouable(couleur, valCarte, coequipier)) jeu.defausserCarte(valCarte, couleur);
-        else jouerCarte(valCarte, couleur, getIdPion, cinProtectionInt, cinProtectionChar, message, coequipier);
+        else jouerCarte(valCarte, couleur, message, coequipier);
     }
 }
 
@@ -268,8 +276,7 @@ void Controleur::afficherVainqueur(int couleurVainqueur) {
 	}
 }
 
-void Controleur::afficherImage() {//im.afficher(jeu);
-}
+void Controleur::afficherImage() {im.afficher();}
 
 void jouer(bool versionGraphique, bool dev){
 	srand(time(NULL));
