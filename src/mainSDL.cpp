@@ -13,7 +13,7 @@ int main(){
     #endif
 	srand(time(NULL));
     //jouer(true);
-	ImageViewer image(4);
+	ImageViewer image;
     //image.afficher();
     
 	return 0;

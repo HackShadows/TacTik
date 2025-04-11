@@ -18,6 +18,18 @@ int cinProtectionInt(string coutMessage) {
 	return val;
 }
 
+char cinProtectionChar(string coutMessage) {
+	char val = '0';
+	cout << "\n" + coutMessage;
+    cin.clear();
+	if(!(cin >> val)) {
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		val = '0';
+	}
+	return val;
+}
+
 void message(string coutMessage) {cout << "\n" + coutMessage << endl;}
 
 Controleur::Controleur() : jeu(), im(), versionGraphique(false) {}
@@ -50,15 +62,7 @@ int Controleur::saisirEntier(string coutMessage) {
 
 char Controleur::saisirCaractere(string coutMessage) {
 	if (versionGraphique) return im.getEventChar(coutMessage);
-	char val = '0';
-	cout << "\n" + coutMessage;
-    cin.clear();
-	if(!(cin >> val)) {
-		cin.clear();
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
-		val = '0';
-	}
-	return val;
+	return cinProtectionChar(coutMessage);
 }
 
 bool Controleur::jouerCarte(int valCarte, int couleur, void (message)(string), bool coequipier, bool joker) {
@@ -191,35 +195,35 @@ void Controleur::echangeDeCartes() {
 	int valCarte, couleur, nbJoueurs = jeu.getNbJoueurs();
 	int ordre[6] = {1, 2, 5, 3, 4, 6};
 	int echange_carte[3] = {0, 0, 0};
-		for (int i = 0 ; i < nbJoueurs/2 ; i++) {
-			couleur = (nbJoueurs == 6) ? ordre[i]:i+1;
-			affichageTexte(jeu, -1);
-			message("Tour de " + intToStr(couleur-1) + " (Entrée pour continuer)");
-			cin.clear();
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			cin.get();
-			affichageTexte(jeu, couleur-1);
-			message("\nTour de " + intToStr(couleur-1) + " :");
-			valCarte = choixCarte("Carte à donner à ton coéquipier : ", jeu.getJoueur(couleur-1));
-			echange_carte[i] = valCarte;
-		}
+	for (int i = 0 ; i < nbJoueurs/2 ; i++) {
+		couleur = (nbJoueurs == 6) ? ordre[i]:i+1;
+		affichageTexte(jeu, -1);
+		message("Tour de " + intToStr(couleur-1) + " (Entrée pour continuer)");
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		cin.get();
+		affichageTexte(jeu, couleur-1);
+		message("\nTour de " + intToStr(couleur-1) + " :");
+		valCarte = choixCarte("Carte à donner à ton coéquipier : ", jeu.getJoueur(couleur-1));
+		echange_carte[i] = valCarte;
+	}
 
-		for (int i = nbJoueurs/2 ; i < nbJoueurs ; i++) {
-			couleur = (nbJoueurs == 6) ? ordre[i]:i+1;
-			affichageTexte(jeu, -1);
-			message("Tour de " + intToStr(couleur-1) + " (Entrée pour continuer)");
-			cin.clear();
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			cin.get();
-			affichageTexte(jeu, couleur-1);
-			message("\nTour de " + intToStr(couleur-1) + " :");
-			valCarte = choixCarte("Carte à donner à ton coéquipier : ", jeu.getJoueur(couleur-1));
-			
-			int indJ1;
-			if (nbJoueurs == 6) indJ1 = (i != 5) ? (couleur-1)-(nbJoueurs/2-1):4;
-			else indJ1 = (couleur-1)-nbJoueurs/2;
-			jeu.echangerCartes(indJ1, (couleur-1), echange_carte[((i!=5)?indJ1:2)], valCarte);
-		}
+	for (int i = nbJoueurs/2 ; i < nbJoueurs ; i++) {
+		couleur = (nbJoueurs == 6) ? ordre[i]:i+1;
+		affichageTexte(jeu, -1);
+		message("Tour de " + intToStr(couleur-1) + " (Entrée pour continuer)");
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		cin.get();
+		affichageTexte(jeu, couleur-1);
+		message("\nTour de " + intToStr(couleur-1) + " :");
+		valCarte = choixCarte("Carte à donner à ton coéquipier : ", jeu.getJoueur(couleur-1));
+		
+		int indJ1;
+		if (nbJoueurs == 6) indJ1 = (i != 5) ? (couleur-1)-(nbJoueurs/2-1):4;
+		else indJ1 = (couleur-1)-nbJoueurs/2;
+		jeu.echangerCartes(indJ1, (couleur-1), echange_carte[((i!=5)?indJ1:2)], valCarte);
+	}
 }
 
 void Controleur::tourJoueur(int couleur, bool dev) {
