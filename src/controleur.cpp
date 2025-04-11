@@ -6,18 +6,11 @@
 using namespace std;
 
 
-
 Controleur::Controleur() {
 	console = new ImageConsole;
 	graphique = nullptr;
 	versionGraphique = false;
 }
-
-/*Controleur::Controleur() : jeu(), versionGraphique(false) {}
-
-Controleur::Controleur(int nbJ, int nbIA, bool affichageGraphique) : jeu(nbJ, nbIA), versionGraphique(affichageGraphique) {
-	assert(nbIA >= 0 && nbJ >= 0 && (nbJ + nbIA == 4 || nbJ + nbIA == 6));
-}*/
 
 Controleur::Controleur(int nbJ, int nbIA, bool affichageGraphique) {
 	assert(nbIA >= 0 && nbJ >= nbIA && (nbJ == 4 || nbJ == 6));
@@ -284,6 +277,8 @@ void Controleur::afficherJeu() {
 	if (versionGraphique) graphique->afficher();
 	else console->affichageTexte(7);
 }
+
+
 
 void jouer(bool versionGraphique, bool dev){
 	srand(time(NULL));
