@@ -12,10 +12,9 @@ int main(){
         SetConsoleOutputCP(CP_UTF8);
     #endif
 	srand(time(NULL));
-    // jouer(true);
-    
+    //jouer(true);
 	ImageViewer image(4);
-    image.afficher();
+    //image.afficher();
     
 	return 0;
 }

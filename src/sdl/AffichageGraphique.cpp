@@ -62,39 +62,6 @@ ImageViewer::ImageViewer(int nbJoueurs, int nbIA) : jeu(nbJoueurs, nbIA) {
         exit(1);
     }
 
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-
-    texturePlateau = nbJ == 4 ? IMG_LoadTexture(renderer, "./data/plateau/plateau4.png") : IMG_LoadTexture(renderer, "./data/plateau/plateau6.png");
-    textureTas = IMG_LoadTexture(renderer, "./data/cartes/0.png");
-    textureCartes[0] = IMG_LoadTexture(renderer, "./data/cartes/0.png");
-    textureCartes[1] = IMG_LoadTexture(renderer, "./data/cartes/0.png");
-    textureCartes[2] = IMG_LoadTexture(renderer, "./data/cartes/0.png");
-    textureCartes[3] = IMG_LoadTexture(renderer, "./data/cartes/0.png");
-    if (texturePlateau == nullptr) {
-        std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
-        return;
-    }
-    if (textureTas == nullptr) {
-        std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
-        return;
-    }
-    if (textureCartes[0] == nullptr) {
-        std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
-        return;
-    }
-    if (textureCartes[1] == nullptr) {
-        std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
-        return;
-    }
-    if (textureCartes[2] == nullptr) {
-        std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
-        return;
-    }
-    if (textureCartes[3] == nullptr) {
-        std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
-        return;
-    }
-
     if (nbJ == 6) {
         coordonnees = new int[96][2];
         coordonneesMaison = new int[24][2];
@@ -131,7 +98,8 @@ ImageViewer::ImageViewer(int nbJoueurs, int nbIA) : jeu(nbJoueurs, nbIA) {
             coordonneesReserve[i][0] = tmpReserve[i][0];
             coordonneesReserve[i][1] = tmpReserve[i][1];
         }
-    } else {
+    }
+    else {
         coordonnees = new int[64][2];
         coordonneesMaison = new int[16][2];
         coordonneesReserve = new int[16][2];
@@ -166,7 +134,7 @@ ImageViewer::ImageViewer(int nbJoueurs, int nbIA) : jeu(nbJoueurs, nbIA) {
 }
 
 ImageViewer::~ImageViewer() {
-    delete [] coordonnees;
+    /*delete [] coordonnees;
     delete [] coordonneesMaison;
     delete [] coordonneesReserve;
     SDL_DestroyTexture(texturePlateau);
@@ -177,7 +145,7 @@ ImageViewer::~ImageViewer() {
     SDL_DestroyTexture(textureCartes[3]);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
-    SDL_Quit();
+    SDL_Quit();*/
 }
 
 int ImageViewer::getIndicePion(int posx, int posy) {
@@ -537,7 +505,7 @@ void ImageViewer::gestionEvent(SDL_Event event, bool &running, int &imgWidth, in
                     if (jeu.carteJouable(couleur, valeur)) {
                         cout << "La carte est jouable" << endl;
                         //jeu.jouerCarte(valeur, couleur, getIndicePionEvent, getEventNumber, getEventChar);
-                        cout << getIndicePionEvent() << endl;
+                        //cout << getIndicePionEvent() << endl;
                         setTextureCartes(couleur-1);
                     }
                 }
@@ -547,6 +515,37 @@ void ImageViewer::gestionEvent(SDL_Event event, bool &running, int &imgWidth, in
 }
 
 void ImageViewer::afficher() {
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    texturePlateau = nbJ == 4 ? IMG_LoadTexture(renderer, "./data/plateau/plateau4.png") : IMG_LoadTexture(renderer, "./data/plateau/plateau6.png");
+    textureTas = IMG_LoadTexture(renderer, "./data/cartes/0.png");
+    textureCartes[0] = IMG_LoadTexture(renderer, "./data/cartes/0.png");
+    textureCartes[1] = IMG_LoadTexture(renderer, "./data/cartes/0.png");
+    textureCartes[2] = IMG_LoadTexture(renderer, "./data/cartes/0.png");
+    textureCartes[3] = IMG_LoadTexture(renderer, "./data/cartes/0.png");
+    if (texturePlateau == nullptr) {
+        std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
+        return;
+    }
+    if (textureTas == nullptr) {
+        std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
+        return;
+    }
+    if (textureCartes[0] == nullptr) {
+        std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
+        return;
+    }
+    if (textureCartes[1] == nullptr) {
+        std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
+        return;
+    }
+    if (textureCartes[2] == nullptr) {
+        std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
+        return;
+    }
+    if (textureCartes[3] == nullptr) {
+        std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
+        return;
+    }
     int imgWidth = (int) dimx * zoom;
     int imgHeight = (int) dimy * zoom;
 
