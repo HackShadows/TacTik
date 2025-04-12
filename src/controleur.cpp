@@ -60,14 +60,16 @@ void Controleur::afficherMessage(string coutMessage) {
 	return message(coutMessage);
 }
 
-void Controleur::attenteTour(int couleur) {
+void Controleur::attenteTour(int couleur, bool dev) {
 	if (versionGraphique) {}
 	else {
-		console->affichageTexte(-1);
-		afficherMessage("Tour de " + intToStr(couleur-1) + " (Entrée pour continuer)");
-		cin.clear();
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
-		cin.get();
+		if (!dev) {
+			console->affichageTexte(-1);
+			afficherMessage("Tour de " + intToStr(couleur-1) + " (Entrée pour continuer)");
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			cin.get();
+		}
 		console->affichageTexte(couleur-1);
 		afficherMessage("\nTour de " + intToStr(couleur-1) + " :");
 	}
@@ -208,14 +210,12 @@ void Controleur::echangeDeCartes() {
 	for (int i = 0 ; i < nbJoueurs ; i++) {
 		couleur = (nbJoueurs == 6) ? ordre[i]:i+1;
 		attenteTour(couleur);
-		valCarte = choixCarte("Carte à donner à ton coéquipier : ", jeu.getJoueur(couleur-1));
+		valCarte = choixCarte("Carte à donner à " + intToStr(((couleur < 5) ? (couleur+1)%4 : 10-couleur)) + " : ", jeu.getJoueur(couleur-1));
 		
 		if (i < nbJoueurs/2) echange_carte[i] = valCarte;
 		else {
-			int indJ1;
-			if (nbJoueurs == 6) indJ1 = (i != 5) ? (couleur-1)-(nbJoueurs/2-1):4;
-			else indJ1 = (couleur-1)-nbJoueurs/2;
-			jeu.echangerCartes(indJ1, (couleur-1), echange_carte[((i!=5)?indJ1:2)], valCarte);
+			int indJ1 = (couleur == 6) ? 4:couleur-3;
+			jeu.echangerCartes(indJ1, (couleur-1), echange_carte[i-nbJoueurs/2], valCarte);
 		}
 	}
 }
@@ -227,17 +227,11 @@ void Controleur::tourJoueur(int couleur, bool dev) {
 	int valCarte;
 	bool peut_jouer = true, coequipier = (jeu.getJoueur(couleur-1).maisonRemplie());
     IA ia;
-	if (!dev) {
-		console->affichageTexte(-1);
-		afficherMessage("Tour de " + intToStr(couleur-1) + " (Entrée pour continuer)");
-		cin.clear();
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cin.get();
-	}
-    if (jeu.getJoueur(couleur-1).estIA()) ia.genererCoups(jeu, couleur);
+	
+	attenteTour(couleur, dev);
+    
+	if (jeu.getJoueur(couleur-1).estIA()) ia.genererCoups(jeu, couleur);
     else {
-        console->affichageTexte(couleur-1);
-        afficherMessage("\nTour de " + intToStr(couleur-1) + " :");
         if (!jeu.peutJouer(couleur, coequipier)) {
             choix = saisirCaractere("Aucune carte ne peut être jouée. Défausser toutes les cartes ? (Oui(o) ; Non(n)) : ");
             if (choix == 'o' || choix == 'O') {

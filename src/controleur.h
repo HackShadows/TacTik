@@ -86,8 +86,9 @@ class Controleur {
 		* @brief Affiche le message d'attente entre deux tours.
 		*
 		* @param couleur Couleur du joueur actif.
+		* @param dev True si exécuté en mode développeur, false sinon (géré automatiquement).
 		*/
-		void attenteTour(int couleur);
+		void attenteTour(int couleur, bool dev = false);
 
 		/**
 		* @brief Joue la carte passée en paramètre.
