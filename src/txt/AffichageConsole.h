@@ -43,7 +43,7 @@ int cinProtectionInt(string coutMessage = "");
 char cinProtectionChar(string coutMessage = "");
 
 /**
-* @brief Permet d'afficher le message passé en paramètre.
+* @brief Permet d'afficher le message passé en paramètre dans la console.
 *
 * @param coutMessage Message à afficher.
 */

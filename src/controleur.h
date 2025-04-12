@@ -55,7 +55,7 @@ class Controleur {
 		*
 		* @return Identifiant saisi par l'utilisateur (valeur renvoyée par défaut 0).
 		*/
-		int getIdPion(string coutMessage);
+		int getIdPion(string coutMessage = "");
 
 		/**
 		* @brief Permet de saisir un entier en gérant les erreurs de saisi.
@@ -76,27 +76,40 @@ class Controleur {
 		char saisirCaractere(string coutMessage = "");
 
 		/**
+		* @brief Permet d'afficher le message passé en paramètre.
+		*
+		* @param coutMessage Message à afficher.
+		*/
+		void afficherMessage(string coutMessage = "");
+
+		/**
+		* @brief Affiche le message d'attente entre deux tours.
+		*
+		* @param couleur Couleur du joueur actif.
+		*/
+		void attenteTour(int couleur);
+
+		/**
 		* @brief Joue la carte passée en paramètre.
 		*
 		* @param valCarte Valeur de la carte jouée par le joueur.
 		* @param couleur Couleur du joueur.
-		* @param message Fonction permettant d'afficher un message.
 		* @param coequipier True si le joueur joue pour son coéquipier, false sinon (géré automatiquement).
 		* @param joker True si la carte passée en paramètre est un joker, false sinon (géré automatiquement).
 		*
 		* @return True si la carte a pu être jouée, False sinon.
 		*/
-		bool jouerCarte(int valCarte, int couleur, void (message)(string) = messageDefaut, bool coequipier = false, bool joker = false);
+		bool jouerCarte(int valCarte, int couleur, bool coequipier = false, bool joker = false);
 
 		/**
 		* @brief Récupère la carte que le joueur souhaite jouer.
 		*
-		* @param message Message à afficher avant le cin.
+		* @param coutMessage Message à afficher avant le cin.
 		* @param joueur Le joueur à qui est demandée la carte.
 		* 
 		* @return Valeur de la carte choisie par le joueur.
 		*/
-		int choixCarte(string message, const Joueur& joueur);
+		int choixCarte(string coutMessage, const Joueur& joueur);
 
 		/**
 		* @brief Effectue l'échange de cartes entre les joueurs au début de chaque tour.

@@ -55,7 +55,25 @@ char Controleur::saisirCaractere(string coutMessage) {
 	return cinProtectionChar(coutMessage);
 }
 
-bool Controleur::jouerCarte(int valCarte, int couleur, void (message)(string), bool coequipier, bool joker) {
+void Controleur::afficherMessage(string coutMessage) {
+	if (versionGraphique) return ;
+	return message(coutMessage);
+}
+
+void Controleur::attenteTour(int couleur) {
+	if (versionGraphique) {}
+	else {
+		console->affichageTexte(-1);
+		afficherMessage("Tour de " + intToStr(couleur-1) + " (Entrée pour continuer)");
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		cin.get();
+		console->affichageTexte(couleur-1);
+		afficherMessage("\nTour de " + intToStr(couleur-1) + " :");
+	}
+}
+
+bool Controleur::jouerCarte(int valCarte, int couleur, bool coequipier, bool joker) {
 	Jeu &jeu = getJeu();
 	int nbJoueurs = jeu.getNbJoueurs();
 	assert(valCarte == -4 || (-1 <= valCarte && valCarte <= 13 && valCarte != 0 && valCarte != 4));
@@ -88,11 +106,11 @@ bool Controleur::jouerCarte(int valCarte, int couleur, void (message)(string), b
 			do {
 				valCarte = saisirEntier("Valeur désirée pour le joker : ");
 			} while (valCarte != -4 && (valCarte < 1 || valCarte > 13 || valCarte == 4));
-			if (!jeu.carteJouable(c1, valCarte, coequipier, true)) message("Action impossible ! Choisissez une autre valeur pour le joker.");
+			if (!jeu.carteJouable(c1, valCarte, coequipier, true)) afficherMessage("Action impossible ! Choisissez une autre valeur pour le joker.");
 			else continuer = false;
 		}
 		
-		return jouerCarte(valCarte, c1, message, coequipier, true);
+		return jouerCarte(valCarte, c1, coequipier, true);
 	} 
 	
 	// Cas du démarrer
@@ -147,7 +165,7 @@ bool Controleur::jouerCarte(int valCarte, int couleur, void (message)(string), b
 					while (idPion < 1 || idPion > 4*nbJoueurs || (idPion-1)/4 != couleur-1) idPion = getIdPion("Id du pion à avancer : ");
 					val = 0;
 					while (val < 1 || somme + val > 7) val = saisirEntier("Nombre de cases à avancer : ");
-					if (!jeu.avancerPion(val, idPion, true)) message("Ce déplacement est impossible !");
+					if (!jeu.avancerPion(val, idPion, true)) afficherMessage("Ce déplacement est impossible !");
 					else continuer = false;
 				}
 				jeu.avancerPion(val, idPion, false, true);
@@ -176,9 +194,9 @@ bool Controleur::jouerCarte(int valCarte, int couleur, void (message)(string), b
 	return true;
 }
 
-int Controleur::choixCarte(string message, const Joueur& joueur) {
+int Controleur::choixCarte(string coutMessage, const Joueur& joueur) {
 	int valCarte = 0;
-    while (!joueur.estDansMain(valCarte)) valCarte = saisirEntier(message);	
+    while (!joueur.estDansMain(valCarte)) valCarte = saisirEntier(coutMessage);	
 	return valCarte;
 }
 
@@ -187,34 +205,18 @@ void Controleur::echangeDeCartes() {
 	int valCarte, couleur, nbJoueurs = jeu.getNbJoueurs();
 	int ordre[6] = {1, 2, 5, 3, 4, 6};
 	int echange_carte[3] = {0, 0, 0};
-	for (int i = 0 ; i < nbJoueurs/2 ; i++) {
+	for (int i = 0 ; i < nbJoueurs ; i++) {
 		couleur = (nbJoueurs == 6) ? ordre[i]:i+1;
-		console->affichageTexte(-1);
-		message("Tour de " + intToStr(couleur-1) + " (Entrée pour continuer)");
-		cin.clear();
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
-		cin.get();
-		console->affichageTexte(couleur-1);
-		message("\nTour de " + intToStr(couleur-1) + " :");
-		valCarte = choixCarte("Carte à donner à ton coéquipier : ", jeu.getJoueur(couleur-1));
-		echange_carte[i] = valCarte;
-	}
-
-	for (int i = nbJoueurs/2 ; i < nbJoueurs ; i++) {
-		couleur = (nbJoueurs == 6) ? ordre[i]:i+1;
-		console->affichageTexte(-1);
-		message("Tour de " + intToStr(couleur-1) + " (Entrée pour continuer)");
-		cin.clear();
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
-		cin.get();
-		console->affichageTexte(couleur-1);
-		message("\nTour de " + intToStr(couleur-1) + " :");
+		attenteTour(couleur);
 		valCarte = choixCarte("Carte à donner à ton coéquipier : ", jeu.getJoueur(couleur-1));
 		
-		int indJ1;
-		if (nbJoueurs == 6) indJ1 = (i != 5) ? (couleur-1)-(nbJoueurs/2-1):4;
-		else indJ1 = (couleur-1)-nbJoueurs/2;
-		jeu.echangerCartes(indJ1, (couleur-1), echange_carte[((i!=5)?indJ1:2)], valCarte);
+		if (i < nbJoueurs/2) echange_carte[i] = valCarte;
+		else {
+			int indJ1;
+			if (nbJoueurs == 6) indJ1 = (i != 5) ? (couleur-1)-(nbJoueurs/2-1):4;
+			else indJ1 = (couleur-1)-nbJoueurs/2;
+			jeu.echangerCartes(indJ1, (couleur-1), echange_carte[((i!=5)?indJ1:2)], valCarte);
+		}
 	}
 }
 
@@ -227,7 +229,7 @@ void Controleur::tourJoueur(int couleur, bool dev) {
     IA ia;
 	if (!dev) {
 		console->affichageTexte(-1);
-		message("Tour de " + intToStr(couleur-1) + " (Entrée pour continuer)");
+		afficherMessage("Tour de " + intToStr(couleur-1) + " (Entrée pour continuer)");
 		cin.clear();
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
         cin.get();
@@ -235,7 +237,7 @@ void Controleur::tourJoueur(int couleur, bool dev) {
     if (jeu.getJoueur(couleur-1).estIA()) ia.genererCoups(jeu, couleur);
     else {
         console->affichageTexte(couleur-1);
-        message("\nTour de " + intToStr(couleur-1) + " :");
+        afficherMessage("\nTour de " + intToStr(couleur-1) + " :");
         if (!jeu.peutJouer(couleur, coequipier)) {
             choix = saisirCaractere("Aucune carte ne peut être jouée. Défausser toutes les cartes ? (Oui(o) ; Non(n)) : ");
             if (choix == 'o' || choix == 'O') {
@@ -248,14 +250,14 @@ void Controleur::tourJoueur(int couleur, bool dev) {
             valCarte = choixCarte(((peut_jouer) ? "Carte à jouer : " : "Carte à défausser : "), jeu.getJoueur(couleur-1));
 
             if (!jeu.carteJouable(couleur, valCarte, coequipier) && peut_jouer) {
-                message("Cette carte ne peut pas être jouée ! Choisissez-en une autre.");
+                afficherMessage("Cette carte ne peut pas être jouée ! Choisissez-en une autre.");
                 choix = 'n';
             } else choix = 'o';
 
         } while (choix == 'n');
 
         if (!jeu.carteJouable(couleur, valCarte, coequipier)) jeu.defausserCarte(valCarte, couleur);
-        else jouerCarte(valCarte, couleur, message, coequipier);
+        else jouerCarte(valCarte, couleur, coequipier);
     }
 }
 
