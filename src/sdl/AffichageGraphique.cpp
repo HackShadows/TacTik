@@ -17,9 +17,9 @@ int getIndiceCase(Jeu &jeu, int posx, int posy, const int tab[][2], float zoom) 
 }
 
 ImageViewer::ImageViewer(int nbJoueurs, int nbIA) : jeu(nbJoueurs, nbIA) {
-	assert(nbIA >= 0 && nbJoueurs >= nbIA && (nbJoueurs == 4 || nbJoueurs == 6));
+    assert(nbIA >= 0 && nbJoueurs >= nbIA && (nbJoueurs == 4 || nbJoueurs == 6));
 
-	jeu.demarrer(1);
+    jeu.demarrer(1);
     jeu.demarrer(2);
     jeu.demarrer(3);
     jeu.demarrer(4);
@@ -80,26 +80,32 @@ ImageViewer::ImageViewer(int nbJoueurs, int nbIA) : jeu(nbJoueurs, nbIA) {
             {838, 790}, {838, 850}, {778, 850}, {718, 850}, {718, 790}, {656, 788}, {595, 788}, {595, 850}, {535, 850},
             {474, 850}, {474, 790}, {475, 727}, {415, 727}
         };
-        int tmpMaison[24][2] = {{266,493}, {219,492}, {175,494}, {129,492}, {179,267}, {179,221}, {178,176}, {179,130}, {854,182}, 
-        {900,183}, {946,182}, {992,183}, {940,406}, {940,451}, {940,498}, {940,542}, {401,182}, {447,180}, {492,181}, {537,181}, {718,492}, 
-        {673,493}, {628,491}, {583,493}};
-        int tmpReserve[24][2] = {{399,831}, {366,803}, {335,831}, {314,803}, {62,405}, {104,372}, {58,335}, {95,308}, {1091,73}, {1119,99}, 
-        {1150,65}, {1192,96}, {1426,488}, {1389,529}, {1435,561}, {1400,584}, {485,64}, {511,96}, {548,66}, {578,91}, {1005,830}, {986,800}, 
-        {951,827}, {914,810}};
+        int tmpMaison[24][2] = {
+            {266, 493}, {219, 492}, {175, 494}, {129, 492}, {179, 267}, {179, 221}, {178, 176}, {179, 130}, {854, 182},
+            {900, 183}, {946, 182}, {992, 183}, {940, 406}, {940, 451}, {940, 498}, {940, 542}, {401, 182}, {447, 180},
+            {492, 181}, {537, 181}, {718, 492},
+            {673, 493}, {628, 491}, {583, 493}
+        };
+        int tmpReserve[24][2] = {
+            {399, 831}, {366, 803}, {335, 831}, {314, 803}, {62, 405}, {104, 372}, {58, 335}, {95, 308}, {1091, 73},
+            {1119, 99},
+            {1150, 65}, {1192, 96}, {1426, 488}, {1389, 529}, {1435, 561}, {1400, 584}, {485, 64}, {511, 96}, {548, 66},
+            {578, 91}, {1005, 830}, {986, 800},
+            {951, 827}, {914, 810}
+        };
         for (int i = 0; i < 96; i++) {
             coordonnees[i][0] = tmp[i][0];
             coordonnees[i][1] = tmp[i][1];
         }
-        for (int i = 0; i<24; i++){
-            coordonneesMaison[i][0] = tmpMaison[i][0]*1.33;
-            coordonneesMaison[i][1] = tmpMaison[i][1]*1.33;
+        for (int i = 0; i < 24; i++) {
+            coordonneesMaison[i][0] = tmpMaison[i][0] * 1.33;
+            coordonneesMaison[i][1] = tmpMaison[i][1] * 1.33;
         }
-        for (int i = 0; i<24; i++){
+        for (int i = 0; i < 24; i++) {
             coordonneesReserve[i][0] = tmpReserve[i][0];
             coordonneesReserve[i][1] = tmpReserve[i][1];
         }
-    }
-    else {
+    } else {
         coordonnees = new int[64][2];
         coordonneesMaison = new int[16][2];
         coordonneesReserve = new int[16][2];
@@ -118,15 +124,19 @@ ImageViewer::ImageViewer(int nbJoueurs, int nbIA) : jeu(nbJoueurs, nbIA) {
             coordonnees[i][0] = tmp[i][0];
             coordonnees[i][1] = tmp[i][1];
         }
-        int tmpMaison[16][2] = {{397,732}, {329,732}, {262,731}, {194,732}, {268,403}, {270,335}, {267,265}, 
-        {268,198}, {596,270}, {664,272}, {731,269}, {800,273}, {724,601}, {724,671}, {723,735}, {724,803}};
-        for (int i = 0; i<16; i++){
+        int tmpMaison[16][2] = {
+            {397, 732}, {329, 732}, {262, 731}, {194, 732}, {268, 403}, {270, 335}, {267, 265},
+            {268, 198}, {596, 270}, {664, 272}, {731, 269}, {800, 273}, {724, 601}, {724, 671}, {723, 735}, {724, 803}
+        };
+        for (int i = 0; i < 16; i++) {
             coordonneesMaison[i][0] = tmpMaison[i][0];
             coordonneesMaison[i][1] = tmpMaison[i][1];
         }
-        int tmpReserve[16][2] = {{346,915}, {379,881}, {419,920}, {446,889}, {77,453}, {113,414}, {72,382}, 
-        {119,346}, {548,80}, {580,118}, {620,79}, {644,112}, {883,550}, {916,578}, {884,611}, {911,650}};
-        for (int i = 0; i<16; i++){
+        int tmpReserve[16][2] = {
+            {346, 915}, {379, 881}, {419, 920}, {446, 889}, {77, 453}, {113, 414}, {72, 382},
+            {119, 346}, {548, 80}, {580, 118}, {620, 79}, {644, 112}, {883, 550}, {916, 578}, {884, 611}, {911, 650}
+        };
+        for (int i = 0; i < 16; i++) {
             coordonneesReserve[i][0] = tmpReserve[i][0];
             coordonneesReserve[i][1] = tmpReserve[i][1];
         }
@@ -148,8 +158,8 @@ ImageViewer::~ImageViewer() {
     SDL_Quit();*/
 }
 
-Jeu& ImageViewer::getJeu() {
-	return jeu;
+Jeu &ImageViewer::getJeu() {
+    return jeu;
 }
 
 int ImageViewer::getIndicePion(int posx, int posy) {
@@ -176,7 +186,8 @@ int ImageViewer::getIndicePionEvent(string s) {
             if (event.type == SDL_MOUSEBUTTONDOWN) {
                 float rayon = 20 * zoom;
                 for (int i = 0; i < 16 * nbJ; i++) {
-                    if (abs(event.button.x - coordonnees[i][0] * zoom) < rayon && abs(event.button.y - coordonnees[i][1] * zoom) < rayon) {
+                    if (abs(event.button.x - coordonnees[i][0] * zoom) < rayon && abs(
+                            event.button.y - coordonnees[i][1] * zoom) < rayon) {
                         cout << "sortie \n";
                         return jeu.getPlateau().getIdPion(i);
                         //return getIndicePion(jeu, event.button.x, event.button.y);
@@ -229,7 +240,6 @@ int ImageViewer::getEventNumber(string s) {
                 cout << "sortie \n";
                 return 7;
             }
-
         }
     }
 }
@@ -327,11 +337,11 @@ void ImageViewer::debugCoordonnees() const {
     for (int i = 0; i < 16 * nbJ; i++) {
         dessineCercle(1, coordonnees[i][0] * zoom, coordonnees[i][1] * zoom);
     }
-    for (int i = 0; i<4*nbJ; i++){
-        dessineTriangle(i/4+1, coordonneesMaison[i][0]*zoom, coordonneesMaison[i][1]*zoom);
+    for (int i = 0; i < 4 * nbJ; i++) {
+        dessineTriangle(i / 4 + 1, coordonneesMaison[i][0] * zoom, coordonneesMaison[i][1] * zoom);
     }
-    for (int i = 0; i<4*nbJ; i++){
-        dessineCercle(i/4+1, coordonneesReserve[i][0]*zoom, coordonneesReserve[i][1]*zoom);
+    for (int i = 0; i < 4 * nbJ; i++) {
+        dessineCercle(i / 4 + 1, coordonneesReserve[i][0] * zoom, coordonneesReserve[i][1] * zoom);
     }
 }
 
@@ -350,20 +360,20 @@ void ImageViewer::afficherPions() const {
 }
 
 void ImageViewer::afficherReserve() const {
-    for (int i = 0; i<nbJ; i++){
+    for (int i = 0; i < nbJ; i++) {
         int reserve = jeu.getJoueur(i).getReserve();
-        for (int j = 0; j<reserve; j++){
-            dessineCercle(i+1, coordonneesReserve[i*4+j][0]*zoom, coordonneesReserve[i*4+j][1]*zoom);
+        for (int j = 0; j < reserve; j++) {
+            dessineCercle(i + 1, coordonneesReserve[i * 4 + j][0] * zoom, coordonneesReserve[i * 4 + j][1] * zoom);
         }
     }
 }
 
 void ImageViewer::afficherMaison() const {
-    for (int i = 0; i<nbJ; i++){
-        const int * maison = jeu.getJoueur(i).getMaison();
-        for (int j = 0; j<4; j++){
-            if (maison[j]!=0){
-                dessineTriangle((i-1)/4+1, coordonneesMaison[i][0]*zoom, coordonneesMaison[i][1]*zoom);
+    for (int i = 0; i < nbJ; i++) {
+        const int *maison = jeu.getJoueur(i).getMaison();
+        for (int j = 0; j < 4; j++) {
+            if (maison[j] != 0) {
+                dessineTriangle((i - 1) / 4 + 1, coordonneesMaison[i][0] * zoom, coordonneesMaison[i][1] * zoom);
             }
         }
     }
@@ -384,7 +394,7 @@ void ImageViewer::setTextureCartes(int id_joueur) {
             }
         } else {
             int valeur = carte->getValeur();
-            if (valeur !=-1) {
+            if (valeur != -1) {
                 char chemin[30];
                 sprintf(chemin, "./data/cartes/%d.png", abs(valeur));
                 textureCartes[i] = IMG_LoadTexture(renderer, chemin);
@@ -403,7 +413,8 @@ void ImageViewer::setTextureCartes(int id_joueur) {
     }
 }
 
-void ImageViewer::gestionEvent(SDL_Event event, bool &running, int &imgWidth, int &imgHeight, SDL_Rect RectMain[4], SDL_Rect &RectTas) {
+void ImageViewer::gestionEvent(SDL_Event event, bool &running, int &imgWidth, int &imgHeight, SDL_Rect RectMain[4],
+                               SDL_Rect &RectTas) {
     if (event.type == SDL_QUIT) {
         running = false;
     }
@@ -416,8 +427,8 @@ void ImageViewer::gestionEvent(SDL_Event event, bool &running, int &imgWidth, in
             imgWidth = dimx * zoom;
             imgHeight = dimy * zoom;
             SDL_SetWindowSize(window, imgWidth + 200 * zoom, imgHeight);
-            for (int i = 0; i<4; i++) {
-                RectMain[i] = {imgWidth, (int)(i*imgHeight/4), (int) (200 * zoom), (int) (imgHeight/4 )};
+            for (int i = 0; i < 4; i++) {
+                RectMain[i] = {imgWidth, (int) (i * imgHeight / 4), (int) (200 * zoom), (int) (imgHeight / 4)};
             }
             RectTas = {
                 (int) (imgWidth / 2 - 100 * zoom), (int) (imgHeight / 2 - 150 * zoom), (int) (200 * zoom),
@@ -429,8 +440,8 @@ void ImageViewer::gestionEvent(SDL_Event event, bool &running, int &imgWidth, in
             imgWidth = dimx * zoom;
             imgHeight = dimy * zoom;
             SDL_SetWindowSize(window, imgWidth + 200 * zoom, imgHeight);
-            for (int i = 0; i<4; i++) {
-                RectMain[i] = {imgWidth, (int)(i*imgHeight/4), (int) (200 * zoom), (int) (imgHeight/4 )};
+            for (int i = 0; i < 4; i++) {
+                RectMain[i] = {imgWidth, (int) (i * imgHeight / 4), (int) (200 * zoom), (int) (imgHeight / 4)};
             }
             RectTas = {
                 (int) (imgWidth / 2 - 100 * zoom), (int) (imgHeight / 2 - 150 * zoom), (int) (200 * zoom),
@@ -479,12 +490,12 @@ void ImageViewer::gestionEvent(SDL_Event event, bool &running, int &imgWidth, in
             cout << getIndicePion(event.button.x, event.button.y) << endl;
             if (event.button.x > imgWidth) {
                 int couleur = 1;
-                setTextureCartes(couleur-1);
-                cout << "Position : " << jeu.getPion(4*(couleur-1)+1).getPos() << endl;
+                setTextureCartes(couleur - 1);
+                cout << "Position : " << jeu.getPion(4 * (couleur - 1) + 1).getPos() << endl;
                 int indiceCase = event.button.y / (250 * zoom);
                 cout << indiceCase << endl;
-                if (jeu.getJoueur(couleur-1).getCarte(indiceCase)) {
-                    int valeur = jeu.getJoueur(couleur-1).getCarte(indiceCase)->getValeur();
+                if (jeu.getJoueur(couleur - 1).getCarte(indiceCase)) {
+                    int valeur = jeu.getJoueur(couleur - 1).getCarte(indiceCase)->getValeur();
                     cout << "La valeur de la carte : " << valeur << endl;
                     if (jeu.carteJouable(couleur, valeur)) {
                         cout << "La carte est jouable" << endl;
@@ -497,18 +508,18 @@ void ImageViewer::gestionEvent(SDL_Event event, bool &running, int &imgWidth, in
             //cout << getIndiceCase(event.button.x, event.button.y, coordonnees, zoom) << endl;
             if (event.button.x > imgWidth) {
                 int couleur = 1;
-                setTextureCartes(couleur-1);
-                cout << "Position : " << jeu.getPion(4*(couleur-1)+1).getPos() << endl;
+                setTextureCartes(couleur - 1);
+                cout << "Position : " << jeu.getPion(4 * (couleur - 1) + 1).getPos() << endl;
                 int indiceCase = event.button.y / (250 * zoom);
                 cout << indiceCase << endl;
-                if (jeu.getJoueur(couleur-1).getCarte(indiceCase)) {
-                    int valeur = jeu.getJoueur(couleur-1).getCarte(indiceCase)->getValeur();
+                if (jeu.getJoueur(couleur - 1).getCarte(indiceCase)) {
+                    int valeur = jeu.getJoueur(couleur - 1).getCarte(indiceCase)->getValeur();
                     cout << "La valeur de la carte : " << valeur << endl;
                     if (jeu.carteJouable(couleur, valeur)) {
                         cout << "La carte est jouable" << endl;
                         //jeu.jouerCarte(valeur, couleur);
                         //cout << getIndicePionEvent() << endl;
-                        setTextureCartes(couleur-1);
+                        setTextureCartes(couleur - 1);
                     }
                 }
             }
@@ -518,7 +529,9 @@ void ImageViewer::gestionEvent(SDL_Event event, bool &running, int &imgWidth, in
 
 void ImageViewer::afficher() {
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-    texturePlateau = nbJ == 4 ? IMG_LoadTexture(renderer, "./data/plateau/plateau4.png") : IMG_LoadTexture(renderer, "./data/plateau/plateau6.png");
+    texturePlateau = nbJ == 4
+                         ? IMG_LoadTexture(renderer, "./data/plateau/plateau4.png")
+                         : IMG_LoadTexture(renderer, "./data/plateau/plateau6.png");
     textureTas = IMG_LoadTexture(renderer, "./data/cartes/0.png");
     textureCartes[0] = IMG_LoadTexture(renderer, "./data/cartes/0.png");
     textureCartes[1] = IMG_LoadTexture(renderer, "./data/cartes/0.png");
@@ -552,35 +565,28 @@ void ImageViewer::afficher() {
     int imgHeight = (int) dimy * zoom;
 
     SDL_Rect RectMain[4];
-    for (int i =0; i<4; i++) {
-        RectMain[i] = {imgWidth, (int)(i*imgHeight/4), (int) (200 * zoom), (int) (imgHeight/4 )};
+    for (int i = 0; i < 4; i++) {
+        RectMain[i] = {imgWidth, (int) (i * imgHeight / 4), (int) (200 * zoom), (int) (imgHeight / 4)};
     }
     SDL_Rect RectTas = {
         (int) (imgWidth / 2 - 100 * zoom), (int) (imgHeight / 2 - 150 * zoom), (int) (200 * zoom),
         (int) (300 * zoom)
     };
 
-    bool running = true;
-    SDL_Event event;
-    while (running) {
-        while (SDL_PollEvent(&event)) {
-            gestionEvent(event, running, imgWidth, imgHeight, RectMain,RectTas);
-        }
-        SDL_SetRenderDrawColor(renderer, 128, 128, 128, 255);
-        SDL_RenderClear(renderer);
-        SDL_Rect Rect = {0, 0, imgWidth, imgHeight};
-        SDL_RenderCopy(renderer, texturePlateau, NULL, &Rect);
-        //debugCoordonnees();
 
-        afficherPions();
-        afficherMaison();
-        afficherReserve();
-        SDL_RenderCopy(renderer, textureTas, NULL, &RectTas);
-        SDL_RenderCopy(renderer, textureCartes[0], NULL, &RectMain[0]);
-        SDL_RenderCopy(renderer, textureCartes[1], NULL, &RectMain[1]);
-        SDL_RenderCopy(renderer, textureCartes[2], NULL, &RectMain[2]);
-        SDL_RenderCopy(renderer, textureCartes[3], NULL, &RectMain[3]);
-        SDL_RenderPresent(renderer);
-        SDL_Delay(100);
-    }
+    SDL_SetRenderDrawColor(renderer, 128, 128, 128, 255);
+    SDL_RenderClear(renderer);
+    SDL_Rect Rect = {0, 0, imgWidth, imgHeight};
+    SDL_RenderCopy(renderer, texturePlateau, NULL, &Rect);
+    afficherPions();
+    afficherMaison();
+    afficherReserve();
+    SDL_RenderCopy(renderer, textureTas, NULL, &RectTas);
+    SDL_RenderCopy(renderer, textureCartes[0], NULL, &RectMain[0]);
+    SDL_RenderCopy(renderer, textureCartes[1], NULL, &RectMain[1]);
+    SDL_RenderCopy(renderer, textureCartes[2], NULL, &RectMain[2]);
+    SDL_RenderCopy(renderer, textureCartes[3], NULL, &RectMain[3]);
+    SDL_RenderPresent(renderer);
+    SDL_Delay(100);
 }
+
