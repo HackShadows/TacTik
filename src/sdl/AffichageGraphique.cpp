@@ -581,6 +581,13 @@ void ImageViewer::afficher() {
         (int) (300 * zoom)
     };
 
+    SDL_Event event;
+    while (SDL_PollEvent(&event)) {
+        if (event.type == SDL_QUIT) {
+            return ;
+        }
+    }
+
 
     SDL_SetRenderDrawColor(renderer, 128, 128, 128, 255);
     SDL_RenderClear(renderer);
