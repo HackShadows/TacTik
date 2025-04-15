@@ -8,6 +8,8 @@
 #include "sdl/AffichageGraphique.h"
 #include "txt/AffichageConsole.h"
 
+#include <array>
+
 
 /**
 * @class Controleur
@@ -143,14 +145,15 @@ class Controleur {
 		* @param event L'évenement à gérer.
 		* @param cartes_visibles True si les cartes du joueur sont visibles, False sinon.
 		*/
-		int gestionEvent(SDL_Event event, bool &cartes_visibles);
+		array<int, 2> gestionEvent(SDL_Event event, bool &cartes_visibles);
 
 		/**
 		* @brief Affiche le jeu.
 		*
-		* @param running Permet d'arrêter ou continuer la partie.
+		* @param cartes_visibles True si les cartes sont visibles, False sinon.
+		* @param etapeActuel Etape en cours d'éxecution (1 =  ; 2 =  ; 3 = ).
 		*/
-		void afficherJeu(bool &running, bool &cartes_visibles);
+		bool afficherJeu(bool &cartes_visibles, int etapeActuel = -1);
 };
 
 /**

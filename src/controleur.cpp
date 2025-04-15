@@ -43,7 +43,7 @@ Jeu& Controleur::getJeu() {
 }
 
 void Controleur::setJoueurActif(int indJoueurActif) {
-	assert(-1 <= joueurActif && joueurActif < 6);
+	assert(-1 <= joueurActif && joueurActif <= 6);
 	joueurActif = indJoueurActif;
 }
 
@@ -211,18 +211,16 @@ int Controleur::choixCarte(string coutMessage, const Joueur& joueur) {
 
 void Controleur::echangeDeCartes() {
 	Jeu &jeu = getJeu();
-	int valCarte, couleur, nbJoueurs = jeu.getNbJoueurs();
-	int ordre[6] = {1, 2, 5, 3, 4, 6};
+	int valCarte, nbJoueurs = jeu.getNbJoueurs();
 	int echange_carte[3] = {0, 0, 0};
 	for (int i = 0 ; i < nbJoueurs ; i++) {
-		couleur = (nbJoueurs == 6) ? ordre[i]:i+1;
-		attenteTour(couleur);
-		valCarte = choixCarte("Carte à donner à " + intToStr(((couleur < 5) ? (couleur+1)%4 : 10-couleur)) + " : ", jeu.getJoueur(couleur-1));
+		attenteTour(joueurActif + 1);
+		valCarte = choixCarte("Carte à donner à " + intToStr(((joueurActif < 4) ? (joueurActif+2)%4 : 9-joueurActif)) + " : ", jeu.getJoueur(joueurActif));
 		
 		if (i < nbJoueurs/2) echange_carte[i] = valCarte;
 		else {
-			int indJ1 = (couleur == 6) ? 4:couleur-3;
-			jeu.echangerCartes(indJ1, (couleur-1), echange_carte[i-nbJoueurs/2], valCarte);
+			int indJ1 = (joueurActif == 5) ? 4:joueurActif-2;
+			jeu.echangerCartes(indJ1, joueurActif, echange_carte[i-nbJoueurs/2], valCarte);
 		}
 	}
 }
@@ -276,28 +274,37 @@ void Controleur::afficherVainqueur(int couleurVainqueur) {
 	}
 }
 
-void Controleur::afficherJeu(bool &running, bool &cartes_visibles) {
+bool Controleur::afficherJeu(bool &cartes_visibles, int etapeActuel) {
 	if (versionGraphique) {
     	SDL_Event event;
-		int etape = -1;
-		while (SDL_PollEvent(&event)) {
-			etape = gestionEvent(event, cartes_visibles);
+		array<int, 2> etape_info = {-2, -2};
+		while (etape_info[0] != etapeActuel) {
+			while (SDL_PollEvent(&event)) {
+				etape_info = gestionEvent(event, cartes_visibles);
+			}
+			if (etape_info[0] == 0) {
+				return false;
+			}
+			graphique->afficher(joueurActif);
 		}
-		if (etape == 0) running = false;
-		graphique->afficher();
 	}
 	else console->affichageTexte(joueurActif);
+	return true;
 }
 
-int Controleur::gestionEvent(SDL_Event event, bool &cartes_visibles) {
+array<int, 2> Controleur::gestionEvent(SDL_Event event, bool &cartes_visibles) {
     
+	array<int, 2> infos = {-2, -2};
+
     if (event.type == SDL_QUIT) {
-		return 0;
+		infos[0] = 0;
+		return infos;
     }
 
     if (event.type == SDL_KEYUP) {
         if (event.key.keysym.sym == SDLK_ESCAPE) {
-            return 0;
+            infos[0] = 0;
+			return infos;
         }
         if (event.key.keysym.sym == SDLK_t) {
             graphique->grossissement(true);
@@ -346,13 +353,15 @@ int Controleur::gestionEvent(SDL_Event event, bool &cartes_visibles) {
                         cout << "La carte est jouable" << endl;
                     }
                 }
-				return 1;
+				infos[0] = 1;
+				return infos;
             }
 			cout << graphique->getIndicePion(event.button.x, event.button.y) << endl;
-			return 2;
+			infos[0] = 2;
+			return infos;
         }
     }
-	return -1;
+	return infos;
 }
 
 
@@ -372,11 +381,11 @@ void jouer(bool versionGraphique, bool dev){
 	Jeu &jeu = controleur.getJeu();
 	int ordre[6] = {1, 2, 5, 3, 4, 6};
 	
-	bool continuer = true, cartes_visibles = false;
-	while (continuer) {
+	bool cartes_visibles = false;
+	while (true) {
 		if (versionGraphique) {
 			jeu.distribuer();
-			controleur.afficherJeu(continuer, cartes_visibles);
+			if (!controleur.afficherJeu(cartes_visibles)) return ;
 		}
 		else {
 			if (!dev) {
@@ -393,9 +402,11 @@ void jouer(bool versionGraphique, bool dev){
 			for (int i = 0 ; i < 4 ; i++) {
 				for (int j = 0 ; j < nbJoueurs ; j++) {
 					int couleur = (nbJoueurs == 6) ? ordre[j]:j+1;
+					controleur.setJoueurActif(couleur-1);
 					controleur.tourJoueur(dev);
 					if (jeu.partieGagnee()) {
-						//affichageTexte(jeu, 7);
+						controleur.setJoueurActif(6);
+						controleur.afficherJeu(cartes_visibles, 6);
 						return controleur.afficherVainqueur(couleur);
 					}
 				}

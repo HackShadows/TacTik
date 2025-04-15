@@ -88,7 +88,7 @@ void ImageConsole::affichageCarte(int indiceJoueur, int joueurActif) {
     cout << "     Les cartes du joueur " << intToStr(indiceJoueur) << " : [ ";
     for (int j = 0; j < 4; j++) {
         if(jeu.getJoueur(indiceJoueur).getCarte(j) != nullptr) {
-            if (joueurActif == indiceJoueur || joueurActif == 7) {
+            if (joueurActif == indiceJoueur || joueurActif == 6) {
                 cout << jeu.getJoueur(indiceJoueur).getCarte(j)->getValeur() << " ";
             }
             else {
