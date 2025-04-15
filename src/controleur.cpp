@@ -330,7 +330,7 @@ void Controleur::gestionEvent(SDL_Event event, bool &running, int &joueurActif, 
             if (event.button.x > graphique->getImgWidth()) {
                 int indiceCase = event.button.y / (250 * graphique->getZoom());
                 cout << indiceCase << endl;
-                if (getJeu().getJoueur(joueurActif).getCarte(indiceCase)) {
+                if (indiceCase < 4 && getJeu().getJoueur(joueurActif).getCarte(indiceCase)) {
                     int valeur = getJeu().getJoueur(joueurActif).getCarte(indiceCase)->getValeur();
                     cout << "La valeur de la carte : " << valeur << endl;
                     if (getJeu().carteJouable(joueurActif + 1, valeur)) {
