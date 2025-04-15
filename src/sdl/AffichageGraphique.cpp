@@ -460,13 +460,9 @@ void ImageViewer::afficherMaison() const {
 }
 
 void ImageViewer::setTextureCartes(int id_joueur) {
+    Carte *carte = nullptr;
     for (int i = 0; i < 4; i++) {
-        /*if (textureCartes[i] != nullptr) {
-            SDL_DestroyTexture(textureCartes[i]);
-        }
-        */
-
-        Carte *carte = jeu.getJoueur(id_joueur).getCarte(i);
+        if (id_joueur >= 0) carte = jeu.getJoueur(id_joueur).getCarte(i);
         if (carte == nullptr) {
             textureCartes[i] = listTexture[0];
             if (textureCartes[i] == nullptr) {
