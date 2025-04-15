@@ -269,8 +269,14 @@ void Controleur::afficherVainqueur(int couleurVainqueur) {
 	}
 }
 
-void Controleur::afficherJeu() {
-	if (versionGraphique) graphique->afficher();
+void Controleur::afficherJeu(bool &running) {
+	if (versionGraphique) {
+    	SDL_Event event;
+		while (SDL_PollEvent(&event)) {
+			graphique->gestionEvent(event, running);
+		}
+		graphique->afficher();
+	}
 	else console->affichageTexte(7);
 }
 
@@ -291,27 +297,29 @@ void jouer(bool versionGraphique, bool dev){
 	Jeu &jeu = controleur.getJeu();
 	int ordre[6] = {1, 2, 5, 3, 4, 6};
 	
-	if (versionGraphique) controleur.afficherJeu();
-	
-	while (true) {
-		if (!dev) {
-			jeu.distribuer();
-			controleur.echangeDeCartes();
-		} else {
-			for (int i = 0 ; i < 4 ; i++) {
-				for (int j = 0 ; j < nbJoueurs ; j++) {
-					jeu.attribuerCarte(-1, j+1);
+	bool continuer = true;
+	while (continuer) {
+		jeu.distribuer();
+		if (versionGraphique) controleur.afficherJeu(continuer);
+		else {
+			if (!dev) {
+				controleur.echangeDeCartes();
+			} else {
+				for (int i = 0 ; i < 4 ; i++) {
+					for (int j = 0 ; j < nbJoueurs ; j++) {
+						jeu.attribuerCarte(-1, j+1);
+					}
 				}
 			}
-		}
-
-		for (int i = 0 ; i < 4 ; i++) {
-			for (int j = 0 ; j < nbJoueurs ; j++) {
-				int couleur = (nbJoueurs == 6) ? ordre[j]:j+1;
-				controleur.tourJoueur(couleur, dev);
-				if (jeu.partieGagnee()) {
-					//affichageTexte(jeu, 7);
-					return controleur.afficherVainqueur(couleur);
+	
+			for (int i = 0 ; i < 4 ; i++) {
+				for (int j = 0 ; j < nbJoueurs ; j++) {
+					int couleur = (nbJoueurs == 6) ? ordre[j]:j+1;
+					controleur.tourJoueur(couleur, dev);
+					if (jeu.partieGagnee()) {
+						//affichageTexte(jeu, 7);
+						return controleur.afficherVainqueur(couleur);
+					}
 				}
 			}
 		}

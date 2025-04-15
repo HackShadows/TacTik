@@ -134,8 +134,10 @@ class Controleur {
 
 		/**
 		* @brief Affiche le jeu.
+		*
+		* @param running Permet d'arrêter ou continuer la partie.
 		*/
-		void afficherJeu();
+		void afficherJeu(bool &running);
 };
 
 /**

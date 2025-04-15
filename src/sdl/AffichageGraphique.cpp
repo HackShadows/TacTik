@@ -19,15 +19,6 @@ int getIndiceCase(Jeu &jeu, int posx, int posy, const int tab[][2], float zoom) 
 ImageViewer::ImageViewer(int nbJoueurs, int nbIA) : jeu(nbJoueurs, nbIA) {
     assert(nbIA >= 0 && nbJoueurs >= nbIA && (nbJoueurs == 4 || nbJoueurs == 6));
 
-    jeu.demarrer(1);
-    jeu.demarrer(2);
-    jeu.demarrer(3);
-    jeu.demarrer(4);
-    /*jeu.demarrer(5);
-    jeu.demarrer(6);*/
-    jeu.distribuer();
-    jeu.avancerPion(2, 1);
-
     zoom = 0.5;
     nbJ = jeu.getNbJoueurs();
     phase = 0;
@@ -501,19 +492,7 @@ void ImageViewer::gestionEvent(SDL_Event event, bool &running) {
                 (int) (300 * zoom)
             };
         }
-        /*if (event.key.keysym.sym == SDLK_SPACE) {
-            if (jeu.getPioche().getTas() != nullptr) {
-                int tas = jeu.getPioche().getTas()->getValeur();
-                cout << tas << "\n";
-                SDL_Surface *newSurfaceTas = IMG_Load("./data/cartes/1.png");
-                SDL_Texture *newTextureTas = SDL_CreateTextureFromSurface(renderer, newSurfaceTas);
-                SDL_FreeSurface(newSurfaceTas);
-                if (newTextureTas != nullptr) {
-                    SDL_DestroyTexture(textureTas);
-                    textureTas = newTextureTas;
-                }
-            }
-        }*/
+        
         if (event.key.keysym.sym == SDLK_u) {
             //setTextureCartes(1);
             //phase = 1 - phase;
@@ -581,27 +560,19 @@ void ImageViewer::gestionEvent(SDL_Event event, bool &running) {
 }
 
 void ImageViewer::afficher() {
-    bool running = true;
-    SDL_Event event;
-    while (running) {
-        while (SDL_PollEvent(&event)) {
-            gestionEvent(event, running);
-        }
-
-        SDL_SetRenderDrawColor(renderer, 128, 128, 128, 255);
-        SDL_RenderClear(renderer);
-        SDL_Rect Rect = {0, 0, imgWidth, imgHeight};
-        SDL_RenderCopy(renderer, texturePlateau, NULL, &Rect);
-        afficherPions();
-        afficherMaison();
-        afficherReserve();
-        SDL_RenderCopy(renderer, textureTas, NULL, &RectTas);
-        SDL_RenderCopy(renderer, textureCartes[0], NULL, &RectMain[0]);
-        SDL_RenderCopy(renderer, textureCartes[1], NULL, &RectMain[1]);
-        SDL_RenderCopy(renderer, textureCartes[2], NULL, &RectMain[2]);
-        SDL_RenderCopy(renderer, textureCartes[3], NULL, &RectMain[3]);
-        SDL_RenderPresent(renderer);
-        SDL_Delay(100);
-    }
+    SDL_SetRenderDrawColor(renderer, 128, 128, 128, 255);
+    SDL_RenderClear(renderer);
+    SDL_Rect Rect = {0, 0, imgWidth, imgHeight};
+    SDL_RenderCopy(renderer, texturePlateau, NULL, &Rect);
+    afficherPions();
+    afficherMaison();
+    afficherReserve();
+    SDL_RenderCopy(renderer, textureTas, NULL, &RectTas);
+    SDL_RenderCopy(renderer, textureCartes[0], NULL, &RectMain[0]);
+    SDL_RenderCopy(renderer, textureCartes[1], NULL, &RectMain[1]);
+    SDL_RenderCopy(renderer, textureCartes[2], NULL, &RectMain[2]);
+    SDL_RenderCopy(renderer, textureCartes[3], NULL, &RectMain[3]);
+    SDL_RenderPresent(renderer);
+    SDL_Delay(100);
 }
 
