@@ -137,15 +137,18 @@ class Controleur {
 		*
 		* @param event L'évenement à gérer
 		* @param running Booléen qui definit si le jeu continue de tourner
+		* @param joueurActif Couleur du joueur qui joue.
+		* @param cartes_visibles True si les cartes du joueur sont visibles, False sinon.
 		*/
-		void gestionEvent(SDL_Event event, bool &running);
+		void gestionEvent(SDL_Event event, bool &running, int &joueurActif, bool &cartes_visibles);
 
 		/**
 		* @brief Affiche le jeu.
 		*
 		* @param running Permet d'arrêter ou continuer la partie.
+		* @param joueurActif Indice du joueur qui joue.
 		*/
-		void afficherJeu(bool &running);
+		void afficherJeu(bool &running, int &joueurActif, bool &cartes_visibles);
 };
 
 /**
