@@ -25,6 +25,7 @@ class ImageViewer{
 		SDL_Rect RectMain[4]; ///<Rectangles des cartes de la main
 		SDL_Rect RectTas; ///<Rectanlge du tas
 		TTF_Font* m_font; /// Police de la fenetre
+		SDL_Surface* textSurface; ///Surface du texte a afficher
         int dimx, dimy; ///<Les dimensions de la fenetre
 		int imgWidth, imgHeight; ///<Largeur et hauteur de l'image
 		int phase; ///<L'indicateur de la phase dans laquelle on est
@@ -140,10 +141,23 @@ class ImageViewer{
 
 		void grossissement(bool positif);
 
+		/**
+        * @brief Met à jour la valeur de textSurface
+		* @param message Le message à afficher
+        */
+	   void setTextSurface(const char * message);
+
+		/**
+        * @brief Met à jour la couleur du fond
+        */
+	   void setCouleur(int couleur);
+
+
         /**
         * @brief Affiche le jeu passé en parametre
+		* @param couleur La couleur du joueur actif
         */
-        void afficher();
+        void afficher(int couleur);
 
 };
 

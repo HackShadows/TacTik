@@ -503,8 +503,26 @@ void ImageViewer::grossissement(bool positif) {
     };
 }
 
-void ImageViewer::afficher() {
+void ImageViewer::setTextSurface(const char * message){
+    SDL_Color TextColor = {255, 255, 255};
+    textSurface = TTF_RenderText_Solid(m_font, message, TextColor);
+    if (textSurface) {
+        SDL_Rect txtRect = {0, imgHeight, (dimy+200)*zoom , 100*zoom};
+        SDL_Texture* TextTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+        if (TextTexture) {
+            SDL_RenderCopy(renderer, TextTexture, NULL, &txtRect);
+            SDL_DestroyTexture(TextTexture);
+        }
+        SDL_FreeSurface(textSurface);
+    }
+}
+
+void ImageViewer::setCouleur(int couleur){
     SDL_SetRenderDrawColor(renderer, 128, 128, 128, 255);
+
+}
+void ImageViewer::afficher(int couleur) {
+    setCouleur(couleur);
     SDL_RenderClear(renderer);
     SDL_Rect Rect = {0, 0, imgWidth, imgHeight};
     SDL_RenderCopy(renderer, texturePlateau, NULL, &Rect);
@@ -516,20 +534,9 @@ void ImageViewer::afficher() {
     SDL_RenderCopy(renderer, textureCartes[1], NULL, &RectMain[1]);
     SDL_RenderCopy(renderer, textureCartes[2], NULL, &RectMain[2]);
     SDL_RenderCopy(renderer, textureCartes[3], NULL, &RectMain[3]);
+    setTextSurface("test");
+    
 
-    SDL_Color TextColor = {255, 0, 0};  // Texte en rouge
-    SDL_Surface* TextSurface = TTF_RenderText_Solid(m_font, "Salut tout le monde !", TextColor);
-    if (TextSurface) {
-        SDL_Rect txtRect = {0, imgHeight, 100, 100};  // Position sous le plateau
-        SDL_Texture* TextTexture = SDL_CreateTextureFromSurface(renderer, TextSurface);
-        if (TextTexture) {
-            SDL_RenderCopy(renderer, TextTexture, NULL, &txtRect);
-            SDL_DestroyTexture(TextTexture);  // Libérer immédiatement la texture
-        }
-        SDL_FreeSurface(TextSurface);  // Libérer immédiatement la surface
-    }
-
-    // 4. Présenter le rendu à l'écran
     SDL_RenderPresent(renderer);
     SDL_Delay(100);
 }
