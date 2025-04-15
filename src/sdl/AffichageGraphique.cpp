@@ -581,27 +581,35 @@ void ImageViewer::afficher() {
         (int) (300 * zoom)
     };
 
-    SDL_Event event;
+    /*SDL_Event event;
     while (SDL_PollEvent(&event)) {
         if (event.type == SDL_QUIT) {
             return ;
         }
+    }*/
+
+
+    bool running = true;
+    SDL_Event event;
+    while (running) {
+        while (SDL_PollEvent(&event)) {
+            gestionEvent(event, running, imgWidth, imgHeight, RectMain,RectTas);
+        }
+
+        SDL_SetRenderDrawColor(renderer, 128, 128, 128, 255);
+        SDL_RenderClear(renderer);
+        SDL_Rect Rect = {0, 0, imgWidth, imgHeight};
+        SDL_RenderCopy(renderer, texturePlateau, NULL, &Rect);
+        afficherPions();
+        afficherMaison();
+        afficherReserve();
+        SDL_RenderCopy(renderer, textureTas, NULL, &RectTas);
+        SDL_RenderCopy(renderer, textureCartes[0], NULL, &RectMain[0]);
+        SDL_RenderCopy(renderer, textureCartes[1], NULL, &RectMain[1]);
+        SDL_RenderCopy(renderer, textureCartes[2], NULL, &RectMain[2]);
+        SDL_RenderCopy(renderer, textureCartes[3], NULL, &RectMain[3]);
+        SDL_RenderPresent(renderer);
+        SDL_Delay(100);
     }
-
-
-    SDL_SetRenderDrawColor(renderer, 128, 128, 128, 255);
-    SDL_RenderClear(renderer);
-    SDL_Rect Rect = {0, 0, imgWidth, imgHeight};
-    SDL_RenderCopy(renderer, texturePlateau, NULL, &Rect);
-    afficherPions();
-    afficherMaison();
-    afficherReserve();
-    SDL_RenderCopy(renderer, textureTas, NULL, &RectTas);
-    SDL_RenderCopy(renderer, textureCartes[0], NULL, &RectMain[0]);
-    SDL_RenderCopy(renderer, textureCartes[1], NULL, &RectMain[1]);
-    SDL_RenderCopy(renderer, textureCartes[2], NULL, &RectMain[2]);
-    SDL_RenderCopy(renderer, textureCartes[3], NULL, &RectMain[3]);
-    SDL_RenderPresent(renderer);
-    SDL_Delay(100);
 }
 
