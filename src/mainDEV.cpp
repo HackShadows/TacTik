@@ -12,7 +12,7 @@ int main() {
         SetConsoleOutputCP(CP_UTF8);
     #endif
 
-	srand(time(NULL));
+	//srand(time(NULL));
 	
 	/* Début de l'espace modifiable */	
 	Jeu jeu(4);

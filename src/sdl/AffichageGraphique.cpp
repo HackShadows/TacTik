@@ -147,11 +147,12 @@ ImageViewer::ImageViewer(int nbJoueurs, int nbIA) : jeu(nbJoueurs, nbIA) {
     texturePlateau = nbJ == 4
                          ? IMG_LoadTexture(renderer, "./data/plateau/plateau4.png")
                          : IMG_LoadTexture(renderer, "./data/plateau/plateau6.png");
-    SDL_Texture * listTexture[16];
+    const SDL_Texture * listTexture[15];
     for (int i = 0; i<14; i++) {
         char chemin[30];
         sprintf(chemin, "./data/cartes/%d.png", i);
         listTexture[i] = IMG_LoadTexture(renderer, chemin);
+        std::cout << "lecture texture : " << chemin << " :: " << listTexture[i] << std::endl;
     }
     listTexture[14] = IMG_LoadTexture(renderer, "./data/cartes/joker.png");
     textureTas = listTexture[0];
@@ -423,18 +424,21 @@ void ImageViewer::afficherMaison() const {
 
 void ImageViewer::setTextureCartes(int id_joueur) {
     for (int i = 0; i < 4; i++) {
-        if (textureCartes[i] != nullptr) {
+        /*if (textureCartes[i] != nullptr) {
             SDL_DestroyTexture(textureCartes[i]);
         }
+        */
 
         Carte *carte = jeu.getJoueur(id_joueur).getCarte(i);
         if (carte == nullptr) {
-            textureCartes[i] = IMG_LoadTexture(renderer, "./data/cartes/0.png");
+            textureCartes[i] = listTexture[0];
             if (textureCartes[i] == nullptr) {
                 std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
                 return;
             }
-        } else {
+        } 
+        else {
+            cout << "ICI" << endl;
             int valeur = carte->getValeur();
             if (valeur != -1) {
                 textureCartes[i] = listTexture[abs(valeur)];
@@ -453,11 +457,12 @@ void ImageViewer::setTextureCartes(int id_joueur) {
     }
 }
 
-void ImageViewer::gestionEvent(SDL_Event event, bool &running, int &imgWidth, int &imgHeight, SDL_Rect RectMain[4],
-                               SDL_Rect &RectTas) {
+void ImageViewer::gestionEvent(SDL_Event event, bool &running, int &imgWidth, int &imgHeight, SDL_Rect * RectMain, SDL_Rect &RectTas) {
+    
     if (event.type == SDL_QUIT) {
         running = false;
     }
+
     if (event.type == SDL_KEYUP) {
         if (event.key.keysym.sym == SDLK_ESCAPE) {
             running = false;
@@ -593,7 +598,7 @@ void ImageViewer::afficher() {
     SDL_Event event;
     while (running) {
         while (SDL_PollEvent(&event)) {
-            gestionEvent(event, running, imgWidth, imgHeight, RectMain,RectTas);
+            gestionEvent(event, running, imgWidth, imgHeight, RectMain, RectTas);
         }
 
         SDL_SetRenderDrawColor(renderer, 128, 128, 128, 255);

@@ -20,7 +20,7 @@ class ImageViewer{
         SDL_Texture * texturePlateau;///<La surface de l'image du plateau
 		SDL_Texture * textureTas;  ///<La surface de l'image de la carte sur le tas
 		SDL_Texture * textureCartes[4]; ///<Les surfaces des quatres cartes
-		SDL_Texture * listTexture[16];
+		const SDL_Texture * listTexture[15];
         int dimx, dimy; ///<Les dimensions de la fenetre
 		int phase; ///<L'indicateur de la phase dans laquelle on est
         float zoom; ///<Le zoom de l'image
@@ -133,7 +133,7 @@ class ImageViewer{
 		* @param RectTas Rectanlge du tas
 		* @param jeu Le jeu en cours
 		*/
-		void gestionEvent(SDL_Event event, bool &running, int &imgWidth, int &imgHeight, SDL_Rect RectMain[4], SDL_Rect &RectTas);
+		void gestionEvent(SDL_Event event, bool &running, int &imgWidth, int &imgHeight, SDL_Rect * RectMain, SDL_Rect &RectTas);
 
         /**
         * @brief Affiche le jeu passé en parametre
