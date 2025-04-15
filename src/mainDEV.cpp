@@ -17,6 +17,7 @@ int main() {
 	/* Début de l'espace modifiable */	
 	Jeu jeu(4);
 	ImageViewer image(4,0);
+	for (int i = 0 ; i < 15 ; i++) std::cout << "lecture texture : " << image.getTexture(i) << std::endl;
 	image.afficher();
 
 

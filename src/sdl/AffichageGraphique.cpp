@@ -147,12 +147,11 @@ ImageViewer::ImageViewer(int nbJoueurs, int nbIA) : jeu(nbJoueurs, nbIA) {
     texturePlateau = nbJ == 4
                          ? IMG_LoadTexture(renderer, "./data/plateau/plateau4.png")
                          : IMG_LoadTexture(renderer, "./data/plateau/plateau6.png");
-    const SDL_Texture * listTexture[15];
+    SDL_Texture * listTexture[15];
     for (int i = 0; i<14; i++) {
         char chemin[30];
         sprintf(chemin, "./data/cartes/%d.png", i);
         listTexture[i] = IMG_LoadTexture(renderer, chemin);
-        std::cout << "lecture texture : " << chemin << " :: " << listTexture[i] << std::endl;
     }
     listTexture[14] = IMG_LoadTexture(renderer, "./data/cartes/joker.png");
     textureTas = listTexture[0];
@@ -160,6 +159,8 @@ ImageViewer::ImageViewer(int nbJoueurs, int nbIA) : jeu(nbJoueurs, nbIA) {
     textureCartes[1] = listTexture[0];
     textureCartes[2] = listTexture[0];
     textureCartes[3] = listTexture[0];
+    for (int i = 0 ; i < 15 ; i++) std::cout << "lecture texture : " << listTexture[i] << std::endl;
+    for (int i = 0 ; i < 4 ; i++) std::cout << "lecture carte : " << textureCartes[i] << std::endl;
     if (texturePlateau == nullptr) {
         std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
         return;
@@ -546,6 +547,7 @@ void ImageViewer::gestionEvent(SDL_Event event, bool &running, int &imgWidth, in
                         cout << "La carte est jouable" << endl;
                     }
                 }
+                cout << "Test" << endl;
             }
         }
         if (event.button.button == SDL_BUTTON_RIGHT) {
@@ -570,6 +572,10 @@ void ImageViewer::gestionEvent(SDL_Event event, bool &running, int &imgWidth, in
             }
         }
     }
+}
+
+SDL_Texture * ImageViewer::getTexture(int i) {
+    return listTexture[i];
 }
 
 void ImageViewer::afficher() {
@@ -597,6 +603,7 @@ void ImageViewer::afficher() {
     bool running = true;
     SDL_Event event;
     while (running) {
+        cout << "Test2" << endl;
         while (SDL_PollEvent(&event)) {
             gestionEvent(event, running, imgWidth, imgHeight, RectMain, RectTas);
         }
