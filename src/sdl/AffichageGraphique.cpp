@@ -485,6 +485,20 @@ void ImageViewer::setTextureCartes(int id_joueur) {
     }
 }
 
+void ImageViewer::grossissement(bool positif) {
+    zoom += (positif) ? 0.05:-0.05;
+    imgWidth = dimx * zoom;
+    imgHeight = dimy * zoom;
+    SDL_SetWindowSize(window, imgWidth + 200 * zoom, imgHeight);
+    for (int i = 0; i < 4; i++) {
+        RectMain[i] = {imgWidth, (int) (i * imgHeight / 4), (int) (200 * zoom), (int) (imgHeight / 4)};
+    }
+    RectTas = {
+        (int) (imgWidth / 2 - 100 * zoom), (int) (imgHeight / 2 - 150 * zoom), (int) (200 * zoom),
+        (int) (300 * zoom)
+    };
+}
+
 void ImageViewer::gestionEvent(SDL_Event event, bool &running) {
     
     if (event.type == SDL_QUIT) {
@@ -496,52 +510,26 @@ void ImageViewer::gestionEvent(SDL_Event event, bool &running) {
             running = false;
         }
         if (event.key.keysym.sym == SDLK_t) {
-            zoom = zoom + 0.05;
-            imgWidth = dimx * zoom;
-            imgHeight = dimy * zoom;
-            SDL_SetWindowSize(window, imgWidth + 200 * zoom, imgHeight);
-            for (int i = 0; i < 4; i++) {
-                RectMain[i] = {imgWidth, (int) (i * imgHeight / 4), (int) (200 * zoom), (int) (imgHeight / 4)};
-            }
-            RectTas = {
-                (int) (imgWidth / 2 - 100 * zoom), (int) (imgHeight / 2 - 150 * zoom), (int) (200 * zoom),
-                (int) (300 * zoom)
-            };
+            grossissement(true);
         }
         if (event.key.keysym.sym == SDLK_q) {
-            zoom = zoom - 0.05;
-            imgWidth = dimx * zoom;
-            imgHeight = dimy * zoom;
-            SDL_SetWindowSize(window, imgWidth + 200 * zoom, imgHeight);
-            for (int i = 0; i < 4; i++) {
-                RectMain[i] = {imgWidth, (int) (i * imgHeight / 4), (int) (200 * zoom), (int) (imgHeight / 4)};
-            }
-            RectTas = {
-                (int) (imgWidth / 2 - 100 * zoom), (int) (imgHeight / 2 - 150 * zoom), (int) (200 * zoom),
-                (int) (300 * zoom)
-            };
+            grossissement(false);
         }
         
         if (event.key.keysym.sym == SDLK_u) {
-            //setTextureCartes(1);
-            //phase = 1 - phase;
             cout << getEventChar();
         }
         if (event.key.keysym.sym == SDLK_0) {
             setTextureCartes(0);
-            //phase = 1 - phase;
         }
         if (event.key.keysym.sym == SDLK_1) {
             setTextureCartes(1);
-            //phase = 1 - phase;
         }
         if (event.key.keysym.sym == SDLK_2) {
             setTextureCartes(2);
-            //phase = 1 - phase;
         }
         if (event.key.keysym.sym == SDLK_3) {
             setTextureCartes(3);
-            //phase = 1 - phase;
         }
     }
     if (event.type == SDL_MOUSEBUTTONDOWN) {

@@ -124,6 +124,7 @@ class ImageViewer{
 		*/
 		void setTextureCartes(int id_joueur);
 
+		void grossissement(bool positif);
 
 		/**
 		* @brief Gère les évenenements
