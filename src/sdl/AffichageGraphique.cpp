@@ -147,7 +147,6 @@ ImageViewer::ImageViewer(int nbJoueurs, int nbIA) : jeu(nbJoueurs, nbIA) {
     texturePlateau = nbJ == 4
                          ? IMG_LoadTexture(renderer, "./data/plateau/plateau4.png")
                          : IMG_LoadTexture(renderer, "./data/plateau/plateau6.png");
-    SDL_Texture * listTexture[15];
     for (int i = 0; i<14; i++) {
         char chemin[30];
         sprintf(chemin, "./data/cartes/%d.png", i);
@@ -188,7 +187,7 @@ ImageViewer::ImageViewer(int nbJoueurs, int nbIA) : jeu(nbJoueurs, nbIA) {
 }
 
 ImageViewer::~ImageViewer() {
-    /*delete [] coordonnees;
+    delete [] coordonnees;
     delete [] coordonneesMaison;
     delete [] coordonneesReserve;
     SDL_DestroyTexture(texturePlateau);
@@ -199,7 +198,7 @@ ImageViewer::~ImageViewer() {
     SDL_DestroyTexture(textureCartes[3]);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
-    SDL_Quit();*/
+    SDL_Quit();
 }
 
 Jeu &ImageViewer::getJeu() {
@@ -575,7 +574,7 @@ void ImageViewer::gestionEvent(SDL_Event event, bool &running, int &imgWidth, in
 }
 
 SDL_Texture * ImageViewer::getTexture(int i) {
-    return listTexture[i];
+    return &*listTexture[i];
 }
 
 void ImageViewer::afficher() {
@@ -603,7 +602,6 @@ void ImageViewer::afficher() {
     bool running = true;
     SDL_Event event;
     while (running) {
-        cout << "Test2" << endl;
         while (SDL_PollEvent(&event)) {
             gestionEvent(event, running, imgWidth, imgHeight, RectMain, RectTas);
         }
@@ -616,7 +614,7 @@ void ImageViewer::afficher() {
         afficherMaison();
         afficherReserve();
         SDL_RenderCopy(renderer, textureTas, NULL, &RectTas);
-        SDL_RenderCopy(renderer, textureCartes[0], NULL, &RectMain[0]);
+        SDL_RenderCopy(renderer, listTexture[0], NULL, &RectMain[0]);
         SDL_RenderCopy(renderer, textureCartes[1], NULL, &RectMain[1]);
         SDL_RenderCopy(renderer, textureCartes[2], NULL, &RectMain[2]);
         SDL_RenderCopy(renderer, textureCartes[3], NULL, &RectMain[3]);
