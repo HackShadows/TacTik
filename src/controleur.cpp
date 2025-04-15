@@ -63,12 +63,14 @@ char Controleur::saisirCaractere(string coutMessage) {
 }
 
 void Controleur::afficherMessage(string coutMessage) {
-	if (versionGraphique) return ;
-	return message(coutMessage);
+	if (versionGraphique) afficherJeu(-1, coutMessage);
+	else message(coutMessage);
 }
 
-void Controleur::attenteTour(bool dev) {
-	if (versionGraphique) {}
+bool Controleur::attenteTour(bool dev) {
+	if (versionGraphique) {
+		if (afficherJeu(-1, "Tour de " + intToStr(joueurActif) + " (Entrée pour continuer)")[0] == 0) return false;
+	}
 	else {
 		if (!dev) {
 			console->affichageTexte(-1);
@@ -80,6 +82,7 @@ void Controleur::attenteTour(bool dev) {
 		console->affichageTexte(joueurActif);
 		afficherMessage("\nTour de " + intToStr(joueurActif) + " :");
 	}
+	return true;
 }
 
 bool Controleur::jouerCarte(int valCarte, bool coequipier, bool joker) {
@@ -203,31 +206,40 @@ bool Controleur::jouerCarte(int valCarte, bool coequipier, bool joker) {
 	return true;
 }
 
-int Controleur::choixCarte(string coutMessage, const Joueur& joueur) {
+array<int, 2> Controleur::choixCarte(string coutMessage, const Joueur& joueur) {
 	int valCarte = 0;
-    while (!joueur.estDansMain(valCarte)) valCarte = saisirEntier(coutMessage);	
-	return valCarte;
+	if (versionGraphique) return afficherJeu(1, coutMessage);
+    while (!joueur.estDansMain(valCarte)) {
+		valCarte = saisirEntier(coutMessage);
+	}
+	array<int, 2> retour = {1, valCarte};
+	return retour;
 }
 
-void Controleur::echangeDeCartes() {
+bool Controleur::echangeDeCartes() {
 	Jeu &jeu = getJeu();
-	int valCarte, nbJoueurs = jeu.getNbJoueurs();
+	int valCarte, couleur, nbJoueurs = jeu.getNbJoueurs();
+	int ordre[6] = {1, 2, 5, 3, 4, 6};
 	int echange_carte[3] = {0, 0, 0};
 	for (int i = 0 ; i < nbJoueurs ; i++) {
-		attenteTour(joueurActif + 1);
-		valCarte = choixCarte("Carte à donner à " + intToStr(((joueurActif < 4) ? (joueurActif+2)%4 : 9-joueurActif)) + " : ", jeu.getJoueur(joueurActif));
-		
+		couleur = (nbJoueurs == 6) ? ordre[i]:i+1;
+		setJoueurActif(couleur-1);
+		attenteTour();
+		array<int, 2> result = choixCarte("Carte à donner à " + intToStr(((couleur < 5) ? (couleur+1)%4 : 10-couleur)) + " : ", jeu.getJoueur(joueurActif));
+		if (result[0] == 0) return false;
+		valCarte = result[1];
 		if (i < nbJoueurs/2) echange_carte[i] = valCarte;
 		else {
-			int indJ1 = (joueurActif == 5) ? 4:joueurActif-2;
+			int indJ1 = (couleur == 6) ? 4:couleur-3;
 			jeu.echangerCartes(indJ1, joueurActif, echange_carte[i-nbJoueurs/2], valCarte);
 		}
 	}
+	return true;
 }
 
-void Controleur::tourJoueur(bool dev) {
+bool Controleur::tourJoueur(bool dev) {
 	Jeu &jeu = getJeu();
-	if (jeu.getJoueur(joueurActif).mainVide()) return ;
+	if (jeu.getJoueur(joueurActif).mainVide()) return true;
 	char choix = 'o';
 	int valCarte;
 	bool peut_jouer = true, coequipier = (jeu.getJoueur(joueurActif).maisonRemplie());
@@ -241,12 +253,14 @@ void Controleur::tourJoueur(bool dev) {
             choix = saisirCaractere("Aucune carte ne peut être jouée. Défausser toutes les cartes ? (Oui(o) ; Non(n)) : ");
             if (choix == 'o' || choix == 'O') {
                 jeu.defausserJoueur(joueurActif + 1);
-                return ;
+                return true;
             }
             peut_jouer = false;
         }
         do {
-            valCarte = choixCarte(((peut_jouer) ? "Carte à jouer : " : "Carte à défausser : "), jeu.getJoueur(joueurActif));
+			array<int, 2> result = choixCarte(((peut_jouer) ? "Carte à jouer : " : "Carte à défausser : "), jeu.getJoueur(joueurActif));
+			if (result[0] == 0) return false;
+			valCarte = result[1];
 
             if (!jeu.carteJouable(joueurActif + 1, valCarte, coequipier) && peut_jouer) {
                 afficherMessage("Cette carte ne peut pas être jouée ! Choisissez-en une autre.");
@@ -258,6 +272,7 @@ void Controleur::tourJoueur(bool dev) {
         if (!jeu.carteJouable(joueurActif + 1, valCarte, coequipier)) jeu.defausserCarte(valCarte, joueurActif + 1);
         else jouerCarte(valCarte, joueurActif + 1, coequipier);
     }
+	return true;
 }
 
 void Controleur::afficherVainqueur(int couleurVainqueur) {
@@ -274,25 +289,30 @@ void Controleur::afficherVainqueur(int couleurVainqueur) {
 	}
 }
 
-bool Controleur::afficherJeu(bool &cartes_visibles, int etapeActuel) {
+array<int, 2> Controleur::afficherJeu(int etapeActuel, string coutMessage) {
+	array<int, 2> retour = {1, 0};
 	if (versionGraphique) {
     	SDL_Event event;
 		array<int, 2> etape_info = {-2, -2};
+		if (etapeActuel == -1) graphique->setTextureCartes(-1);
 		while (etape_info[0] != etapeActuel) {
 			while (SDL_PollEvent(&event)) {
-				etape_info = gestionEvent(event, cartes_visibles);
+				etape_info = gestionEvent(event);
 			}
 			if (etape_info[0] == 0) {
-				return false;
+				retour[0] = 0;
+				return retour;
 			}
 			graphique->afficher(joueurActif);
 		}
+		if (etapeActuel == -1) graphique->setTextureCartes(joueurActif);
+		retour[1] = etape_info[1];
 	}
 	else console->affichageTexte(joueurActif);
-	return true;
+	return retour;
 }
 
-array<int, 2> Controleur::gestionEvent(SDL_Event event, bool &cartes_visibles) {
+array<int, 2> Controleur::gestionEvent(SDL_Event event) {
     
 	array<int, 2> infos = {-2, -2};
 
@@ -329,16 +349,21 @@ array<int, 2> Controleur::gestionEvent(SDL_Event event, bool &cartes_visibles) {
             joueurActif = 3;
         }
 
-		if (event.key.keysym.sym == SDLK_RETURN || event.key.keysym.sym == SDLK_0
-												|| event.key.keysym.sym == SDLK_1
-												|| event.key.keysym.sym == SDLK_2
-												|| event.key.keysym.sym == SDLK_3) {
-			if (joueurActif >= 0 && cartes_visibles && event.key.keysym.sym == SDLK_RETURN) {
-				joueurActif = -1;
-				cartes_visibles = false;
-			} else if (joueurActif >= 0) cartes_visibles = true;
-			graphique->setTextureCartes(joueurActif);
-        }
+		// if (event.key.keysym.sym == SDLK_RETURN || event.key.keysym.sym == SDLK_0
+		// 										|| event.key.keysym.sym == SDLK_1
+		// 										|| event.key.keysym.sym == SDLK_2
+		// 										|| event.key.keysym.sym == SDLK_3) {
+		// 	if (joueurActif >= 0 && cartes_visibles && event.key.keysym.sym == SDLK_RETURN) {
+		// 		joueurActif = -1;
+		// 		cartes_visibles = false;
+		// 	} else if (joueurActif >= 0) cartes_visibles = true;
+		// 	graphique->setTextureCartes(joueurActif);
+        // }
+
+		if (event.key.keysym.sym == SDLK_RETURN) {
+			infos[0] = -1;
+			return infos;
+		}
     }
     if (event.type == SDL_MOUSEBUTTONDOWN && joueurActif >= 0) {
         if (event.button.button == SDL_BUTTON_LEFT) {
@@ -352,8 +377,9 @@ array<int, 2> Controleur::gestionEvent(SDL_Event event, bool &cartes_visibles) {
                     if (getJeu().carteJouable(joueurActif + 1, valeur)) {
                         cout << "La carte est jouable" << endl;
                     }
+					infos[0] = 1;
+					infos[1] = valeur;
                 }
-				infos[0] = 1;
 				return infos;
             }
 			cout << graphique->getIndicePion(event.button.x, event.button.y) << endl;
@@ -380,12 +406,11 @@ void jouer(bool versionGraphique, bool dev){
 	Controleur controleur(nbJoueurs, nbIA, versionGraphique);
 	Jeu &jeu = controleur.getJeu();
 	int ordre[6] = {1, 2, 5, 3, 4, 6};
-	
-	bool cartes_visibles = false;
+
 	while (true) {
 		if (versionGraphique) {
 			jeu.distribuer();
-			if (!controleur.afficherJeu(cartes_visibles)) return ;
+			if (!controleur.echangeDeCartes()) return ;
 		}
 		else {
 			if (!dev) {
@@ -406,7 +431,7 @@ void jouer(bool versionGraphique, bool dev){
 					controleur.tourJoueur(dev);
 					if (jeu.partieGagnee()) {
 						controleur.setJoueurActif(6);
-						controleur.afficherJeu(cartes_visibles, 6);
+						controleur.afficherJeu(6);
 						return controleur.afficherVainqueur(couleur);
 					}
 				}

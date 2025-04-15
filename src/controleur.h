@@ -96,8 +96,10 @@ class Controleur {
 		* @brief Affiche le message d'attente entre deux tours.
 		*
 		* @param dev True si exécuté en mode développeur, false sinon (géré automatiquement).
+		*
+		* @return False pour arrêter la partie, true sinon.
 		*/
-		void attenteTour(bool dev = false);
+		bool attenteTour(bool dev = false);
 
 		/**
 		* @brief Joue la carte passée en paramètre.
@@ -113,24 +115,28 @@ class Controleur {
 		/**
 		* @brief Récupère la carte que le joueur souhaite jouer.
 		*
-		* @param coutMessage Message à afficher avant le cin.
+		* @param coutMessage Message à afficher.
 		* @param joueur Le joueur à qui est demandée la carte.
 		* 
-		* @return Valeur de la carte choisie par le joueur.
+		* @return 0 pour arrêter l'affichage du jeu ou 1 pour continuer et la valeur de la carte choisie par le joueur.
 		*/
-		int choixCarte(string coutMessage, const Joueur& joueur);
+		array<int, 2> choixCarte(string coutMessage, const Joueur& joueur);
 
 		/**
 		* @brief Effectue l'échange de cartes entre les joueurs au début de chaque tour.
+		*
+		* @return False pour arrêter la partie, true sinon.
 		*/
-		void echangeDeCartes();
+		bool echangeDeCartes();
 
 		/**
 		* @brief Effectue un tour de jeu pour un joueur.
 		*
 		* @param dev True si exécuté en mode développeur, false sinon (géré automatiquement).
+		* 
+		* @return False pour arrêter la partie, true sinon.
 		*/
-		void tourJoueur(bool dev = false);
+		bool tourJoueur(bool dev = false);
 
 		/**
 		* @brief Affiche les gagnants de la partie.
@@ -143,17 +149,22 @@ class Controleur {
 		* @brief Gère les évenenements
 		*
 		* @param event L'évenement à gérer.
-		* @param cartes_visibles True si les cartes du joueur sont visibles, False sinon.
+		*
+		* @return Deux entiers : le numéro de l'étape correspondant à l'action effectuée par le joueur, 
+		* et la valeur associée (numéro de la carte, indice de la case ...)
 		*/
-		array<int, 2> gestionEvent(SDL_Event event, bool &cartes_visibles);
+		array<int, 2> gestionEvent(SDL_Event event);
 
 		/**
 		* @brief Affiche le jeu.
 		*
-		* @param cartes_visibles True si les cartes sont visibles, False sinon.
-		* @param etapeActuel Etape en cours d'éxecution (1 =  ; 2 =  ; 3 = ).
+		* @param etapeActuel Etape en cours d'éxecution (-1 = Attente entre deux tours ; 1 = Attente d'une carte ; 2 =  ; 3 = ).
+		* @param coutMessage Message à afficher.
+		* 
+		* @return Deux entiers : 0 pour arrêter l'affichage du jeu ou 1 pour continuer, 
+		* et la valeur souhaitée (numéro de la carte, indice de la case ...)
 		*/
-		bool afficherJeu(bool &cartes_visibles, int etapeActuel = -1);
+		array<int, 2> afficherJeu(int etapeActuel = -1, string coutMessage = "");
 };
 
 /**
