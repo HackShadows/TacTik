@@ -29,13 +29,13 @@ ImageViewer::ImageViewer(int nbJoueurs, int nbIA) : jeu(nbJoueurs, nbIA) {
         exit(1);
     }
 
-    /*cout << "TTF: init" << endl;
+    cout << "TTF: init" << endl;
     if (TTF_Init() != 0)
     {
         cout << "Erreur lors de l'initialisation de la SDL_ttf : " << TTF_GetError() << endl;
         SDL_Quit();
         exit(1);
-    }*/
+    }
 
     int imgFlags = IMG_INIT_PNG | IMG_INIT_JPG;
     cout << "SDL_image: init" << endl;
@@ -44,7 +44,7 @@ ImageViewer::ImageViewer(int nbJoueurs, int nbIA) : jeu(nbJoueurs, nbIA) {
         SDL_Quit();
         exit(1);
     }
-    /*string ttffile = string("data/DejaVuSansCondensed.ttf");
+    string ttffile = string("data/DejaVuSansCondensed.ttf");
     int n = 0;
     do
     {
@@ -59,7 +59,7 @@ ImageViewer::ImageViewer(int nbJoueurs, int nbIA) : jeu(nbJoueurs, nbIA) {
         SDL_Quit();
         exit(1);
     }
-    */
+
     if (nbJ == 6) {
         dimx = (int) 1500;
         dimy = (int) 900;
@@ -69,7 +69,7 @@ ImageViewer::ImageViewer(int nbJoueurs, int nbIA) : jeu(nbJoueurs, nbIA) {
     }
 
     window = SDL_CreateWindow("Tac-Tik", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, (dimx + 200) * zoom,
-                              dimy * zoom,
+                              (dimy + 100) * zoom,
                               SDL_WINDOW_RESIZABLE);
     if (window == NULL) {
         cout << "Erreur lors de la creation de la fenetre : " << SDL_GetError() << endl;
@@ -226,8 +226,8 @@ ImageViewer::~ImageViewer() {
     SDL_DestroyTexture(textureCartes[3]);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
-    //TTF_CloseFont(m_font);
-    //TTF_Quit();
+    TTF_CloseFont(m_font);
+    TTF_Quit();
     SDL_Quit();
 }
 
@@ -520,7 +520,20 @@ void ImageViewer::afficher() {
     SDL_RenderCopy(renderer, textureCartes[1], NULL, &RectMain[1]);
     SDL_RenderCopy(renderer, textureCartes[2], NULL, &RectMain[2]);
     SDL_RenderCopy(renderer, textureCartes[3], NULL, &RectMain[3]);
+
+    SDL_Color TextColor = {255, 0, 0};  // Texte en rouge
+    SDL_Surface* TextSurface = TTF_RenderText_Solid(m_font, "Salut tout le monde !", TextColor);
+    if (TextSurface) {
+        SDL_Rect txtRect = {0, imgHeight, 100, 100};  // Position sous le plateau
+        SDL_Texture* TextTexture = SDL_CreateTextureFromSurface(renderer, TextSurface);
+        if (TextTexture) {
+            SDL_RenderCopy(renderer, TextTexture, NULL, &txtRect);
+            SDL_DestroyTexture(TextTexture);  // Libérer immédiatement la texture
+        }
+        SDL_FreeSurface(TextSurface);  // Libérer immédiatement la surface
+    }
+
+    // 4. Présenter le rendu à l'écran
     SDL_RenderPresent(renderer);
     SDL_Delay(100);
 }
-
