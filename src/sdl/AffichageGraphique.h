@@ -21,7 +21,10 @@ class ImageViewer{
 		SDL_Texture * textureTas;  ///<La surface de l'image de la carte sur le tas
 		SDL_Texture * textureCartes[4]; ///<Les surfaces des quatres cartes
 		SDL_Texture * listTexture[15];
+		SDL_Rect RectMain[4]; ///<Rectangles des cartes de la main
+		SDL_Rect RectTas; ///<Rectanlge du tas
         int dimx, dimy; ///<Les dimensions de la fenetre
+		int imgWidth, imgHeight; ///<Largeur et hauteur de l'image
 		int phase; ///<L'indicateur de la phase dans laquelle on est
         float zoom; ///<Le zoom de l'image
         int nbJ; ///<Le nombre de joueurs
@@ -122,18 +125,11 @@ class ImageViewer{
 
 		/**
 		* @brief Gère les évenenements
+		*
 		* @param event L'évenement à gérer
 		* @param running Booléen qui definit si le jeu continue de tourner
-		* @param imgWidth Largeur de l'image
-		* @param imgHeight Hauteur de l'image
-		* @param RectMain1 Rectangle de la premiere carte de la main
-		* @param RectMain2 Rectangle de la deuxieme carte de la main
-		* @param RectMain3 Rectangle de la troisieme carte de la main
-		* @param RectMain4 Rectangle de la quatrieme carte de la main
-		* @param RectTas Rectanlge du tas
-		* @param jeu Le jeu en cours
 		*/
-		void gestionEvent(SDL_Event event, bool &running, int &imgWidth, int &imgHeight, SDL_Rect * RectMain, SDL_Rect &RectTas);
+		void gestionEvent(SDL_Event event, bool &running);
 
         /**
         * @brief Affiche le jeu passé en parametre

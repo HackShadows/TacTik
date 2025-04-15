@@ -182,6 +182,18 @@ ImageViewer::ImageViewer(int nbJoueurs, int nbIA) : jeu(nbJoueurs, nbIA) {
         std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
         return;
     }
+
+    imgWidth = (int) dimx * zoom;
+    imgHeight = (int) dimy * zoom;
+
+    for (int i = 0; i < 4; i++) {
+        RectMain[i] = {imgWidth, (int) (i * imgHeight / 4), (int) (200 * zoom), (int) (imgHeight / 4)};
+    }
+
+    RectTas = {
+        (int) (imgWidth / 2 - 100 * zoom), (int) (imgHeight / 2 - 150 * zoom), (int) (200 * zoom),
+        (int) (300 * zoom)
+    };
 }
 
 ImageViewer::~ImageViewer() {
@@ -453,7 +465,7 @@ void ImageViewer::setTextureCartes(int id_joueur) {
     }
 }
 
-void ImageViewer::gestionEvent(SDL_Event event, bool &running, int &imgWidth, int &imgHeight, SDL_Rect * RectMain, SDL_Rect &RectTas) {
+void ImageViewer::gestionEvent(SDL_Event event, bool &running) {
     
     if (event.type == SDL_QUIT) {
         running = false;
@@ -569,32 +581,11 @@ void ImageViewer::gestionEvent(SDL_Event event, bool &running, int &imgWidth, in
 }
 
 void ImageViewer::afficher() {
-
-    int imgWidth = (int) dimx * zoom;
-    int imgHeight = (int) dimy * zoom;
-
-    SDL_Rect RectMain[4];
-    for (int i = 0; i < 4; i++) {
-        RectMain[i] = {imgWidth, (int) (i * imgHeight / 4), (int) (200 * zoom), (int) (imgHeight / 4)};
-    }
-    SDL_Rect RectTas = {
-        (int) (imgWidth / 2 - 100 * zoom), (int) (imgHeight / 2 - 150 * zoom), (int) (200 * zoom),
-        (int) (300 * zoom)
-    };
-
-    /*SDL_Event event;
-    while (SDL_PollEvent(&event)) {
-        if (event.type == SDL_QUIT) {
-            return ;
-        }
-    }*/
-
-
     bool running = true;
     SDL_Event event;
     while (running) {
         while (SDL_PollEvent(&event)) {
-            gestionEvent(event, running, imgWidth, imgHeight, RectMain, RectTas);
+            gestionEvent(event, running);
         }
 
         SDL_SetRenderDrawColor(renderer, 128, 128, 128, 255);
