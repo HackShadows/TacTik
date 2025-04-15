@@ -408,22 +408,19 @@ void jouer(bool versionGraphique, bool dev){
 	int ordre[6] = {1, 2, 5, 3, 4, 6};
 
 	while (true) {
-		if (versionGraphique) {
+		if (!dev) {
 			jeu.distribuer();
 			if (!controleur.echangeDeCartes()) return ;
-		}
-		else {
-			if (!dev) {
-				jeu.distribuer();
-				controleur.echangeDeCartes();
-			} else {
-				for (int i = 0 ; i < 4 ; i++) {
-					for (int j = 0 ; j < nbJoueurs ; j++) {
-						jeu.attribuerCarte(-1, j+1);
-					}
+		} else {
+			for (int i = 0 ; i < 4 ; i++) {
+				for (int j = 0 ; j < nbJoueurs ; j++) {
+					jeu.attribuerCarte(-1, j+1);
 				}
 			}
-	
+		}
+		
+		if (versionGraphique) {}
+		else {
 			for (int i = 0 ; i < 4 ; i++) {
 				for (int j = 0 ; j < nbJoueurs ; j++) {
 					int couleur = (nbJoueurs == 6) ? ordre[j]:j+1;
