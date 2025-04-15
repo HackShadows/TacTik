@@ -8,7 +8,6 @@ using namespace std;
 
 int getIndiceCase(Jeu &jeu, int posx, int posy, const int tab[][2], float zoom) {
     float rayon = 20 * zoom;
-    //cout << posx << " " << posy << " " << tab[0][0] * zoom << " " << tab[0][1] * zoom << " ";
     for (int i = 0; i < 16 * jeu.getNbJoueurs(); i++) {
         if (abs(posx - tab[i][0] * zoom) < rayon && abs(posy - tab[i][1] * zoom) < rayon) {
             return i;
@@ -158,8 +157,7 @@ ImageViewer::ImageViewer(int nbJoueurs, int nbIA) : jeu(nbJoueurs, nbIA) {
     textureCartes[1] = listTexture[0];
     textureCartes[2] = listTexture[0];
     textureCartes[3] = listTexture[0];
-    for (int i = 0 ; i < 15 ; i++) std::cout << "lecture texture : " << listTexture[i] << std::endl;
-    for (int i = 0 ; i < 4 ; i++) std::cout << "lecture carte : " << textureCartes[i] << std::endl;
+
     if (texturePlateau == nullptr) {
         std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
         return;
@@ -207,7 +205,6 @@ Jeu &ImageViewer::getJeu() {
 
 int ImageViewer::getIndicePion(int posx, int posy) {
     float rayon = 20 * zoom;
-    //cout << posx << " " << posy << " " << tab[0][0] * zoom << " " << tab[0][1] * zoom << " ";
     for (int i = 0; i < 16 * jeu.getNbJoueurs(); i++) {
         if (abs(posx - coordonnees[i][0] * zoom) < rayon && abs(posy - coordonnees[i][1] * zoom) < rayon) {
             return jeu.getPlateau().getIdPion(i);
@@ -438,7 +435,6 @@ void ImageViewer::setTextureCartes(int id_joueur) {
             }
         } 
         else {
-            cout << "ICI" << endl;
             int valeur = carte->getValeur();
             if (valeur != -1) {
                 textureCartes[i] = listTexture[abs(valeur)];
@@ -546,7 +542,6 @@ void ImageViewer::gestionEvent(SDL_Event event, bool &running, int &imgWidth, in
                         cout << "La carte est jouable" << endl;
                     }
                 }
-                cout << "Test" << endl;
             }
         }
         if (event.button.button == SDL_BUTTON_RIGHT) {
@@ -571,10 +566,6 @@ void ImageViewer::gestionEvent(SDL_Event event, bool &running, int &imgWidth, in
             }
         }
     }
-}
-
-SDL_Texture * ImageViewer::getTexture(int i) {
-    return &*listTexture[i];
 }
 
 void ImageViewer::afficher() {
@@ -614,7 +605,7 @@ void ImageViewer::afficher() {
         afficherMaison();
         afficherReserve();
         SDL_RenderCopy(renderer, textureTas, NULL, &RectTas);
-        SDL_RenderCopy(renderer, listTexture[0], NULL, &RectMain[0]);
+        SDL_RenderCopy(renderer, textureCartes[0], NULL, &RectMain[0]);
         SDL_RenderCopy(renderer, textureCartes[1], NULL, &RectMain[1]);
         SDL_RenderCopy(renderer, textureCartes[2], NULL, &RectMain[2]);
         SDL_RenderCopy(renderer, textureCartes[3], NULL, &RectMain[3]);

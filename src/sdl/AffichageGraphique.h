@@ -56,8 +56,6 @@ class ImageViewer{
 		*/
 		Jeu& getJeu();
 
-		SDL_Texture * getTexture(int i);
-
 		/**
 		* @brief renvoie l'indice du pion sur lequel on a cliqué
 		* @param posx Les coordonnées x du clic
