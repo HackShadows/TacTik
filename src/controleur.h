@@ -20,6 +20,7 @@ class Controleur {
 		ImageConsole * console; ///<Représente le contenu à afficher lors d'un affichage console.
 		ImageViewer * graphique; ///<Représente la fenêtre à afficher lors d'un affichage graphique.
 		bool versionGraphique; ///<True pour une version graphique, false pour une version console.
+		int joueurActif; ///<Indice du joueur qui joue.
 
 	public:
 		/**
@@ -47,6 +48,13 @@ class Controleur {
 		* @return Le jeu en cours.
 		*/
 		Jeu& getJeu();
+
+		/**
+		* @brief Renvoie le jeu en cours.
+		*
+		* @param indJoueurActif Indice du joueur qui joue.
+		*/
+		void setJoueurActif(int indJoueurActif);
 
 		/**
 		* @brief Permet de saisir un entier l'identifiant d'un pion.
@@ -85,22 +93,20 @@ class Controleur {
 		/**
 		* @brief Affiche le message d'attente entre deux tours.
 		*
-		* @param couleur Couleur du joueur actif.
 		* @param dev True si exécuté en mode développeur, false sinon (géré automatiquement).
 		*/
-		void attenteTour(int couleur, bool dev = false);
+		void attenteTour(bool dev = false);
 
 		/**
 		* @brief Joue la carte passée en paramètre.
 		*
 		* @param valCarte Valeur de la carte jouée par le joueur.
-		* @param couleur Couleur du joueur.
 		* @param coequipier True si le joueur joue pour son coéquipier, false sinon (géré automatiquement).
 		* @param joker True si la carte passée en paramètre est un joker, false sinon (géré automatiquement).
 		*
 		* @return True si la carte a pu être jouée, False sinon.
 		*/
-		bool jouerCarte(int valCarte, int couleur, bool coequipier = false, bool joker = false);
+		bool jouerCarte(int valCarte, bool coequipier = false, bool joker = false);
 
 		/**
 		* @brief Récupère la carte que le joueur souhaite jouer.
@@ -120,10 +126,9 @@ class Controleur {
 		/**
 		* @brief Effectue un tour de jeu pour un joueur.
 		*
-		* @param couleur Couleur du joueur qui joue.
 		* @param dev True si exécuté en mode développeur, false sinon (géré automatiquement).
 		*/
-		void tourJoueur(int couleur, bool dev = false);
+		void tourJoueur(bool dev = false);
 
 		/**
 		* @brief Affiche les gagnants de la partie.
@@ -135,20 +140,17 @@ class Controleur {
 		/**
 		* @brief Gère les évenenements
 		*
-		* @param event L'évenement à gérer
-		* @param running Booléen qui definit si le jeu continue de tourner
-		* @param joueurActif Couleur du joueur qui joue.
+		* @param event L'évenement à gérer.
 		* @param cartes_visibles True si les cartes du joueur sont visibles, False sinon.
 		*/
-		void gestionEvent(SDL_Event event, bool &running, int &joueurActif, bool &cartes_visibles);
+		int gestionEvent(SDL_Event event, bool &cartes_visibles);
 
 		/**
 		* @brief Affiche le jeu.
 		*
 		* @param running Permet d'arrêter ou continuer la partie.
-		* @param joueurActif Indice du joueur qui joue.
 		*/
-		void afficherJeu(bool &running, int &joueurActif, bool &cartes_visibles);
+		void afficherJeu(bool &running, bool &cartes_visibles);
 };
 
 /**
