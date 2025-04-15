@@ -5,6 +5,7 @@
 #include "../core/Jeu.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL2_gfxPrimitives.h>
 
 using namespace std;
@@ -23,6 +24,7 @@ class ImageViewer{
 		SDL_Texture * listTexture[15];
 		SDL_Rect RectMain[4]; ///<Rectangles des cartes de la main
 		SDL_Rect RectTas; ///<Rectanlge du tas
+		TTF_Font* m_font; /// Police de la fenetre
         int dimx, dimy; ///<Les dimensions de la fenetre
 		int imgWidth, imgHeight; ///<Largeur et hauteur de l'image
 		int phase; ///<L'indicateur de la phase dans laquelle on est

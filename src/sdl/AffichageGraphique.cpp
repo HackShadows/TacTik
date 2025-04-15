@@ -38,6 +38,14 @@ ImageViewer::ImageViewer(int nbJoueurs, int nbIA) : jeu(nbJoueurs, nbIA) {
         exit(1);
     }
 
+    /*cout << "TTF: init" << endl;
+    if (TTF_Init() != 0)
+    {
+        cout << "Erreur lors de l'initialisation de la SDL_ttf : " << TTF_GetError() << endl;
+        SDL_Quit();
+        exit(1);
+    }*/
+
     int imgFlags = IMG_INIT_PNG | IMG_INIT_JPG;
     cout << "SDL_image: init" << endl;
     if (!(IMG_Init(imgFlags) & imgFlags)) {
@@ -45,6 +53,22 @@ ImageViewer::ImageViewer(int nbJoueurs, int nbIA) : jeu(nbJoueurs, nbIA) {
         SDL_Quit();
         exit(1);
     }
+    /*string ttffile = string("data/DejaVuSansCondensed.ttf");
+    int n = 0;
+    do
+    {
+        m_font = TTF_OpenFont(ttffile.c_str(), 50);
+        n++;
+        ttffile = "../" + ttffile;
+    } while (m_font == nullptr && n < 3);
+
+    if (m_font == nullptr)
+    {
+        cout << "Failed to load DejaVuSansCondensed.ttf! SDL_TTF Error: " << TTF_GetError() << endl;
+        SDL_Quit();
+        exit(1);
+    }
+    */
     if (nbJ == 6) {
         dimx = (int) 1500;
         dimy = (int) 900;
@@ -147,7 +171,7 @@ ImageViewer::ImageViewer(int nbJoueurs, int nbIA) : jeu(nbJoueurs, nbIA) {
                          ? IMG_LoadTexture(renderer, "./data/plateau/plateau4.png")
                          : IMG_LoadTexture(renderer, "./data/plateau/plateau6.png");
     for (int i = 0; i<14; i++) {
-        char chemin[30];
+        char chemin[100];
         sprintf(chemin, "./data/cartes/%d.png", i);
         listTexture[i] = IMG_LoadTexture(renderer, chemin);
     }
@@ -200,6 +224,9 @@ ImageViewer::~ImageViewer() {
     delete [] coordonnees;
     delete [] coordonneesMaison;
     delete [] coordonneesReserve;
+    for (int i = 0; i < 15; i++) {
+        SDL_DestroyTexture(listTexture[i]);
+    }
     SDL_DestroyTexture(texturePlateau);
     SDL_DestroyTexture(textureTas);
     SDL_DestroyTexture(textureCartes[0]);
@@ -208,6 +235,8 @@ ImageViewer::~ImageViewer() {
     SDL_DestroyTexture(textureCartes[3]);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
+    //TTF_CloseFont(m_font);
+    //TTF_Quit();
     SDL_Quit();
 }
 
