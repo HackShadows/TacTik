@@ -62,6 +62,20 @@ class ImageViewer{
 		Jeu& getJeu();
 
 		/**
+		* @brief Renvoie le zoom.
+		*
+		* @return Le zoom.
+		*/
+		float getZoom();
+
+		/**
+		* @brief Renvoie la largeur de l'image.
+		*
+		* @return La largeur de l'image.
+		*/
+		int getImgWidth();
+
+		/**
 		* @brief renvoie l'indice du pion sur lequel on a cliqué
 		* @param posx Les coordonnées x du clic
 		* @param posy Les coordonnées y du clic
@@ -125,14 +139,6 @@ class ImageViewer{
 		void setTextureCartes(int id_joueur);
 
 		void grossissement(bool positif);
-
-		/**
-		* @brief Gère les évenenements
-		*
-		* @param event L'évenement à gérer
-		* @param running Booléen qui definit si le jeu continue de tourner
-		*/
-		void gestionEvent(SDL_Event event, bool &running);
 
         /**
         * @brief Affiche le jeu passé en parametre

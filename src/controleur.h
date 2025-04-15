@@ -133,6 +133,14 @@ class Controleur {
 		void afficherVainqueur(int couleurVainqueur);
 
 		/**
+		* @brief Gère les évenenements
+		*
+		* @param event L'évenement à gérer
+		* @param running Booléen qui definit si le jeu continue de tourner
+		*/
+		void gestionEvent(SDL_Event event, bool &running);
+
+		/**
 		* @brief Affiche le jeu.
 		*
 		* @param running Permet d'arrêter ou continuer la partie.

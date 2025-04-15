@@ -235,6 +235,14 @@ Jeu &ImageViewer::getJeu() {
     return jeu;
 }
 
+float ImageViewer::getZoom() {
+    return zoom;
+}
+
+int ImageViewer::getImgWidth() {
+    return imgWidth;
+}
+
 int ImageViewer::getIndicePion(int posx, int posy) {
     float rayon = 20 * zoom;
     for (int i = 0; i < 16 * jeu.getNbJoueurs(); i++) {
@@ -497,83 +505,6 @@ void ImageViewer::grossissement(bool positif) {
         (int) (imgWidth / 2 - 100 * zoom), (int) (imgHeight / 2 - 150 * zoom), (int) (200 * zoom),
         (int) (300 * zoom)
     };
-}
-
-void ImageViewer::gestionEvent(SDL_Event event, bool &running) {
-    
-    if (event.type == SDL_QUIT) {
-        running = false;
-    }
-
-    if (event.type == SDL_KEYUP) {
-        if (event.key.keysym.sym == SDLK_ESCAPE) {
-            running = false;
-        }
-        if (event.key.keysym.sym == SDLK_t) {
-            grossissement(true);
-        }
-        if (event.key.keysym.sym == SDLK_q) {
-            grossissement(false);
-        }
-        
-        if (event.key.keysym.sym == SDLK_u) {
-            cout << getEventChar();
-        }
-        if (event.key.keysym.sym == SDLK_0) {
-            setTextureCartes(0);
-        }
-        if (event.key.keysym.sym == SDLK_1) {
-            setTextureCartes(1);
-        }
-        if (event.key.keysym.sym == SDLK_2) {
-            setTextureCartes(2);
-        }
-        if (event.key.keysym.sym == SDLK_3) {
-            setTextureCartes(3);
-        }
-    }
-    if (event.type == SDL_MOUSEBUTTONDOWN) {
-        if (event.button.button == SDL_BUTTON_LEFT) {
-            //cout << "{" << event.button.x << "," << event.button.y << "}, ";
-            //cout << getIndiceCase(event.button.x, event.button.y, coordonnees, zoom) << endl;
-            cout << getIndicePion(event.button.x, event.button.y) << endl;
-            if (event.button.x > imgWidth) {
-                int couleur = 1;
-                setTextureCartes(couleur - 1);
-                cout << "Position : " << jeu.getPion(4 * (couleur - 1) + 1).getPos() << endl;
-                int indiceCase = event.button.y / (250 * zoom);
-                cout << indiceCase << endl;
-                if (jeu.getJoueur(couleur - 1).getCarte(indiceCase)) {
-                    int valeur = jeu.getJoueur(couleur - 1).getCarte(indiceCase)->getValeur();
-                    cout << "La valeur de la carte : " << valeur << endl;
-                    if (jeu.carteJouable(couleur, valeur)) {
-                        cout << "La carte est jouable" << endl;
-                    }
-                }
-            }
-        }
-        if (event.button.button == SDL_BUTTON_RIGHT) {
-            //cout << "{" << event.button.x << "," << event.button.y << "}, ";
-            //cout << getIndiceCase(event.button.x, event.button.y, coordonnees, zoom) << endl;
-            if (event.button.x > imgWidth) {
-                int couleur = 1;
-                setTextureCartes(couleur - 1);
-                cout << "Position : " << jeu.getPion(4 * (couleur - 1) + 1).getPos() << endl;
-                int indiceCase = event.button.y / (250 * zoom);
-                cout << indiceCase << endl;
-                if (jeu.getJoueur(couleur - 1).getCarte(indiceCase)) {
-                    int valeur = jeu.getJoueur(couleur - 1).getCarte(indiceCase)->getValeur();
-                    cout << "La valeur de la carte : " << valeur << endl;
-                    if (jeu.carteJouable(couleur, valeur)) {
-                        cout << "La carte est jouable" << endl;
-                        //jeu.jouerCarte(valeur, couleur);
-                        //cout << getIndicePionEvent() << endl;
-                        setTextureCartes(couleur - 1);
-                    }
-                }
-            }
-        }
-    }
 }
 
 void ImageViewer::afficher() {
