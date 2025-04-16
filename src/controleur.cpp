@@ -333,32 +333,32 @@ array<int, 2> Controleur::gestionEvent(SDL_Event event) {
             graphique->grossissement(false);
         }
 
-        if (event.key.keysym.sym == SDLK_u) {
-            cout << graphique->getEventChar();
-        }
-        if (event.key.keysym.sym == SDLK_0) {
-            joueurActif = 0;
-        }
-        if (event.key.keysym.sym == SDLK_1) {
-            joueurActif = 1;
-        }
-        if (event.key.keysym.sym == SDLK_2) {
-            joueurActif = 2;
-        }
-        if (event.key.keysym.sym == SDLK_3) {
-            joueurActif = 3;
-        }
-
-		// if (event.key.keysym.sym == SDLK_RETURN || event.key.keysym.sym == SDLK_0
-		// 										|| event.key.keysym.sym == SDLK_1
-		// 										|| event.key.keysym.sym == SDLK_2
-		// 										|| event.key.keysym.sym == SDLK_3) {
-		// 	if (joueurActif >= 0 && cartes_visibles && event.key.keysym.sym == SDLK_RETURN) {
-		// 		joueurActif = -1;
-		// 		cartes_visibles = false;
-		// 	} else if (joueurActif >= 0) cartes_visibles = true;
-		// 	graphique->setTextureCartes(joueurActif);
+        // if (event.key.keysym.sym == SDLK_u) {
+        //     cout << graphique->getEventChar();
         // }
+        // if (event.key.keysym.sym == SDLK_0) {
+        //     joueurActif = 0;
+        // }
+        // if (event.key.keysym.sym == SDLK_1) {
+        //     joueurActif = 1;
+        // }
+        // if (event.key.keysym.sym == SDLK_2) {
+        //     joueurActif = 2;
+        // }
+        // if (event.key.keysym.sym == SDLK_3) {
+        //     joueurActif = 3;
+        // }
+
+		// // if (event.key.keysym.sym == SDLK_RETURN || event.key.keysym.sym == SDLK_0
+		// // 										|| event.key.keysym.sym == SDLK_1
+		// // 										|| event.key.keysym.sym == SDLK_2
+		// // 										|| event.key.keysym.sym == SDLK_3) {
+		// // 	if (joueurActif >= 0 && cartes_visibles && event.key.keysym.sym == SDLK_RETURN) {
+		// // 		joueurActif = -1;
+		// // 		cartes_visibles = false;
+		// // 	} else if (joueurActif >= 0) cartes_visibles = true;
+		// // 	graphique->setTextureCartes(joueurActif);
+        // // }
 
 		if (event.key.keysym.sym == SDLK_RETURN) {
 			infos[0] = -1;
@@ -419,18 +419,15 @@ void jouer(bool versionGraphique, bool dev){
 			}
 		}
 		
-		if (versionGraphique) {}
-		else {
-			for (int i = 0 ; i < 4 ; i++) {
-				for (int j = 0 ; j < nbJoueurs ; j++) {
-					int couleur = (nbJoueurs == 6) ? ordre[j]:j+1;
-					controleur.setJoueurActif(couleur-1);
-					controleur.tourJoueur(dev);
-					if (jeu.partieGagnee()) {
-						controleur.setJoueurActif(6);
-						controleur.afficherJeu(6);
-						return controleur.afficherVainqueur(couleur);
-					}
+		for (int i = 0 ; i < 4 ; i++) {
+			for (int j = 0 ; j < nbJoueurs ; j++) {
+				int couleur = (nbJoueurs == 6) ? ordre[j]:j+1;
+				controleur.setJoueurActif(couleur-1);
+				controleur.tourJoueur(dev);
+				if (jeu.partieGagnee()) {
+					controleur.setJoueurActif(6);
+					controleur.afficherJeu(6);
+					return controleur.afficherVainqueur(couleur);
 				}
 			}
 		}
