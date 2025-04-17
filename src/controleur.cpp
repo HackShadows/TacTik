@@ -64,7 +64,11 @@ int Controleur::saisirEntier(string coutMessage) {
 }
 
 char Controleur::saisirCaractere(string coutMessage, int choix) {
-	if (versionGraphique) return graphique->getEventChar(joueurActif, choix, coutMessage);
+	if (versionGraphique) {
+		char val = graphique->getEventChar(joueurActif, choix, coutMessage);
+		if (val == '0') running = false;
+		return val;
+	}
 	return cinProtectionChar(coutMessage);
 }
 
@@ -293,39 +297,37 @@ void Controleur::afficherVainqueur(int couleurVainqueur) {
 }
 
 int Controleur::afficherJeu(int etapeActuel, string coutMessage) {
-	int val = 0;
+	int val = -3;
 	if (versionGraphique) {
     	SDL_Event event;
-		array<int, 2> etape_info = {-2, -2};
 		if (etapeActuel == -1) graphique->setTextureCartes(-1);
-		while (etape_info[0] != etapeActuel) {
+		while (val == -3) {
 			while (SDL_PollEvent(&event)) {
-				etape_info = gestionEvent(event);
+				val = gestionEvent(event, etapeActuel);
 			}
 			if (!running) return val;
 
 			graphique->afficher(joueurActif, coutMessage);
 		}
 		if (etapeActuel == -1) graphique->setTextureCartes(joueurActif);
-		val = etape_info[1];
 	}
 	else console->affichageTexte(joueurActif);
 	return val;
 }
 
-array<int, 2> Controleur::gestionEvent(SDL_Event event) {
+int Controleur::gestionEvent(SDL_Event event, int etapeActuel) {
     
-	array<int, 2> infos = {-2, -2};
+	int val = -3;
 
     if (event.type == SDL_QUIT) {
 		running = false;
-		return infos;
+		return val;
     }
 
     if (event.type == SDL_KEYUP) {
         if (event.key.keysym.sym == SDLK_ESCAPE) {
             running = false;
-			return infos;
+			return val;
         }
         if (event.key.keysym.sym == SDLK_t) {
             graphique->grossissement(true);
@@ -334,48 +336,53 @@ array<int, 2> Controleur::gestionEvent(SDL_Event event) {
             graphique->grossissement(false);
         }
 
-		if (event.key.keysym.sym == SDLK_RETURN) {
-			infos[0] = -1;
-			return infos;
+		if (event.key.keysym.sym == SDLK_RETURN && etapeActuel == -1) {
+			val = -1;
+			return val;
 		}
     }
     if (event.type == SDL_MOUSEBUTTONDOWN && joueurActif >= 0) {
         if (event.button.button == SDL_BUTTON_LEFT) {
             //cout << getIndiceCase(event.button.x, event.button.y, coordonnees, zoom) << endl;
-            if (event.button.x > graphique->getImgWidth()) {
+            if (event.button.x > graphique->getImgWidth() && etapeActuel == 1) {
                 int indiceCase = event.button.y / (250 * graphique->getZoom());
                 cout << indiceCase << endl;
                 if (indiceCase < 4 && getJeu().getJoueur(joueurActif).getCarte(indiceCase)) {
-                    int valeur = getJeu().getJoueur(joueurActif).getCarte(indiceCase)->getValeur();
-                    cout << "La valeur de la carte : " << valeur << endl;
-                    if (getJeu().carteJouable(joueurActif + 1, valeur)) {
+                    val = getJeu().getJoueur(joueurActif).getCarte(indiceCase)->getValeur();
+                    cout << "La valeur de la carte : " << val << endl;
+                    if (getJeu().carteJouable(joueurActif + 1, val)) {
                         cout << "La carte est jouable" << endl;
                     }
-					infos[0] = 1;
-					infos[1] = valeur;
                 }
-				return infos;
-            }
-			cout << graphique->getIndicePion(event.button.x, event.button.y) << endl;
-			infos[0] = 2;
-			return infos;
+				return val;
+            } else if (etapeActuel == 2) {
+				val = graphique->getIndicePion(event.button.x, event.button.y);
+				cout << val << endl;
+				return val;
+			}
         }
     }
-	return infos;
+	return val;
 }
 
 
 
 void jouer(bool versionGraphique, bool dev){
 	srand(time(NULL));
-	if (versionGraphique) {
-		
-	}
-	int nbIA = -1, nbJoueurs = 0;
 	
-	while (nbJoueurs != 4 && nbJoueurs != 6) nbJoueurs = cinProtectionInt("Nombre de joueurs (4 ou 6) : ");
+	int nbIA = -1, nbJoueurs = 0;
+	if (versionGraphique) {
+		Controleur controleur2(4, 0, versionGraphique);
+		while (nbJoueurs != 4 && nbJoueurs != 6) {
+			nbJoueurs = controleur2.saisirCaractere("Nombre de joueurs (4 ou 6)", 0);
+			if (!controleur2.getRunning()) return ;
+		}
+	} 
+	else {
+		while (nbJoueurs != 4 && nbJoueurs != 6) nbJoueurs = cinProtectionInt("Nombre de joueurs (4 ou 6) : ");
 
-    while (nbIA < 0 || nbIA > nbJoueurs) nbIA = cinProtectionInt("Nombre d'IA parmis les joueurs (0-" + to_string(nbJoueurs) + ") : ");
+    	while (nbIA < 0 || nbIA > nbJoueurs) nbIA = cinProtectionInt("Nombre d'IA parmis les joueurs (0-" + to_string(nbJoueurs) + ") : ");
+	}
 	
 	Controleur controleur(nbJoueurs, nbIA, versionGraphique);
 	Jeu &jeu = controleur.getJeu();

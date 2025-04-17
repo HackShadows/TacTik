@@ -152,16 +152,16 @@ class Controleur {
 		* @brief Gère les évenenements
 		*
 		* @param event L'évenement à gérer.
+		* @param etapeActuel Étape en cours.
 		*
-		* @return Deux entiers : le numéro de l'étape correspondant à l'action effectuée par le joueur, 
-		* et la valeur associée (numéro de la carte, indice de la case ...)
+		* @return La valeur associée (numéro de la carte, indice de la case ...)
 		*/
-		array<int, 2> gestionEvent(SDL_Event event);
+		int gestionEvent(SDL_Event event, int etapeActuel);
 
 		/**
 		* @brief Affiche le jeu.
 		*
-		* @param etapeActuel Etape en cours d'éxecution (-1 = Attente entre deux tours ; 1 = Attente d'une carte ; 2 =  ; 3 = ).
+		* @param etapeActuel Etape en cours d'éxecution (-1 = Attente entre deux tours ; 1 = Attente d'une carte ; 2 =  Attente d'un clique sur pion ; 3 = Attente d'un clique sur case).
 		* @param coutMessage Message à afficher.
 		* 
 		* @return La valeur souhaitée (numéro de la carte, indice de la case ...)

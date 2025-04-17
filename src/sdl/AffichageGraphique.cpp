@@ -662,6 +662,8 @@ void ImageViewer::afficherBoutons(int choix)
         SDL_RenderCopy(renderer, texture1, NULL, &rect1);
         SDL_RenderCopy(renderer, texture2, NULL, &rect2);
 
+        SDL_RenderPresent(renderer);
+
         // Libérer les textures
         SDL_DestroyTexture(texture1);
         SDL_DestroyTexture(texture2);
@@ -750,7 +752,7 @@ void ImageViewer::afficher(int joueurActif, string message)
     SDL_RenderCopy(renderer, textureCartes[2], NULL, &RectMain[2]);
     SDL_RenderCopy(renderer, textureCartes[3], NULL, &RectMain[3]);
     setTextSurface(message, joueurActif + 1);
-    afficherJoker();
+    
     SDL_RenderPresent(renderer);
     SDL_Delay(100);
 }
