@@ -346,7 +346,6 @@ char ImageViewer::getEventChar(string s) {
     }
 }
 
-
 void ImageViewer::dessineCercle(int couleur, int x, int y) const {
     filledCircleRGBA(renderer, x, y, 22 * zoom, 0, 0, 0, 255);
     filledCircleRGBA(renderer, x, y, 19 * zoom, 255, 255, 255, 255);
@@ -521,7 +520,7 @@ void ImageViewer::setCouleur(int couleur){
     SDL_SetRenderDrawColor(renderer, 128, 128, 128, 255);
 
 }
-void ImageViewer::afficher(int couleur) {
+void ImageViewer::afficher(int couleur, const char * message) {
     setCouleur(couleur);
     SDL_RenderClear(renderer);
     SDL_Rect Rect = {0, 0, imgWidth, imgHeight};
@@ -534,7 +533,7 @@ void ImageViewer::afficher(int couleur) {
     SDL_RenderCopy(renderer, textureCartes[1], NULL, &RectMain[1]);
     SDL_RenderCopy(renderer, textureCartes[2], NULL, &RectMain[2]);
     SDL_RenderCopy(renderer, textureCartes[3], NULL, &RectMain[3]);
-    setTextSurface("test");
+    setTextSurface(message);
     
 
     SDL_RenderPresent(renderer);

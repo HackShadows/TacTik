@@ -156,8 +156,9 @@ class ImageViewer{
         /**
         * @brief Affiche le jeu passé en parametre
 		* @param couleur La couleur du joueur actif
+		* @param message Le message à afficher
         */
-        void afficher(int couleur);
+        void afficher(int couleur, const char * message);
 
 };
 
