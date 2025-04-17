@@ -88,10 +88,11 @@ class Controleur {
 		* @brief Permet de saisir un caractère en gérant les erreurs de saisi.
 		*
 		* @param coutMessage Message à afficher (non obligatoire).
+		* @param choix Entier pour indiquer la valeur des boutons (0 : 4/6 ; 1 : A/D ; 2 : O/N)
 		*
 		* @return Caractère saisi par l'utilisateur (valeur renvoyée par défaut '0').
 		*/
-		char saisirCaractere(string coutMessage = "");
+		char saisirCaractere(string coutMessage = "", int choix = -1);
 
 		/**
 		* @brief Permet d'afficher le message passé en paramètre.
