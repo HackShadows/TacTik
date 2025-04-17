@@ -750,7 +750,7 @@ void ImageViewer::afficher(int joueurActif, string message)
     SDL_RenderCopy(renderer, textureCartes[2], NULL, &RectMain[2]);
     SDL_RenderCopy(renderer, textureCartes[3], NULL, &RectMain[3]);
     setTextSurface(message, joueurActif + 1);
-    afficherJoker();
+    
     SDL_RenderPresent(renderer);
     SDL_Delay(100);
 }
