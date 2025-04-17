@@ -502,9 +502,10 @@ void ImageViewer::grossissement(bool positif) {
     };
 }
 
-void ImageViewer::setTextSurface(const char * message){
+void ImageViewer::setTextSurface(string message){
     SDL_Color TextColor = {255, 255, 255};
-    textSurface = TTF_RenderText_Solid(m_font, message, TextColor);
+    const char * msg = message.c_str();
+    textSurface = TTF_RenderText_Solid(m_font, msg, TextColor);
     if (textSurface) {
         SDL_Rect txtRect = {0, imgHeight, (dimy+200)*zoom , 100*zoom};
         SDL_Texture* TextTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
@@ -520,7 +521,7 @@ void ImageViewer::setCouleur(int couleur){
     SDL_SetRenderDrawColor(renderer, 128, 128, 128, 255);
 
 }
-void ImageViewer::afficher(int couleur, const char * message) {
+void ImageViewer::afficher(int couleur, string message) {
     setCouleur(couleur);
     SDL_RenderClear(renderer);
     SDL_Rect Rect = {0, 0, imgWidth, imgHeight};

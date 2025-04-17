@@ -145,7 +145,7 @@ class ImageViewer{
         * @brief Met à jour la valeur de textSurface
 		* @param message Le message à afficher
         */
-	   void setTextSurface(const char * message);
+	   void setTextSurface(string message);
 
 		/**
         * @brief Met à jour la couleur du fond
@@ -158,7 +158,7 @@ class ImageViewer{
 		* @param couleur La couleur du joueur actif
 		* @param message Le message à afficher
         */
-        void afficher(int couleur, const char * message);
+        void afficher(int couleur, string message);
 
 };
 
