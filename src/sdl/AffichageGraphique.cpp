@@ -547,9 +547,8 @@ void ImageViewer::setCouleur(int couleur){
     }
 }
 
-void ImageViewer::afficher(int couleur, string message) {
-    cout << "La couleur : " << couleur << endl;
-    setCouleur(couleur+1);
+void ImageViewer::afficher(int joueurActif, string message) {
+    setCouleur(joueurActif+1);
     SDL_RenderClear(renderer);
     SDL_Rect Rect = {0, 0, imgWidth, imgHeight};
     SDL_RenderCopy(renderer, texturePlateau, NULL, &Rect);
@@ -561,7 +560,7 @@ void ImageViewer::afficher(int couleur, string message) {
     SDL_RenderCopy(renderer, textureCartes[1], NULL, &RectMain[1]);
     SDL_RenderCopy(renderer, textureCartes[2], NULL, &RectMain[2]);
     SDL_RenderCopy(renderer, textureCartes[3], NULL, &RectMain[3]);
-    setTextSurface(message, couleur+1);
+    setTextSurface(message, joueurActif+1);
     
 
     SDL_RenderPresent(renderer);
