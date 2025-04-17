@@ -98,9 +98,11 @@ class ImageViewer{
 
 		/**
 		* @brief renvoie le caractère saisi par l'utilisateur
+		* @param joueurActif Le joueur qui joue
 		* @param choix La valeur des boutons
+		* @param message Le message a afficher
 		*/
-		char getEventChar(int choix);
+		char getEventChar(int joueurActif, int choix, string message);
 
         /**
         * @brief dessine le pion de couleur "couleur" aux coordonnées (x,y)

@@ -342,11 +342,12 @@ int ImageViewer::getEventNumber(string s)
     }
 }
 
-char ImageViewer::getEventChar(int choix)
+char ImageViewer::getEventChar(int joueurActif, int choix, string message)
 {
     SDL_Event event;
     while (true)
     {
+        afficher(joueurActif, message, choix);
         while (SDL_PollEvent(&event))
         {
             if (event.type == SDL_QUIT)
