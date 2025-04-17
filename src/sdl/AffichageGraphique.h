@@ -161,14 +161,26 @@ class ImageViewer{
         */
 	   void afficherBoutons(int choix);
 
+	   /**
+        * @brief Affiche toutes les cartes pour le choix du joker
+		* @param tab Le tableu des coordonnées des cartes
+        */
+	   void afficherJoker(SDL_Rect tab[13]);
+
+	   /**
+        * @brief Affiche les cartes pour le choix de la carte du joker
+		* @param joueurActif L'identifiant du joueur actif.
+		* @param message Le message à afficher
+        */
+	   int selectionnerValJoker(int joueurActif, string message);
+
 
         /**
         * @brief Affiche le jeu passé en parametre
 		* @param joueurActif L'identifiant du joueur actif.
 		* @param message Le message à afficher
-		* @param choix La valeur des boutons
         */
-        void afficher(int joueurActif, string message, int choix=-1);
+        void afficher(int joueurActif, string message);
 
 };
 

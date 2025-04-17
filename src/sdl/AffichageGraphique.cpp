@@ -347,12 +347,13 @@ char ImageViewer::getEventChar(int joueurActif, int choix, string message)
     SDL_Event event;
     while (true)
     {
-        afficher(joueurActif, message, choix);
+        afficher(joueurActif, message);
+        afficherBoutons(choix);
         while (SDL_PollEvent(&event))
         {
             if (event.type == SDL_QUIT)
             {
-                return 0;
+                return '0';
             }
             if (event.type == SDL_MOUSEBUTTONDOWN)
             {
@@ -631,49 +632,110 @@ void ImageViewer::setCouleur(int couleur)
 
 void ImageViewer::afficherBoutons(int choix)
 {
-    if (choix != -1)
+    SDL_Rect rect1 = {(int)(imgWidth / 4), (int)(imgHeight / 2 - 50 * zoom), (int)(100 * zoom), (int)(100 * zoom)};
+    SDL_Rect rect2 = {(int)(2 * imgWidth / 3),(int)(imgHeight / 2 - 50 * zoom), (int)(100 * zoom), (int)(100 * zoom)};
+    roundedBoxRGBA(renderer, imgWidth / 4, imgHeight / 2 - 50 * zoom, imgWidth / 4 + 100 * zoom, imgHeight / 2 + 50 * zoom, 5, 150, 60, 250, 180);
+    roundedBoxRGBA(renderer, 2 * imgWidth / 3, imgHeight / 2 - 50 * zoom, 2 * imgWidth / 3 + 100 * zoom, imgHeight / 2 + 50 * zoom, 5, 150, 60, 250, 180);
+    SDL_Surface *surface1 = nullptr;
+    SDL_Surface *surface2 = nullptr;
+    if (choix == 0)
     {
-        SDL_Rect rect1 = {(int)(imgWidth / 4), (int)(imgHeight / 2 - 50 * zoom), (int)(100 * zoom), (int)(100 * zoom)};
-        SDL_Rect rect2 = {(int)(2 * imgWidth / 3),(int)(imgHeight / 2 - 50 * zoom), (int)(100 * zoom), (int)(100 * zoom)};
-        roundedBoxRGBA(renderer, imgWidth / 4, imgHeight / 2 - 50 * zoom, imgWidth / 4 + 100 * zoom, imgHeight / 2 + 50 * zoom, 5, 150, 60, 250, 180);
-        roundedBoxRGBA(renderer, 2 * imgWidth / 3, imgHeight / 2 - 50 * zoom, 2 * imgWidth / 3 + 100 * zoom, imgHeight / 2 + 50 * zoom, 5, 150, 60, 250, 180);
-        SDL_Surface *surface1 = nullptr;
-        SDL_Surface *surface2 = nullptr;
-        if (choix == 0)
-        {
-            surface1 = TTF_RenderUTF8_Blended(m_font, "4", {0, 0, 0});
-            surface2 = TTF_RenderUTF8_Blended(m_font, "6", {0, 0, 0});
-        }
-        if (choix == 1)
-        {
-            surface1 = TTF_RenderUTF8_Blended(m_font, "A", {0, 0, 0});
-            surface2 = TTF_RenderUTF8_Blended(m_font, "D", {0, 0, 0});
+        surface1 = TTF_RenderUTF8_Blended(m_font, "4", {0, 0, 0});
+        surface2 = TTF_RenderUTF8_Blended(m_font, "6", {0, 0, 0});
+    }
+    if (choix == 1)
+    {
+        surface1 = TTF_RenderUTF8_Blended(m_font, "A", {0, 0, 0});
+        surface2 = TTF_RenderUTF8_Blended(m_font, "D", {0, 0, 0});
+    }
+
+    if (choix == 2)
+    {
+        surface1 = TTF_RenderUTF8_Blended(m_font, "O", {0, 0, 0});
+        surface2 = TTF_RenderUTF8_Blended(m_font, "N", {0, 0, 0});
+    }
+    if (surface1 && surface2)
+    {
+        SDL_Texture *texture1 = SDL_CreateTextureFromSurface(renderer, surface1);
+        SDL_Texture *texture2 = SDL_CreateTextureFromSurface(renderer, surface2);
+
+        SDL_RenderCopy(renderer, texture1, NULL, &rect1);
+        SDL_RenderCopy(renderer, texture2, NULL, &rect2);
+
+        // Libérer les textures
+        SDL_DestroyTexture(texture1);
+        SDL_DestroyTexture(texture2);
+    }
+
+    SDL_FreeSurface(surface1);
+    SDL_FreeSurface(surface2);
+}
+
+
+void ImageViewer::afficherJoker(SDL_Rect tab[13])
+{
+    int cardWidth;
+    int cardHeight;
+    int paddingX;
+    int paddingY;
+
+    if (nbJ==4){
+        cardWidth = imgWidth / 6; // Largeur de chaque carte (5 cartes + espacement)
+        cardHeight = imgHeight / 4; // Hauteur de chaque carte (3 lignes + espacement)
+        paddingX = (imgWidth - 5 * cardWidth) / 6; // Espacement horizontal entre les cartes
+        paddingY = (imgHeight - 3 * cardHeight) / 4; // Espacement vertical entre les lignes
+    }
+    else{
+        cardWidth = imgWidth / 9; // Largeur de chaque carte (5 cartes + espacement)
+        cardHeight = imgHeight / 4; // Hauteur de chaque carte (3 lignes + espacement)
+        paddingX = (imgWidth - 5 * cardWidth) / 6; // Espacement horizontal entre les cartes
+        paddingY = (imgHeight - 3 * cardHeight) / 4; // Espacement vertical entre les lignes
+    }
+    
+    for (int i = 0; i < 13; i++) {
+        int row = i / 5; // Ligne actuelle
+        int col = i % 5; // Colonne actuelle
+
+        // Ajuster pour la troisième ligne qui ne contient que 3 cartes
+        if (row == 2) {
+            col += 1; // Centrer les 3 cartes
         }
 
-        if (choix == 2)
-        {
-            surface1 = TTF_RenderUTF8_Blended(m_font, "O", {0, 0, 0});
-            surface2 = TTF_RenderUTF8_Blended(m_font, "N", {0, 0, 0});
-        }
-        if (surface1 && surface2)
-        {
-            SDL_Texture *texture1 = SDL_CreateTextureFromSurface(renderer, surface1);
-            SDL_Texture *texture2 = SDL_CreateTextureFromSurface(renderer, surface2);
-
-            SDL_RenderCopy(renderer, texture1, NULL, &rect1);
-            SDL_RenderCopy(renderer, texture2, NULL, &rect2);
-
-            // Libérer les textures
-            SDL_DestroyTexture(texture1);
-            SDL_DestroyTexture(texture2);
-        }
-
-        SDL_FreeSurface(surface1);
-        SDL_FreeSurface(surface2);
+        tab[i] = {paddingX + col * (cardWidth + paddingX), paddingY + row * (cardHeight + paddingY), cardWidth, cardHeight};
+        SDL_RenderCopy(renderer, listTexture[i+1], NULL, &tab[i]);
     }
 }
 
-void ImageViewer::afficher(int joueurActif, string message, int choix)
+
+int ImageViewer::selectionnerValJoker(int joueurActif, string message){
+    SDL_Rect tab[13];
+
+    SDL_Event event;
+    while (true)
+    {
+        afficher(joueurActif, message);
+        afficherJoker(tab);
+        while (SDL_PollEvent(&event))
+        {
+            if (event.type == SDL_QUIT)
+            {
+                return 0;
+            }
+            if (event.type == SDL_MOUSEBUTTONDOWN)
+            {
+                for (int i = 0; i < 13; i++) {
+                    if (event.button.x >= tab[i].x && event.button.x <= tab[i].x + tab[i].w &&
+                        event.button.y >= tab[i].y && event.button.y <= tab[i].y + tab[i].h) {
+                        return i;
+                    }
+                }
+                return -1; // Retourne -1 si aucune carte n'a été cliquée
+            }
+        }
+    }
+}
+
+void ImageViewer::afficher(int joueurActif, string message)
 {
     setCouleur(joueurActif + 1);
     SDL_RenderClear(renderer);
@@ -688,8 +750,7 @@ void ImageViewer::afficher(int joueurActif, string message, int choix)
     SDL_RenderCopy(renderer, textureCartes[2], NULL, &RectMain[2]);
     SDL_RenderCopy(renderer, textureCartes[3], NULL, &RectMain[3]);
     setTextSurface(message, joueurActif + 1);
-    afficherBoutons(1);
-
+    afficherJoker();
     SDL_RenderPresent(renderer);
     SDL_Delay(100);
 }
