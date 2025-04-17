@@ -23,6 +23,7 @@ class Controleur {
 		ImageViewer * graphique; ///<Représente la fenêtre à afficher lors d'un affichage graphique.
 		bool versionGraphique; ///<True pour une version graphique, false pour une version console.
 		int joueurActif; ///<Indice du joueur qui joue.
+		bool running; ///<False pour arrêter la partie, true sinon.
 
 	public:
 		/**
@@ -50,6 +51,13 @@ class Controleur {
 		* @return Le jeu en cours.
 		*/
 		Jeu& getJeu();
+
+		/**
+		* @brief Renvoie running.
+		*
+		* @return False pour arrêter la partie, true sinon.
+		*/
+		bool getRunning();
 
 		/**
 		* @brief Renvoie le jeu en cours.
@@ -96,10 +104,8 @@ class Controleur {
 		* @brief Affiche le message d'attente entre deux tours.
 		*
 		* @param dev True si exécuté en mode développeur, false sinon (géré automatiquement).
-		*
-		* @return False pour arrêter la partie, true sinon.
 		*/
-		bool attenteTour(bool dev = false);
+		void attenteTour(bool dev = false);
 
 		/**
 		* @brief Joue la carte passée en paramètre.
@@ -118,25 +124,21 @@ class Controleur {
 		* @param coutMessage Message à afficher.
 		* @param joueur Le joueur à qui est demandée la carte.
 		* 
-		* @return 0 pour arrêter l'affichage du jeu ou 1 pour continuer et la valeur de la carte choisie par le joueur.
+		* @return La valeur de la carte choisie par le joueur.
 		*/
-		array<int, 2> choixCarte(string coutMessage, const Joueur& joueur);
+		int choixCarte(string coutMessage, const Joueur& joueur);
 
 		/**
 		* @brief Effectue l'échange de cartes entre les joueurs au début de chaque tour.
-		*
-		* @return False pour arrêter la partie, true sinon.
 		*/
-		bool echangeDeCartes();
+		void echangeDeCartes();
 
 		/**
 		* @brief Effectue un tour de jeu pour un joueur.
 		*
 		* @param dev True si exécuté en mode développeur, false sinon (géré automatiquement).
-		* 
-		* @return False pour arrêter la partie, true sinon.
 		*/
-		bool tourJoueur(bool dev = false);
+		void tourJoueur(bool dev = false);
 
 		/**
 		* @brief Affiche les gagnants de la partie.
@@ -161,10 +163,9 @@ class Controleur {
 		* @param etapeActuel Etape en cours d'éxecution (-1 = Attente entre deux tours ; 1 = Attente d'une carte ; 2 =  ; 3 = ).
 		* @param coutMessage Message à afficher.
 		* 
-		* @return Deux entiers : 0 pour arrêter l'affichage du jeu ou 1 pour continuer, 
-		* et la valeur souhaitée (numéro de la carte, indice de la case ...)
+		* @return La valeur souhaitée (numéro de la carte, indice de la case ...)
 		*/
-		array<int, 2> afficherJeu(int etapeActuel = -1, string coutMessage = "");
+		int afficherJeu(int etapeActuel = -1, string coutMessage = "");
 };
 
 /**
