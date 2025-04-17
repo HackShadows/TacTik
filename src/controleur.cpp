@@ -274,7 +274,7 @@ void Controleur::tourJoueur(bool dev) {
         } while (choix == 'n');
 
         if (!jeu.carteJouable(joueurActif + 1, valCarte, coequipier)) jeu.defausserCarte(valCarte, joueurActif + 1);
-        else jouerCarte(valCarte, joueurActif + 1, coequipier);
+        else jouerCarte(valCarte, coequipier);
     }
 }
 
