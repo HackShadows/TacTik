@@ -502,10 +502,16 @@ void ImageViewer::grossissement(bool positif) {
     };
 }
 
-void ImageViewer::setTextSurface(string message){
-    SDL_Color TextColor = {255, 255, 255};
+void ImageViewer::setTextSurface(string message, int couleur){
+    SDL_Color TextColor;
+    if (couleur == 5){
+        TextColor = {255, 255, 255};
+    }
+    else{
+        TextColor = {0, 0, 0};
+    }
     const char * msg = message.c_str();
-    textSurface = TTF_RenderText_Solid(m_font, msg, TextColor);
+    textSurface = TTF_RenderUTF8_Blended(m_font, msg, TextColor);
     if (textSurface) {
         SDL_Rect txtRect = {0, imgHeight, (dimy+200)*zoom , 100*zoom};
         SDL_Texture* TextTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
@@ -518,11 +524,32 @@ void ImageViewer::setTextSurface(string message){
 }
 
 void ImageViewer::setCouleur(int couleur){
-    SDL_SetRenderDrawColor(renderer, 128, 128, 128, 255);
+    switch (couleur){
+        case 1:
+            SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+            break;
+        case 2:
+            SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+            break;
+        case 3:
+            SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
+            break;
+        case 4:
+            SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
+            break;
+        case 5:
+            SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+            break;
+        case 6:
+            SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+            break;
 
+    }
 }
+
 void ImageViewer::afficher(int couleur, string message) {
-    setCouleur(couleur);
+    cout << "La couleur : " << couleur << endl;
+    setCouleur(couleur+1);
     SDL_RenderClear(renderer);
     SDL_Rect Rect = {0, 0, imgWidth, imgHeight};
     SDL_RenderCopy(renderer, texturePlateau, NULL, &Rect);
@@ -534,7 +561,7 @@ void ImageViewer::afficher(int couleur, string message) {
     SDL_RenderCopy(renderer, textureCartes[1], NULL, &RectMain[1]);
     SDL_RenderCopy(renderer, textureCartes[2], NULL, &RectMain[2]);
     SDL_RenderCopy(renderer, textureCartes[3], NULL, &RectMain[3]);
-    setTextSurface(message);
+    setTextSurface(message, couleur+1);
     
 
     SDL_RenderPresent(renderer);

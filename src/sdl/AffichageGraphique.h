@@ -144,8 +144,9 @@ class ImageViewer{
 		/**
         * @brief Met à jour la valeur de textSurface
 		* @param message Le message à afficher
+		* @param couleur La couleur du joueur actif
         */
-	   void setTextSurface(string message);
+	   void setTextSurface(string message, int couleur);
 
 		/**
         * @brief Met à jour la couleur du fond
