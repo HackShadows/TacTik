@@ -503,7 +503,7 @@ void ImageViewer::afficherMaison() const
         {
             if (maison[j] != 0)
             {
-                dessineTriangle((i - 1) / 4 + 1, coordonneesMaison[i][0] * zoom, coordonneesMaison[i][1] * zoom);
+                dessineTriangle(i+1, coordonneesMaison[i][0] * zoom, coordonneesMaison[i][1] * zoom);
             }
         }
     }
