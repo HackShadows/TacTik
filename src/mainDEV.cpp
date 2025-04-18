@@ -16,7 +16,7 @@ int main() {
 	
 	/* Début de l'espace modifiable */	
 	
-	jouer(true);
+	jouer(true, true);
 
 	/* Fin de l'espace modifiable */
 		

@@ -60,11 +60,15 @@ void Controleur::setJoueurActif(int indJoueurActif) {
 
 int Controleur::getIdPion(string coutMessage) {
 	if (versionGraphique) return afficherJeu(2, coutMessage);
-    return saisirEntier(coutMessage);
+    return cinProtectionInt(coutMessage);
 }
 
-int Controleur::saisirEntier(string coutMessage) {
-	if (versionGraphique) return graphique->getEventNumber(coutMessage);
+int Controleur::jouerJoker(string coutMessage) {
+	if (versionGraphique) {
+		int val = graphique->selectionnerValJoker(joueurActif, coutMessage);
+		if (val == 0) running = false;
+		return val;
+	}
 	return cinProtectionInt(coutMessage);
 }
 
@@ -145,7 +149,8 @@ bool Controleur::jouerCarte(int valCarte, bool coequipier, bool joker) {
 		bool continuer = true;
 		while (continuer) {
 			do {
-				valCarte = saisirEntier("Valeur désirée pour le joker" + mess);
+				valCarte = jouerJoker("Valeur désirée pour le joker" + mess);
+				if (!running) return false;
 			} while (valCarte != -4 && (valCarte < 1 || valCarte > 13 || valCarte == 4));
 			if (!jeu.carteJouable(c1, valCarte, coequipier, true)) afficherMessage("Action impossible ! Choisissez une autre valeur pour le joker.");
 			else continuer = false;
@@ -205,7 +210,7 @@ bool Controleur::jouerCarte(int valCarte, bool coequipier, bool joker) {
 					idPion = 0;
 					while (idPion < 1 || idPion > 4*nbJoueurs || (idPion-1)/4 != couleur-1) idPion = getIdPion("Id du pion à avancer" + mess);
 					val = 0;
-					while (val < 1 || somme + val > 7) val = saisirEntier("Nombre de cases à avancer" + mess);
+					while (val < 1 || somme + val > 7) val = cinProtectionInt("Nombre de cases à avancer" + mess);
 					if (!jeu.avancerPion(val, idPion, true)) afficherMessage("Ce déplacement est impossible !");
 					else continuer = false;
 				}
@@ -239,7 +244,7 @@ int Controleur::choixCarte(string coutMessage, const Joueur& joueur) {
 	int valCarte = 0;
 	if (versionGraphique) return afficherJeu(1, coutMessage);
     while (!joueur.estDansMain(valCarte)) {
-		valCarte = saisirEntier(coutMessage);
+		valCarte = cinProtectionInt(coutMessage);
 	}
 	return valCarte;
 }
@@ -429,6 +434,7 @@ void jouer(bool versionGraphique, bool dev){
 				int couleur = (nbJoueurs == 6) ? ordre[j]:j+1;
 				controleur.setJoueurActif(couleur-1);
 				controleur.tourJoueur(dev);
+				if (!controleur.getRunning()) return ;
 				if (jeu.partieGagnee()) {
 					controleur.setJoueurActif(6);
 					controleur.afficherJeu(6);

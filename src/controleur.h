@@ -88,7 +88,7 @@ class Controleur {
 		*
 		* @return Entier saisi par l'utilisateur (valeur renvoyée par défaut 0).
 		*/
-		int saisirEntier(string coutMessage = "");
+		int jouerJoker(string coutMessage = "");
 
 		/**
 		* @brief Permet de saisir un caractère en gérant les erreurs de saisi.

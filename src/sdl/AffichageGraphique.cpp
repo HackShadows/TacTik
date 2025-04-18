@@ -688,7 +688,10 @@ void ImageViewer::afficherJoker(SDL_Rect tab[13])
 
         tab[i] = {paddingX + col * (cardWidth + paddingX), paddingY + row * (cardHeight + paddingY), cardWidth, cardHeight};
         SDL_RenderCopy(renderer, listTexture[i+1], NULL, &tab[i]);
+		
     }
+	SDL_RenderPresent(renderer);
+    SDL_Delay(100);
 }
 
 int ImageViewer::selectionnerValJoker(int joueurActif, string message){
@@ -710,7 +713,8 @@ int ImageViewer::selectionnerValJoker(int joueurActif, string message){
                 for (int i = 0; i < 13; i++) {
                     if (event.button.x >= tab[i].x && event.button.x <= tab[i].x + tab[i].w &&
                         event.button.y >= tab[i].y && event.button.y <= tab[i].y + tab[i].h) {
-                        return i;
+						if (i == 3) return -4;
+                        return i + 1;
                     }
                 }
                 return -1; // Retourne -1 si aucune carte n'a été cliquée
