@@ -634,7 +634,6 @@ void ImageViewer::afficherBoutons(int choix)
         surface1 = TTF_RenderUTF8_Blended(m_font, "A", {0, 0, 0});
         surface2 = TTF_RenderUTF8_Blended(m_font, "D", {0, 0, 0});
     }
-
     if (choix == 2)
     {
         surface1 = TTF_RenderUTF8_Blended(m_font, "O", {0, 0, 0});
@@ -649,7 +648,7 @@ void ImageViewer::afficherBoutons(int choix)
         SDL_RenderCopy(renderer, texture2, NULL, &rect2);
 
         SDL_RenderPresent(renderer);
-
+        SDL_Delay(100);
         // Libérer les textures
         SDL_DestroyTexture(texture1);
         SDL_DestroyTexture(texture2);
@@ -722,11 +721,13 @@ int ImageViewer::selectionnerValJoker(int joueurActif, string message){
 }
 
 int ImageViewer::afficherMenu(string message){
-
+    texturePlateau = IMG_LoadTexture(renderer, "./data/plateau/plateau6.png");
+    SDL_Rect Rect = {0, 0, imgWidth+200*zoom, imgHeight};
     SDL_Event event;
     while (true){
+        SDL_RenderCopy(renderer, texturePlateau, NULL, &Rect);
         afficherBoutons(0);
-        setTextSurface(message, 0);
+        setTextSurface(message, 5);
         SDL_RenderPresent(renderer);
         while (SDL_PollEvent(&event))
         {
@@ -735,9 +736,6 @@ int ImageViewer::afficherMenu(string message){
                 return 0;
             }
             if (event.type == SDL_MOUSEBUTTONDOWN){
-                cout << "imgHeight : "<< imgHeight << "  imgWidth : " << imgWidth << "  Clic : " << event.button.x << " " << event.button.y <<endl;
-                cout << "bouton 1 x: " << imgWidth/4 << " " << imgWidth/4 + 100*zoom << endl;
-                cout << "bouton 1 y: " << 2 * imgHeight / 2 - 50 * zoom << " " << 2 * imgHeight / 2 + 50 * zoom << endl;
                 if (event.button.x > imgWidth / 4 && event.button.x < imgWidth / 4 + 100 * zoom && event.button.y > imgHeight / 2 - 50 * zoom && event.button.y < imgHeight / 2 + 50 * zoom)
                 {
                     cout << 4 << endl;
