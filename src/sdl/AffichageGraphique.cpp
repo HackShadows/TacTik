@@ -287,10 +287,16 @@ int ImageViewer::getIndicePionEvent(string s)
                 float rayon = 20 * zoom;
                 for (int i = 0; i < 16 * nbJ; i++)
                 {
-                    if (abs(event.button.x - coordonnees[i][0] * zoom) < rayon && abs(
-                                                                                      event.button.y - coordonnees[i][1] * zoom) < rayon)
+                    if (abs(event.button.x - coordonnees[i][0] * zoom) < rayon && abs(event.button.y - coordonnees[i][1] * zoom) < rayon)
                     {
-                        cout << "sortie \n";
+                        return jeu->getPlateau().getIdPion(i);
+                        // return getIndicePion(jeu, event.button.x, event.button.y);
+                    }
+
+                }
+                for (int i = 0; i<4*nbJ; i++) {
+                    if (abs(event.button.x - coordonneesMaison[i][0] * zoom) < rayon && abs(event.button.y - coordonneesMaison[i][1] * zoom) < rayon)
+                    {
                         return jeu->getPlateau().getIdPion(i);
                         // return getIndicePion(jeu, event.button.x, event.button.y);
                     }
