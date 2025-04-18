@@ -738,12 +738,10 @@ int ImageViewer::afficherMenu(string message){
             if (event.type == SDL_MOUSEBUTTONDOWN){
                 if (event.button.x > imgWidth / 4 && event.button.x < imgWidth / 4 + 100 * zoom && event.button.y > imgHeight / 2 - 50 * zoom && event.button.y < imgHeight / 2 + 50 * zoom)
                 {
-                    cout << 4 << endl;
                     return 4;
                 }
                 if (event.button.x > 2 * imgWidth / 3 && event.button.x < 2 * imgWidth / 3 + 100 * zoom && event.button.y > imgHeight / 2 - 50 * zoom && event.button.y < imgHeight / 2 + 50 * zoom)
                 {
-                    cout << 6 << endl;
                     return 6;
                 }
             }
