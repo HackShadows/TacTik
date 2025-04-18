@@ -94,11 +94,7 @@ ImageViewer::ImageViewer()
     textureCartes[2] = listTexture[0];
     textureCartes[3] = listTexture[0];
 
-    if (texturePlateau == nullptr)
-    {
-        std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
-        return;
-    }
+    
     if (textureTas == nullptr)
     {
         std::cerr << "Erreur de chargement de l'image : " << IMG_GetError() << std::endl;
