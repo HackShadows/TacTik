@@ -272,7 +272,6 @@ int ImageViewer::getIndicePion(int posx, int posy)
 int ImageViewer::getIndicePionEvent(string s)
 {
     cout << s;
-    cout << "entrée \n";
     SDL_Event event;
     while (true)
     {
