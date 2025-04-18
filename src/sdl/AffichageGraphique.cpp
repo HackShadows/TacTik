@@ -359,52 +359,21 @@ int ImageViewer::getEventNumber(string s)
     }
 }
 
-char ImageViewer::getEventChar(int joueurActif, int choix, string message)
+int ImageViewer::getBouton(int posx, int posy)
 {
-    SDL_Event event;
-    while (true)
+    if (posx> imgWidth / 4 && posx < imgWidth / 4 - 100 * zoom && posy > imgHeight / 2 - 50 * zoom && posy < imgHeight / 2 - 50 * zoom)
     {
-        afficher(joueurActif, message);
-        afficherBoutons(choix);
-        while (SDL_PollEvent(&event))
-        {
-            if (event.type == SDL_QUIT)
-            {
-                return '0';
-            }
-            if (event.type == SDL_MOUSEBUTTONDOWN)
-            {
-                if (event.button.x > imgWidth / 4 && event.button.x < imgWidth / 4 - 100 * zoom && event.button.y > 2 * imgHeight / 2 - 50 * zoom && event.button.y < 2 * imgHeight / 2 - 50 * zoom)
-                {
-                    switch (choix)
-                    {
-                    case 0:
-                        return '4';
-                    case 1:
-                        return 'A';
-                    case 2:
-                        return 'O';
-                    default:
-                        return 'O';
-                    }
-                }
-                if (event.button.x > 2 * imgWidth / 3 && event.button.x < 2 * imgWidth / 3 - 100 * zoom && event.button.y > 2 * imgHeight / 2 - 50 * zoom && event.button.y < 2 * imgHeight / 2 - 50 * zoom)
-                {
-                    switch (choix)
-                    {
-                    case 0:
-                        return '6';
-                    case 1:
-                        return 'D';
-                    case 2:
-                        return 'N';
-                    default:
-                        return 'N';
-                    }
-                }
-            }
-        }
+        return 1;
     }
+    if (posx > 2 * imgWidth / 3 && posx < 2 * imgWidth / 3 - 100 * zoom && posy > imgHeight / 2 - 50 * zoom && posy < imgHeight / 2 - 50 * zoom)
+    {
+        return 2;
+    }
+    else{
+        return 0;
+    }
+        
+    
 }
 
 void ImageViewer::dessineCercle(int couleur, int x, int y) const
@@ -753,25 +722,30 @@ int ImageViewer::selectionnerValJoker(int joueurActif, string message){
 }
 
 int ImageViewer::afficherMenu(string message){
-    afficherBoutons(0);
-    setTextSurface(message, 0);
-    SDL_RenderPresent(renderer);
+
     SDL_Event event;
     while (true){
+        afficherBoutons(0);
+        setTextSurface(message, 0);
+        SDL_RenderPresent(renderer);
         while (SDL_PollEvent(&event))
         {
             if (event.type == SDL_QUIT)
             {
                 return 0;
             }
-            if (event.type == SDL_MOUSEBUTTONDOWN)
-            {
-                if (event.button.x > imgWidth / 4 && event.button.x < imgWidth / 4 - 100 * zoom && event.button.y > 2 * imgHeight / 2 - 50 * zoom && event.button.y < 2 * imgHeight / 2 - 50 * zoom)
+            if (event.type == SDL_MOUSEBUTTONDOWN){
+                cout << "imgHeight : "<< imgHeight << "  imgWidth : " << imgWidth << "  Clic : " << event.button.x << " " << event.button.y <<endl;
+                cout << "bouton 1 x: " << imgWidth/4 << " " << imgWidth/4 + 100*zoom << endl;
+                cout << "bouton 1 y: " << 2 * imgHeight / 2 - 50 * zoom << " " << 2 * imgHeight / 2 + 50 * zoom << endl;
+                if (event.button.x > imgWidth / 4 && event.button.x < imgWidth / 4 + 100 * zoom && event.button.y > imgHeight / 2 - 50 * zoom && event.button.y < imgHeight / 2 + 50 * zoom)
                 {
+                    cout << 4 << endl;
                     return 4;
                 }
-                if (event.button.x > 2 * imgWidth / 3 && event.button.x < 2 * imgWidth / 3 - 100 * zoom && event.button.y > 2 * imgHeight / 2 - 50 * zoom && event.button.y < 2 * imgHeight / 2 - 50 * zoom)
+                if (event.button.x > 2 * imgWidth / 3 && event.button.x < 2 * imgWidth / 3 + 100 * zoom && event.button.y > imgHeight / 2 - 50 * zoom && event.button.y < imgHeight / 2 + 50 * zoom)
                 {
+                    cout << 6 << endl;
                     return 6;
                 }
             }
