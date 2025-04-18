@@ -240,7 +240,7 @@ void Controleur::echangeDeCartes() {
 		setJoueurActif(couleur-1);
 		attenteTour();
 		
-		int valCarte = choixCarte("Carte à donner à " + intToStr(((couleur < 5) ? (couleur+1)%4 : 10-couleur)) + " : ", jeu.getJoueur(joueurActif));
+		valCarte = choixCarte("Carte à donner à " + intToStr(((couleur < 5) ? (couleur+1)%4 : 10-couleur)) + " : ", jeu.getJoueur(joueurActif));
 		if (!running) return ;
 
 		if (i < nbJoueurs/2) echange_carte[i] = valCarte;
