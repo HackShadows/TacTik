@@ -159,7 +159,6 @@ void ImageViewer::initJeu(int nbJoueurs, int nbIA){
     assert(nbIA >= 0 && nbJoueurs >= nbIA && (nbJoueurs == 4 || nbJoueurs == 6));
     jeu = new Jeu(nbJoueurs, nbIA);
     nbJ = jeu->getNbJoueurs();
-    cout << nbJ << endl;
     if (nbJ == 6)
     {
         dimx = (int)1500;
