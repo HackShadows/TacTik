@@ -169,6 +169,8 @@ void ImageViewer::initJeu(int nbJoueurs, int nbIA){
         dimx = (int)1000;
         dimy = (int)1000;
     }
+    imgWidth = (int)dimx * zoom;
+    imgHeight = (int)dimy * zoom;
     SDL_SetWindowSize(window, imgWidth + 200 * zoom, imgHeight + 100 * zoom);
     if (nbJ == 6)
     {
