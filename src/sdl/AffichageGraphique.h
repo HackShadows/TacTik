@@ -40,15 +40,21 @@ class ImageViewer{
         /**
         * @brief Constructeur qui initialise tout SDL2 et crée la fenêtre et le renderer
         * 
-		* @param nbJoueurs Nombre de joueurs
-		* @param nbIA Nombre d'IA
         */
-        ImageViewer(int nbJoueurs = 4, int nbIA = 0);
+        ImageViewer();
 
         /**
         * @brief Detruit et ferme SDL2
         */
         ~ImageViewer();
+
+		/**
+        * @brief Constructeur qui initialise le jeu et crée la fenêtre et le renderer
+        * 
+		* @param nbJoueurs Nombre de joueurs
+		* @param nbIA Nombre d'IA
+        */
+	   void initJeu(int nbJoueurs = 4, int nbIA = 0);
 
         /**
         * @brief Affiche des carrés sur les cases du plateau
