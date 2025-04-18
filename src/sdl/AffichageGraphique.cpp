@@ -769,6 +769,7 @@ int ImageViewer::afficherMenu(string message){
                 if (event.button.x > imgWidth / 4 && event.button.x < imgWidth / 4 - 100 * zoom && event.button.y > 2 * imgHeight / 2 - 50 * zoom && event.button.y < 2 * imgHeight / 2 - 50 * zoom)
                 {
                     return 4;
+                }
                 if (event.button.x > 2 * imgWidth / 3 && event.button.x < 2 * imgWidth / 3 - 100 * zoom && event.button.y > 2 * imgHeight / 2 - 50 * zoom && event.button.y < 2 * imgHeight / 2 - 50 * zoom)
                 {
                     return 6;
