@@ -361,11 +361,11 @@ int ImageViewer::getEventNumber(string s)
 
 int ImageViewer::getBouton(int posx, int posy)
 {
-    if (posx> imgWidth / 4 && posx < imgWidth / 4 - 100 * zoom && posy > imgHeight / 2 - 50 * zoom && posy < imgHeight / 2 - 50 * zoom)
+    if (posx> imgWidth / 4 && posx < imgWidth / 4 - 100 * zoom && posy > imgHeight / 2 - 50 * zoom && posy < imgHeight / 2 + 50 * zoom)
     {
         return 1;
     }
-    if (posx > 2 * imgWidth / 3 && posx < 2 * imgWidth / 3 - 100 * zoom && posy > imgHeight / 2 - 50 * zoom && posy < imgHeight / 2 - 50 * zoom)
+    if (posx > 2 * imgWidth / 3 && posx < 2 * imgWidth / 3 - 100 * zoom && posy > imgHeight / 2 - 50 * zoom && posy < imgHeight / 2 + 50 * zoom)
     {
         return 2;
     }

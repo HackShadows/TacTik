@@ -133,8 +133,8 @@ $(WIN_OBJ_DIR)/Jeu.o: $(CORE)/Jeu.cpp $(CORE)/Jeu.h $(CORE)/Joueur.h $(CORE)/IA.
 $(WIN_OBJ_DIR)/AffichageConsole.o: $(TXT)/AffichageConsole.cpp $(TXT)/AffichageConsole.h $(CORE)/Jeu.h | $(WIN_OBJ_DIR)
 	$(CROSS) $(CROSS_CXXFLAGS) $(TXT)/AffichageConsole.cpp -o $(WIN_OBJ_DIR)/AffichageConsole.o
 
-$(WIN_OBJ_DIR)/AffichageGraphique.o: $(TXT)/AffichageGraphique.cpp $(TXT)/AffichageGraphique.h $(CORE)/Jeu.h | $(WIN_OBJ_DIR)
-	$(CROSS) $(CROSS_CXXFLAGS) $(TXT)/AffichageGraphique.cpp -o $(WIN_OBJ_DIR)/AffichageGraphique.o
+$(WIN_OBJ_DIR)/AffichageGraphique.o: $(SDL)/AffichageGraphique.cpp $(SDL)/AffichageGraphique.h $(CORE)/Jeu.h | $(WIN_OBJ_DIR)
+	$(CROSS) $(CROSS_CXXFLAGS) $(SDL)/AffichageGraphique.cpp -o $(WIN_OBJ_DIR)/AffichageGraphique.o
 
 $(WIN_OBJ_DIR)/controleur.o: src/controleur.cpp src/controleur.h $(TXT)/AffichageConsole.h $(SDL)/AffichageGraphique.h | $(WIN_OBJ_DIR)
 	$(CROSS) $(CROSS_CXXFLAGS) src/controleur.cpp -o $(WIN_OBJ_DIR)/controleur.o
@@ -145,6 +145,9 @@ $(WIN_OBJ_DIR)/mainTXT.o: src/mainTXT.cpp src/controleur.h | $(WIN_OBJ_DIR)
 $(WIN_OBJ_DIR)/mainSDL.o: src/mainSDL.cpp src/controleur.h | $(WIN_OBJ_DIR)
 	$(CROSS) $(CROSS_CXXFLAGS) src/mainSDL.cpp -o $(WIN_OBJ_DIR)/mainSDL.o
 
+$(WIN_OBJ_DIR)/mainDEV.o: src/mainDEV.cpp src/controleur.h | $(WIN_OBJ_DIR)
+	$(CROSS) $(CROSS_CXXFLAGS) src/mainDEV.cpp -o $(WIN_OBJ_DIR)/mainDEV.o
+
 # Règle de linkage pour générer les exécutables Windows
 bin/mainTXT.exe: $(WIN_OBJ_DIR)/Carte.o $(WIN_OBJ_DIR)/Pioche.o $(WIN_OBJ_DIR)/Pion.o $(WIN_OBJ_DIR)/Joueur.o $(WIN_OBJ_DIR)/IA.o $(WIN_OBJ_DIR)/Plateau.o $(WIN_OBJ_DIR)/Jeu.o $(WIN_OBJ_DIR)/AffichageConsole.o $(WIN_OBJ_DIR)/AffichageGraphique.o $(WIN_OBJ_DIR)/controleur.o $(WIN_OBJ_DIR)/mainTXT.o | bin
 	$(CROSS) $^ -static -static-libgcc -static-libstdc++ -lmingw32 -o bin/mainTXT.exe
@@ -152,6 +155,8 @@ bin/mainTXT.exe: $(WIN_OBJ_DIR)/Carte.o $(WIN_OBJ_DIR)/Pioche.o $(WIN_OBJ_DIR)/P
 bin/mainSDL.exe: $(WIN_OBJ_DIR)/Carte.o $(WIN_OBJ_DIR)/Pioche.o $(WIN_OBJ_DIR)/Pion.o $(WIN_OBJ_DIR)/Joueur.o $(WIN_OBJ_DIR)/IA.o $(WIN_OBJ_DIR)/Plateau.o $(WIN_OBJ_DIR)/Jeu.o $(WIN_OBJ_DIR)/AffichageConsole.o $(WIN_OBJ_DIR)/AffichageGraphique.o $(WIN_OBJ_DIR)/controleur.o $(WIN_OBJ_DIR)/mainSDL.o | bin
 	$(CROSS) $^ -static -static-libgcc -static-libstdc++ -lmingw32 -o bin/mainSDL.exe
 
+bin/mainDEV.exe: $(WIN_OBJ_DIR)/Carte.o $(WIN_OBJ_DIR)/Pioche.o $(WIN_OBJ_DIR)/Pion.o $(WIN_OBJ_DIR)/Joueur.o $(WIN_OBJ_DIR)/IA.o $(WIN_OBJ_DIR)/Plateau.o $(WIN_OBJ_DIR)/Jeu.o $(WIN_OBJ_DIR)/AffichageConsole.o $(WIN_OBJ_DIR)/AffichageGraphique.o $(WIN_OBJ_DIR)/controleur.o $(WIN_OBJ_DIR)/mainDEV.o | bin
+	$(CROSS) $^ -static -static-libgcc -static-libstdc++ -lmingw32 -o bin/mainDEV.exe
 # Assure que le dossier bin existe
 bin:
 	mkdir -p bin
@@ -162,3 +167,6 @@ mainTXTWindows: clean bin/mainTXT.exe
 
 mainSDLWindows: clean bin/mainSDL.exe
 	@echo "Windows executable generated: bin/mainSDL.exe"
+
+mainDEVWindows: bin/mainDEV.exe
+	@echo "Windows executable generated: bin/mainDEV.exe"
