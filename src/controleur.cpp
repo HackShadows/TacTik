@@ -400,11 +400,12 @@ void jouer(bool versionGraphique, bool dev){
 	srand(time(NULL));
 	
 	int nbIA = 0, nbJoueurs = 0;
+	string mess = (versionGraphique) ? "":" : ";
 	Controleur controleur(versionGraphique);
 	
-	while (nbJoueurs != 4 && nbJoueurs != 6) nbJoueurs = controleur.afficherMenu("Nombre de joueurs (4 ou 6) : ");
+	while (nbJoueurs != 4 && nbJoueurs != 6) nbJoueurs = controleur.afficherMenu("Nombre de joueurs (4 ou 6)" + mess);
 
-	while (nbIA < 0 || nbIA > nbJoueurs) nbIA = cinProtectionInt("Nombre d'IA parmis les joueurs (0-" + to_string(nbJoueurs) + ") : ");
+	while (nbIA < 0 || nbIA > nbJoueurs) nbIA = cinProtectionInt("Nombre d'IA parmis les joueurs (0-" + to_string(nbJoueurs) + ")" + mess);
 	
 	controleur.initJeu(nbJoueurs, nbIA);
 	Jeu &jeu = controleur.getJeu();
