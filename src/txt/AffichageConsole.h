@@ -55,22 +55,27 @@ void message(string coutMessage = "");
 */
 class ImageConsole {
 	private:
-		Jeu jeu; ///<Jeu à afficher
+		Jeu * jeu; ///<Jeu à afficher
 		int nbCase; ///<Nombre de cases du plateau de jeu
 
 	public:
 		/**
         * @brief Constructeur avec paramètres de la classe ImageConsole
-        * 
-		* @param nbJoueurs Nombre de joueurs
-		* @param nbIA Nombre d'IA
         */
-	   ImageConsole(int nbJoueurs = 4, int nbIA = 0);
+	   ImageConsole();
 
 	   /**
 	   * @brief Destructeur de la classe ImageConsole
 	   */
 	   ~ImageConsole();
+
+	   /**
+        * @brief Initialise le jeu
+        * 
+		* @param nbJoueurs Nombre de joueurs
+		* @param nbIA Nombre d'IA
+        */
+	   void initJeu(int nbJoueurs = 4, int nbIA = 0);
 
 	   /**
 	   * @brief Renvoie le jeu en cours.

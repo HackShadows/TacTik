@@ -34,16 +34,22 @@ class Controleur {
 		/**
 		* @brief Constructeur avec paramètres du controleur.
 		*
-		* @param nbJ Nombre de joueurs.
-		* @param nbIA Nombre d'IA.
 		* @param affichageGraphique True pour une version graphique, false pour une version console.
 		*/
-		Controleur(int nbJ, int nbIA = 0, bool affichageGraphique = false);
+		Controleur(bool affichageGraphique = false);
 
 		/**
 		* @brief Destructeur du controleur.
 		*/
 		~Controleur();
+
+		/**
+		* @brief Initialise le jeu dans le cas d'un affichage graphique.
+		* 
+		* @param nbJ Nombre de joueurs.
+		* @param nbIA Nombre d'IA.
+		*/
+		void initJeu(int nbJoueurs, int nbIA);
 
 		/**
 		* @brief Renvoie le jeu en cours.
@@ -167,6 +173,15 @@ class Controleur {
 		* @return La valeur souhaitée (numéro de la carte, indice de la case ...)
 		*/
 		int afficherJeu(int etapeActuel = -1, string coutMessage = "");
+
+		/**
+		* @brief Affiche le jeu.
+		*
+		* @param coutMessage Message à afficher.
+		* 
+		* @return Le nombre de joueurs.
+		*/
+		int afficherMenu(string coutMessage = "");
 };
 
 /**

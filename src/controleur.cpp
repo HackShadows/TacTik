@@ -14,17 +14,15 @@ Controleur::Controleur() {
 	running = true;
 }
 
-Controleur::Controleur(int nbJ, int nbIA, bool affichageGraphique) {
-	assert(nbIA >= 0 && nbJ >= nbIA && (nbJ == 4 || nbJ == 6));
+Controleur::Controleur(bool affichageGraphique) {
 	versionGraphique = affichageGraphique;
 	joueurActif = -1;
 	running = true;
 	if (versionGraphique) {
 		console = nullptr;
 		graphique = new ImageViewer();
-		graphique->initJeu(nbJ, nbIA);
 	} else {
-		console = new ImageConsole(nbJ, nbIA);
+		console = new ImageConsole();
 		graphique = nullptr;
 	}
 }
@@ -38,6 +36,12 @@ Controleur::~Controleur() {
 		delete graphique;
 		graphique = nullptr;
 	}
+}
+
+void Controleur::initJeu(int nbJoueurs, int nbIA) {
+	assert(nbIA >= 0 && nbJoueurs >= nbIA && (nbJoueurs == 4 || nbJoueurs == 6));
+	if (versionGraphique) graphique->initJeu(nbJoueurs, nbIA);
+	else console->initJeu(nbJoueurs, nbIA);
 }
 
 Jeu& Controleur::getJeu() {
@@ -366,26 +370,24 @@ int Controleur::gestionEvent(SDL_Event event, int etapeActuel) {
 	return val;
 }
 
+int Controleur::afficherMenu(string coutMessage) {
+	if (versionGraphique) return graphique->afficherMenu(coutMessage);
+	return cinProtectionInt(coutMessage);
+}
+
 
 
 void jouer(bool versionGraphique, bool dev){
 	srand(time(NULL));
 	
 	int nbIA = -1, nbJoueurs = 0;
-	/*if (versionGraphique) {
-		Controleur controleur2(4, 0, versionGraphique);
-		while (nbJoueurs != 4 && nbJoueurs != 6) {
-			nbJoueurs = controleur2.saisirCaractere("Nombre de joueurs (4 ou 6)", 0);
-			if (!controleur2.getRunning()) return ;
-		}
-	} 
-	else {*/
-		while (nbJoueurs != 4 && nbJoueurs != 6) nbJoueurs = cinProtectionInt("Nombre de joueurs (4 ou 6) : ");
-
-    	while (nbIA < 0 || nbIA > nbJoueurs) nbIA = cinProtectionInt("Nombre d'IA parmis les joueurs (0-" + to_string(nbJoueurs) + ") : ");
-	//}
+	Controleur controleur(versionGraphique);
 	
-	Controleur controleur(nbJoueurs, nbIA, versionGraphique);
+	while (nbJoueurs != 4 && nbJoueurs != 6) nbJoueurs = controleur.afficherMenu("Nombre de joueurs (4 ou 6) : ");
+
+	while (nbIA < 0 || nbIA > nbJoueurs) nbIA = cinProtectionInt("Nombre d'IA parmis les joueurs (0-" + to_string(nbJoueurs) + ") : ");
+	
+	controleur.initJeu(nbJoueurs, nbIA);
 	Jeu &jeu = controleur.getJeu();
 	int ordre[6] = {1, 2, 5, 3, 4, 6};
 
