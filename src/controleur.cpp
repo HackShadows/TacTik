@@ -70,11 +70,12 @@ int Controleur::saisirEntier(string coutMessage) {
 
 char Controleur::saisirCaractere(string coutMessage, int choix) {
 	if (versionGraphique) {
-		char val = graphique->getEventChar(joueurActif, choix, coutMessage);
-		if (val == '0') running = false;
+		int val = afficherJeu(4, coutMessage);
 		return val;
 	}
-	return cinProtectionChar(coutMessage);
+	
+	if (versionGraphique) return afficherJeu(1, coutMessage);
+    return cinProtectionChar(coutMessage);
 }
 
 void Controleur::afficherMessage(string coutMessage) {
@@ -364,6 +365,10 @@ int Controleur::gestionEvent(SDL_Event event, int etapeActuel) {
 				val = graphique->getIndicePion(event.button.x, event.button.y);
 				cout << val << endl;
 				return val;
+			} else if (etapeActuel == 4) {
+				val = graphique->getBouton(event.button.x, event.button.y);
+				cout << val << endl;
+				return val;
 			}
         }
     }
@@ -380,7 +385,7 @@ int Controleur::afficherMenu(string coutMessage) {
 void jouer(bool versionGraphique, bool dev){
 	srand(time(NULL));
 	
-	int nbIA = -1, nbJoueurs = 0;
+	int nbIA = 0, nbJoueurs = 0;
 	Controleur controleur(versionGraphique);
 	
 	while (nbJoueurs != 4 && nbJoueurs != 6) nbJoueurs = controleur.afficherMenu("Nombre de joueurs (4 ou 6) : ");
