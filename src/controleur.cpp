@@ -59,7 +59,7 @@ void Controleur::setJoueurActif(int indJoueurActif) {
 }
 
 int Controleur::getIdPion(string coutMessage) {
-	if (versionGraphique) return graphique->getIndicePionEvent(coutMessage);
+	if (versionGraphique) return afficherJeu(2, coutMessage);
     return saisirEntier(coutMessage);
 }
 
@@ -122,6 +122,7 @@ bool Controleur::jouerCarte(int valCarte, bool coequipier, bool joker) {
 	Joueur& j1 = jeu.getJoueurNonConst(couleur-1);
 	if (coequipier) couleur = 1 + ((couleur < 5) ? (couleur+1)%4 : 10-couleur);
 	Joueur& joueur = jeu.getJoueurNonConst(couleur-1);
+	string mess = (versionGraphique) ? "":" : ";
 	
 	// Cas du permutter
 	if (valCarte == 11) {
@@ -133,9 +134,9 @@ bool Controleur::jouerCarte(int valCarte, bool coequipier, bool joker) {
 		}
 		if (nb_possible > 1) idPion = 0;
 		nb_possible = 0;
-		while (idPion < 1 || idPion > 4*nbJoueurs || jeu.getPion(idPion).getPos() < 0 || (idPion-1)/4 != couleur-1) idPion = getIdPion("Id du pion à permutter (pion du joueur) : ");
+		while (idPion < 1 || idPion > 4*nbJoueurs || jeu.getPion(idPion).getPos() < 0 || (idPion-1)/4 != couleur-1) idPion = getIdPion("Id du pion à permutter (pion du joueur)" + mess);
 		int idPion2 = 0;
-		while (idPion2 < 1 || idPion2 > 4*nbJoueurs || jeu.getPion(idPion2).estPieu() || idPion2 == idPion) idPion2 = getIdPion("Id du deuxième pion avec lequel permutter : ");
+		while (idPion2 < 1 || idPion2 > 4*nbJoueurs || jeu.getPion(idPion2).estPieu() || idPion2 == idPion) idPion2 = getIdPion("Id du deuxième pion avec lequel permutter" + mess);
 		if (!jeu.permutter(idPion, idPion2)) return false;
 	} 
 	
@@ -144,7 +145,7 @@ bool Controleur::jouerCarte(int valCarte, bool coequipier, bool joker) {
 		bool continuer = true;
 		while (continuer) {
 			do {
-				valCarte = saisirEntier("Valeur désirée pour le joker : ");
+				valCarte = saisirEntier("Valeur désirée pour le joker" + mess);
 			} while (valCarte != -4 && (valCarte < 1 || valCarte > 13 || valCarte == 4));
 			if (!jeu.carteJouable(c1, valCarte, coequipier, true)) afficherMessage("Action impossible ! Choisissez une autre valeur pour le joker.");
 			else continuer = false;
@@ -168,7 +169,7 @@ bool Controleur::jouerCarte(int valCarte, bool coequipier, bool joker) {
 			}
 			choix = (nb == 0) ? 'D':'0';
 		}
-		while (choix != 'D' && choix != 'A' && choix != 'd' && choix != 'a') choix = saisirCaractere("Utiliser la carte comme démarrer(D) ou avancer(A) : ", 1);
+		while (choix != 'D' && choix != 'A' && choix != 'd' && choix != 'a') choix = saisirCaractere("Utiliser la carte comme démarrer(D) ou avancer(A)" + mess, 1);
 		if ((choix == 'D' || choix == 'd') && !jeu.demarrer(couleur)) return false;
 		else if (choix == 'A' || choix == 'a') {
 			for (int i = (couleur-1)*4 +1 ; i <= couleur*4 ; i++) {
@@ -179,7 +180,7 @@ bool Controleur::jouerCarte(int valCarte, bool coequipier, bool joker) {
 			}
 			if (nb_possible == 0) return false;
 			if (nb_possible > 1 ) idPion = 0;
-			while (idPion < 1 || idPion > 4*nbJoueurs || (idPion-1)/4 != couleur-1) idPion = getIdPion("Id du pion à avancer : ");
+			while (idPion < 1 || idPion > 4*nbJoueurs || (idPion-1)/4 != couleur-1) idPion = getIdPion("Id du pion à avancer" + mess);
 			if (!jeu.avancerPion(valCarte, idPion)) return false;
 		}
 	} 
@@ -202,9 +203,9 @@ bool Controleur::jouerCarte(int valCarte, bool coequipier, bool joker) {
 				bool continuer = true;
 				while (continuer) {
 					idPion = 0;
-					while (idPion < 1 || idPion > 4*nbJoueurs || (idPion-1)/4 != couleur-1) idPion = getIdPion("Id du pion à avancer : ");
+					while (idPion < 1 || idPion > 4*nbJoueurs || (idPion-1)/4 != couleur-1) idPion = getIdPion("Id du pion à avancer" + mess);
 					val = 0;
-					while (val < 1 || somme + val > 7) val = saisirEntier("Nombre de cases à avancer : ");
+					while (val < 1 || somme + val > 7) val = saisirEntier("Nombre de cases à avancer" + mess);
 					if (!jeu.avancerPion(val, idPion, true)) afficherMessage("Ce déplacement est impossible !");
 					else continuer = false;
 				}
@@ -224,7 +225,7 @@ bool Controleur::jouerCarte(int valCarte, bool coequipier, bool joker) {
 		}
 		if (nb_possible == 0) return false;
 		if (nb_possible > 1 ) idPion = 0;
-		while (idPion < 1 || idPion > 4*nbJoueurs || (idPion-1)/4 != couleur-1) idPion = getIdPion("Id du pion à avancer : ");
+		while (idPion < 1 || idPion > 4*nbJoueurs || (idPion-1)/4 != couleur-1) idPion = getIdPion("Id du pion à avancer" + mess);
 		if (!jeu.avancerPion(valCarte, idPion)) return false;
 	}
 	
@@ -248,12 +249,13 @@ void Controleur::echangeDeCartes() {
 	int valCarte, couleur, nbJoueurs = jeu.getNbJoueurs();
 	int ordre[6] = {1, 2, 5, 3, 4, 6};
 	int echange_carte[3] = {0, 0, 0};
+	string mess = (versionGraphique) ? "":" : ";
 	for (int i = 0 ; i < nbJoueurs ; i++) {
 		couleur = (nbJoueurs == 6) ? ordre[i]:i+1;
 		setJoueurActif(couleur-1);
 		attenteTour();
 		
-		valCarte = choixCarte("Carte à donner à " + intToStr(((couleur < 5) ? (couleur+1)%4 : 10-couleur)) + " : ", jeu.getJoueur(joueurActif));
+		valCarte = choixCarte("Carte à donner à " + intToStr(((couleur < 5) ? (couleur+1)%4 : 10-couleur)) + mess, jeu.getJoueur(joueurActif));
 		if (!running) return ;
 
 		if (i < nbJoueurs/2) echange_carte[i] = valCarte;
@@ -271,13 +273,14 @@ void Controleur::tourJoueur(bool dev) {
 	int valCarte;
 	bool peut_jouer = true, coequipier = (jeu.getJoueur(joueurActif).maisonRemplie());
     IA ia;
+	string mess = (versionGraphique) ? "":" : ";
 	
 	attenteTour(dev);
 	
 	if (jeu.getJoueur(joueurActif).estIA()) ia.genererCoups(jeu, joueurActif + 1);
     else {
         if (!jeu.peutJouer(joueurActif + 1, coequipier)) {
-            choix = saisirCaractere("Aucune carte ne peut être jouée. Défausser toutes les cartes ? (Oui(o) ; Non(n)) : ", 2);
+            choix = saisirCaractere("Aucune carte ne peut être jouée. Défausser toutes les cartes ? (Oui(o) ; Non(n))" + mess, 2);
             if (choix == 'o' || choix == 'O') {
                 jeu.defausserJoueur(joueurActif + 1);
                 return ;
@@ -285,7 +288,7 @@ void Controleur::tourJoueur(bool dev) {
             peut_jouer = false;
         }
         do {
-			valCarte = choixCarte(((peut_jouer) ? "Carte à jouer : " : "Carte à défausser : "), jeu.getJoueur(joueurActif));
+			valCarte = choixCarte(((peut_jouer) ? "Carte à jouer" : "Carte à défausser") + mess, jeu.getJoueur(joueurActif));
 			if (!running) return ;
 
             if (!jeu.carteJouable(joueurActif + 1, valCarte, coequipier) && peut_jouer) {
@@ -365,23 +368,22 @@ int Controleur::gestionEvent(SDL_Event event, int etapeActuel) {
             //cout << getIndiceCase(event.button.x, event.button.y, coordonnees, zoom) << endl;
             if (event.button.x > graphique->getImgWidth() && etapeActuel == 1) {
                 int indiceCase = event.button.y / (250 * graphique->getZoom());
-                cout << indiceCase << endl;
+                //cout << indiceCase << endl;
                 if (indiceCase < 4 && getJeu().getJoueur(joueurActif).getCarte(indiceCase)) {
                     val = getJeu().getJoueur(joueurActif).getCarte(indiceCase)->getValeur();
-                    cout << "La valeur de la carte : " << val << endl;
+                    //cout << "La valeur de la carte : " << val << endl;
                     if (getJeu().carteJouable(joueurActif + 1, val)) {
-                        cout << "La carte est jouable" << endl;
+                        //cout << "La carte est jouable" << endl;
                     }
                 }
 				return val;
             } else if (etapeActuel == 2) {
 				val = graphique->getIndicePion(event.button.x, event.button.y);
 				cout << val << endl;
-				return val;
 			} else if (etapeActuel == 4) {
 				val = graphique->getBouton(event.button.x, event.button.y);
 				cout << val << endl;
-				return val;
+				cout << "ICI" << endl;
 			}
         }
     }
