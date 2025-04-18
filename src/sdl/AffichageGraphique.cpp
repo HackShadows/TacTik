@@ -722,7 +722,7 @@ int ImageViewer::selectionnerValJoker(int joueurActif, string message){
 
 int ImageViewer::afficherMenu(string message){
     texturePlateau = IMG_LoadTexture(renderer, "./data/plateau/plateau6.png");
-    SDL_Rect Rect = {0, 0, imgWidth+200*zoom, imgHeight};
+    SDL_Rect Rect = {0, 0, (int)(imgWidth+200*zoom), imgHeight};
     SDL_Event event;
     while (true){
         SDL_RenderCopy(renderer, texturePlateau, NULL, &Rect);
