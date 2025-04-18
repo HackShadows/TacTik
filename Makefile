@@ -100,8 +100,11 @@ veryclean:
 # Les objets Windows seront placés dans le dossier obj_win
 
 CROSS = x86_64-w64-mingw32-g++
-CROSS_CXXFLAGS = -Wall -g -c -municode -DUNICODE -D_UNICODE
+CROSS_CXXFLAGS = -Wall -g -c -municode -DUNICODE -D_UNICODE \
+                 -I/usr/x86_64-w64-mingw32/include \
+                 -I/usr/x86_64-w64-mingw32/include/SDL2
 WIN_OBJ_DIR = obj_win
+LDFLAGS = $(shell x86_64-w64-mingw32-pkg-config sdl2 --libs)
 
 # Règle pour créer le dossier d'objets Windows s'il n'existe pas
 $(WIN_OBJ_DIR):
@@ -150,13 +153,13 @@ $(WIN_OBJ_DIR)/mainDEV.o: src/mainDEV.cpp src/controleur.h | $(WIN_OBJ_DIR)
 
 # Règle de linkage pour générer les exécutables Windows
 bin/mainTXT.exe: $(WIN_OBJ_DIR)/Carte.o $(WIN_OBJ_DIR)/Pioche.o $(WIN_OBJ_DIR)/Pion.o $(WIN_OBJ_DIR)/Joueur.o $(WIN_OBJ_DIR)/IA.o $(WIN_OBJ_DIR)/Plateau.o $(WIN_OBJ_DIR)/Jeu.o $(WIN_OBJ_DIR)/AffichageConsole.o $(WIN_OBJ_DIR)/AffichageGraphique.o $(WIN_OBJ_DIR)/controleur.o $(WIN_OBJ_DIR)/mainTXT.o | bin
-	$(CROSS) $^ -static -static-libgcc -static-libstdc++ -lmingw32 -o bin/mainTXT.exe
+	$(CROSS) $^ -static -static-libgcc -static-libstdc++ -lmingw32 $(LDFLAGS) -o bin/mainTXT.exe
 
 bin/mainSDL.exe: $(WIN_OBJ_DIR)/Carte.o $(WIN_OBJ_DIR)/Pioche.o $(WIN_OBJ_DIR)/Pion.o $(WIN_OBJ_DIR)/Joueur.o $(WIN_OBJ_DIR)/IA.o $(WIN_OBJ_DIR)/Plateau.o $(WIN_OBJ_DIR)/Jeu.o $(WIN_OBJ_DIR)/AffichageConsole.o $(WIN_OBJ_DIR)/AffichageGraphique.o $(WIN_OBJ_DIR)/controleur.o $(WIN_OBJ_DIR)/mainSDL.o | bin
-	$(CROSS) $^ -static -static-libgcc -static-libstdc++ -lmingw32 -o bin/mainSDL.exe
+	$(CROSS) $^ -static -static-libgcc -static-libstdc++ -lmingw32 $(LDFLAGS) -o bin/mainSDL.exe
 
 bin/mainDEV.exe: $(WIN_OBJ_DIR)/Carte.o $(WIN_OBJ_DIR)/Pioche.o $(WIN_OBJ_DIR)/Pion.o $(WIN_OBJ_DIR)/Joueur.o $(WIN_OBJ_DIR)/IA.o $(WIN_OBJ_DIR)/Plateau.o $(WIN_OBJ_DIR)/Jeu.o $(WIN_OBJ_DIR)/AffichageConsole.o $(WIN_OBJ_DIR)/AffichageGraphique.o $(WIN_OBJ_DIR)/controleur.o $(WIN_OBJ_DIR)/mainDEV.o | bin
-	$(CROSS) $^ -static -static-libgcc -static-libstdc++ -lmingw32 -o bin/mainDEV.exe
+	$(CROSS) $^ -static -static-libgcc -static-libstdc++ -lmingw32 $(LDFLAGS) -o bin/mainDEV.exe
 # Assure que le dossier bin existe
 bin:
 	mkdir -p bin
