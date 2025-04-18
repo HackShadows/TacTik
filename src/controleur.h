@@ -172,7 +172,7 @@ class Controleur {
 		* 
 		* @return La valeur souhaitée (numéro de la carte, indice de la case ...)
 		*/
-		int afficherJeu(int etapeActuel = -1, string coutMessage = "");
+		int afficherJeu(int etapeActuel = -1, string coutMessage = "", int choix = 2);
 
 		/**
 		* @brief Affiche le jeu.

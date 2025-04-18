@@ -768,5 +768,4 @@ void ImageViewer::afficher(int joueurActif, string message)
     setTextSurface(message, joueurActif + 1);
     
     SDL_RenderPresent(renderer);
-    SDL_Delay(100);
 }

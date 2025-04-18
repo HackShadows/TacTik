@@ -70,8 +70,20 @@ int Controleur::saisirEntier(string coutMessage) {
 
 char Controleur::saisirCaractere(string coutMessage, int choix) {
 	if (versionGraphique) {
-		int val = afficherJeu(4, coutMessage);
-		return val;
+		int val = afficherJeu(4, coutMessage, choix);
+		if (val == 0) return '0';
+		
+		switch (choix)
+		{
+		case 1:
+			return (val == 1) ? 'A':'D';
+		
+		case 2:
+			return (val == 1) ? 'O':'N';
+		
+		default:
+			return '0';
+		}
 	}
 	
 	if (versionGraphique) return afficherJeu(1, coutMessage);
@@ -156,7 +168,7 @@ bool Controleur::jouerCarte(int valCarte, bool coequipier, bool joker) {
 			}
 			choix = (nb == 0) ? 'D':'0';
 		}
-		while (choix != 'D' && choix != 'A' && choix != 'd' && choix != 'a') choix = saisirCaractere("Utiliser la carte comme démarrer(D) ou avancer(A) : ");
+		while (choix != 'D' && choix != 'A' && choix != 'd' && choix != 'a') choix = saisirCaractere("Utiliser la carte comme démarrer(D) ou avancer(A) : ", 1);
 		if ((choix == 'D' || choix == 'd') && !jeu.demarrer(couleur)) return false;
 		else if (choix == 'A' || choix == 'a') {
 			for (int i = (couleur-1)*4 +1 ; i <= couleur*4 ; i++) {
@@ -265,7 +277,7 @@ void Controleur::tourJoueur(bool dev) {
 	if (jeu.getJoueur(joueurActif).estIA()) ia.genererCoups(jeu, joueurActif + 1);
     else {
         if (!jeu.peutJouer(joueurActif + 1, coequipier)) {
-            choix = saisirCaractere("Aucune carte ne peut être jouée. Défausser toutes les cartes ? (Oui(o) ; Non(n)) : ");
+            choix = saisirCaractere("Aucune carte ne peut être jouée. Défausser toutes les cartes ? (Oui(o) ; Non(n)) : ", 2);
             if (choix == 'o' || choix == 'O') {
                 jeu.defausserJoueur(joueurActif + 1);
                 return ;
@@ -302,7 +314,7 @@ void Controleur::afficherVainqueur(int couleurVainqueur) {
 	}
 }
 
-int Controleur::afficherJeu(int etapeActuel, string coutMessage) {
+int Controleur::afficherJeu(int etapeActuel, string coutMessage, int choix) {
 	int val = -3;
 	if (versionGraphique) {
     	SDL_Event event;
@@ -314,6 +326,7 @@ int Controleur::afficherJeu(int etapeActuel, string coutMessage) {
 			if (!running) return val;
 
 			graphique->afficher(joueurActif, coutMessage);
+			if (etapeActuel == 4) graphique->afficherBoutons(choix);
 		}
 		if (etapeActuel == -1) graphique->setTextureCartes(joueurActif);
 	}
