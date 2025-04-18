@@ -379,11 +379,10 @@ int Controleur::gestionEvent(SDL_Event event, int etapeActuel) {
 				return val;
             } else if (etapeActuel == 2) {
 				val = graphique->getIndicePion(event.button.x, event.button.y);
-				cout << val << endl;
+				//cout << val << endl;
 			} else if (etapeActuel == 4) {
 				val = graphique->getBouton(event.button.x, event.button.y);
-				cout << val << endl;
-				cout << "ICI" << endl;
+				//cout << val << endl;
 			}
         }
     }
