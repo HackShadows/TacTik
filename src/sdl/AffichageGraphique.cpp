@@ -6,10 +6,10 @@
 
 using namespace std;
 
-int getIndiceCase(Jeu &jeu, int posx, int posy, const int tab[][2], float zoom)
+int getIndiceCase(Jeu * jeu, int posx, int posy, const int tab[][2], float zoom)
 {
     float rayon = 20 * zoom;
-    for (int i = 0; i < 16 * jeu.getNbJoueurs(); i++)
+    for (int i = 0; i < 16 * jeu->getNbJoueurs(); i++)
     {
         if (abs(posx - tab[i][0] * zoom) < rayon && abs(posy - tab[i][1] * zoom) < rayon)
         {
@@ -21,9 +21,8 @@ int getIndiceCase(Jeu &jeu, int posx, int posy, const int tab[][2], float zoom)
 
 ImageViewer::ImageViewer() 
 {
-    
+    jeu = nullptr;
     zoom = 0.5;
-    
     phase = 0;
     cout << "SDL: init" << endl;
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
@@ -158,7 +157,9 @@ ImageViewer::~ImageViewer()
 
 void ImageViewer::initJeu(int nbJoueurs, int nbIA){
     assert(nbIA >= 0 && nbJoueurs >= nbIA && (nbJoueurs == 4 || nbJoueurs == 6));
-    nbJ = jeu.getNbJoueurs();
+    jeu = new Jeu(nbJoueurs, nbIA);
+    nbJ = jeu->getNbJoueurs();
+    cout << nbJ << endl;
     if (nbJ == 6)
     {
         dimx = (int)1500;
@@ -171,6 +172,15 @@ void ImageViewer::initJeu(int nbJoueurs, int nbIA){
     }
     imgWidth = (int)dimx * zoom;
     imgHeight = (int)dimy * zoom;
+
+    for (int i = 0; i < 4; i++)
+    {
+        RectMain[i] = {imgWidth, (int)(i * imgHeight / 4), (int)(200 * zoom), (int)(imgHeight / 4)};
+    }
+
+    RectTas = {
+        (int)(imgWidth / 2 - 100 * zoom), (int)(imgHeight / 2 - 150 * zoom), (int)(200 * zoom),
+        (int)(300 * zoom)};
     SDL_SetWindowSize(window, imgWidth + 200 * zoom, imgHeight + 100 * zoom);
     if (nbJ == 6)
     {
@@ -232,7 +242,7 @@ void ImageViewer::initJeu(int nbJoueurs, int nbIA){
 }
 Jeu &ImageViewer::getJeu()
 {
-    return jeu;
+    return *jeu;
 }
 
 float ImageViewer::getZoom()
@@ -248,11 +258,11 @@ int ImageViewer::getImgWidth()
 int ImageViewer::getIndicePion(int posx, int posy)
 {
     float rayon = 20 * zoom;
-    for (int i = 0; i < 16 * jeu.getNbJoueurs(); i++)
+    for (int i = 0; i < 16 * jeu->getNbJoueurs(); i++)
     {
         if (abs(posx - coordonnees[i][0] * zoom) < rayon && abs(posy - coordonnees[i][1] * zoom) < rayon)
         {
-            return jeu.getPlateau().getIdPion(i);
+            return jeu->getPlateau().getIdPion(i);
             // return i;
         }
     }
@@ -281,7 +291,7 @@ int ImageViewer::getIndicePionEvent(string s)
                                                                                       event.button.y - coordonnees[i][1] * zoom) < rayon)
                     {
                         cout << "sortie \n";
-                        return jeu.getPlateau().getIdPion(i);
+                        return jeu->getPlateau().getIdPion(i);
                         // return getIndicePion(jeu, event.button.x, event.button.y);
                     }
                 }
@@ -486,7 +496,7 @@ void ImageViewer::afficherPions() const
 {
     for (int i = 1; i < 4 * nbJ + 1; i++)
     {
-        Pion pion = jeu.getPion(i);
+        Pion pion = jeu->getPion(i);
         int indice = pion.getPos();
         if (indice >= 0)
         {
@@ -506,7 +516,7 @@ void ImageViewer::afficherReserve() const
 {
     for (int i = 0; i < nbJ; i++)
     {
-        int reserve = jeu.getJoueur(i).getReserve();
+        int reserve = jeu->getJoueur(i).getReserve();
         for (int j = 0; j < reserve; j++)
         {
             dessineCercle(i + 1, coordonneesReserve[i * 4 + j][0] * zoom, coordonneesReserve[i * 4 + j][1] * zoom);
@@ -518,7 +528,7 @@ void ImageViewer::afficherMaison() const
 {
     for (int i = 0; i < nbJ; i++)
     {
-        const int *maison = jeu.getJoueur(i).getMaison();
+        const int *maison = jeu->getJoueur(i).getMaison();
         for (int j = 0; j < 4; j++)
         {
             if (maison[j] != 0)
@@ -535,7 +545,7 @@ void ImageViewer::setTextureCartes(int id_joueur)
     for (int i = 0; i < 4; i++)
     {
         if (id_joueur >= 0)
-            carte = jeu.getJoueur(id_joueur).getCarte(i);
+            carte = jeu->getJoueur(id_joueur).getCarte(i);
         if (carte == nullptr)
         {
             textureCartes[i] = listTexture[0];

@@ -15,7 +15,7 @@ using namespace std;
 */
 class ImageViewer{
     private :
-		Jeu jeu; ///<Jeu à afficher
+		Jeu * jeu; ///<Jeu à afficher
         SDL_Window * window; ///<La fenetre
         SDL_Renderer * renderer;///<Le renderer
         SDL_Texture * texturePlateau;///<La surface de l'image du plateau
