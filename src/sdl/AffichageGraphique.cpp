@@ -240,6 +240,7 @@ void ImageViewer::initJeu(int nbJoueurs, int nbIA){
                          ? IMG_LoadTexture(renderer, "./data/plateau/plateau4.png")
                          : IMG_LoadTexture(renderer, "./data/plateau/plateau6.png");
 }
+
 Jeu &ImageViewer::getJeu()
 {
     return *jeu;
@@ -689,7 +690,6 @@ void ImageViewer::afficherBoutons(int choix)
     SDL_FreeSurface(surface2);
 }
 
-
 void ImageViewer::afficherJoker(SDL_Rect tab[13])
 {
     int cardWidth;
@@ -724,7 +724,6 @@ void ImageViewer::afficherJoker(SDL_Rect tab[13])
     }
 }
 
-
 int ImageViewer::selectionnerValJoker(int joueurActif, string message){
     SDL_Rect tab[13];
 
@@ -748,6 +747,32 @@ int ImageViewer::selectionnerValJoker(int joueurActif, string message){
                     }
                 }
                 return -1; // Retourne -1 si aucune carte n'a été cliquée
+            }
+        }
+    }
+}
+
+int ImageViewer::afficherMenu(string message){
+    afficherBoutons(0);
+    setTextSurface(message, 0);
+    SDL_RenderPresent(renderer);
+    SDL_Event event;
+    while (true){
+        while (SDL_PollEvent(&event))
+        {
+            if (event.type == SDL_QUIT)
+            {
+                return 0;
+            }
+            if (event.type == SDL_MOUSEBUTTONDOWN)
+            {
+                if (event.button.x > imgWidth / 4 && event.button.x < imgWidth / 4 - 100 * zoom && event.button.y > 2 * imgHeight / 2 - 50 * zoom && event.button.y < 2 * imgHeight / 2 - 50 * zoom)
+                {
+                    return 4;
+                if (event.button.x > 2 * imgWidth / 3 && event.button.x < 2 * imgWidth / 3 - 100 * zoom && event.button.y > 2 * imgHeight / 2 - 50 * zoom && event.button.y < 2 * imgHeight / 2 - 50 * zoom)
+                {
+                    return 6;
+                }
             }
         }
     }

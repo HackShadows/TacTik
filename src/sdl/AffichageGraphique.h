@@ -181,6 +181,12 @@ class ImageViewer{
 	   int selectionnerValJoker(int joueurActif, string message);
 
 
+	    /**
+        * @brief Affiche le menu pour selectionner le nombre de joueurs
+		* @param message Le message à afficher
+        */
+	   	int afficherMenu(string message);
+
         /**
         * @brief Affiche le jeu passé en parametre
 		* @param joueurActif L'identifiant du joueur actif.
