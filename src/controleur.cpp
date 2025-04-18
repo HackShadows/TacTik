@@ -21,7 +21,8 @@ Controleur::Controleur(int nbJ, int nbIA, bool affichageGraphique) {
 	running = true;
 	if (versionGraphique) {
 		console = nullptr;
-		graphique = new ImageViewer(nbJ, nbIA);
+		graphique = new ImageViewer();
+		graphique->initJeu(nbJ, nbIA);
 	} else {
 		console = new ImageConsole(nbJ, nbIA);
 		graphique = nullptr;
@@ -371,18 +372,18 @@ void jouer(bool versionGraphique, bool dev){
 	srand(time(NULL));
 	
 	int nbIA = -1, nbJoueurs = 0;
-	if (versionGraphique) {
+	/*if (versionGraphique) {
 		Controleur controleur2(4, 0, versionGraphique);
 		while (nbJoueurs != 4 && nbJoueurs != 6) {
 			nbJoueurs = controleur2.saisirCaractere("Nombre de joueurs (4 ou 6)", 0);
 			if (!controleur2.getRunning()) return ;
 		}
 	} 
-	else {
+	else {*/
 		while (nbJoueurs != 4 && nbJoueurs != 6) nbJoueurs = cinProtectionInt("Nombre de joueurs (4 ou 6) : ");
 
     	while (nbIA < 0 || nbIA > nbJoueurs) nbIA = cinProtectionInt("Nombre d'IA parmis les joueurs (0-" + to_string(nbJoueurs) + ") : ");
-	}
+	//}
 	
 	Controleur controleur(nbJoueurs, nbIA, versionGraphique);
 	Jeu &jeu = controleur.getJeu();
