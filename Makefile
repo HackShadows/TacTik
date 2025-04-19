@@ -101,14 +101,14 @@ veryclean:
 
 CROSS = x86_64-w64-mingw32-g++
 CROSS_CXXFLAGS = -Wall -g -c -municode -DUNICODE -D_UNICODE \
-                 -I/usr/x86_64-w64-mingw32/include \
-                 -I/usr/x86_64-w64-mingw32/include/SDL2
+                 $(shell x86_64-w64-mingw32-pkg-config sdl2 SDL2_image SDL2_ttf SDL2_gfx --cflags)
 WIN_OBJ_DIR = obj_win
-LDFLAGS = $(shell x86_64-w64-mingw32-pkg-config sdl2 --libs)
+LDFLAGS = $(shell x86_64-w64-mingw32-pkg-config sdl2 SDL2_image SDL2_ttf SDL2_gfx --libs)
 
 # Règle pour créer le dossier d'objets Windows s'il n'existe pas
 $(WIN_OBJ_DIR):
 	mkdir -p $(WIN_OBJ_DIR)
+          
 
 # Règles pour compiler les sources du répertoire CORE avec le compilateur Windows
 $(WIN_OBJ_DIR)/Carte.o: $(CORE)/Carte.cpp $(CORE)/Carte.h | $(WIN_OBJ_DIR)
