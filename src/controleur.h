@@ -73,13 +73,22 @@ class Controleur {
 		void setJoueurActif(int indJoueurActif);
 
 		/**
-		* @brief Permet de saisir un entier l'identifiant d'un pion.
+		* @brief Permet de récupérer l'identifiant d'un pion.
 		*
 		* @param coutMessage Message à afficher (non obligatoire).
 		*
 		* @return Identifiant saisi par l'utilisateur (valeur renvoyée par défaut 0).
 		*/
 		int getIdPion(string coutMessage = "");
+
+		/**
+		* @brief Permet de récupérer le nombre de cases à avancer pour le 7x1.
+		*
+		* @param coutMessage Message à afficher (non obligatoire).
+		*
+		* @return Nombre de cases à avancer pour le 7x1 (valeur renvoyée par défaut 0).
+		*/
+		int getNbCase7x1(string coutMessage = "");
 
 		/**
 		* @brief Permet de saisir un entier en gérant les erreurs de saisi.
@@ -167,7 +176,7 @@ class Controleur {
 		/**
 		* @brief Affiche le jeu.
 		*
-		* @param etapeActuel Etape en cours d'éxecution (-1 = Attente entre deux tours ; 1 = Attente d'une carte ; 2 =  Attente d'un clique sur pion ; 3 = Attente d'un clique sur case).
+		* @param etapeActuel Etape en cours d'éxecution (-1 = Attente entre deux tours ; 1 = Attente d'une carte ; 2 =  Attente d'un clique sur pion ; 3 = Attente d'un clique sur case ; 4 = Attente d'un clique sur bouton).
 		* @param coutMessage Message à afficher.
 		* 
 		* @return La valeur souhaitée (numéro de la carte, indice de la case ...)

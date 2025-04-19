@@ -63,6 +63,11 @@ int Controleur::getIdPion(string coutMessage) {
     return cinProtectionInt(coutMessage);
 }
 
+int Controleur::getNbCase7x1(string coutMessage) {
+	if (versionGraphique) return afficherJeu(3, coutMessage);
+    return cinProtectionInt(coutMessage);
+}
+
 int Controleur::jouerJoker(string coutMessage) {
 	if (versionGraphique) {
 		int val = graphique->selectionnerValJoker(joueurActif, coutMessage);
@@ -210,7 +215,7 @@ bool Controleur::jouerCarte(int valCarte, bool coequipier, bool joker) {
 					idPion = 0;
 					while (idPion < 1 || idPion > 4*nbJoueurs || (idPion-1)/4 != couleur-1) idPion = getIdPion("Id du pion à avancer" + mess);
 					val = 0;
-					while (val < 1 || somme + val > 7) val = cinProtectionInt("Nombre de cases à avancer" + mess);
+					while (val < 1 || somme + val > 7) val = getNbCase7x1("Nombre de cases à avancer" + mess);
 					if (!jeu.avancerPion(val, idPion, true)) afficherMessage("Ce déplacement est impossible !");
 					else continuer = false;
 				}
@@ -398,7 +403,6 @@ int Controleur::afficherMenu(string coutMessage) {
 	if (versionGraphique) return graphique->afficherMenu(coutMessage);
 	return cinProtectionInt(coutMessage);
 }
-
 
 
 void jouer(bool versionGraphique, bool dev){
