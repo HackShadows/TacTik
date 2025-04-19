@@ -50,22 +50,19 @@ ImageViewer::ImageViewer()
     }
     string ttffile = string("data/DejaVuSansCondensed.ttf");
     int n = 0;
-    do
-    {
+    do {
         m_font = TTF_OpenFont(ttffile.c_str(), 50);
         n++;
         ttffile = "../" + ttffile;
     } while (m_font == nullptr && n < 3);
-
-    if (m_font == nullptr)
-    {
+    if (m_font == nullptr) {
         cout << "Failed to load DejaVuSansCondensed.ttf! SDL_TTF Error: " << TTF_GetError() << endl;
         SDL_Quit();
         exit(1);
     }
-
-    dimx = (int)1500;
-    dimy = (int)900;
+    cout << "apres init font " << endl;
+    dimx = 1500;
+    dimy = 900;
     
     window = SDL_CreateWindow("Tac-Tik", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, (dimx + 200) * zoom,
                               (dimy + 100) * zoom,
@@ -83,10 +80,10 @@ ImageViewer::ImageViewer()
     for (int i = 0; i < 14; i++)
     {
         char chemin[100];
-        sprintf(chemin, "./data/cartes/%d.png", i);
+        sprintf(chemin, "data/cartes/%d.png", i);
         listTexture[i] = IMG_LoadTexture(renderer, chemin);
     }
-    listTexture[14] = IMG_LoadTexture(renderer, "./data/cartes/joker.png");
+    listTexture[14] = IMG_LoadTexture(renderer, "data/cartes/joker.png");
     textureTas = listTexture[0];
     textureCartes[0] = listTexture[0];
     textureCartes[1] = listTexture[0];
@@ -127,10 +124,11 @@ ImageViewer::ImageViewer()
     {
         RectMain[i] = {imgWidth, (int)(i * imgHeight / 4), (int)(200 * zoom), (int)(imgHeight / 4)};
     }
-
     RectTas = {
         (int)(imgWidth / 2 - 100 * zoom), (int)(imgHeight / 2 - 150 * zoom), (int)(200 * zoom),
         (int)(300 * zoom)};
+    cout << "ImgHeight : " << imgHeight << " ImgWidth : " << imgWidth << endl;
+    cout << "Fin du constructeur " <<endl;
 }
 
 ImageViewer::~ImageViewer()
@@ -266,12 +264,16 @@ int ImageViewer::getIndicePion(int posx, int posy)
             // return i;
         }
     }
-	for (int i = 0; i<4*nbJ; i++) {
-		if (abs(posx - coordonneesMaison[i][0] * zoom) < rayon && abs(posy - coordonneesMaison[i][1] * zoom) < rayon)
+	for (int i = 0; i<nbJ; i++) {
+	    for (int j = 0; j<4; j++) {
+	        if (abs(posx - coordonneesMaison[i*nbJ+j][0] * zoom) < rayon && abs(posy - coordonneesMaison[i*nbJ+j][1] * zoom) < rayon)
 		{
-			return jeu->getPlateau().getIdPion(i);
+            cout << jeu->getJoueur(i).getMaison()[j];
+		    return jeu->getJoueur(i).getMaison()[j];
 			// return getIndicePion(jeu, event.button.x, event.button.y);
 		}
+	    }
+
 	}
     return -1;
 }
