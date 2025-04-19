@@ -63,8 +63,13 @@ int Controleur::getIdPion(string coutMessage) {
     return cinProtectionInt(coutMessage);
 }
 
-int Controleur::getNbCase7x1(string coutMessage) {
-	if (versionGraphique) return afficherJeu(3, coutMessage);
+int Controleur::getNbCase7x1(string coutMessage, int idPion) {
+	if (versionGraphique) {
+		int ind_case = afficherJeu(3, coutMessage);
+		int pos = getJeu().getPion(idPion).getPos();
+		if (pos >= 0) return (ind_case - pos) % getJeu().getPlateau().getNbCase();
+		return 0;
+	}
     return cinProtectionInt(coutMessage);
 }
 
@@ -215,7 +220,10 @@ bool Controleur::jouerCarte(int valCarte, bool coequipier, bool joker) {
 					idPion = 0;
 					while (idPion < 1 || idPion > 4*nbJoueurs || (idPion-1)/4 != couleur-1) idPion = getIdPion("Id du pion à avancer" + mess);
 					val = 0;
-					while (val < 1 || somme + val > 7) val = getNbCase7x1("Nombre de cases à avancer" + mess);
+					while (val < 1 || somme + val > 7) {
+						val = getNbCase7x1("Nombre de cases à avancer" + mess, idPion);
+						if (!running) return false;
+					}
 					if (!jeu.avancerPion(val, idPion, true)) afficherMessage("Ce déplacement est impossible !");
 					else continuer = false;
 				}
@@ -389,6 +397,9 @@ int Controleur::gestionEvent(SDL_Event event, int etapeActuel) {
 				return val;
             } else if (etapeActuel == 2) {
 				val = graphique->getIndicePion(event.button.x, event.button.y);
+				//cout << val << endl;
+			} else if (etapeActuel == 3) {
+				val = graphique->getIndiceCase(event.button.x, event.button.y);
 				//cout << val << endl;
 			} else if (etapeActuel == 4) {
 				val = graphique->getBouton(event.button.x, event.button.y);

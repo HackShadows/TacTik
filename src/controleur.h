@@ -88,7 +88,7 @@ class Controleur {
 		*
 		* @return Nombre de cases à avancer pour le 7x1 (valeur renvoyée par défaut 0).
 		*/
-		int getNbCase7x1(string coutMessage = "");
+		int getNbCase7x1(string coutMessage = "", int idPion = 0);
 
 		/**
 		* @brief Permet de saisir un entier en gérant les erreurs de saisi.
