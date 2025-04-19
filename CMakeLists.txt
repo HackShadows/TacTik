@@ -14,15 +14,40 @@ set(CORE_DIR ${CMAKE_SOURCE_DIR}/src/core)
 set(TXT_DIR ${CMAKE_SOURCE_DIR}/src/txt)
 set(SDL_DIR ${CMAKE_SOURCE_DIR}/src/sdl)
 
-# SDL2 settings (adjust include path if necessary)
-set(SDL_INCLUDE_DIR /usr/include/SDL2)
-set(LIB_SDL "-lSDL2;-lSDL2_ttf;-lSDL2_image;-lSDL2_gfx")
+# SDL2 settings
+set(SDL2_DIR "C:/libs/SDL2/SDL2-2.32.4/x86_64-w64-mingw32")  # Remplacer par le chemin de ton dossier SDL2
+set(SDL_INCLUDE_DIR "${SDL2_DIR}/include")
+set(SDL_LIB_DIR "${SDL2_DIR}/lib")
 
+# SDL2_image
+set(SDL2_IMAGE_INCLUDE_DIR "C:/libs/SDL2_image-2.6.3/x86_64-w64-mingw32/include")
+set(SDL2_IMAGE_LIB_DIR "C:/libs/SDL2_image-2.6.3/x86_64-w64-mingw32/lib")
+
+# SDL2_ttf
+set(SDL2_TTF_INCLUDE_DIR "C:/libs/SDL2_ttf-2.24.0/x86_64-w64-mingw32/include")
+set(SDL2_TTF_LIB_DIR "C:/libs/SDL2_ttf-2.24.0/x86_64-w64-mingw32/lib")
+
+# SDL2_gfx
+set(SDL2_GFX_INCLUDE_DIR "C:/libs/SDL2_gfx/include")
+set(SDL2_GFX_SOURCE_DIR "C:/libs/SDL2_gfx/src")
+
+# Ajout des répertoires d'inclusion
 include_directories(
         ${CORE_DIR}
         ${TXT_DIR}
         ${SDL_DIR}
         ${SDL_INCLUDE_DIR}
+        ${SDL_INCLUDE_DIR}/SDL2
+        ${SDL2_IMAGE_INCLUDE_DIR}
+        ${SDL2_TTF_INCLUDE_DIR}
+        ${SDL2_GFX_INCLUDE_DIR}
+)
+
+# Ajout du répertoire des bibliothèques
+link_directories(
+        ${SDL_LIB_DIR}
+        ${SDL2_IMAGE_LIB_DIR}
+        ${SDL2_TTF_LIB_DIR}
 )
 
 # Common core sources
@@ -36,10 +61,22 @@ set(COMMON_SOURCES
         ${CORE_DIR}/Jeu.cpp
 )
 
+# gfx sources
+set(GFX_PRIMITIVES_SOURCES
+        ${SDL2_GFX_SOURCE_DIR}/SDL2_gfxPrimitives.c
+        ${SDL2_GFX_SOURCE_DIR}/SDL2_rotozoom.c
+)
+
+# SDL2 libraries
+set(LIB_SDL "SDL2main" "SDL2" "SDL2_ttf" "SDL2_image" "m")  # Ajouter les autres bibliothèques SDL2 nécessaires
+
+enable_language(C)  # pour forcer le support du C si jamais
+
 # Test executable
 add_executable(test
         src/mainTEST.cpp
         ${COMMON_SOURCES}
+        ${GFX_PRIMITIVES_SOURCES}
 )
 target_link_libraries(test PRIVATE ${LIB_SDL})
 
@@ -60,6 +97,7 @@ add_executable(mainSDL
         src/controleur.cpp
         ${TXT_DIR}/AffichageConsole.cpp
         ${SDL_DIR}/AffichageGraphique.cpp
+        ${GFX_PRIMITIVES_SOURCES}
 )
 target_link_libraries(mainSDL PRIVATE ${LIB_SDL})
 
@@ -70,8 +108,11 @@ add_executable(mainDEV
         src/controleur.cpp
         ${TXT_DIR}/AffichageConsole.cpp
         ${SDL_DIR}/AffichageGraphique.cpp
+        ${GFX_PRIMITIVES_SOURCES}
 )
 target_link_libraries(mainDEV PRIVATE ${LIB_SDL})
+target_compile_definitions(mainDEV PRIVATE SDL_MAIN_HANDLED)
+
 
 # Custom memcheck target using Valgrind
 add_custom_target(memcheck
