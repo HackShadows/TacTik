@@ -90,13 +90,6 @@ class ImageViewer{
 		int getIndicePion(int posx, int posy);
 
 		/**
-		* @brief renvoie l'indice du pion sans clic
-		* @param plateau Le plateau courant
-		* @param s La string à afficher
-		*/
-		int getIndicePionEvent(string s="");
-
-		/**
 		* @brief renvoie le chiffre saisi par l'utilisateur
 		* @param s La string à afficher
 		*/

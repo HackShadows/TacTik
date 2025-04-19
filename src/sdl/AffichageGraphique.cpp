@@ -266,43 +266,14 @@ int ImageViewer::getIndicePion(int posx, int posy)
             // return i;
         }
     }
+	for (int i = 0; i<4*nbJ; i++) {
+		if (abs(posx - coordonneesMaison[i][0] * zoom) < rayon && abs(posy - coordonneesMaison[i][1] * zoom) < rayon)
+		{
+			return jeu->getPlateau().getIdPion(i);
+			// return getIndicePion(jeu, event.button.x, event.button.y);
+		}
+	}
     return -1;
-}
-
-int ImageViewer::getIndicePionEvent(string s)
-{
-    cout << s;
-    SDL_Event event;
-    while (true)
-    {
-        while (SDL_PollEvent(&event))
-        {
-            if (event.type == SDL_QUIT)
-            {
-                return 0;
-            }
-            if (event.type == SDL_MOUSEBUTTONDOWN)
-            {
-                float rayon = 20 * zoom;
-                for (int i = 0; i < 16 * nbJ; i++)
-                {
-                    if (abs(event.button.x - coordonnees[i][0] * zoom) < rayon && abs(event.button.y - coordonnees[i][1] * zoom) < rayon)
-                    {
-                        return jeu->getPlateau().getIdPion(i);
-                        // return getIndicePion(jeu, event.button.x, event.button.y);
-                    }
-
-                }
-                for (int i = 0; i<4*nbJ; i++) {
-                    if (abs(event.button.x - coordonneesMaison[i][0] * zoom) < rayon && abs(event.button.y - coordonneesMaison[i][1] * zoom) < rayon)
-                    {
-                        return jeu->getPlateau().getIdPion(i);
-                        // return getIndicePion(jeu, event.button.x, event.button.y);
-                    }
-                }
-            }
-        }
-    }
 }
 
 int ImageViewer::getEventNumber(string s)
