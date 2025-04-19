@@ -250,19 +250,14 @@ int Image::getIndicePion(int posx, int posy)
         if (abs(posx - coordonnees[i][0] * zoom) < rayon && abs(posy - coordonnees[i][1] * zoom) < rayon)
         {
             return jeu->getPlateau().getIdPion(i);
-            // return i;
         }
     }
 	for (int i = 0; i<nbJ; i++) {
 	    for (int j = 0; j<4; j++) {
-	        if (abs(posx - coordonneesMaison[i*nbJ+j][0] * zoom) < rayon && abs(posy - coordonneesMaison[i*nbJ+j][1] * zoom) < rayon)
-		{
-            cout << jeu->getJoueur(i).getMaison()[j];
+	        if (abs(posx - coordonneesMaison[i*nbJ+j][0] * zoom) < rayon && abs(posy - coordonneesMaison[i*nbJ+j][1] * zoom) < rayon) {
 		    return jeu->getJoueur(i).getMaison()[j];
-			// return getIndicePion(jeu, event.button.x, event.button.y);
-		}
+		    }
 	    }
-
 	}
     return -1;
 }
@@ -276,6 +271,15 @@ int Image::getIndiceCase(int posx, int posy)
         {
             return i;
         }
+    }
+    for (int i = 0; i<nbJ; i++) {
+        for (int j = 0; j<4; j++) {
+            if (abs(posx - coordonneesMaison[i*nbJ+j][0] * zoom) < rayon && abs(posy - coordonneesMaison[i*nbJ+j][1] * zoom) < rayon)
+            {
+                return j;
+            }
+        }
+
     }
     return -1;
 }
