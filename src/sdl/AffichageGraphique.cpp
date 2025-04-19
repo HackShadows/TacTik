@@ -490,6 +490,7 @@ void ImageViewer::afficherMaison() const
 
 void ImageViewer::setTextureCartes(int id_joueur)
 {
+    cout << "setTextureCarte idjoueur : " << id_joueur << endl;
     Carte *carte = nullptr;
     for (int i = 0; i < 4; i++)
     {
@@ -525,6 +526,21 @@ void ImageViewer::setTextureCartes(int id_joueur)
                     return;
                 }
             }
+        }
+    }
+    Carte * carteTas = jeu->getPioche().getTas();
+    cout << "adresse carte " << carteTas << endl;
+    if (carteTas == nullptr) {
+        textureTas = listTexture[0];
+    }
+    else {
+        int valeurTas = carteTas->getValeur();
+        cout << " Valeur de la carte : " <<valeurTas << endl;
+        if (valeurTas!=-1) {
+            textureTas = listTexture[abs(valeurTas)];
+        }
+        else {
+            textureTas = listTexture[14];
         }
     }
 }
