@@ -20,7 +20,7 @@ Controleur::Controleur(bool affichageGraphique) {
 	running = true;
 	if (versionGraphique) {
 		console = nullptr;
-		graphique = new ImageViewer();
+		graphique = new Image();
 	} else {
 		console = new ImageConsole();
 		graphique = nullptr;

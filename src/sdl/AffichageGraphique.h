@@ -11,9 +11,9 @@
 using namespace std;
 
 /**
-* @brief Contient la déclaration de la classe ImageViewer.
+* @brief Contient la déclaration de la classe Image.
 */
-class ImageViewer{
+class Image{
     private :
 		Jeu * jeu; ///<Jeu à afficher
         SDL_Window * window; ///<La fenetre
@@ -41,12 +41,12 @@ class ImageViewer{
         * @brief Constructeur qui initialise tout SDL2 et crée la fenêtre et le renderer
         * 
         */
-        ImageViewer();
+        Image();
 
         /**
         * @brief Detruit et ferme SDL2
         */
-        ~ImageViewer();
+        ~Image();
 
 		/**
         * @brief Constructeur qui initialise le jeu et crée la fenêtre et le renderer

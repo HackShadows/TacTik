@@ -8,7 +8,7 @@ using namespace std;
 
 
 
-ImageViewer::ImageViewer() 
+Image::Image()
 {
     jeu = nullptr;
     zoom = 0.5;
@@ -120,7 +120,7 @@ ImageViewer::ImageViewer()
     cout << "Fin du constructeur " <<endl;
 }
 
-ImageViewer::~ImageViewer()
+Image::~Image()
 {
     delete[] coordonnees;
     delete[] coordonneesMaison;
@@ -142,7 +142,7 @@ ImageViewer::~ImageViewer()
     SDL_Quit();
 }
 
-void ImageViewer::initJeu(int nbJoueurs, int nbIA){
+void Image::initJeu(int nbJoueurs, int nbIA){
     assert(nbIA >= 0 && nbJoueurs >= nbIA && (nbJoueurs == 4 || nbJoueurs == 6));
     jeu = new Jeu(nbJoueurs, nbIA);
     nbJ = jeu->getNbJoueurs();
@@ -227,22 +227,22 @@ void ImageViewer::initJeu(int nbJoueurs, int nbIA){
                          : IMG_LoadTexture(renderer, "./data/plateau/plateau6.png");
 }
 
-Jeu &ImageViewer::getJeu()
+Jeu &Image::getJeu()
 {
     return *jeu;
 }
 
-float ImageViewer::getZoom()
+float Image::getZoom()
 {
     return zoom;
 }
 
-int ImageViewer::getImgWidth()
+int Image::getImgWidth()
 {
     return imgWidth;
 }
 
-int ImageViewer::getIndicePion(int posx, int posy)
+int Image::getIndicePion(int posx, int posy)
 {
     float rayon = 20 * zoom;
     for (int i = 0; i < 16 * jeu->getNbJoueurs(); i++)
@@ -267,7 +267,7 @@ int ImageViewer::getIndicePion(int posx, int posy)
     return -1;
 }
 
-int ImageViewer::getIndiceCase(int posx, int posy)
+int Image::getIndiceCase(int posx, int posy)
 {
     float rayon = 20 * zoom;
     for (int i = 0; i < 16 * nbJ; i++)
@@ -280,7 +280,7 @@ int ImageViewer::getIndiceCase(int posx, int posy)
     return -1;
 }
 
-int ImageViewer::getEventNumber(string s)
+int Image::getEventNumber(string s)
 {
     cout << s;
     cout << "entrée \n";
@@ -338,7 +338,7 @@ int ImageViewer::getEventNumber(string s)
     }
 }
 
-int ImageViewer::getBouton(int posx, int posy)
+int Image::getBouton(int posx, int posy)
 {
     if (posx> imgWidth / 4 && posx < imgWidth / 4 + 100 * zoom && posy > imgHeight / 2 - 50 * zoom && posy < imgHeight / 2 + 50 * zoom)
     {
@@ -355,7 +355,7 @@ int ImageViewer::getBouton(int posx, int posy)
     
 }
 
-void ImageViewer::dessineCercle(int couleur, int x, int y) const
+void Image::dessineCercle(int couleur, int x, int y) const
 {
     filledCircleRGBA(renderer, x, y, 22 * zoom, 0, 0, 0, 255);
     filledCircleRGBA(renderer, x, y, 19 * zoom, 255, 255, 255, 255);
@@ -385,7 +385,7 @@ void ImageViewer::dessineCercle(int couleur, int x, int y) const
     }
 }
 
-void ImageViewer::dessineTriangle(int couleur, int x, int y) const
+void Image::dessineTriangle(int couleur, int x, int y) const
 {
     float grandRayon = 20 * zoom;
     float moyenRayon = 15 * zoom;
@@ -425,7 +425,7 @@ void ImageViewer::dessineTriangle(int couleur, int x, int y) const
     }
 }
 
-void ImageViewer::debugCoordonnees() const
+void Image::debugCoordonnees() const
 {
     for (int i = 0; i < 16 * nbJ; i++)
     {
@@ -441,7 +441,7 @@ void ImageViewer::debugCoordonnees() const
     }
 }
 
-void ImageViewer::afficherPions() const
+void Image::afficherPions() const
 {
     for (int i = 1; i < 4 * nbJ + 1; i++)
     {
@@ -461,7 +461,7 @@ void ImageViewer::afficherPions() const
     }
 }
 
-void ImageViewer::afficherReserve() const
+void Image::afficherReserve() const
 {
     for (int i = 0; i < nbJ; i++)
     {
@@ -473,7 +473,7 @@ void ImageViewer::afficherReserve() const
     }
 }
 
-void ImageViewer::afficherMaison() const
+void Image::afficherMaison() const
 {
     for (int i = 0; i < nbJ; i++)
     {
@@ -488,7 +488,7 @@ void ImageViewer::afficherMaison() const
     }
 }
 
-void ImageViewer::setTextureCartes(int id_joueur)
+void Image::setTextureCartes(int id_joueur)
 {
     cout << "setTextureCarte idjoueur : " << id_joueur << endl;
     Carte *carte = nullptr;
@@ -545,7 +545,7 @@ void ImageViewer::setTextureCartes(int id_joueur)
     }
 }
 
-void ImageViewer::grossissement(bool positif)
+void Image::grossissement(bool positif)
 {
     zoom += (positif) ? 0.05 : -0.05;
     imgWidth = dimx * zoom;
@@ -560,7 +560,7 @@ void ImageViewer::grossissement(bool positif)
         (int)(300 * zoom)};
 }
 
-void ImageViewer::setTextSurface(string message, int couleur)
+void Image::setTextSurface(string message, int couleur)
 {
     SDL_Color TextColor;
     if (couleur == 5)
@@ -586,7 +586,7 @@ void ImageViewer::setTextSurface(string message, int couleur)
     }
 }
 
-void ImageViewer::setCouleur(int couleur)
+void Image::setCouleur(int couleur)
 {
     switch (couleur)
     {
@@ -611,7 +611,7 @@ void ImageViewer::setCouleur(int couleur)
     }
 }
 
-void ImageViewer::afficherBoutons(int choix)
+void Image::afficherBoutons(int choix)
 {
     SDL_Rect rect1 = {(int)(imgWidth / 4), (int)(imgHeight / 2 - 50 * zoom), (int)(100 * zoom), (int)(100 * zoom)};
     SDL_Rect rect2 = {(int)(2 * imgWidth / 3),(int)(imgHeight / 2 - 50 * zoom), (int)(100 * zoom), (int)(100 * zoom)};
@@ -653,7 +653,7 @@ void ImageViewer::afficherBoutons(int choix)
     SDL_FreeSurface(surface2);
 }
 
-void ImageViewer::afficherJoker(SDL_Rect tab[13])
+void Image::afficherJoker(SDL_Rect tab[13])
 {
     int cardWidth;
     int cardHeight;
@@ -690,7 +690,7 @@ void ImageViewer::afficherJoker(SDL_Rect tab[13])
     SDL_Delay(100);
 }
 
-int ImageViewer::selectionnerValJoker(int joueurActif, string message){
+int Image::selectionnerValJoker(int joueurActif, string message){
     SDL_Rect tab[13];
 
     SDL_Event event;
@@ -719,7 +719,7 @@ int ImageViewer::selectionnerValJoker(int joueurActif, string message){
     }
 }
 
-int ImageViewer::afficherMenu(string message){
+int Image::afficherMenu(string message){
     texturePlateau = IMG_LoadTexture(renderer, "./data/plateau/plateau6.png");
     SDL_Rect Rect = {0, 0, (int)(imgWidth+200*zoom), imgHeight};
     SDL_Event event;
@@ -748,7 +748,7 @@ int ImageViewer::afficherMenu(string message){
     }
 }
 
-void ImageViewer::afficher(int joueurActif, string message)
+void Image::afficher(int joueurActif, string message)
 {
     setCouleur(joueurActif + 1);
     SDL_RenderClear(renderer);

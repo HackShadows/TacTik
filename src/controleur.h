@@ -20,7 +20,7 @@ class Controleur {
 
 	private:
 		ImageConsole * console; ///<Représente le contenu à afficher lors d'un affichage console.
-		ImageViewer * graphique; ///<Représente la fenêtre à afficher lors d'un affichage graphique.
+		Image * graphique; ///<Représente la fenêtre à afficher lors d'un affichage graphique.
 		bool versionGraphique; ///<True pour une version graphique, false pour une version console.
 		int joueurActif; ///<Indice du joueur qui joue.
 		bool running; ///<False pour arrêter la partie, true sinon.
