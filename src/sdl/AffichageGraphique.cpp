@@ -6,18 +6,7 @@
 
 using namespace std;
 
-int getIndiceCase(Jeu * jeu, int posx, int posy, const int tab[][2], float zoom)
-{
-    float rayon = 20 * zoom;
-    for (int i = 0; i < 16 * jeu->getNbJoueurs(); i++)
-    {
-        if (abs(posx - tab[i][0] * zoom) < rayon && abs(posy - tab[i][1] * zoom) < rayon)
-        {
-            return i;
-        }
-    }
-    return -1;
-}
+
 
 ImageViewer::ImageViewer() 
 {
@@ -275,6 +264,19 @@ int ImageViewer::getIndicePion(int posx, int posy)
 	    }
 
 	}
+    return -1;
+}
+
+int ImageViewer::getIndiceCase(int posx, int posy)
+{
+    float rayon = 20 * zoom;
+    for (int i = 0; i < 16 * nbJ; i++)
+    {
+        if (abs(posx - coordonnees[i][0] * zoom) < rayon && abs(posy - coordonnees[i][1] * zoom) < rayon)
+        {
+            return i;
+        }
+    }
     return -1;
 }
 

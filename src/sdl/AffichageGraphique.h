@@ -90,6 +90,13 @@ class ImageViewer{
 		int getIndicePion(int posx, int posy);
 
 		/**
+		* @brief renvoie l'indice de la case sur lequel on a cliqué
+		* @param posx Les coordonnées x du clic
+		* @param posy Les coordonnées y du clic
+		*/
+		int getIndiceCase(int posx, int posy);
+
+		/**
 		* @brief renvoie le chiffre saisi par l'utilisateur
 		* @param s La string à afficher
 		*/
