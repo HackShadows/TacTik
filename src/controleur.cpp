@@ -65,9 +65,25 @@ int Controleur::getIdPion(string coutMessage) {
 
 int Controleur::getNbCase7x1(string coutMessage, int idPion) {
 	if (versionGraphique) {
+		Jeu& jeu = getJeu();
 		int ind_case = afficherJeu(3, coutMessage);
-		int pos = getJeu().getPion(idPion).getPos();
-		if (pos >= 0) return (ind_case - pos) % getJeu().getPlateau().getNbCase();
+		int pos = jeu.getPion(idPion).getPos();
+		int nb_cases = jeu.getPlateau().getNbCase();
+		
+		if (ind_case >= 100) {
+			const int * maison = jeu.getJoueur(joueurActif).getMaison();
+			if (pos == -2) {
+				for (int i = 0 ; i <= ind_case - 100 ; i++) {
+					if (maison[i] == idPion) return ind_case - 100 - i;
+				}
+			} else {
+				int case_dep = jeu.getPlateau().getCasesDepart(joueurActif+1);
+				return (case_dep + ind_case - 99 - pos + nb_cases) % nb_cases;
+			}
+		} else if (ind_case >= 0) {
+			if (pos == -2) return 0;
+			return (ind_case - pos + nb_cases) % nb_cases;
+		}
 		return 0;
 	}
     return cinProtectionInt(coutMessage);
@@ -218,7 +234,10 @@ bool Controleur::jouerCarte(int valCarte, bool coequipier, bool joker) {
 				bool continuer = true;
 				while (continuer) {
 					idPion = 0;
-					while (idPion < 1 || idPion > 4*nbJoueurs || (idPion-1)/4 != couleur-1) idPion = getIdPion("Id du pion à avancer" + mess);
+					while (idPion < 1 || idPion > 4*nbJoueurs || (idPion-1)/4 != couleur-1) {
+						idPion = getIdPion("Id du pion à avancer" + mess);
+						if (!running) return false;
+					}
 					val = 0;
 					while (val < 1 || somme + val > 7) {
 						val = getNbCase7x1("Nombre de cases à avancer" + mess, idPion);
@@ -399,7 +418,7 @@ int Controleur::gestionEvent(SDL_Event event, int etapeActuel) {
 				val = graphique->getIndicePion(event.button.x, event.button.y);
 				//cout << val << endl;
 			} else if (etapeActuel == 3) {
-				val = graphique->getIndiceCase(event.button.x, event.button.y);
+				val = graphique->getIndiceCase(event.button.x, event.button.y, joueurActif);
 				//cout << val << endl;
 			} else if (etapeActuel == 4) {
 				val = graphique->getBouton(event.button.x, event.button.y);

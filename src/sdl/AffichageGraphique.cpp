@@ -229,7 +229,7 @@ int Image::getIndicePion(int posx, int posy) {
     return -1;
 }
 
-int Image::getIndiceCase(int posx, int posy) {
+int Image::getIndiceCase(int posx, int posy, int joueurActif) {
     float rayon = 20 * zoom;
     for (int i = 0; i < 16 * nbJ; i++) {
         if (abs(posx - coordonnees[i][0] * zoom) < rayon && abs(posy - coordonnees[i][1] * zoom) < rayon) {
@@ -239,10 +239,9 @@ int Image::getIndiceCase(int posx, int posy) {
     for (int i = 0; i<nbJ; i++) {
         for (int j = 0; j<4; j++) {
             if (abs(posx - coordonneesMaison[i*nbJ+j][0] * zoom) < rayon && abs(posy - coordonneesMaison[i*nbJ+j][1] * zoom) < rayon) {
-                return j;
+                return 100+j;
             }
         }
-
     }
     return -1;
 }

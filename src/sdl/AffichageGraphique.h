@@ -8,6 +8,8 @@
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL2_gfxPrimitives.h>
 
+#include <array>
+
 using namespace std;
 
 /**
@@ -94,13 +96,7 @@ class Image{
 		* @param posx Les coordonnées x du clic
 		* @param posy Les coordonnées y du clic
 		*/
-		int getIndiceCase(int posx, int posy);
-
-		/**
-		* @brief renvoie le chiffre saisi par l'utilisateur
-		* @param s La string à afficher
-		*/
-		int getEventNumber( string s="");
+		int getIndiceCase(int posx, int posy, int joueurActif = -1);
 
 		/**
 		* @brief renvoie le numéro du bouton cliqué

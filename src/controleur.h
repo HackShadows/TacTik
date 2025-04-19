@@ -8,8 +8,6 @@
 #include "sdl/AffichageGraphique.h"
 #include "txt/AffichageConsole.h"
 
-#include <array>
-
 
 /**
 * @class Controleur
