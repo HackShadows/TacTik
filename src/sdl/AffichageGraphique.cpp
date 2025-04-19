@@ -45,7 +45,6 @@ Image::Image(){
         SDL_Quit();
         exit(1);
     }
-    cout << "apres init font " << endl;
     dimx = 1500;
     dimy = 900;
     
@@ -104,8 +103,6 @@ Image::Image(){
     RectTas = {
         (int)(imgWidth / 2 - 100 * zoom), (int)(imgHeight / 2 - 150 * zoom), (int)(200 * zoom),
         (int)(300 * zoom)};
-    cout << "ImgHeight : " << imgHeight << " ImgWidth : " << imgWidth << endl;
-    cout << "Fin du constructeur " <<endl;
 }
 
 Image::~Image() {
