@@ -9,6 +9,7 @@ using namespace std;
 
 Image::Image(){
     jeu = nullptr;
+    nbJ = 0;
     zoom = 0.5;
     cout << "SDL: init" << endl;
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -69,6 +70,7 @@ Image::Image(){
     textureCartes[1] = listTexture[0];
     textureCartes[2] = listTexture[0];
     textureCartes[3] = listTexture[0];
+    texturePlateau = nullptr;
 
     
     if (textureTas == nullptr) {
@@ -104,6 +106,7 @@ Image::Image(){
 }
 
 Image::~Image() {
+    delete jeu;
     delete[] coordonnees;
     delete[] coordonneesMaison;
     delete[] coordonneesReserve;
