@@ -10,7 +10,6 @@ using namespace std;
 Image::Image(){
     jeu = nullptr;
     zoom = 0.5;
-    phase = 0;
     cout << "SDL: init" << endl;
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         cout << "Erreur lors de l'initialisation de la SDL : " << SDL_GetError() << endl;

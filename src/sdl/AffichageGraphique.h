@@ -23,14 +23,13 @@ class Image{
         SDL_Texture * texturePlateau;///<La surface de l'image du plateau
 		SDL_Texture * textureTas;  ///<La surface de l'image de la carte sur le tas
 		SDL_Texture * textureCartes[4]; ///<Les surfaces des quatres cartes
-		SDL_Texture * listTexture[15];
+		SDL_Texture * listTexture[15]; ///<Les textures préchargées
 		SDL_Rect RectMain[4]; ///<Rectangles des cartes de la main
 		SDL_Rect RectTas; ///<Rectanlge du tas
 		TTF_Font* m_font; /// Police de la fenetre
 		SDL_Surface* textSurface; ///Surface du texte a afficher
         int dimx, dimy; ///<Les dimensions de la fenetre
-		int imgWidth, imgHeight; ///<Largeur et hauteur de l'image
-		int phase; ///<L'indicateur de la phase dans laquelle on est
+		int imgWidth, imgHeight; ///<Largeur et hauteur de l'image du plateau
         float zoom; ///<Le zoom de l'image
         int nbJ; ///<Le nombre de joueurs
 		int (* coordonnees)[2]; ///< Le tableau des coordonnées des points
@@ -51,7 +50,7 @@ class Image{
         ~Image();
 
 		/**
-        * @brief Constructeur qui initialise le jeu et crée la fenêtre et le renderer
+        * @brief Initialise le jeu et crée la fenêtre et le renderer
         * 
 		* @param nbJoueurs Nombre de joueurs
 		* @param nbIA Nombre d'IA
@@ -122,26 +121,30 @@ class Image{
         void dessineTriangle(int couleur, int x, int y) const;
 
         /**
-        * @brief Affiche les pions du jeu passé en parametre
+        * @brief Affiche les pions sur le plateau
         */
         void afficherPions() const;
 
 		/**
-		* @brief Affiche les reverves du jeu passé en parametre
+		* @brief Affiche les pions dans les réserves
 		*/
 		void afficherReserve() const;
 
 		/**
-		* @brief Affiche les maisons du jeu passé en parametre
+		* @brief Affiche les pions dans les maisons
 		*/
 		void afficherMaison() const;
 
 		/**
-		* @brief Affiche les cartes du jeu passé en parametre
+		* @brief Met à jour les textures des cartes du joueur
 		* @param id_joueur L'identifiant du joueur dont on affiche les cartes
 		*/
 		void setTextureCartes(int id_joueur);
 
+		/**
+		* @brief Effectue un zoom avant ou arrière
+		* @param positif Indique si le zoom est positif ou négatif
+		*/
 		void grossissement(bool positif);
 
 		/**
@@ -153,37 +156,37 @@ class Image{
 
 		/**
         * @brief Met à jour la couleur du fond
+        * @param couleur La couleur du joueur actif
         */
 	   void setCouleur(int couleur);
 
 	   /**
         * @brief Affiche deux boutons
-		* @param choix Les différentes possibilités pour le choix
+		* @param choix Les différentes possibilités pour les boutons
         */
 	   void afficherBoutons(int choix);
 
 	   /**
         * @brief Affiche toutes les cartes pour le choix du joker
-		* @param tab Le tableu des coordonnées des cartes
+		* @param tab Le tableau des coordonnées des cartes
         */
 	   void afficherJoker(SDL_Rect tab[13]);
 
 	   /**
-        * @brief Affiche les cartes pour le choix de la carte du joker
+        * @brief Affiche les cartes et récupere la carte séléctionnée
 		* @param joueurActif L'identifiant du joueur actif.
 		* @param message Le message à afficher
         */
 	   int selectionnerValJoker(int joueurActif, string message);
 
-
 	    /**
-        * @brief Affiche le menu pour selectionner le nombre de joueurs
+        * @brief Affiche le menu pour sélectionner le nombre de joueurs
 		* @param message Le message à afficher
         */
 	   	int afficherMenu(string message);
 
         /**
-        * @brief Affiche le jeu passé en parametre
+        * @brief Affiche le jeu à un instant donné
 		* @param joueurActif L'identifiant du joueur actif.
 		* @param message Le message à afficher
         */
