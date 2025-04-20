@@ -130,12 +130,12 @@ void Image::initJeu(int nbJoueurs, int nbIA) {
     jeu = new Jeu(nbJoueurs, nbIA);
     nbJ = jeu->getNbJoueurs();
     if (nbJ == 6) {
-        dimx = (int)1500;
-        dimy = (int)900;
+        dimx = 1500;
+        dimy = 900;
     }
     else {
-        dimx = (int)1000;
-        dimy = (int)1000;
+        dimx = 1000;
+        dimy = 1000;
     }
     imgWidth = (int)dimx * zoom;
     imgHeight = (int)dimy * zoom;
@@ -236,11 +236,9 @@ int Image::getIndiceCase(int posx, int posy, int joueurActif) {
             return i;
         }
     }
-    for (int i = 0; i<nbJ; i++) {
-        for (int j = 0; j<4; j++) {
-            if (abs(posx - coordonneesMaison[i*nbJ+j][0] * zoom) < rayon && abs(posy - coordonneesMaison[i*nbJ+j][1] * zoom) < rayon) {
-                return 100+j;
-            }
+    for (int j = 0; j<4; j++) {
+        if (abs(posx - coordonneesMaison[joueurActif*4+j][0] * zoom) < rayon && abs(posy - coordonneesMaison[joueurActif*4+j][1] * zoom) < rayon) {
+            return j;
         }
     }
     return -1;
