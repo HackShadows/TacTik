@@ -100,6 +100,8 @@ add_executable(mainSDL
         ${GFX_PRIMITIVES_SOURCES}
 )
 target_link_libraries(mainSDL PRIVATE ${LIB_SDL})
+target_compile_definitions(mainSDL PRIVATE SDL_MAIN_HANDLED)
+
 
 # Development-mode executable
 add_executable(mainDEV

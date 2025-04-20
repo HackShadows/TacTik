@@ -15,7 +15,7 @@ all: clean test bin/mainTXT bin/mainSDL bin/mainTXT.exe
 
 test: memcheck_test
 
-main: bin/mainDEV
+dev: bin/mainDEV
 	./bin/mainDEV
 
 txt: bin/mainTXT

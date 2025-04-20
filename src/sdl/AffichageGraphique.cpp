@@ -7,7 +7,6 @@
 using namespace std;
 
 
-
 Image::Image(){
     jeu = nullptr;
     zoom = 0.5;
@@ -568,7 +567,7 @@ int Image::selectionnerValJoker(int joueurActif, string message){
 
 int Image::afficherMenu(string message){
     texturePlateau = IMG_LoadTexture(renderer, "./data/plateau/plateau6.png");
-    SDL_Rect Rect = {0, 0, (int)(imgWidth+200*zoom), imgHeight};
+    SDL_Rect Rect = {0, 0, imgWidth, imgHeight};
     SDL_Event event;
     while (true){
         SDL_RenderCopy(renderer, texturePlateau, NULL, &Rect);
