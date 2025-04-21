@@ -279,7 +279,7 @@ bool Jeu::partieGagnee() const {
 	return false;
 }
 
-bool Jeu::carteJouable(int couleur, int valCarte, bool coequipier, bool joker) const {
+bool Jeu::carteJouable(int couleur, int valCarte, bool coequipier, bool joker) {
 	assert(1 <= couleur && couleur <= nbJoueurs);
 	assert(valCarte == -4 || (-1 <= valCarte && valCarte <= 13 && valCarte != 0 && valCarte != 4));
 	
@@ -312,7 +312,7 @@ bool Jeu::carteJouable(int couleur, int valCarte, bool coequipier, bool joker) c
 	return false;
 }
 
-bool Jeu::peutJouer(int couleur, bool coequipier) const {
+bool Jeu::peutJouer(int couleur, bool coequipier) {
 	assert(1 <= couleur && couleur <= nbJoueurs);
 	Joueur joueur = joueurs[couleur-1];
 	int val;
