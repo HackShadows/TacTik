@@ -5,14 +5,15 @@
 * @brief Contient la déclaration de la classe Piece.
 */
 #include <iostream>
+
 using namespace std;
+
 
 /**
 * @class Pion
 *
 * @brief Représente le pion d'un joueur.
 */
-
 class Pion {
 
 	private:

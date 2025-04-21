@@ -8,6 +8,7 @@
 #include <iostream>
 #include <vector>
 #include <utility>
+
 using namespace std;
 
 
@@ -22,7 +23,7 @@ class IA {
 		
 	public:
 		/**
-		* @brief Constructeur par défaut de l'ia.
+		* @brief Constructeur de l'ia.
 		*/
 		IA();
 
@@ -32,19 +33,19 @@ class IA {
 		~IA();
 
 		/**
-		* @brief C
+		* @brief Permet à l'ia d'effectuer un coups parmis ses différents coups possibles.
 		*/
 		void jouerCoup(Jeu &jeu, vector<pair<int, int>> vect, int couleur) const;
 
 		/**
 		* @brief Génère la liste des coups possibles.
 		*
-		* @return Liste de pairs de coups possible contenant l'id du pion et sa nouvelle position.
+		* @return Liste de paires de coups possible contenant l'id du pion et sa nouvelle position.
 		*/
 		vector<pair<int, int>> genererCoups(Jeu &jeu, int couleur) const;
 
 		/**
-		* @brief Test les fonctionnalités de la classe.
+		* @brief Teste les fonctionnalités de la classe.
 		*
 		* Effectue une série de tests pour vérifier que toutes les fonctions produisent uniquement le résultat attendu,
 		* et que les données membres de l'objet sont conformes en tout temps.

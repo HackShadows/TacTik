@@ -5,6 +5,7 @@
 * @brief Contient la déclaration de la classe Carte.
 */
 #include <iostream>
+
 using namespace std;
 
 
@@ -27,7 +28,7 @@ class Carte {
 		/**
 		* @brief Constructeur avec paramètre de la carte.
 		* 
-		* @param val Valeur de la carte
+		* @param val Valeur de la carte.
 		*/
 		Carte(int val);
 
@@ -39,12 +40,12 @@ class Carte {
 		/**
 		* @brief Renvoie la valeur de la carte.
 		* 
-		* @return Valeur de la carte
+		* @return Valeur de la carte.
 		*/
-		int getValeur() const ;
+		int getValeur() const;
 
 		/**
-		* @brief Test les fonctionnalités de la classe.
+		* @brief Teste les fonctionnalités de la classe.
 		*
 		* Effectue une série de tests pour vérifier que toutes les fonctions produisent uniquement le résultat attendu,
 		* et que les données membres de l'objet sont conformes en tout temps.

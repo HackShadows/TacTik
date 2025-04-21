@@ -17,22 +17,19 @@
 using namespace std;
 
 
-void messageDefaut(string message = "");
-
 /**
 * @class Jeu
 *
 * @brief Représente l'ensemble des règles du jeu.
 */
-
 class Jeu {
 
 	private:
-		int nbJoueurs; ///<Nombre de joueurs.
-		Plateau plateau; ///<Le plateau de jeu.
-		Pioche pioche; ///<La pioche et le tas.
-		Joueur * joueurs; ///<Tableau de 4 ou 6 joueurs.
-		Pion * pions; ///< Tableau de tous les pions en jeu (16 ou 24).
+		int nbJoueurs; ///<Nombre de joueurs
+		Plateau plateau; ///<Le plateau de jeu
+		Pioche pioche; ///<La pioche et le tas
+		Joueur * joueurs; ///<Tableau de 4 ou 6 joueurs
+		Pion * pions; ///<Tableau de tous les pions en jeu (16 ou 24)
 
 	public:
 		/**
@@ -41,10 +38,10 @@ class Jeu {
 		Jeu();
 
 		/**
-		* @brief Constructeur du jeu.
+		* @brief Constructeur avec paramètres du jeu.
 		* 
 		* @param nbJ Nombre de joueurs.
-		* @param IA Liste correspondant aux couleurs des joueurs (true si le joueur est joué par une ia, false sinon)
+		* @param IA Liste correspondant aux couleurs des joueurs (true si le joueur est joué par une ia, false sinon).
 		*/
 		Jeu(int nbJ, array<bool, 6> IA);
 
@@ -82,22 +79,13 @@ class Jeu {
 		int getNbJoueurs() const;
 
 		/**
-		* @brief Renvoie le joueur se trouvant à l'indice 'indice'.
+		* @brief Renvoie le joueur se trouvant à l'indice 'indice' avec impossibilité de le modifier.
 		* 
 		* @param indice Indice du joueur à retourner.
 		*
 		* @return Le joueur se trouvant à l'indice 'indice'.
 		*/
 		const Joueur& getJoueur(int indice) const;
-
-		/**
-		* @brief Renvoie le joueur se trouvant à l'indice 'indice'.
-		* 
-		* @param indice Indice du joueur à retourner.
-		*
-		* @return Le joueur se trouvant à l'indice 'indice'.
-		*/
-		Joueur& getJoueurNonConst(int indice);
 
 		/**
 		* @brief Renvoie le pion d'identifiant 'idPion'.
@@ -122,6 +110,16 @@ class Jeu {
 		* @return True si la carte a pu être ajoutée, False sinon.
 		*/
 		bool attribuerCarte(int valCarte, int couleur);
+
+		/**
+		* @brief Renvoie la carte, de valeur 'valCarte', du joueur se trouvant à l'indice 'indice'.
+		* 
+		* @param indice Indice du joueur à défausser.
+		* @param valCarte Valeur de la carte à retirer.
+		*
+		* @return La carte défaussée.
+		*/
+		Carte* retirerCarte(int indice, int valCarte);
 
 		/**
 		* @brief Echange une carte entre deux joueurs de la même équipe.
@@ -218,7 +216,7 @@ class Jeu {
 		*
 		* @return True si la carte peut être jouée, False sinon.
 		*/
-		bool carteJouable(int couleur, int valCarte, bool coequipier = false, bool joker = false);
+		bool carteJouable(int couleur, int valCarte, bool coequipier = false, bool joker = false) const;
 
 		/**
 		* @brief Détermine si le joueur peut jouer.
@@ -228,7 +226,7 @@ class Jeu {
 		*
 		* @return True si le joueur peut jouer, False sinon.
 		*/
-		bool peutJouer(int couleur, bool coequipier = false);
+		bool peutJouer(int couleur, bool coequipier = false) const;
 
 		/**
 		* @brief Test les fonctionnalités de la classe.

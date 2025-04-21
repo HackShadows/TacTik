@@ -6,14 +6,15 @@
 */
 #include "Carte.h"
 #include <iostream>
+
 using namespace std;
+
 
 /**
 * @class Pioche
 *
 * @brief Représente la pile de cartes et la carte sur le tas.
 */
-
 class Pioche {
 
 	private:

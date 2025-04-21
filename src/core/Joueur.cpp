@@ -15,7 +15,7 @@ Joueur::Joueur(): couleur(0), reserve(4), ia(false) {
 	}
 }
 
-Joueur::Joueur(int idCouleur, bool ai): couleur(idCouleur), reserve(4), ia(ai) {
+Joueur::Joueur(int idCouleur, bool est_ia): couleur(idCouleur), reserve(4), ia(est_ia) {
 	assert(1 <= idCouleur && idCouleur <= 6);
 	for (int i = 0; i<4; i++){
 		main[i] = nullptr;

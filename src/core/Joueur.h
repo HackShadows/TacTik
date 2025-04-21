@@ -6,14 +6,15 @@
 */
 #include "Carte.h"
 #include <iostream>
+
 using namespace std;
+
 
 /**
 * @class Joueur
 *
 * @brief Représente un joueur, avec sa main et sa maison.
 */
-
 class Joueur {
 
 	private:
@@ -32,9 +33,9 @@ class Joueur {
 		* @brief Constructeur avec paramètres du joueur.
 		*
 		* @param idCouleur Couleur du joueur (1 : vert, 2 : rouge, 3 : bleu, 4 : jaune, 5 : noir, 6 : blanc).
-		* @param ai True si le joueur est joué par une ia, false sinon.
+		* @param est_ia True si le joueur est joué par une ia, false sinon.
 		*/
-		Joueur(int idCouleur, bool ai = false);
+		Joueur(int idCouleur, bool est_ia = false);
 
 		/**
 		* @brief Destructeur du joueur.
@@ -52,7 +53,7 @@ class Joueur {
 		/**
 		* @brief Augmente ou diminue la réserve de 1.
 		* 
-		* @param quantite Nombre à ajouter à la réserve.
+		* @param quantite Nombre à ajouter à la réserve (±1).
 		*/
 		void setReserve(int quantite);
 

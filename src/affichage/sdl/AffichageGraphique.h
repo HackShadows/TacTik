@@ -10,10 +10,12 @@
 
 using namespace std;
 
+
 /**
 * @brief Contient la déclaration de la classe Image.
 */
 class Image{
+
 	private :
 		Jeu * jeu; ///<Jeu à afficher
 		SDL_Window * window; ///<La fenetre
@@ -24,39 +26,37 @@ class Image{
 		SDL_Texture * listTexture[15]; ///<Les textures préchargées
 		SDL_Rect RectMain[4]; ///<Rectangles des cartes de la main
 		SDL_Rect RectTas; ///<Rectanlge du tas
-		TTF_Font* m_font; /// Police de la fenetre
-		SDL_Surface* textSurface; ///Surface du texte a afficher
+		TTF_Font* m_font; ///<Police de la fenetre
+		SDL_Surface* textSurface; ///<Surface du texte a afficher
 		int dimx, dimy; ///<Les dimensions de la fenetre
 		int imgWidth, imgHeight; ///<Largeur et hauteur de l'image du plateau
 		float zoom; ///<Le zoom de l'image
 		int nbJ; ///<Le nombre de joueurs
-		int (* coordonnees)[2]; ///< Le tableau des coordonnées des points
-		int (* coordonneesMaison)[2]; ///< Le tableau des coordonnées des maisons
-		int (* coordonneesReserve)[2]; ///< Le tableau des coordonnées des reserves
-
+		int (* coordonnees)[2]; ///<Le tableau des coordonnées des points
+		int (* coordonneesMaison)[2]; ///<Le tableau des coordonnées des maisons
+		int (* coordonneesReserve)[2]; ///<Le tableau des coordonnées des reserves
 
 	public :
 		/**
-		* @brief Constructeur qui initialise tout SDL2 et crée la fenêtre et le renderer
-		* 
+		* @brief Constructeur qui initialise tout SDL2 et crée la fenêtre et le renderer.
 		*/
 		Image();
 
 		/**
-		* @brief Detruit et ferme SDL2
+		* @brief Detruit et ferme SDL2.
 		*/
 		~Image();
 
 		/**
-		* @brief Initialise le jeu et crée la fenêtre et le renderer
+		* @brief Initialise le jeu et crée la fenêtre et le renderer.
 		* 
-		* @param nbJoueurs Nombre de joueurs
-		* @param IA Liste correspondant aux couleurs des joueurs (true si le joueur est joué par une ia, false sinon)
+		* @param nbJoueurs Nombre de joueurs.
+		* @param IA Liste correspondant aux couleurs des joueurs (true si le joueur est joué par une ia, false sinon).
 		*/
-	void initJeu(int nbJoueurs, array<bool, 6> IA);
+		void initJeu(int nbJoueurs, array<bool, 6> IA);
 
 		/**
-		* @brief Affiche des carrés sur les cases du plateau
+		* @brief Affiche des carrés sur les cases du plateau.
 		*/
 		void debugCoordonnees() const;
 
@@ -82,23 +82,32 @@ class Image{
 		int getImgWidth() const;
 
 		/**
-		* @brief renvoie l'indice du pion sur lequel on a cliqué
-		* @param posx Les coordonnées x du clic
-		* @param posy Les coordonnées y du clic
+		* @brief Renvoie l'indice du pion sur lequel on a cliqué.
+		*
+		* @param posx Les coordonnées x du clic.
+		* @param posy Les coordonnées y du clic.
+		*
+		* @return Indice du pion cliqué.
 		*/
 		int getIndicePion(int posx, int posy) const;
 
 		/**
-		* @brief renvoie l'indice de la case sur lequel on a cliqué
-		* @param posx Les coordonnées x du clic
-		* @param posy Les coordonnées y du clic
+		* @brief Renvoie l'indice de la case sur laquelle on a cliqué.
+		*
+		* @param posx Les coordonnées x du clic.
+		* @param posy Les coordonnées y du clic.
+		*
+		* @return Indice de la case cliquée.
 		*/
 		int getIndiceCase(int posx, int posy, int joueurActif = -1) const;
 
 		/**
-		* @brief renvoie le numéro du bouton cliqué
-		* @param posx Les coordonnées x du clic
-		* @param posy Les coordonnées y du clic
+		* @brief Renvoie le numéro du bouton cliqué.
+		*
+		* @param posx Les coordonnées x du clic.
+		* @param posy Les coordonnées y du clic.
+		*
+		* @return Numéro du bouton cliqué (1 ou 2).
 		*/
 		int getBouton(int posx, int posy) const;
 
@@ -150,32 +159,32 @@ class Image{
 		* @param message Le message à afficher
 		* @param couleur La couleur du joueur actif
 		*/
-	void setTextSurface(string message, int couleur);
+		void setTextSurface(string message, int couleur);
 
 		/**
 		* @brief Met à jour la couleur du fond
 		* @param couleur La couleur du joueur actif
 		*/
-	void setCouleur(int couleur) const;
+		void setCouleur(int couleur) const;
 
-	/**
+		/**
 		* @brief Affiche deux boutons
 		* @param choix Les différentes possibilités pour les boutons
 		*/
-	void afficherBoutons(int choix) const;
+		void afficherBoutons(int choix) const;
 
-	/**
+		/**
 		* @brief Affiche toutes les cartes pour le choix du joker
 		* @param tab Le tableau des coordonnées des cartes
 		*/
-	void afficherJoker(SDL_Rect tab[13]) const;
+		void afficherJoker(SDL_Rect tab[13]) const;
 
-	/**
+		/**
 		* @brief Affiche les cartes et récupere la carte séléctionnée
 		* @param joueurActif L'identifiant du joueur actif.
 		* @param message Le message à afficher
 		*/
-	int selectionnerValJoker(int joueurActif, string message);
+		int selectionnerValJoker(int joueurActif, string message);
 
 		/**
 		* @brief Affiche le menu pour sélectionner le nombre de joueurs
@@ -187,7 +196,7 @@ class Image{
 		* @brief Permet de faire les choix pour l'attribution des IA.
 		* @param message Le message à afficher
 		*/
-	char choixIA(string message);
+		char choixIA(string message);
 
 		/**
 		* @brief Affiche le jeu à un instant donné
@@ -195,7 +204,6 @@ class Image{
 		* @param message Le message à afficher
 		*/
 		void afficher(int joueurActif, string message);
-
 };
 
 

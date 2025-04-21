@@ -13,10 +13,6 @@ bool intInTab(int element, const int * tab, int taille) {
 	return false;
 }
 
-void messageDefaut(string message) {
-	cout << message << endl;
-}
-
 Jeu::Jeu() : nbJoueurs(4), plateau(nbJoueurs), pioche(){
 	joueurs = new Joueur [nbJoueurs];
 	pions = new Pion [4*nbJoueurs];
@@ -71,16 +67,15 @@ const Joueur& Jeu::getJoueur(int indice) const {
 	return joueurs[indice];
 }
 
-Joueur& Jeu::getJoueurNonConst(int indice) {
-	assert(0 <= indice && indice < nbJoueurs);
-	return joueurs[indice];
-}
-
 const Pion& Jeu::getPion(int idPion) const {
 	assert(0 < idPion && idPion <= 4*nbJoueurs);
 	return pions[idPion-1];
 }
 
+Carte* Jeu::retirerCarte(int indice, int valCarte) {
+	assert(valCarte == -4 || (-1 <= valCarte && valCarte <= 13 && valCarte != 0 && valCarte != 4));
+	return joueurs[indice].retirerCarte(valCarte);
+}
 
 void Jeu::distribuer() {
 	int indice_carte[4*nbJoueurs];
@@ -284,7 +279,7 @@ bool Jeu::partieGagnee() const {
 	return false;
 }
 
-bool Jeu::carteJouable(int couleur, int valCarte, bool coequipier, bool joker){
+bool Jeu::carteJouable(int couleur, int valCarte, bool coequipier, bool joker) const {
 	assert(1 <= couleur && couleur <= nbJoueurs);
 	assert(valCarte == -4 || (-1 <= valCarte && valCarte <= 13 && valCarte != 0 && valCarte != 4));
 	
@@ -317,7 +312,7 @@ bool Jeu::carteJouable(int couleur, int valCarte, bool coequipier, bool joker){
 	return false;
 }
 
-bool Jeu::peutJouer(int couleur, bool coequipier) {
+bool Jeu::peutJouer(int couleur, bool coequipier) const {
 	assert(1 <= couleur && couleur <= nbJoueurs);
 	Joueur joueur = joueurs[couleur-1];
 	int val;

@@ -54,6 +54,7 @@ void message(string coutMessage = "");
 * @brief Contient la déclaration de la classe ImageConsole.
 */
 class ImageConsole {
+	
 	private:
 		Jeu * jeu; ///<Jeu à afficher
 		int nbCase; ///<Nombre de cases du plateau de jeu
@@ -62,12 +63,12 @@ class ImageConsole {
 		/**
 		* @brief Constructeur avec paramètres de la classe ImageConsole
 		*/
-	ImageConsole();
+		ImageConsole();
 
-	/**
-	* @brief Destructeur de la classe ImageConsole
-	*/
-	~ImageConsole();
+		/**
+		* @brief Destructeur de la classe ImageConsole
+		*/
+		~ImageConsole();
 
 		/**
 		* @brief Initialise le jeu
@@ -77,12 +78,12 @@ class ImageConsole {
 		*/
 		void initJeu(int nbJoueurs, array<bool, 6> IA);
 
-	/**
-	* @brief Renvoie le jeu en cours.
-	*
-	* @return Le jeu en cours.
-	*/
-	Jeu& getJeu();
+		/**
+		* @brief Renvoie le jeu en cours.
+		*
+		* @return Le jeu en cours.
+		*/
+		Jeu& getJeu();
 	
 		/**
 		* @brief Affiche la maison d'une couleur dans le terminal.

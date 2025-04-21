@@ -6,14 +6,15 @@
 */
 #include "Pion.h"
 #include <iostream>
+
 using namespace std;
+
 
 /**
 * @class Plateau
 *
 * @brief Représente le plateau de jeu.
 */
-
 class Plateau {
 
 	private:

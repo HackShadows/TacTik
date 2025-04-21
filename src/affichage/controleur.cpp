@@ -179,9 +179,8 @@ bool Controleur::jouerCarte(int valCarte, bool coequipier, bool joker) {
 	assert(valCarte == -4 || (-1 <= valCarte && valCarte <= 13 && valCarte != 0 && valCarte != 4));
 	int couleur = joueurActif + 1;
 	int nb_possible = 0, idPion = 0, c1 = couleur;
-	Joueur& j1 = jeu.getJoueurNonConst(couleur-1);
 	if (coequipier) couleur = 1 + ((couleur < 5) ? (couleur+1)%4 : 10-couleur);
-	Joueur& joueur = jeu.getJoueurNonConst(couleur-1);
+	const Joueur& joueur = jeu.getJoueur(couleur-1);
 	string mess = (versionGraphique) ? "":" : ";
 	
 	// Cas du permutter
@@ -300,7 +299,7 @@ bool Controleur::jouerCarte(int valCarte, bool coequipier, bool joker) {
 	
 	// Affichage sur le tas
 	if (joker) valCarte = -1;
-	jeu.setTas(j1.retirerCarte(valCarte));
+	jeu.setTas(jeu.retirerCarte(joueurActif, valCarte));
 	return true;
 }
 
