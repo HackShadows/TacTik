@@ -204,7 +204,14 @@ class Image{
 		* @param message Le message à afficher
 		*/
 		void afficher(int joueurActif, string message);
+
+	/**
+	* @brief Affiche le jeu à un instant donné
+	* @param message Le message à afficher
+	*/
+	void afficherFin(string message);
 };
+
 
 
 #endif
