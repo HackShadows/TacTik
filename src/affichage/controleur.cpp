@@ -378,10 +378,11 @@ void Controleur::afficherVainqueur(int couleurVainqueur) const {
 		j1 = (vainqueurs+3)%4;
 		j2 = (vainqueurs+1)%4;
 	}
+	string message = "\nLes " + intToStr(j1) + "s et " + intToStr(j2) + "s ont gagné !\n";
 	if (versionGraphique) {
-
+		graphique->afficherFin(message);
 	} else {
-		cout << "\nLes " << intToStr(j1) << "s et " << intToStr(j2) << "s ont gagné !\n" << endl;
+		cout << message << endl;
 	}
 }
 
