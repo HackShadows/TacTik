@@ -1,0 +1,8 @@
+C:/Users/Utilisateur/CLionProjects/lifapcd_tac-tik/cmake-build-default/CMakeFiles/test.dir
+C:/Users/Utilisateur/CLionProjects/lifapcd_tac-tik/cmake-build-default/CMakeFiles/mainTXT.dir
+C:/Users/Utilisateur/CLionProjects/lifapcd_tac-tik/cmake-build-default/CMakeFiles/mainSDL.dir
+C:/Users/Utilisateur/CLionProjects/lifapcd_tac-tik/cmake-build-default/CMakeFiles/mainDEV.dir
+C:/Users/Utilisateur/CLionProjects/lifapcd_tac-tik/cmake-build-default/CMakeFiles/memcheck.dir
+C:/Users/Utilisateur/CLionProjects/lifapcd_tac-tik/cmake-build-default/CMakeFiles/veryclean.dir
+C:/Users/Utilisateur/CLionProjects/lifapcd_tac-tik/cmake-build-default/CMakeFiles/edit_cache.dir
+C:/Users/Utilisateur/CLionProjects/lifapcd_tac-tik/cmake-build-default/CMakeFiles/rebuild_cache.dir

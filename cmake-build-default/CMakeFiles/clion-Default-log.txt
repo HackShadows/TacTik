@@ -1,0 +1,5 @@
+"C:\Program Files\JetBrains\CLion 2024.3\bin\cmake\win\x64\bin\cmake.exe" "-DCMAKE_MAKE_PROGRAM=C:/Program Files/JetBrains/CLion 2024.3/bin/ninja/win/x64/ninja.exe" -G Ninja -S C:\Users\Utilisateur\CLionProjects\lifapcd_tac-tik -B C:\Users\Utilisateur\CLionProjects\lifapcd_tac-tik\cmake-build-default
+-- Could NOT find Doxygen (missing: DOXYGEN_EXECUTABLE) 
+-- Configuring done (0.3s)
+-- Generating done (0.1s)
+-- Build files have been written to: C:/Users/Utilisateur/CLionProjects/lifapcd_tac-tik/cmake-build-default
