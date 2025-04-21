@@ -22,64 +22,64 @@ class Pion {
 
 	public:
 		/**
-        * @brief Constructeur par défaut du pion.
-        */
+		* @brief Constructeur par défaut du pion.
+		*/
 		Pion();
 
 		/**
-        * @brief Constructeur avec paramètre du pion.
-        * 
-        * @param identifiant Id du pion
-        */
-	   	Pion(int identifiant);
+		* @brief Constructeur avec paramètre du pion.
+		* 
+		* @param identifiant Id du pion
+		*/
+		Pion(int identifiant);
 
 		/**
-        * @brief Destructeur du pion.
-        */
-	   	~Pion();
+		* @brief Destructeur du pion.
+		*/
+		~Pion();
 
 		/**
-        * @brief Modifie la position du pion.
-        * 
-        * @param position Nouvelle position du pion sur le plateau.
-        */
-	   	void setPos(int position);
+		* @brief Modifie la position du pion.
+		* 
+		* @param position Nouvelle position du pion sur le plateau.
+		*/
+		void setPos(int position);
 
 		/**
-        * @brief Modifie l'état du pion.
-        * 
-        * @param etat Booléen (True : pieu, False : pion).
-        */
-	   	void setPieu(bool etat);
+		* @brief Modifie l'état du pion.
+		* 
+		* @param etat Booléen (True : pieu, False : pion).
+		*/
+		void setPieu(bool etat);
 
 		/**
-        * @brief Renvoie l'id du pion.
+		* @brief Renvoie l'id du pion.
 		*
 		* @return L'id pion.
-        */
+		*/
 		int getId() const;
 
 		/**
-        * @brief Renvoie la position du pion.
+		* @brief Renvoie la position du pion.
 		*
 		* @return La position du pion.
-        */
-	   	int getPos() const;
+		*/
+		int getPos() const;
 
 		/**
-        * @brief Renvoie True si c'est un pieu, False pour un pion.
+		* @brief Renvoie True si c'est un pieu, False pour un pion.
 		*
 		* @return Le booléen correspondant.
-        */
-	   	bool estPieu() const;
+		*/
+		bool estPieu() const;
 
 		/**
-        * @brief Test les fonctionnalités de la classe.
-        *
-        * Effectue une série de tests pour vérifier que toutes les fonctions produisent uniquement le résultat attendu,
-        * et que les données membres de l'objet sont conformes en tout temps.
-        */
-	   	static void testRegression();
+		* @brief Test les fonctionnalités de la classe.
+		*
+		* Effectue une série de tests pour vérifier que toutes les fonctions produisent uniquement le résultat attendu,
+		* et que les données membres de l'objet sont conformes en tout temps.
+		*/
+		static void testRegression();
 };
 
 #endif

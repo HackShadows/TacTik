@@ -23,29 +23,29 @@ class Plateau {
 
 	public:
 		/**
-        * @brief Constructeur par défaut.
-        *
-        * Crée le plateau de jeu pour 4 joueurs.
-        */
+		* @brief Constructeur par défaut.
+		*
+		* Crée le plateau de jeu pour 4 joueurs.
+		*/
 		Plateau();
 
 		/**
-        * @brief Constructeur avec paramètre.
-        *
-        * Crée le plateau de jeu en fonction du nombre de joueurs.
-        * 
-        * @param nbJ Nombre de joueurs
-        */
+		* @brief Constructeur avec paramètre.
+		*
+		* Crée le plateau de jeu en fonction du nombre de joueurs.
+		* 
+		* @param nbJ Nombre de joueurs
+		*/
 		Plateau(int nbJ);
 
 		// Désactivation du constructeur par copie et de l'opérateur d'affectation
 		Plateau(const Plateau&) = delete;
 		Plateau& operator=(const Plateau&) = delete;
 
-        /**
-        * @brief Destructeur du plateau.
-        */
-	   	~Plateau();
+		/**
+		* @brief Destructeur du plateau.
+		*/
+		~Plateau();
 
 		/**
 		* @brief Définit la valeur de la case d'indice 'indice'.
@@ -56,29 +56,29 @@ class Plateau {
 		void setPion(int idPion, int indice);
 
 		/**
-        * @brief Renvoie le nombre de cases du plateau.
-        * 
-        * @return Nombre de cases.
-        */
+		* @brief Renvoie le nombre de cases du plateau.
+		* 
+		* @return Nombre de cases.
+		*/
 		int getNbCase() const;
 
 		/**
-        * @brief Renvoie l'id du pion se trouvant à l'indice 'indice'.
+		* @brief Renvoie l'id du pion se trouvant à l'indice 'indice'.
 		* 
 		* @param indice Indice où chercher le pion.
-        * 
-        * @return Id du pion se trouvant à l'indice 'indice'.
-        */
-	   	int getIdPion(int indice) const;
+		* 
+		* @return Id du pion se trouvant à l'indice 'indice'.
+		*/
+		int getIdPion(int indice) const;
 
 		/**
-        * @brief Renvoie la case de départ de la couleur passée en paramètre.
+		* @brief Renvoie la case de départ de la couleur passée en paramètre.
 		*
 		* @param couleur Couleur de la case de départ.
-        * 
-        * @return Indice de la case de départ.
-        */
-	   	int getCasesDepart(int couleur) const;
+		* 
+		* @return Indice de la case de départ.
+		*/
+		int getCasesDepart(int couleur) const;
 
 		/**
 		* @brief supprime le pion de la case d'indice 'indice'.
@@ -89,13 +89,13 @@ class Plateau {
 		*/
 		int viderCase(int indice);
 
-        /**
-        * @brief Test les fonctionnalités de la classe.
-        *
-        * Effectue une série de tests pour vérifier que toutes les fonctions produisent uniquement le résultat attendu,
-        * et que les données membres de l'objet sont conformes en tout temps.
-        */
-	   	static void testRegression();
+		/**
+		* @brief Test les fonctionnalités de la classe.
+		*
+		* Effectue une série de tests pour vérifier que toutes les fonctions produisent uniquement le résultat attendu,
+		* et que les données membres de l'objet sont conformes en tout temps.
+		*/
+		static void testRegression();
 };
 
 #endif

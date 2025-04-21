@@ -28,7 +28,7 @@ void messageDefaut(string message = "");
 class Jeu {
 
 	private:
-        int nbJoueurs; ///<Nombre de joueurs.
+		int nbJoueurs; ///<Nombre de joueurs.
 		Plateau plateau; ///<Le plateau de jeu.
 		Pioche pioche; ///<La pioche et le tas.
 		Joueur * joueurs; ///<Tableau de 4 ou 6 joueurs.
@@ -36,81 +36,81 @@ class Jeu {
 
 	public:
 		/**
-        * @brief Constructeur par défaut du jeu.
-        */
+		* @brief Constructeur par défaut du jeu.
+		*/
 		Jeu();
 
-        /**
-        * @brief Constructeur du jeu.
+		/**
+		* @brief Constructeur du jeu.
 		* 
 		* @param nbJ Nombre de joueurs.
 		* @param IA Liste correspondant aux couleurs des joueurs (true si le joueur est joué par une ia, false sinon)
-        */
+		*/
 		Jeu(int nbJ, array<bool, 6> IA);
 
-        /**
-        * @brief Destructeur du jeu.
-        */
+		/**
+		* @brief Destructeur du jeu.
+		*/
 		~Jeu();
 
 		/**
-        * @brief Met à jour le tas.
+		* @brief Met à jour le tas.
 		* 
 		* @param carte Carte à mettre sur le tas.
-        */
-	   	void setTas(Carte* carte);
+		*/
+		void setTas(Carte* carte);
 
-        /**
-        * @brief Renvoie le plateau de jeu.
+		/**
+		* @brief Renvoie le plateau de jeu.
 		*
 		* @return Le plateau de jeu.
-        */
-        const Plateau& getPlateau() const;
+		*/
+		const Plateau& getPlateau() const;
 
 		/**
-        * @brief Renvoie la pioche.
+		* @brief Renvoie la pioche.
 		*
 		* @return La pioche.
-        */
-	   	const Pioche& getPioche() const;
+		*/
+		const Pioche& getPioche() const;
 
-        /**
-        * @brief Renvoie le nombre de joueurs.
+		/**
+		* @brief Renvoie le nombre de joueurs.
 		*
 		* @return Le nombre de joueurs.
-        */
-        int getNbJoueurs() const;
+		*/
+		int getNbJoueurs() const;
 
 		/**
-        * @brief Renvoie le joueur se trouvant à l'indice 'indice'.
+		* @brief Renvoie le joueur se trouvant à l'indice 'indice'.
 		* 
 		* @param indice Indice du joueur à retourner.
 		*
 		* @return Le joueur se trouvant à l'indice 'indice'.
-        */
-	   	const Joueur& getJoueur(int indice) const;
+		*/
+		const Joueur& getJoueur(int indice) const;
 
 		/**
-        * @brief Renvoie le joueur se trouvant à l'indice 'indice'.
+		* @brief Renvoie le joueur se trouvant à l'indice 'indice'.
 		* 
 		* @param indice Indice du joueur à retourner.
 		*
 		* @return Le joueur se trouvant à l'indice 'indice'.
-        */
-	   	Joueur& getJoueurNonConst(int indice);
+		*/
+		Joueur& getJoueurNonConst(int indice);
 
 		/**
-        * @brief Renvoie le pion d'identifiant 'idPion'.
+		* @brief Renvoie le pion d'identifiant 'idPion'.
 		* 
 		* @param idPion Id du pion à retourner.
 		*
 		* @return Le pion d'identifiant 'idPion'.
-        */
-	   	const Pion& getPion(int idPion) const;
+		*/
+		const Pion& getPion(int idPion) const;
 
-        /**
-        * @brief Distribue 4 cartes à chaque joueur.
-        */
+		/**
+		* @brief Distribue 4 cartes à chaque joueur.
+		*/
 		void distribuer();
 
 		/**
@@ -124,14 +124,14 @@ class Jeu {
 		bool attribuerCarte(int valCarte, int couleur);
 
 		/**
-        * @brief Echange une carte entre deux joueurs de la même équipe.
+		* @brief Echange une carte entre deux joueurs de la même équipe.
 		* 
 		* @param indJ1 Indice du joueur1 (indJ1 < indJ2).
 		* @param indJ2 Indice du joueur2 (indJ2 > indJ1).
 		* @param valCarteJ1 Valeur de la carte du joueur1 à donner au joueur2.
 		* @param valCarteJ2 Valeur de la carte du joueur2 à donner au joueur1.
-        */
-	   	void echangerCartes(int indJ1, int indJ2, int valCarteJ1, int valCarteJ2);
+		*/
+		void echangerCartes(int indJ1, int indJ2, int valCarteJ1, int valCarteJ2);
 
 		/**
 		* @brief Défausse la carte passée en paramètre.
@@ -202,11 +202,11 @@ class Jeu {
 		bool permutter(int idPion1, int idPion2, bool test = false);
 
 		/**
-        * @brief Renvoie True si la partie a été gagnée par une équipe, False sinon.
+		* @brief Renvoie True si la partie a été gagnée par une équipe, False sinon.
 		*
 		* @return Le booléen correspondant.
-        */
-	   	bool partieGagnee() const;
+		*/
+		bool partieGagnee() const;
 
 		/**
 		* @brief Détermine si la carte passée en paramètre peut être jouée.
@@ -230,13 +230,13 @@ class Jeu {
 		*/
 		bool peutJouer(int couleur, bool coequipier = false);
 
-        /**
-        * @brief Test les fonctionnalités de la classe.
-        *
-        * Effectue une série de tests pour vérifier que toutes les fonctions produisent uniquement le résultat attendu,
-        * et que les données membres de l'objet sont conformes en tout temps.
-        */
-        static void testRegression();
+		/**
+		* @brief Test les fonctionnalités de la classe.
+		*
+		* Effectue une série de tests pour vérifier que toutes les fonctions produisent uniquement le résultat attendu,
+		* et que les données membres de l'objet sont conformes en tout temps.
+		*/
+		static void testRegression();
 };
 
 #endif

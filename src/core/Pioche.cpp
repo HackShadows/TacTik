@@ -10,35 +10,35 @@ using namespace std;
 
 
 Pioche::Pioche() {
-    for (int i = 0; i<13; i++) {
+	for (int i = 0; i<13; i++) {
 		if (i == 3) continue;
-        for (int j = 0; j<4; j++) {
-            pile[i*4+j] = Carte(i+1);
-        }
-    }
+		for (int j = 0; j<4; j++) {
+			pile[i*4+j] = Carte(i+1);
+		}
+	}
 	for (int j = 12; j<16; j++) {
 		pile[j] = Carte(-4);
 	}
-    pile[52] = Carte(-1);
-    pile[53] = Carte(-1);
+	pile[52] = Carte(-1);
+	pile[53] = Carte(-1);
 	tas = nullptr;
 }
 
 Pioche::~Pioche() {
-    tas = nullptr;
+	tas = nullptr;
 }
 
 void Pioche::setTas(Carte * carte){
-    tas = carte;
+	tas = carte;
 }
 
 Carte* Pioche::getTas() const{
-    return tas;
+	return tas;
 }
 
 Carte& Pioche::getCarte(int indice) {
-    assert(0 <= indice && indice < 54);
-    return pile[indice];
+	assert(0 <= indice && indice < 54);
+	return pile[indice];
 }
 
 void Pioche::testRegression(){
@@ -69,5 +69,5 @@ void Pioche::testRegression(){
 
 		delete carte;
 	}
-    cout << "Destructeur valide !" << endl;
+	cout << "Destructeur valide !" << endl;
 }

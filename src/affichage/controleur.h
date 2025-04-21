@@ -24,8 +24,8 @@ class Controleur {
 
 	public:
 		/**
-        * @brief Constructeur par défaut du controleur.
-        */
+		* @brief Constructeur par défaut du controleur.
+		*/
 		Controleur();
 
 		/**
@@ -181,7 +181,7 @@ class Controleur {
 		/**
 		* @brief Affiche le jeu.
 		*
-		* @param etapeActuel Etape en cours d'éxecution (-1 = Attente entre deux tours ; 1 = Attente d'une carte ; 2 =  Attente d'un clique sur pion ; 3 = Attente d'un clique sur case ; 4 = Attente d'un clique sur bouton).
+		* @param etapeActuel Etape en cours d'éxecution (-1 = Attente entre deux tours ; 1 = Attente d'une carte ; 2 = Attente d'un clique sur pion ; 3 = Attente d'un clique sur case ; 4 = Attente d'un clique sur bouton).
 		* @param coutMessage Message à afficher.
 		* 
 		* @return La valeur souhaitée (numéro de la carte, indice de la case ...)

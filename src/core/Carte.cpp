@@ -12,15 +12,15 @@ using namespace std;
 Carte::Carte(): valeur(0) {}
 
 Carte::Carte(int val): valeur(val) {
-    assert(val == -4 || (-1 <= val && val <= 13 && val != 4));
+	assert(val == -4 || (-1 <= val && val <= 13 && val != 4));
 }
 
 Carte::~Carte() {
-    valeur = 0;
+	valeur = 0;
 }
 
 int Carte::getValeur() const {
-    return valeur;
+	return valeur;
 }
 
 void Carte::testRegression(){
@@ -37,5 +37,5 @@ void Carte::testRegression(){
 		assert(val == 3);
 		cout << "getCarte valide !" << endl;
 	}
-    cout << "Destructeur valide !" << endl;
+	cout << "Destructeur valide !" << endl;
 }

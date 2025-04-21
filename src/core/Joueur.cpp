@@ -10,28 +10,28 @@ using namespace std;
 
 
 Joueur::Joueur(): couleur(0), reserve(4), ia(false) {
-    for (int i = 0; i<4; i++){
-        main[i] = nullptr;
-    }
+	for (int i = 0; i<4; i++){
+		main[i] = nullptr;
+	}
 }
 
 Joueur::Joueur(int idCouleur, bool ai): couleur(idCouleur), reserve(4), ia(ai) {
-    assert(1 <= idCouleur && idCouleur <= 6);
-    for (int i = 0; i<4; i++){
-        main[i] = nullptr;
-    }
+	assert(1 <= idCouleur && idCouleur <= 6);
+	for (int i = 0; i<4; i++){
+		main[i] = nullptr;
+	}
 }
 
 Joueur::~Joueur() {
-    for (int i = 0; i<4; i++){
-        main[i] = nullptr;
-    }
+	for (int i = 0; i<4; i++){
+		main[i] = nullptr;
+	}
 }
 
 void Joueur::setMaison(int indice, int idPion) {
-    assert(0 <= indice && indice < 4);
+	assert(0 <= indice && indice < 4);
 	assert(0 <= idPion && idPion <=24);
-    maison[indice] = idPion;
+	maison[indice] = idPion;
 }
 
 void Joueur::setReserve(int quantite) {
@@ -57,13 +57,13 @@ const int* Joueur::getMaison() const {
 }
 
 bool Joueur::estDansMain(int valCarte) const {
-	if (valCarte == 4 || valCarte == 0 ||(valCarte < -1 && valCarte != -4)  || valCarte > 13) return false;
+	if (valCarte == 4 || valCarte == 0 ||(valCarte < -1 && valCarte != -4) || valCarte > 13) return false;
 	for (int i = 0; i<4; i++){
-        Carte* carte = main[i];
-        if (carte != nullptr && valCarte == carte->getValeur()) {
-            return true;
-        }
-    }
+		Carte* carte = main[i];
+		if (carte != nullptr && valCarte == carte->getValeur()) {
+			return true;
+		}
+	}
 	return false;
 }
 
@@ -80,7 +80,7 @@ bool Joueur::mainVide() const {
 
 bool Joueur::piocherCarte(Carte * carte) {
 	assert(carte->getValeur() != 0);
-    for (int i = 0 ; i < 4 ; i++) {
+	for (int i = 0 ; i < 4 ; i++) {
 		if (main[i] == nullptr) {
 			main[i] = carte;
 			return true;
@@ -97,14 +97,14 @@ Carte* Joueur::retirerCarte(int valeur, int indice) {
 		return carte;
 	}
 	assert(valeur == -4 || (-1 <= valeur && valeur <= 13 && valeur != 0 && valeur != 4));
-    for (int i = 0; i<4; i++){
-        Carte* carte = main[i];
-        if (carte != nullptr && valeur == carte->getValeur()) {
-            main[i] = nullptr;
-            return carte;
-        }
-    }
-    return nullptr;
+	for (int i = 0; i<4; i++){
+		Carte* carte = main[i];
+		if (carte != nullptr && valeur == carte->getValeur()) {
+			main[i] = nullptr;
+			return carte;
+		}
+	}
+	return nullptr;
 }
 
 Carte* Joueur::defausserMain() {
@@ -119,12 +119,12 @@ Carte* Joueur::defausserMain() {
 }
 
 bool Joueur::maisonRemplie() const {
-    for (int i = 0; i<4; i++){
-        if (maison[i] == 0){
-            return false;
-        }
-    }
-    return true;
+	for (int i = 0; i<4; i++){
+		if (maison[i] == 0){
+			return false;
+		}
+	}
+	return true;
 }
 
 void Joueur::testRegression(){

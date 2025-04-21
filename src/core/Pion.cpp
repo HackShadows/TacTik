@@ -14,10 +14,10 @@ Pion::Pion(): pieu(true), position(-1), id(0), couleur(0){}
 Pion::Pion(int identifiant): pieu(true), position(-1), id(identifiant), couleur((identifiant-1)/4+1) {}
 
 Pion::~Pion() {
-    pieu = true;
+	pieu = true;
 	position = -1;
-    id = 0;
-    couleur = 0;
+	id = 0;
+	couleur = 0;
 }
 
 void Pion::setPos(int indice) {
@@ -29,19 +29,19 @@ void Pion::setPieu(bool etat) {
 }
 
 int Pion::getId() const {
-    return id;
+	return id;
 }
 
 int Pion::getPos() const {
-    return position;
+	return position;
 }
 
 bool Pion::estPieu() const {
-    return pieu;
+	return pieu;
 }
 
 void Pion::testRegression(){
-    {
+	{
 		Pion pion2;
 		assert(pion2.pieu);
 		assert(pion2.position == -1);
@@ -73,5 +73,5 @@ void Pion::testRegression(){
 		assert(!pion.estPieu());
 		cout << "setPieu valide !" << endl;
 	}
-    cout << "Destructeur valide !" << endl;
+	cout << "Destructeur valide !" << endl;
 }

@@ -10,6 +10,7 @@
 #include <utility>
 using namespace std;
 
+
 class Jeu;
 
 /**
@@ -17,39 +18,38 @@ class Jeu;
 *
 * @brief Représente une ia.
 */
-
 class IA {
-        
+		
 	public:
 		/**
-        * @brief Constructeur par défaut de l'ia.
-        */
+		* @brief Constructeur par défaut de l'ia.
+		*/
 		IA();
 
-        /**
-        * @brief Destructeur de l'ia.
-        */
+		/**
+		* @brief Destructeur de l'ia.
+		*/
 		~IA();
 
-        /**
+		/**
 		* @brief C
 		*/
-        void jouerCoup(Jeu &jeu, vector<pair<int, int>> vect, int couleur) const;
+		void jouerCoup(Jeu &jeu, vector<pair<int, int>> vect, int couleur) const;
 
-        /**
+		/**
 		* @brief Génère la liste des coups possibles.
-        *
-        * @return Liste de pairs de coups possible contenant l'id du pion et sa nouvelle position.
+		*
+		* @return Liste de pairs de coups possible contenant l'id du pion et sa nouvelle position.
 		*/
 		vector<pair<int, int>> genererCoups(Jeu &jeu, int couleur) const;
 
-        /**
-        * @brief Test les fonctionnalités de la classe.
-        *
-        * Effectue une série de tests pour vérifier que toutes les fonctions produisent uniquement le résultat attendu,
-        * et que les données membres de l'objet sont conformes en tout temps.
-        */
-        static void testRegression();
+		/**
+		* @brief Test les fonctionnalités de la classe.
+		*
+		* Effectue une série de tests pour vérifier que toutes les fonctions produisent uniquement le résultat attendu,
+		* et que les données membres de l'objet sont conformes en tout temps.
+		*/
+		static void testRegression();
 };
 
 #endif

@@ -10,43 +10,43 @@ using namespace std;
 
 
 Plateau::Plateau(): nbCases(16*4) {
-    cases = new int [nbCases];
+	cases = new int [nbCases];
 	casesDepart = new int [4]{0, 16, 32, 48};
-    for (int i = 0; i<nbCases; i++) {
-        cases[i] = 0;
-    }
+	for (int i = 0; i<nbCases; i++) {
+		cases[i] = 0;
+	}
 }
 
 Plateau::Plateau(int nbJ): nbCases(16*nbJ) {
-    cases = new int [nbCases];
+	cases = new int [nbCases];
 	casesDepart = (nbJ == 4) ? new int [4]{0, 16, 32, 48}:new int [6]{0, 16, 48, 64, 32, 80};
-    for (int i = 0; i<nbCases; i++) {
-        cases[i] = 0;
-    }
+	for (int i = 0; i<nbCases; i++) {
+		cases[i] = 0;
+	}
 }
 
 Plateau::~Plateau() {
-    delete [] cases;
+	delete [] cases;
 	delete [] casesDepart;
-    cases = nullptr;
-    casesDepart = nullptr;
-    nbCases = 0;
+	cases = nullptr;
+	casesDepart = nullptr;
+	nbCases = 0;
 }
 
 void Plateau::setPion(int idPion, int indice) {
 	assert(0 <= indice && indice < nbCases);
 	assert(0 < idPion && idPion <= nbCases/4);
 	assert(cases[indice] == 0);
-    cases[indice] = idPion;
+	cases[indice] = idPion;
 }
 
 int Plateau::getNbCase() const {
-    return nbCases;
+	return nbCases;
 }
 
 int Plateau::getIdPion(int indice) const {
-    assert(0 <= indice && indice < nbCases);
-    return cases[indice];
+	assert(0 <= indice && indice < nbCases);
+	return cases[indice];
 }
 
 int Plateau::getCasesDepart(int couleur) const {
@@ -57,7 +57,7 @@ int Plateau::getCasesDepart(int couleur) const {
 int Plateau::viderCase(int indice) {
 	assert(0 <= indice && indice < nbCases);
 	int idPion = cases[indice];
-    cases[indice] = 0;
+	cases[indice] = 0;
 	return idPion;
 }
 
@@ -94,5 +94,5 @@ void Plateau::testRegression(){
 		assert(plateau.cases[4] == 0 && idPion2 == 2);
 		cout << "viderCase valide !" << endl;
 	}
-    cout << "Destructeur valide !" << endl;
+	cout << "Destructeur valide !" << endl;
 }

@@ -60,14 +60,14 @@ class ImageConsole {
 
 	public:
 		/**
-        * @brief Constructeur avec paramètres de la classe ImageConsole
-        */
-	   ImageConsole();
+		* @brief Constructeur avec paramètres de la classe ImageConsole
+		*/
+	ImageConsole();
 
-	   /**
-	   * @brief Destructeur de la classe ImageConsole
-	   */
-	   ~ImageConsole();
+	/**
+	* @brief Destructeur de la classe ImageConsole
+	*/
+	~ImageConsole();
 
 		/**
 		* @brief Initialise le jeu
@@ -77,12 +77,12 @@ class ImageConsole {
 		*/
 		void initJeu(int nbJoueurs, array<bool, 6> IA);
 
-	   /**
-	   * @brief Renvoie le jeu en cours.
-	   *
-	   * @return Le jeu en cours.
-	   */
-	   Jeu& getJeu();
+	/**
+	* @brief Renvoie le jeu en cours.
+	*
+	* @return Le jeu en cours.
+	*/
+	Jeu& getJeu();
 	
 		/**
 		* @brief Affiche la maison d'une couleur dans le terminal.

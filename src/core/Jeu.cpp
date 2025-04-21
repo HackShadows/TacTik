@@ -18,36 +18,36 @@ void messageDefaut(string message) {
 }
 
 Jeu::Jeu() : nbJoueurs(4), plateau(nbJoueurs), pioche(){
-    joueurs = new Joueur [nbJoueurs];
+	joueurs = new Joueur [nbJoueurs];
 	pions = new Pion [4*nbJoueurs];
-    for (int i = 0; i < nbJoueurs; i++) {
-        joueurs[i] = Joueur(i+1);
+	for (int i = 0; i < nbJoueurs; i++) {
+		joueurs[i] = Joueur(i+1);
 		for (int j = 0 ; j < 4 ; j++) {
 			int idPion = i*4+j+1;
 			pions[idPion-1] = Pion(idPion);
 		}
-    }
+	}
 }
 
 Jeu::Jeu(int nbJ, array<bool, 6> IA) : nbJoueurs(nbJ), plateau(nbJ), pioche(){
-    assert(nbJ == 4 || nbJ == 6);
-    joueurs = new Joueur [nbJoueurs];
+	assert(nbJ == 4 || nbJ == 6);
+	joueurs = new Joueur [nbJoueurs];
 	pions = new Pion [4*nbJoueurs];
-    for (int i = 0; i < nbJoueurs; i++) {
-        joueurs[i] = Joueur(i+1, IA[i]);
+	for (int i = 0; i < nbJoueurs; i++) {
+		joueurs[i] = Joueur(i+1, IA[i]);
 		for (int j = 0 ; j < 4 ; j++) {
 			int idPion = i*4+j+1;
 			pions[idPion-1] = Pion(idPion);
 		}
-    }
+	}
 }
 
 Jeu::~Jeu() {
-    delete [] joueurs;
-    joueurs = nullptr;
-    nbJoueurs = 0;
+	delete [] joueurs;
+	joueurs = nullptr;
+	nbJoueurs = 0;
 	delete [] pions;
-    pions = nullptr;
+	pions = nullptr;
 }
 
 void Jeu::setTas(Carte* carte) {
@@ -55,15 +55,15 @@ void Jeu::setTas(Carte* carte) {
 }
 
 const Plateau& Jeu::getPlateau() const {
-    return plateau;
+	return plateau;
 }
 
 const Pioche& Jeu::getPioche() const {
-    return pioche;
+	return pioche;
 }
 
 int Jeu::getNbJoueurs() const {
-    return nbJoueurs;
+	return nbJoueurs;
 }
 
 const Joueur& Jeu::getJoueur(int indice) const {
@@ -83,17 +83,17 @@ const Pion& Jeu::getPion(int idPion) const {
 
 
 void Jeu::distribuer() {
-    int indice_carte[4*nbJoueurs];
-    for (int i = 0; i<nbJoueurs; i++) {
-        int random_int;
-        for (int j = 0 ; j < 4 ; j++) {
-            do {
-                random_int = rand()%54;
-            } while (intInTab(random_int, indice_carte, 4*i + j));
-            joueurs[i].piocherCarte(&pioche.getCarte(random_int));
-            indice_carte[4*i+j] = random_int;
-        }
-    }
+	int indice_carte[4*nbJoueurs];
+	for (int i = 0; i<nbJoueurs; i++) {
+		int random_int;
+		for (int j = 0 ; j < 4 ; j++) {
+			do {
+				random_int = rand()%54;
+			} while (intInTab(random_int, indice_carte, 4*i + j));
+			joueurs[i].piocherCarte(&pioche.getCarte(random_int));
+			indice_carte[4*i+j] = random_int;
+		}
+	}
 }
 
 bool Jeu::attribuerCarte(int valCarte, int couleur) {
@@ -332,7 +332,7 @@ bool Jeu::peutJouer(int couleur, bool coequipier) {
 
 
 void Jeu::testRegression() {
-    {
+	{
 		array<bool, 6> IA;
 		IA.fill(false);
 

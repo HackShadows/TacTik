@@ -22,45 +22,45 @@ class Pioche {
 
 	public:
 		/**
-        * @brief Constructeur de la pioche.
-        */
+		* @brief Constructeur de la pioche.
+		*/
 		Pioche();
 
 		/**
-        * @brief Destructeur de la pioche.
-        */
-	   	~Pioche();
+		* @brief Destructeur de la pioche.
+		*/
+		~Pioche();
 
 		/**
-        * @brief Met à jour le tas.
+		* @brief Met à jour le tas.
 		*
 		* @param carte Carte venant d'être jouée.
-        */
+		*/
 		void setTas(Carte *carte);
 
 		/**
-        * @brief Renvoie la carte se trouvant sur le tas.
+		* @brief Renvoie la carte se trouvant sur le tas.
 		*
 		* @return Carte se trouvant sur le tas.
-        */
+		*/
 		Carte* getTas() const;
 
 		/**
-        * @brief Renvoie la pile de cartes.
+		* @brief Renvoie la pile de cartes.
 		* 
 		* @param indice Indice de la carte à récupérer.
 		*
 		* @return La pile.
-        */
+		*/
 		Carte& getCarte(int indice);
 
 		/**
-        * @brief Test les fonctionnalités de la classe.
-        *
-        * Effectue une série de tests pour vérifier que toutes les fonctions produisent uniquement le résultat attendu,
-        * et que les données membres de l'objet sont conformes en tout temps.
-        */
-	   	static void testRegression();
+		* @brief Test les fonctionnalités de la classe.
+		*
+		* Effectue une série de tests pour vérifier que toutes les fonctions produisent uniquement le résultat attendu,
+		* et que les données membres de l'objet sont conformes en tout temps.
+		*/
+		static void testRegression();
 };
 
 #endif
