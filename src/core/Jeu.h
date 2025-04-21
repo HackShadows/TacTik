@@ -216,7 +216,7 @@ class Jeu {
 		*
 		* @return True si la carte peut être jouée, False sinon.
 		*/
-		bool carteJouable(int couleur, int valCarte, bool coequipier = false, bool joker = false) const;
+		bool carteJouable(int couleur, int valCarte, bool coequipier = false, bool joker = false);
 
 		/**
 		* @brief Détermine si le joueur peut jouer.
@@ -226,7 +226,7 @@ class Jeu {
 		*
 		* @return True si le joueur peut jouer, False sinon.
 		*/
-		bool peutJouer(int couleur, bool coequipier = false) const;
+		bool peutJouer(int couleur, bool coequipier = false);
 
 		/**
 		* @brief Test les fonctionnalités de la classe.
