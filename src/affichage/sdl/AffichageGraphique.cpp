@@ -47,7 +47,7 @@ Image::Image(){
 	dimx = 1500;
 	dimy = 900;
 	
-	window = SDL_CreateWindow("Tac-Tik", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, (dimx + 200) * zoom,
+	window = SDL_CreateWindow("Tac-Tik", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, dimx * zoom,
 							(dimy + 100) * zoom,
 							SDL_WINDOW_RESIZABLE);
 	if (window == NULL) {
