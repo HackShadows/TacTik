@@ -238,7 +238,7 @@ int Image::getIndiceCase(int posx, int posy, int joueurActif) const {
     }
     for (int j = 0; j<4; j++) {
         if (abs(posx - coordonneesMaison[joueurActif*4+j][0] * zoom) < rayon && abs(posy - coordonneesMaison[joueurActif*4+j][1] * zoom) < rayon) {
-            return j;
+            return 100+j;
         }
     }
     return -1;
