@@ -54,14 +54,14 @@ class Controleur {
 		*
 		* @return Le jeu en cours.
 		*/
-		Jeu& getJeu();
+		Jeu& getJeu() const;
 
 		/**
 		* @brief Renvoie running.
 		*
 		* @return False pour arrêter la partie, true sinon.
 		*/
-		bool getRunning();
+		bool getRunning() const;
 
 		/**
 		* @brief Renvoie le jeu en cours.
@@ -159,7 +159,7 @@ class Controleur {
 		* 
 		* @param couleurVainqueur Couleur du vainqueur.
 		*/
-		void afficherVainqueur(int couleurVainqueur);
+		void afficherVainqueur(int couleurVainqueur) const;
 
 		/**
 		* @brief Gère les évenenements

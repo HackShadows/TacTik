@@ -367,11 +367,11 @@ void Image::afficherMaison() const {
     }
 }
 
-void Image::setTextureCartes(int id_joueur) {
+void Image::setTextureCartes(int idJoueur) {
     Carte *carte = nullptr;
     for (int i = 0; i < 4; i++) {
-        if (id_joueur >= 0) {
-            carte = jeu->getJoueur(id_joueur).getCarte(i);
+        if (idJoueur >= 0) {
+            carte = jeu->getJoueur(idJoueur).getCarte(i);
         }
         if (carte == nullptr) {
             textureCartes[i] = listTexture[0];

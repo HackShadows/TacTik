@@ -44,12 +44,12 @@ void Controleur::initJeu(int nbJoueurs, int nbIA) {
 	else console->initJeu(nbJoueurs, nbIA);
 }
 
-Jeu& Controleur::getJeu() {
+Jeu& Controleur::getJeu() const {
 	if (versionGraphique) return graphique->getJeu();
 	return console->getJeu();
 }
 
-bool Controleur::getRunning() {
+bool Controleur::getRunning() const {
 	return running;
 }
 
@@ -340,7 +340,7 @@ void Controleur::tourJoueur(bool dev) {
     }
 }
 
-void Controleur::afficherVainqueur(int couleurVainqueur) {
+void Controleur::afficherVainqueur(int couleurVainqueur) const {
 	int vainqueurs = couleurVainqueur;
 	int j1 = 4, j2 = 5;
 	if (vainqueurs < 5) {

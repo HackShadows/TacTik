@@ -137,9 +137,9 @@ class Image{
 
 		/**
 		* @brief Met à jour les textures des cartes du joueur
-		* @param id_joueur L'identifiant du joueur dont on affiche les cartes
+		* @param idJoueur L'identifiant du joueur dont on affiche les cartes
 		*/
-		void setTextureCartes(int id_joueur);
+		void setTextureCartes(int idJoueur);
 
 		/**
 		* @brief Effectue un zoom avant ou arrière
