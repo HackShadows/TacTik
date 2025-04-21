@@ -592,6 +592,8 @@ int Image::afficherMenu(string message){
 }
 
 char Image::choixIA(string message){
+	SDL_SetRenderDrawColor(renderer, 0,0,0,0);
+	SDL_RenderClear(renderer);
 	texturePlateau = IMG_LoadTexture(renderer, "./data/plateau/plateau6.png");
 	SDL_Rect Rect = {0, 0, imgWidth, imgHeight};
 	SDL_Event event;
