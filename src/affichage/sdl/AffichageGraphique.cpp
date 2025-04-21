@@ -635,3 +635,11 @@ void Image::afficher(int joueurActif, string message) {
 	
 	SDL_RenderPresent(renderer);
 }
+
+void Image::afficherFin(string message) {
+	SDL_SetRenderDrawColor(renderer, 0,0,0,0);
+	SDL_RenderClear(renderer);
+	setTextSurface(message, 5);
+
+	SDL_RenderPresent(renderer);
+}
