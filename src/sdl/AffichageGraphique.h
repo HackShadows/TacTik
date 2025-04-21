@@ -8,8 +8,6 @@
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL2_gfxPrimitives.h>
 
-#include <array>
-
 using namespace std;
 
 /**
@@ -53,9 +51,9 @@ class Image{
         * @brief Initialise le jeu et crée la fenêtre et le renderer
         * 
 		* @param nbJoueurs Nombre de joueurs
-		* @param nbIA Nombre d'IA
+		* @param IA Liste correspondant aux couleurs des joueurs (true si le joueur est joué par une ia, false sinon)
         */
-	   void initJeu(int nbJoueurs = 4, int nbIA = 0);
+	   void initJeu(int nbJoueurs, array<bool, 6> IA);
 
         /**
         * @brief Affiche des carrés sur les cases du plateau

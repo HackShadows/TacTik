@@ -29,12 +29,12 @@ Jeu::Jeu() : nbJoueurs(4), plateau(nbJoueurs), pioche(){
     }
 }
 
-Jeu::Jeu(int nbJ, int nbIA) : nbJoueurs(nbJ), plateau(nbJ), pioche(){
-    assert(nbIA >= 0 && nbJ >= nbIA && (nbJ == 4 || nbJ == 6));
+Jeu::Jeu(int nbJ, array<bool, 6> IA) : nbJoueurs(nbJ), plateau(nbJ), pioche(){
+    assert(nbJ == 4 || nbJ == 6);
     joueurs = new Joueur [nbJoueurs];
 	pions = new Pion [4*nbJoueurs];
     for (int i = 0; i < nbJoueurs; i++) {
-        joueurs[i] = Joueur(i+1, (i < nbIA));
+        joueurs[i] = Joueur(i+1, IA[i]);
 		for (int j = 0 ; j < 4 ; j++) {
 			int idPion = i*4+j+1;
 			pions[idPion-1] = Pion(idPion);
@@ -333,11 +333,14 @@ bool Jeu::peutJouer(int couleur, bool coequipier) {
 
 void Jeu::testRegression() {
     {
+		array<bool, 6> IA;
+		IA.fill(false);
+
 		Jeu jeu;
 		assert(jeu.nbJoueurs == 4);
 		cout << "Constructeur par défaut valide !" << endl;
 
-		Jeu jeu2(6);
+		Jeu jeu2(6, IA);
 		assert(jeu2.nbJoueurs == 6);
 		cout << "Constructeur avec paramètres valide !" << endl;
 

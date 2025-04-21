@@ -82,8 +82,9 @@ ImageConsole::ImageConsole() : jeu(nullptr), nbCase(jeu->getPlateau().getNbCase(
 
 ImageConsole::~ImageConsole() {}
 
-void ImageConsole::initJeu(int nbJoueurs, int nbIA) {
-    assert(nbIA >= 0 && nbJoueurs >= nbIA && (nbJoueurs == 4 || nbJoueurs == 6));
+void ImageConsole::initJeu(int nbJoueurs, array<bool, 6> IA) {
+    assert(nbJoueurs == 4 || nbJoueurs == 6);
+	jeu = new Jeu(nbJoueurs, IA);
 }
 
 Jeu& ImageConsole::getJeu() {return *jeu;}

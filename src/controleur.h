@@ -44,10 +44,18 @@ class Controleur {
 		/**
 		* @brief Initialise le jeu dans le cas d'un affichage graphique.
 		* 
-		* @param nbJ Nombre de joueurs.
-		* @param nbIA Nombre d'IA.
+		* @param nbJoueurs Nombre de joueurs.
+		* @param IA Liste correspondant aux couleurs des joueurs (true si le joueur est joué par une ia, false sinon)
 		*/
-		void initJeu(int nbJoueurs, int nbIA);
+		void initJeu(int nbJoueurs, array<bool, 6> IA);
+
+		/**
+		* @brief Permet de choisir si chaque joueur est joué par une ia ou non.
+		* 
+		* @param nbJoueurs Nombre de joueurs.
+		* @param IA Liste correspondant aux couleurs des joueurs (true si le joueur est joué par une ia, false sinon)
+		*/
+		void choixIA(int nbJoueurs, array<bool, 6> &IA);
 
 		/**
 		* @brief Renvoie le jeu en cours.

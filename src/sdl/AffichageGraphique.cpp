@@ -125,9 +125,9 @@ Image::~Image() {
     SDL_Quit();
 }
 
-void Image::initJeu(int nbJoueurs, int nbIA) {
-    assert(nbIA >= 0 && nbJoueurs >= nbIA && (nbJoueurs == 4 || nbJoueurs == 6));
-    jeu = new Jeu(nbJoueurs, nbIA);
+void Image::initJeu(int nbJoueurs, array<bool, 6> IA) {
+    assert(nbJoueurs == 4 || nbJoueurs == 6);
+    jeu = new Jeu(nbJoueurs, IA);
     nbJ = jeu->getNbJoueurs();
     if (nbJ == 6) {
         dimx = 1500;

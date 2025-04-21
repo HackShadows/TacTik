@@ -38,10 +38,31 @@ Controleur::~Controleur() {
 	}
 }
 
-void Controleur::initJeu(int nbJoueurs, int nbIA) {
-	assert(nbIA >= 0 && nbJoueurs >= nbIA && (nbJoueurs == 4 || nbJoueurs == 6));
-	if (versionGraphique) graphique->initJeu(nbJoueurs, nbIA);
-	else console->initJeu(nbJoueurs, nbIA);
+void Controleur::initJeu(int nbJoueurs, array<bool, 6> IA) {
+	assert(nbJoueurs == 4 || nbJoueurs == 6);
+	if (versionGraphique) graphique->initJeu(nbJoueurs, IA);
+	else console->initJeu(nbJoueurs, IA);
+}
+
+void Controleur::choixIA(int nbJoueurs, array<bool, 6> &IA) {
+	assert(nbJoueurs == 4 || nbJoueurs == 6);
+	string mess = (versionGraphique) ? "":" : ";
+	string coutMessage = "Inclure des IA parmis les joueurs ? (Oui(o) ; Non(n))" + mess;
+	char choix = 'n';
+	if (versionGraphique) return;
+	else {
+		choix = cinProtectionChar(coutMessage);
+	}
+	if (choix != 'o' && choix != 'O') return;
+	
+	for (int i = 0 ; i < nbJoueurs ; i++) {
+		coutMessage = intToStr(i) + " joué par une IA ? (Oui(o) ; Non(n))" + mess;
+		if (versionGraphique) return;
+		else {
+			choix = cinProtectionChar(coutMessage);
+		}
+		if (choix == 'o' || choix == 'O') IA[i] = true;
+	}
 }
 
 Jeu& Controleur::getJeu() const {
@@ -397,7 +418,7 @@ int Controleur::gestionEvent(SDL_Event event, int etapeActuel) {
             graphique->grossissement(false);
         }
 
-		if (event.key.keysym.sym == SDLK_RETURN && etapeActuel == -1) {
+		if (etapeActuel == -1 && (event.key.keysym.sym == SDLK_RETURN || event.key.keysym.sym == SDLK_SPACE)) {
 			val = -1;
 			return val;
 		}
@@ -440,15 +461,17 @@ int Controleur::afficherMenu(string coutMessage) {
 void jouer(bool versionGraphique, bool dev){
 	srand(time(NULL));
 	
-	int nbIA = 0, nbJoueurs = 0;
+	int nbJoueurs = 0;
+	array<bool, 6> IA;
+	IA.fill(false);
 	string mess = (versionGraphique) ? "":" : ";
 	Controleur controleur(versionGraphique);
 	
 	while (nbJoueurs != 4 && nbJoueurs != 6) nbJoueurs = controleur.afficherMenu("Nombre de joueurs (4 ou 6)" + mess);
-
-	while (nbIA < 0 || nbIA > nbJoueurs) nbIA = cinProtectionInt("Nombre d'IA parmis les joueurs (0-" + to_string(nbJoueurs) + ")" + mess);
 	
-	controleur.initJeu(nbJoueurs, nbIA);
+	controleur.choixIA(nbJoueurs, IA);
+
+	controleur.initJeu(nbJoueurs, IA);
 	Jeu &jeu = controleur.getJeu();
 	int ordre[6] = {1, 2, 5, 3, 4, 6};
 

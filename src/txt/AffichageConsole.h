@@ -69,13 +69,13 @@ class ImageConsole {
 	   */
 	   ~ImageConsole();
 
-	   /**
-        * @brief Initialise le jeu
-        * 
+		/**
+		* @brief Initialise le jeu
+		* 
 		* @param nbJoueurs Nombre de joueurs
-		* @param nbIA Nombre d'IA
-        */
-	   void initJeu(int nbJoueurs = 4, int nbIA = 0);
+		* @param IA Liste correspondant aux couleurs des joueurs (true si le joueur est joué par une ia, false sinon)
+		*/
+		void initJeu(int nbJoueurs, array<bool, 6> IA);
 
 	   /**
 	   * @brief Renvoie le jeu en cours.

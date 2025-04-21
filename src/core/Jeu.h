@@ -12,6 +12,7 @@
 #include <limits>
 #include <cstdlib>
 #include <ctime>
+#include <array>
 
 using namespace std;
 
@@ -43,9 +44,9 @@ class Jeu {
         * @brief Constructeur du jeu.
 		* 
 		* @param nbJ Nombre de joueurs.
-		* @param nbIA Nombre d'IA.
+		* @param IA Liste correspondant aux couleurs des joueurs (true si le joueur est joué par une ia, false sinon)
         */
-		Jeu(int nbJ, int nbIA = 0);
+		Jeu(int nbJ, array<bool, 6> IA);
 
         /**
         * @brief Destructeur du jeu.
