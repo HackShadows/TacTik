@@ -49,7 +49,10 @@ void Controleur::choixIA(int nbJoueurs, array<bool, 6> &IA) {
 	string mess = (versionGraphique) ? "":" : ";
 	string coutMessage = "Inclure des IA parmis les joueurs ? (Oui(o) ; Non(n))" + mess;
 	char choix = 'n';
-	if (versionGraphique) return;
+	if (versionGraphique) {
+		choix = graphique->choixIA(coutMessage);
+		if (choix == '0') running = false;
+	}
 	else {
 		choix = cinProtectionChar(coutMessage);
 	}
@@ -57,7 +60,13 @@ void Controleur::choixIA(int nbJoueurs, array<bool, 6> &IA) {
 	
 	for (int i = 0 ; i < nbJoueurs ; i++) {
 		coutMessage = intToStr(i) + " joué par une IA ? (Oui(o) ; Non(n))" + mess;
-		if (versionGraphique) return;
+		if (versionGraphique) {
+			choix = graphique->choixIA(coutMessage);
+			if (choix == '0') {
+				running = false;
+				return;
+			}
+		}
 		else {
 			choix = cinProtectionChar(coutMessage);
 		}
@@ -453,7 +462,11 @@ int Controleur::gestionEvent(SDL_Event event, int etapeActuel) {
 }
 
 int Controleur::afficherMenu(string coutMessage) {
-	if (versionGraphique) return graphique->afficherMenu(coutMessage);
+	if (versionGraphique) {
+		int val = graphique->afficherMenu(coutMessage);
+		if (val == 0) running = false;
+		return val;
+	}
 	return cinProtectionInt(coutMessage);
 }
 
@@ -467,9 +480,13 @@ void jouer(bool versionGraphique, bool dev){
 	string mess = (versionGraphique) ? "":" : ";
 	Controleur controleur(versionGraphique);
 	
-	while (nbJoueurs != 4 && nbJoueurs != 6) nbJoueurs = controleur.afficherMenu("Nombre de joueurs (4 ou 6)" + mess);
+	while (nbJoueurs != 4 && nbJoueurs != 6) {
+		nbJoueurs = controleur.afficherMenu("Nombre de joueurs (4 ou 6)" + mess);
+		if (!controleur.getRunning()) return;
+	}
 	
 	controleur.choixIA(nbJoueurs, IA);
+	if (!controleur.getRunning()) return;
 
 	controleur.initJeu(nbJoueurs, IA);
 	Jeu &jeu = controleur.getJeu();

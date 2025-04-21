@@ -183,6 +183,12 @@ class Image{
         */
 	   	int afficherMenu(string message);
 
+		/**
+        * @brief Permet de faire les choix pour l'attribution des IA.
+		* @param message Le message à afficher
+        */
+	   char choixIA(string message);
+
         /**
         * @brief Affiche le jeu à un instant donné
 		* @param joueurActif L'identifiant du joueur actif.

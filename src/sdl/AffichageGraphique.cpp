@@ -591,6 +591,31 @@ int Image::afficherMenu(string message){
     }
 }
 
+char Image::choixIA(string message){
+    texturePlateau = IMG_LoadTexture(renderer, "./data/plateau/plateau6.png");
+    SDL_Rect Rect = {0, 0, imgWidth, imgHeight};
+    SDL_Event event;
+    while (true){
+        SDL_RenderCopy(renderer, texturePlateau, NULL, &Rect);
+        afficherBoutons(2);
+        setTextSurface(message, 5);
+        SDL_RenderPresent(renderer);
+        while (SDL_PollEvent(&event)) {
+            if (event.type == SDL_QUIT) {
+                return '0';
+            }
+            if (event.type == SDL_MOUSEBUTTONDOWN){
+                if (event.button.x > imgWidth / 4 && event.button.x < imgWidth / 4 + 100 * zoom && event.button.y > imgHeight / 2 - 50 * zoom && event.button.y < imgHeight / 2 + 50 * zoom) {
+                    return 'o';
+                }
+                if (event.button.x > 2 * imgWidth / 3 && event.button.x < 2 * imgWidth / 3 + 100 * zoom && event.button.y > imgHeight / 2 - 50 * zoom && event.button.y < imgHeight / 2 + 50 * zoom) {
+                    return 'n';
+                }
+            }
+        }
+    }
+}
+
 void Image::afficher(int joueurActif, string message) {
     setCouleur(joueurActif + 1);
     SDL_RenderClear(renderer);
