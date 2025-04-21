@@ -13,9 +13,10 @@ IA::IA() {}
 
 IA::~IA() {}
 
-void IA::jouerCoup(Jeu &jeu, vector<pair<int, int>> vect, int couleur) const {
+void IA::jouerCoup(Jeu &jeu, int couleur) const {
 	const Joueur &joueur = jeu.getJoueur(couleur-1);
 	int valeurs [11] = {-4, 1, 2, 3, 5, 6, 8, 9, 10, 12, 13};
+	vector<pair<int, int>> vect = genererCoups(jeu, couleur);
 	if (vect.size() == 0 && joueur.getReserve() == 4) jeu.defausserJoueur(couleur);
 	else if (vect.size() == 0) cout << "Non traité" << endl;
 	else {
@@ -38,7 +39,6 @@ vector<pair<int, int>> IA::genererCoups(Jeu &jeu, int couleur) const {
 			if (jeu.carteJouable(couleur, val, coequipier)) coups.push_back({i+1, val});
 		}
 	}
-	jouerCoup(jeu, coups, couleur);
 	return coups;
 }
 

@@ -35,7 +35,7 @@ class IA {
 		/**
 		* @brief Permet à l'ia d'effectuer un coups parmis ses différents coups possibles.
 		*/
-		void jouerCoup(Jeu &jeu, vector<pair<int, int>> vect, int couleur) const;
+		void jouerCoup(Jeu &jeu, int couleur) const;
 
 		/**
 		* @brief Génère la liste des coups possibles.
