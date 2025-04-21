@@ -232,6 +232,7 @@ bool Controleur::jouerCarte(int valCarte, bool coequipier, bool joker) {
 			somme = 0;
 			while (somme < 7) {
 				bool continuer = true;
+				afficherMessage("Nombre de déplacements restants : " + to_string(7 - somme));
 				while (continuer) {
 					idPion = 0;
 					while (idPion < 1 || idPion > 4*nbJoueurs || (idPion-1)/4 != couleur-1) {
@@ -240,7 +241,8 @@ bool Controleur::jouerCarte(int valCarte, bool coequipier, bool joker) {
 					}
 					val = 0;
 					while (val < 1 || somme + val > 7) {
-						val = getNbCase7x1("Nombre de cases à avancer" + mess, idPion);
+						string message = (versionGraphique) ? "Cliquer sur la case où avancer":"Nombre de cases à avancer : ";
+						val = getNbCase7x1(message, idPion);
 						if (!running) return false;
 					}
 					if (!jeu.avancerPion(val, idPion, true)) afficherMessage("Ce déplacement est impossible !");
