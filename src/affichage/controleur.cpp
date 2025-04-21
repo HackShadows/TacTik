@@ -173,7 +173,7 @@ void Controleur::attenteTour(bool dev) {
 	}
 }
 
-bool Controleur::jouerCarte(int valCarte, bool coequipier, bool joker) {
+bool Controleur::jouerCarte(int valCarte, bool coequipier, bool joker, bool ia) {
 	Jeu &jeu = getJeu();
 	int nbJoueurs = jeu.getNbJoueurs();
 	assert(valCarte == -4 || (-1 <= valCarte && valCarte <= 13 && valCarte != 0 && valCarte != 4));
@@ -191,7 +191,7 @@ bool Controleur::jouerCarte(int valCarte, bool coequipier, bool joker) {
 				nb_possible++;
 			}
 		}
-		if (nb_possible > 1) idPion = 0;
+		if (nb_possible > 1 && !ia) idPion = 0;
 		nb_possible = 0;
 		while (idPion < 1 || idPion > 4*nbJoueurs || jeu.getPion(idPion).getPos() < 0 || (idPion-1)/4 != couleur-1) idPion = getIdPion("Id du pion à permutter (pion du joueur)" + mess);
 		int idPion2 = 0;
@@ -217,8 +217,8 @@ bool Controleur::jouerCarte(int valCarte, bool coequipier, bool joker) {
 	// Cas du démarrer
 	else if (valCarte == 1 || valCarte == 10 || valCarte == 13) {
 		char choix = '0';
-		if (joueur.getReserve() == 4) choix = 'D';
-		else if (!jeu.demarrer(couleur, true)) choix = 'A';
+		if (joueur.getReserve() == 4 || (ia && jeu.demarrer(couleur, true))) choix = 'D';
+		else if (!jeu.demarrer(couleur, true) || ia) choix = 'A';
 		else if (joueur.getReserve() > 0) {
 			int nb = 0;
 			for (int id = (couleur-1)*4+1 ; id <= 4*couleur ; id++) {
@@ -345,7 +345,10 @@ void Controleur::tourJoueur(bool dev) {
 	
 	attenteTour(dev);
 	
-	if (jeu.getJoueur(joueurActif).estIA()) ia.genererCoups(jeu, joueurActif + 1);
+	if (jeu.getJoueur(joueurActif).estIA()) {
+		valCarte = ia.jouerCarte(jeu, joueurActif);
+		if (valCarte != 0) jouerCarte(valCarte, false, false, true);
+	}
 	else {
 		if (!jeu.peutJouer(joueurActif + 1, coequipier)) {
 			choix = saisirCaractere("Aucune carte ne peut être jouée. Défausser toutes les cartes ? (Oui(o) ; Non(n))" + mess, 2);

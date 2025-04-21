@@ -134,10 +134,11 @@ class Controleur {
 		* @param valCarte Valeur de la carte jouée par le joueur.
 		* @param coequipier True si le joueur joue pour son coéquipier, false sinon (géré automatiquement).
 		* @param joker True si la carte passée en paramètre est un joker, false sinon (géré automatiquement).
+		* @param ia True si la carte est jouée par une ia, false sinon (géré automatiquement).
 		*
 		* @return True si la carte a pu être jouée, False sinon.
 		*/
-		bool jouerCarte(int valCarte, bool coequipier = false, bool joker = false);
+		bool jouerCarte(int valCarte, bool coequipier = false, bool joker = false, bool ia = false);
 
 		/**
 		* @brief Récupère la carte que le joueur souhaite jouer.
