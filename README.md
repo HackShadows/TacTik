@@ -79,5 +79,6 @@ make veryclean    # Supprime aussi la documentation
  Ce projet à été réalisé dans le cadre d'un travail en binôme par :
  - Marius CISERANE p2303380
  - Valentin LAPORTE p2302750
+ 
  Le projet est hébergé sur le GitLab de Lyon1 avec comme ID 38209
 
