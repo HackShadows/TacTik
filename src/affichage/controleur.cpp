@@ -491,6 +491,8 @@ void jouer(bool versionGraphique, bool dev){
 	controleur.choixIA(nbJoueurs, IA);
 	if (!controleur.getRunning()) return;
 
+	IA.fill(false);
+
 	controleur.initJeu(nbJoueurs, IA);
 	Jeu &jeu = controleur.getJeu();
 	int ordre[6] = {1, 2, 5, 3, 4, 6};
