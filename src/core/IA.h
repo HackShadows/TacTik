@@ -40,7 +40,7 @@ public:
 	/**
 	* @brief Permet à l'ia d'effectuer un coups parmis ses différents coups possibles.
 	*/
-	int jouerCarte(Jeu &jeu, int indice) const;
+	int jouerCarte(Jeu &jeu, int indice);
 
 	/**
 	* @brief Génère la liste des coups possibles.
