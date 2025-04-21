@@ -48,12 +48,11 @@ int jouerCarte(Jeu & jeu, int indice){
     for (int i = 0; i<4; i++){
     	Carte * carte = joueur.getCarte(i);
         if (carte != nullptr){
-          	if (carte->getValeur() != -1){
+          	if (carte->getValeur() != -1 || carte->getValeur() != 7 || carte->getValeur() != 11){
           		if (carte->carteJouable(indice+1, carte->getValeur);
 					return carte->getValeur();
                  }
             }
-            return 1;
         }
     }
     jeu.defausserJoueur(indice+1);
