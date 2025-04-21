@@ -56,6 +56,7 @@ int jouerCarte(Jeu & jeu, int indice){
         }
     }
     jeu.defausserJoueur(indice+1);
+    return 0;
 }
 
 
