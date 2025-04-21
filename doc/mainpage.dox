@@ -1,0 +1,38 @@
+/**
+ * @mainpage Documentation du projet MonProjet
+ *
+ * @section intro_sec Introduction
+ * Ce projet est un jeu basé sur une architecture orientée objet, avec affichage console et graphique (SDL2).
+ * Cette documentation présente toutes les classes (sauf les fichiers de contrôle et les entrées main).
+ *
+ * @section classes_sec Diagramme de classes UML global
+ *
+ * \dot
+digraph uml {
+    rankdir=LR;
+    node [shape=box, fontname="Helvetica", fontsize=10];
+
+    Carte;
+    Pion;
+
+    IA -> Joueur;
+    Joueur -> Carte;
+    Jeu -> Joueur;
+    Jeu -> IA;
+    Jeu -> Pioche;
+    Jeu -> Plateau;
+    Pioche -> Carte;
+    Plateau -> Pion;
+    Image -> Jeu;
+    ImageConsole -> Jeu;
+    Controleur -> Jeu;
+    Controleur -> Image;
+    Controleur -> ImageConsole;
+}
+ * \enddot
+ *
+ * @section structure_sec Structure du projet
+ * - `src/core/` : cœur du jeu (modèle)
+ * - `src/txt/` : affichage console
+ * - `src/sdl/` : affichage graphique avec SDL2
+ */
