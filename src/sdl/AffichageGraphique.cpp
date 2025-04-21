@@ -56,7 +56,6 @@ Image::Image(){
         exit(1);
     }
 
-    
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     
     for (int i = 0; i < 14; i++) {
@@ -201,19 +200,19 @@ void Image::initJeu(int nbJoueurs, int nbIA) {
                          : IMG_LoadTexture(renderer, "./data/plateau/plateau6.png");
 }
 
-Jeu &Image::getJeu() {
+Jeu &Image::getJeu() const {
     return *jeu;
 }
 
-float Image::getZoom() {
+float Image::getZoom() const {
     return zoom;
 }
 
-int Image::getImgWidth() {
+int Image::getImgWidth() const {
     return imgWidth;
 }
 
-int Image::getIndicePion(int posx, int posy) {
+int Image::getIndicePion(int posx, int posy) const {
     float rayon = 20 * zoom;
     for (int i = 0; i < 16 * jeu->getNbJoueurs(); i++) {
         if (abs(posx - coordonnees[i][0] * zoom) < rayon && abs(posy - coordonnees[i][1] * zoom) < rayon) {
@@ -230,7 +229,7 @@ int Image::getIndicePion(int posx, int posy) {
     return -1;
 }
 
-int Image::getIndiceCase(int posx, int posy, int joueurActif) {
+int Image::getIndiceCase(int posx, int posy, int joueurActif) const {
     float rayon = 20 * zoom;
     for (int i = 0; i < 16 * nbJ; i++) {
         if (abs(posx - coordonnees[i][0] * zoom) < rayon && abs(posy - coordonnees[i][1] * zoom) < rayon) {
@@ -245,7 +244,7 @@ int Image::getIndiceCase(int posx, int posy, int joueurActif) {
     return -1;
 }
 
-int Image::getBouton(int posx, int posy) {
+int Image::getBouton(int posx, int posy) const {
     if (posx> imgWidth / 4 && posx < imgWidth / 4 + 100 * zoom && posy > imgHeight / 2 - 50 * zoom && posy < imgHeight / 2 + 50 * zoom) {
         return 1;
     }
@@ -448,7 +447,7 @@ void Image::setTextSurface(string message, int couleur) {
     }
 }
 
-void Image::setCouleur(int couleur) {
+void Image::setCouleur(int couleur) const {
     switch (couleur) {
     case 1:
         SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
@@ -471,7 +470,7 @@ void Image::setCouleur(int couleur) {
     }
 }
 
-void Image::afficherBoutons(int choix) {
+void Image::afficherBoutons(int choix) const {
     SDL_Rect rect1 = {imgWidth / 4, (int)(imgHeight / 2 - 50 * zoom), (int)(100 * zoom), (int)(100 * zoom)};
     SDL_Rect rect2 = {2 * imgWidth / 3,(int)(imgHeight / 2 - 50 * zoom), (int)(100 * zoom), (int)(100 * zoom)};
     roundedBoxRGBA(renderer, imgWidth / 4, imgHeight / 2 - 50 * zoom, imgWidth / 4 + 100 * zoom, imgHeight / 2 + 50 * zoom, 5, 150, 60, 250, 180);
@@ -508,7 +507,7 @@ void Image::afficherBoutons(int choix) {
     SDL_FreeSurface(surface2);
 }
 
-void Image::afficherJoker(SDL_Rect tab[13]) {
+void Image::afficherJoker(SDL_Rect tab[13]) const {
     int cardWidth;
     int cardHeight;
     int paddingX;

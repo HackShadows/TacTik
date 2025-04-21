@@ -67,42 +67,42 @@ class Image{
 		*
 		* @return Le jeu en cours.
 		*/
-		Jeu& getJeu();
+		Jeu& getJeu() const;
 
 		/**
 		* @brief Renvoie le zoom.
 		*
 		* @return Le zoom.
 		*/
-		float getZoom();
+		float getZoom() const;
 
 		/**
 		* @brief Renvoie la largeur de l'image.
 		*
 		* @return La largeur de l'image.
 		*/
-		int getImgWidth();
+		int getImgWidth() const;
 
 		/**
 		* @brief renvoie l'indice du pion sur lequel on a cliqué
 		* @param posx Les coordonnées x du clic
 		* @param posy Les coordonnées y du clic
 		*/
-		int getIndicePion(int posx, int posy);
+		int getIndicePion(int posx, int posy) const;
 
 		/**
 		* @brief renvoie l'indice de la case sur lequel on a cliqué
 		* @param posx Les coordonnées x du clic
 		* @param posy Les coordonnées y du clic
 		*/
-		int getIndiceCase(int posx, int posy, int joueurActif = -1);
+		int getIndiceCase(int posx, int posy, int joueurActif = -1) const;
 
 		/**
 		* @brief renvoie le numéro du bouton cliqué
 		* @param posx Les coordonnées x du clic
 		* @param posy Les coordonnées y du clic
 		*/
-		int getBouton(int posx, int posy);
+		int getBouton(int posx, int posy) const;
 
         /**
         * @brief dessine le pion de couleur "couleur" aux coordonnées (x,y)
@@ -158,19 +158,19 @@ class Image{
         * @brief Met à jour la couleur du fond
         * @param couleur La couleur du joueur actif
         */
-	   void setCouleur(int couleur);
+	   void setCouleur(int couleur) const;
 
 	   /**
         * @brief Affiche deux boutons
 		* @param choix Les différentes possibilités pour les boutons
         */
-	   void afficherBoutons(int choix);
+	   void afficherBoutons(int choix) const;
 
 	   /**
         * @brief Affiche toutes les cartes pour le choix du joker
 		* @param tab Le tableau des coordonnées des cartes
         */
-	   void afficherJoker(SDL_Rect tab[13]);
+	   void afficherJoker(SDL_Rect tab[13]) const;
 
 	   /**
         * @brief Affiche les cartes et récupere la carte séléctionnée
