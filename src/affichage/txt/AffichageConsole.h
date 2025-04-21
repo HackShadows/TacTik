@@ -1,7 +1,7 @@
 #ifndef AFFICHERTXT_H
 #define AFFICHERTXT_H
 
-#include "../core/Jeu.h"
+#include "../../core/Jeu.h"
 
 
 /**

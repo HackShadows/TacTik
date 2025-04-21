@@ -2,7 +2,7 @@
 #include <windows.h>
 #endif
 
-#include "controleur.h"
+#include "affichage/controleur.h"
 #include <iostream>
 
 using namespace std;

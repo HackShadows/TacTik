@@ -1,7 +1,8 @@
 CXXFLAGS = -Wall -g -c
 CORE = src/core
-TXT = src/txt
-SDL = src/sdl
+AFFICHAGE = src/affichage
+TXT = $(AFFICHAGE)/txt
+SDL = $(AFFICHAGE)/sdl
 INCLUDE_DIR = -I/usr/include/SDL2
 LIB_SDL = -lSDL2 -lSDL2_ttf -lSDL2_image -lSDL2_gfx
 
@@ -45,17 +46,17 @@ bin/mainDEV: obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plate
 obj/mainTEST.o: src/mainTEST.cpp $(CORE)/Jeu.h
 	g++ $(CXXFLAGS) src/mainTEST.cpp -o obj/mainTEST.o
 
-obj/mainTXT.o: src/mainTXT.cpp src/controleur.h
+obj/mainTXT.o: src/mainTXT.cpp $(AFFICHAGE)/controleur.h
 	g++ $(CXXFLAGS) src/mainTXT.cpp -o obj/mainTXT.o
 
-obj/mainSDL.o: src/mainSDL.cpp src/controleur.h
+obj/mainSDL.o: src/mainSDL.cpp $(AFFICHAGE)/controleur.h
 	g++ $(CXXFLAGS) $(INCLUDE_DIR) src/mainSDL.cpp -o obj/mainSDL.o
 
-obj/mainDEV.o: src/mainDEV.cpp src/controleur.h
+obj/mainDEV.o: src/mainDEV.cpp $(AFFICHAGE)/controleur.h
 	g++ $(CXXFLAGS) $(INCLUDE_DIR) src/mainDEV.cpp -o obj/mainDEV.o
 
-obj/controleur.o: src/controleur.cpp src/controleur.h $(TXT)/AffichageConsole.h $(SDL)/AffichageGraphique.h
-	g++ $(CXXFLAGS) $(INCLUDE_DIR) src/controleur.cpp -o obj/controleur.o
+obj/controleur.o: $(AFFICHAGE)/controleur.cpp $(AFFICHAGE)/controleur.h $(TXT)/AffichageConsole.h $(SDL)/AffichageGraphique.h
+	g++ $(CXXFLAGS) $(INCLUDE_DIR) $(AFFICHAGE)/controleur.cpp -o obj/controleur.o
 
 obj/AffichageConsole.o: $(TXT)/AffichageConsole.cpp $(TXT)/AffichageConsole.h $(CORE)/Jeu.h
 	g++ $(CXXFLAGS) $(TXT)/AffichageConsole.cpp -o obj/AffichageConsole.o
@@ -139,16 +140,16 @@ $(WIN_OBJ_DIR)/AffichageConsole.o: $(TXT)/AffichageConsole.cpp $(TXT)/AffichageC
 $(WIN_OBJ_DIR)/AffichageGraphique.o: $(SDL)/AffichageGraphique.cpp $(SDL)/AffichageGraphique.h $(CORE)/Jeu.h | $(WIN_OBJ_DIR)
 	$(CROSS) $(CROSS_CXXFLAGS) $(SDL)/AffichageGraphique.cpp -o $(WIN_OBJ_DIR)/AffichageGraphique.o
 
-$(WIN_OBJ_DIR)/controleur.o: src/controleur.cpp src/controleur.h $(TXT)/AffichageConsole.h $(SDL)/AffichageGraphique.h | $(WIN_OBJ_DIR)
-	$(CROSS) $(CROSS_CXXFLAGS) src/controleur.cpp -o $(WIN_OBJ_DIR)/controleur.o
+$(WIN_OBJ_DIR)/controleur.o: $(AFFICHAGE)/controleur.cpp $(AFFICHAGE)/controleur.h $(TXT)/AffichageConsole.h $(SDL)/AffichageGraphique.h | $(WIN_OBJ_DIR)
+	$(CROSS) $(CROSS_CXXFLAGS) $(AFFICHAGE)/controleur.cpp -o $(WIN_OBJ_DIR)/controleur.o
 
-$(WIN_OBJ_DIR)/mainTXT.o: src/mainTXT.cpp src/controleur.h | $(WIN_OBJ_DIR)
+$(WIN_OBJ_DIR)/mainTXT.o: src/mainTXT.cpp $(AFFICHAGE)/controleur.h | $(WIN_OBJ_DIR)
 	$(CROSS) $(CROSS_CXXFLAGS) src/mainTXT.cpp -o $(WIN_OBJ_DIR)/mainTXT.o
 
-$(WIN_OBJ_DIR)/mainSDL.o: src/mainSDL.cpp src/controleur.h | $(WIN_OBJ_DIR)
+$(WIN_OBJ_DIR)/mainSDL.o: src/mainSDL.cpp $(AFFICHAGE)/controleur.h | $(WIN_OBJ_DIR)
 	$(CROSS) $(CROSS_CXXFLAGS) src/mainSDL.cpp -o $(WIN_OBJ_DIR)/mainSDL.o
 
-$(WIN_OBJ_DIR)/mainDEV.o: src/mainDEV.cpp src/controleur.h | $(WIN_OBJ_DIR)
+$(WIN_OBJ_DIR)/mainDEV.o: src/mainDEV.cpp $(AFFICHAGE)/controleur.h | $(WIN_OBJ_DIR)
 	$(CROSS) $(CROSS_CXXFLAGS) src/mainDEV.cpp -o $(WIN_OBJ_DIR)/mainDEV.o
 
 # Règle de linkage pour générer les exécutables Windows

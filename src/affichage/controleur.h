@@ -4,7 +4,6 @@
 /**
 * @brief Contient la déclaration de la classe Controleur.
 */
-#include "core/Jeu.h"
 #include "sdl/AffichageGraphique.h"
 #include "txt/AffichageConsole.h"
 
