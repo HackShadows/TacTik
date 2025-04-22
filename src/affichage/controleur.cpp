@@ -442,27 +442,18 @@ int Controleur::gestionEvent(SDL_Event event, int etapeActuel) {
 	}
 	if (event.type == SDL_MOUSEBUTTONDOWN && joueurActif >= 0) {
 		if (event.button.button == SDL_BUTTON_LEFT) {
-			//cout << getIndiceCase(event.button.x, event.button.y, coordonnees, zoom) << endl;
 			if (event.button.x > graphique->getImgWidth() && etapeActuel == 1) {
 				int indiceCase = event.button.y / (250 * graphique->getZoom());
-				//cout << indiceCase << endl;
 				if (indiceCase < 4 && getJeu().getJoueur(joueurActif).getCarte(indiceCase)) {
 					val = getJeu().getJoueur(joueurActif).getCarte(indiceCase)->getValeur();
-					//cout << "La valeur de la carte : " << val << endl;
-					if (getJeu().carteJouable(joueurActif + 1, val)) {
-						//cout << "La carte est jouable" << endl;
-					}
 				}
 				return val;
 			} else if (etapeActuel == 2) {
 				val = graphique->getIndicePion(event.button.x, event.button.y);
-				//cout << val << endl;
 			} else if (etapeActuel == 3) {
 				val = graphique->getIndiceCase(event.button.x, event.button.y, joueurActif);
-				//cout << val << endl;
 			} else if (etapeActuel == 4) {
 				val = graphique->getBouton(event.button.x, event.button.y);
-				//cout << val << endl;
 			}
 		}
 	}
