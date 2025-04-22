@@ -323,7 +323,12 @@ void Controleur::echangeDeCartes() {
 		setJoueurActif(couleur-1);
 		attenteTour();
 		
-		valCarte = choixCarte("Carte à donner à " + intToStr(((couleur < 5) ? (couleur+1)%4 : 10-couleur)) + mess, jeu.getJoueur(joueurActif));
+		if (jeu.getJoueur(joueurActif).estIA()) {
+			valCarte = jeu.getJoueur(joueurActif).getCarte(0)->getValeur();
+		} else {
+			valCarte = choixCarte("Carte à donner à " + intToStr(((couleur < 5) ? (couleur+1)%4 : 10-couleur)) + mess, jeu.getJoueur(joueurActif));
+		}
+
 		if (!running) return ;
 
 		if (i < nbJoueurs/2) echange_carte[i] = valCarte;
