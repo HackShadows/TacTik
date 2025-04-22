@@ -25,7 +25,6 @@ digraph uml {
     Plateau -> Pion;
     Image -> Jeu;
     ImageConsole -> Jeu;
-    Controleur -> Jeu;
     Controleur -> Image;
     Controleur -> ImageConsole;
 }
