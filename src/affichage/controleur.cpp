@@ -346,7 +346,7 @@ void Controleur::tourJoueur(bool dev) {
 	attenteTour(dev);
 	
 	if (jeu.getJoueur(joueurActif).estIA()) {
-		//valCarte = ia.jouerCarte(jeu, joueurActif);
+		valCarte = ia.jouerCarte(jeu, joueurActif);
 		valCarte = 0;
 		if (valCarte != 0) jouerCarte(valCarte, false, false, true);
 	}
