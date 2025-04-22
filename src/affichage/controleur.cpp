@@ -301,7 +301,7 @@ bool Controleur::jouerCarte(int valCarte, bool coequipier, bool joker, bool ia) 
 			}
 		}
 		if (nb_possible == 0) return false;
-		if (nb_possible > 1 ) idPion = 0;
+		if (nb_possible > 1 && !est_ia) idPion = 0;
 		while (idPion < 1 || idPion > 4*nbJoueurs || (idPion-1)/4 != couleur-1) idPion = getIdPion("Id du pion à avancer" + mess);
 		if (!jeu.avancerPion(valCarte, idPion)) return false;
 	}
