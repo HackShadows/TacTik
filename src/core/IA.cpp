@@ -48,7 +48,7 @@ int IA::jouerCarte(Jeu &jeu, int indice){
     	Carte * carte = joueur.getCarte(i);
         if (carte != nullptr){
 			int val = carte->getValeur();
-          	if (val != -1 && val != 7 && val != 11){
+          	if (val != -1 && val != 11){
           		if (jeu.carteJouable(indice+1, val)) return val;
             }
         }

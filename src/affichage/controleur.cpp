@@ -145,8 +145,6 @@ char Controleur::saisirCaractere(string coutMessage, int choix) {
 			return '0';
 		}
 	}
-	
-	if (versionGraphique) return afficherJeu(1, coutMessage);
 	return cinProtectionChar(coutMessage);
 }
 
@@ -181,6 +179,7 @@ bool Controleur::jouerCarte(int valCarte, bool coequipier, bool joker, bool ia) 
 	int nb_possible = 0, idPion = 0, c1 = couleur;
 	if (coequipier) couleur = 1 + ((couleur < 5) ? (couleur+1)%4 : 10-couleur);
 	const Joueur& joueur = jeu.getJoueur(couleur-1);
+	bool est_ia = joueur.estIA();
 	string mess = (versionGraphique) ? "":" : ";
 	
 	// Cas du permutter
@@ -248,20 +247,24 @@ bool Controleur::jouerCarte(int valCarte, bool coequipier, bool joker, bool ia) 
 	// Cas du 7x1
 	else if (valCarte == 7 && joueur.getReserve() < 3) {
 		int val, somme = 0;
+		vector<pair<int, int>> coups;
 		for (int i = (couleur-1)*4 +1 ; i <= couleur*4 ; i++) {
 			val = 1;
 			while (val < 7 && jeu.avancerPion(val, i, true)) val++;
 			somme += val-1;
+			coups.push_back({i, val-1});
 			if (val == 7 && jeu.avancerPion(val, i, true)) idPion = i;
 		}
 		if (somme < 7 && idPion == 0) return false;
 		if (somme == 6 && !jeu.avancerPion(7, idPion)) return false;
-		else if (somme == 6) ;
+		else if (somme == 6) ; //Le pion a été avancé dans le if précédent
+		else if (est_ia && idPion != 0) jeu.avancerPion(7, idPion);
 		else {
 			somme = 0;
+			int i = 0;
 			while (somme < 7) {
-				bool continuer = true;
-				afficherMessage("Nombre de déplacements restants : " + to_string(7 - somme));
+				bool continuer = !est_ia;
+				if (continuer) afficherMessage("Nombre de déplacements restants : " + to_string(7 - somme));
 				while (continuer) {
 					idPion = 0;
 					while (idPion < 1 || idPion > 4*nbJoueurs || (idPion-1)/4 != couleur-1) {
@@ -276,6 +279,12 @@ bool Controleur::jouerCarte(int valCarte, bool coequipier, bool joker, bool ia) 
 					}
 					if (!jeu.avancerPion(val, idPion, true)) afficherMessage("Ce déplacement est impossible !");
 					else continuer = false;
+				}
+				if (est_ia) {
+					val = coups[i].second;
+					idPion = coups[i].first;
+					if (val + somme > 7) val = 7 - somme;
+					i++;
 				}
 				jeu.avancerPion(val, idPion, false, true);
 				somme += val;
@@ -487,8 +496,6 @@ void jouer(bool versionGraphique, bool dev){
 	
 	controleur.choixIA(nbJoueurs, IA);
 	if (!controleur.getRunning()) return;
-
-	//IA.fill(false);
 
 	controleur.initJeu(nbJoueurs, IA);
 	Jeu &jeu = controleur.getJeu();
