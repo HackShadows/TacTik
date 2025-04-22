@@ -513,6 +513,8 @@ void jouer(bool versionGraphique, bool dev){
 				}
 			}
 		}
+
+		controleur.afficherJeu(-1, "Tour " + to_string(tour));
 		
 		for (int i = 0 ; i < 4 ; i++) {
 			for (int j = tour ; j < nbJoueurs + tour ; j++) {
