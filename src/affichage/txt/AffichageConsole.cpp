@@ -76,7 +76,7 @@ void message(string coutMessage) {cout << "\n" + coutMessage << endl;}
 
 
 
-ImageConsole::ImageConsole() : jeu(nullptr), nbCase(jeu->getPlateau().getNbCase()) {
+ImageConsole::ImageConsole() : jeu(nullptr), nbCase(0) {
 	
 }
 
@@ -85,6 +85,7 @@ ImageConsole::~ImageConsole() {}
 void ImageConsole::initJeu(int nbJoueurs, array<bool, 6> IA) {
 	assert(nbJoueurs == 4 || nbJoueurs == 6);
 	jeu = new Jeu(nbJoueurs, IA);
+	nbCase = jeu->getPlateau().getNbCase();
 }
 
 Jeu& ImageConsole::getJeu() {return *jeu;}
