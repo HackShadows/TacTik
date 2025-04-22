@@ -25,7 +25,7 @@ txt: bin/mainTXT
 sdl: bin/mainSDL
 	./bin/mainSDL
 
-doc: doc/doxyfile doc/html
+doc: cleandoc doc/doxyfile doc/html
 	doxygen doc/doxyfile
 
 doc/html:
@@ -91,7 +91,7 @@ memcheck_test: bin/test
 clean:
 	rm -rf obj/*.o bin/* obj_win
 
-veryclean:
+cleandoc:
 	rm -rf doc/html
 
 
