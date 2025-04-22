@@ -444,8 +444,9 @@ int Controleur::gestionEvent(SDL_Event event, int etapeActuel) {
 		if (event.button.button == SDL_BUTTON_LEFT) {
 			if (event.button.x > graphique->getImgWidth() && etapeActuel == 1) {
 				int indiceCase = event.button.y / (250 * graphique->getZoom());
-				if (indiceCase < 4 && getJeu().getJoueur(joueurActif).getCarte(indiceCase)) {
-					val = getJeu().getJoueur(joueurActif).getCarte(indiceCase)->getValeur();
+				Carte* carte = getJeu().getJoueur(joueurActif).getCarte(indiceCase);
+				if (indiceCase < 4 && carte) {
+					val = carte->getValeur();
 				}
 				return val;
 			} else if (etapeActuel == 2) {
