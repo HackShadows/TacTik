@@ -43,19 +43,18 @@ vector<pair<int, int>> IA::genererCoups(Jeu &jeu, int couleur) const {
 }
 
 int jouerCarte(Jeu &jeu, int indice){
-	/*const Joueur &joueur = jeu.getJoueur(indice);
+	const Joueur &joueur = jeu.getJoueur(indice);
 	int valeurs [11] = {-4, 1, 2, 3, 5, 6, 8, 9, 10, 12, 13};
     for (int i = 0; i<4; i++){
     	Carte * carte = joueur.getCarte(i);
         if (carte != nullptr){
-          	if (carte->getValeur() != -1 || carte->getValeur() != 7 || carte->getValeur() != 11){
-          		if (carte->carteJouable(indice+1, carte->getValeur);
-					return carte->getValeur();
-                 }
+			int val = carte->getValeur();
+          	if (val != -1 || val != 7 || val != 11){
+          		if (jeu.carteJouable(indice+1, val)) return val;
             }
         }
     }
-    jeu.defausserJoueur(indice+1);*/
+    jeu.defausserJoueur(indice+1);
     return 0;
 }
 
