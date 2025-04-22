@@ -492,7 +492,7 @@ void jouer(bool versionGraphique, bool dev){
 	controleur.choixIA(nbJoueurs, IA);
 	if (!controleur.getRunning()) return;
 
-	IA.fill(false);
+	//IA.fill(false);
 
 	controleur.initJeu(nbJoueurs, IA);
 	Jeu &jeu = controleur.getJeu();
