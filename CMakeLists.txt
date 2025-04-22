@@ -11,8 +11,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 
 # Source directories
 set(CORE_DIR ${CMAKE_SOURCE_DIR}/src/core)
-set(TXT_DIR ${CMAKE_SOURCE_DIR}/src/txt)
-set(SDL_DIR ${CMAKE_SOURCE_DIR}/src/sdl)
+set(TXT_DIR ${CMAKE_SOURCE_DIR}/src/affichage/txt)
+set(SDL_DIR ${CMAKE_SOURCE_DIR}/src/affichage/sdl)
 
 # SDL2 settings
 set(SDL2_DIR "C:/libs/SDL2/SDL2-2.32.4/x86_64-w64-mingw32")  # Remplacer par le chemin de ton dossier SDL2
@@ -84,7 +84,7 @@ target_link_libraries(test PRIVATE ${LIB_SDL})
 add_executable(mainTXT
 		src/mainTXT.cpp
 		${COMMON_SOURCES}
-		src/controleur.cpp
+		src/affichage/controleur.cpp
 		${TXT_DIR}/AffichageConsole.cpp
 		${SDL_DIR}/AffichageGraphique.cpp
 )
@@ -94,7 +94,7 @@ target_link_libraries(mainTXT PRIVATE ${LIB_SDL})
 add_executable(mainSDL
 		src/mainSDL.cpp
 		${COMMON_SOURCES}
-		src/controleur.cpp
+		src/affichage/controleur.cpp
 		${TXT_DIR}/AffichageConsole.cpp
 		${SDL_DIR}/AffichageGraphique.cpp
 		${GFX_PRIMITIVES_SOURCES}
@@ -107,7 +107,7 @@ target_compile_definitions(mainSDL PRIVATE SDL_MAIN_HANDLED)
 add_executable(mainDEV
 		src/mainDEV.cpp
 		${COMMON_SOURCES}
-		src/controleur.cpp
+		src/affichage/controleur.cpp
 		${TXT_DIR}/AffichageConsole.cpp
 		${SDL_DIR}/AffichageGraphique.cpp
 		${GFX_PRIMITIVES_SOURCES}
