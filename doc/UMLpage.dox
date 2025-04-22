@@ -1,0 +1,9 @@
+/**
+ * \page schemaUML Schéma UML
+ *
+ * Voici le diagramme UML des classes
+ *
+ * \image html diagramme.png
+ *
+ * Ce diagramme montre les classes et leurs interactions.
+ */

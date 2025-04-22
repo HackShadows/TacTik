@@ -29,7 +29,7 @@ digraph uml {
     Controleur -> ImageConsole;
 }
  * \enddot
- *
+ * Voir le \ref schemaUML "schéma complet ici".
  * @section structure_sec Structure du projet
  * - `src/core/` : cœur du jeu (modèle)
  * - `src/txt/` : affichage console
