@@ -238,7 +238,7 @@ bool Controleur::jouerCarte(int valCarte, bool coequipier, bool joker, bool ia) 
 				}
 			}
 			if (nb_possible == 0) return false;
-			if (nb_possible > 1 ) idPion = 0;
+			if (nb_possible > 1 && !ia) idPion = 0;
 			while (idPion < 1 || idPion > 4*nbJoueurs || (idPion-1)/4 != couleur-1) idPion = getIdPion("Id du pion à avancer" + mess);
 			if (!jeu.avancerPion(valCarte, idPion)) return false;
 		}
@@ -500,7 +500,7 @@ void jouer(bool versionGraphique, bool dev){
 	controleur.initJeu(nbJoueurs, IA);
 	Jeu &jeu = controleur.getJeu();
 	int ordre[6] = {1, 2, 5, 3, 4, 6};
-
+	int tour = 0;
 	while (true) {
 		if (!dev) {
 			jeu.distribuer();
@@ -515,17 +515,20 @@ void jouer(bool versionGraphique, bool dev){
 		}
 		
 		for (int i = 0 ; i < 4 ; i++) {
-			for (int j = 0 ; j < nbJoueurs ; j++) {
-				int couleur = (nbJoueurs == 6) ? ordre[j]:j+1;
+			for (int j = tour ; j < nbJoueurs + tour ; j++) {
+				int couleur = (nbJoueurs == 6) ? ordre[j%nbJoueurs]:(j%nbJoueurs)+1;
 				controleur.setJoueurActif(couleur-1);
 				controleur.tourJoueur(dev);
 				if (!controleur.getRunning()) return ;
 				if (jeu.partieGagnee()) {
+					cout << "Nombre de tours de jeu : " << tour << endl;
 					controleur.setJoueurActif(6);
 					controleur.afficherJeu(6);
 					return controleur.afficherVainqueur(couleur);
 				}
 			}
 		}
+
+		tour++;
 	}
 }
