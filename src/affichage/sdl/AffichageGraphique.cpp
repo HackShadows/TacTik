@@ -497,7 +497,6 @@ void Image::afficherBoutons(int choix) const {
 		SDL_RenderCopy(renderer, texture2, NULL, &rect2);
 
 		SDL_RenderPresent(renderer);
-		SDL_Delay(100);
 
 		SDL_DestroyTexture(texture1);
 		SDL_DestroyTexture(texture2);
@@ -539,7 +538,6 @@ void Image::afficherJoker(SDL_Rect tab[13]) const {
 		
 	}
 	SDL_RenderPresent(renderer);
-	SDL_Delay(100);
 }
 
 int Image::selectionnerValJoker(int joueurActif, string message){
