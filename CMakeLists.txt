@@ -84,7 +84,7 @@ target_link_libraries(test PRIVATE ${LIB_SDL})
 add_executable(mainTXT
 		src/mainTXT.cpp
 		${COMMON_SOURCES}
-		src/affichage/controleur.cpp
+		src/affichage/Controleur.cpp
 		${TXT_DIR}/AffichageConsole.cpp
 		${SDL_DIR}/AffichageGraphique.cpp
 )
@@ -94,7 +94,7 @@ target_link_libraries(mainTXT PRIVATE ${LIB_SDL})
 add_executable(mainSDL
 		src/mainSDL.cpp
 		${COMMON_SOURCES}
-		src/affichage/controleur.cpp
+		src/affichage/Controleur.cpp
 		${TXT_DIR}/AffichageConsole.cpp
 		${SDL_DIR}/AffichageGraphique.cpp
 		${GFX_PRIMITIVES_SOURCES}
@@ -107,7 +107,7 @@ target_compile_definitions(mainSDL PRIVATE SDL_MAIN_HANDLED)
 add_executable(mainDEV
 		src/mainDEV.cpp
 		${COMMON_SOURCES}
-		src/affichage/controleur.cpp
+		src/affichage/Controleur.cpp
 		${TXT_DIR}/AffichageConsole.cpp
 		${SDL_DIR}/AffichageGraphique.cpp
 		${GFX_PRIMITIVES_SOURCES}

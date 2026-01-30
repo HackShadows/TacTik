@@ -34,29 +34,29 @@ doc/html:
 bin/test:obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/mainTEST.o
 	g++ obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/mainTEST.o -o bin/test
 
-bin/mainTXT: obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageConsole.o obj/AffichageGraphique.o obj/controleur.o obj/mainTXT.o
-	g++ obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageConsole.o obj/AffichageGraphique.o obj/controleur.o obj/mainTXT.o -o bin/mainTXT $(LIB_SDL)
+bin/mainTXT: obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageConsole.o obj/AffichageGraphique.o obj/Controleur.o obj/mainTXT.o
+	g++ obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageConsole.o obj/AffichageGraphique.o obj/Controleur.o obj/mainTXT.o -o bin/mainTXT $(LIB_SDL)
 
-bin/mainSDL: obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageConsole.o obj/AffichageGraphique.o obj/controleur.o obj/mainSDL.o
-	g++ obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageConsole.o obj/AffichageGraphique.o obj/controleur.o obj/mainSDL.o -o bin/mainSDL $(LIB_SDL)
+bin/mainSDL: obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageConsole.o obj/AffichageGraphique.o obj/Controleur.o obj/mainSDL.o
+	g++ obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageConsole.o obj/AffichageGraphique.o obj/Controleur.o obj/mainSDL.o -o bin/mainSDL $(LIB_SDL)
 
-bin/mainDEV: obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageConsole.o obj/AffichageGraphique.o obj/controleur.o obj/mainDEV.o
-	g++ obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageConsole.o obj/AffichageGraphique.o obj/controleur.o obj/mainDEV.o -o bin/mainDEV $(LIB_SDL)
+bin/mainDEV: obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageConsole.o obj/AffichageGraphique.o obj/Controleur.o obj/mainDEV.o
+	g++ obj/Carte.o obj/Pioche.o obj/Pion.o obj/Joueur.o obj/IA.o obj/Plateau.o obj/Jeu.o obj/AffichageConsole.o obj/AffichageGraphique.o obj/Controleur.o obj/mainDEV.o -o bin/mainDEV $(LIB_SDL)
 
 obj/mainTEST.o: src/mainTEST.cpp $(CORE)/Jeu.h
 	g++ $(CXXFLAGS) src/mainTEST.cpp -o obj/mainTEST.o
 
-obj/mainTXT.o: src/mainTXT.cpp $(AFFICHAGE)/controleur.h
+obj/mainTXT.o: src/mainTXT.cpp $(AFFICHAGE)/Controleur.h
 	g++ $(CXXFLAGS) src/mainTXT.cpp -o obj/mainTXT.o
 
-obj/mainSDL.o: src/mainSDL.cpp $(AFFICHAGE)/controleur.h
+obj/mainSDL.o: src/mainSDL.cpp $(AFFICHAGE)/Controleur.h
 	g++ $(CXXFLAGS) $(INCLUDE_DIR) src/mainSDL.cpp -o obj/mainSDL.o
 
-obj/mainDEV.o: src/mainDEV.cpp $(AFFICHAGE)/controleur.h
+obj/mainDEV.o: src/mainDEV.cpp $(AFFICHAGE)/Controleur.h
 	g++ $(CXXFLAGS) $(INCLUDE_DIR) src/mainDEV.cpp -o obj/mainDEV.o
 
-obj/controleur.o: $(AFFICHAGE)/controleur.cpp $(AFFICHAGE)/controleur.h $(TXT)/AffichageConsole.h $(SDL)/AffichageGraphique.h
-	g++ $(CXXFLAGS) $(INCLUDE_DIR) $(AFFICHAGE)/controleur.cpp -o obj/controleur.o
+obj/Controleur.o: $(AFFICHAGE)/Controleur.cpp $(AFFICHAGE)/Controleur.h $(TXT)/AffichageConsole.h $(SDL)/AffichageGraphique.h
+	g++ $(CXXFLAGS) $(INCLUDE_DIR) $(AFFICHAGE)/Controleur.cpp -o obj/Controleur.o
 
 obj/AffichageConsole.o: $(TXT)/AffichageConsole.cpp $(TXT)/AffichageConsole.h $(CORE)/Jeu.h
 	g++ $(CXXFLAGS) $(TXT)/AffichageConsole.cpp -o obj/AffichageConsole.o
@@ -89,7 +89,7 @@ memcheck_test: bin/test
 	valgrind --leak-check=full --track-origins=yes ./bin/test
 
 clean:
-	rm -rf obj/*.o bin/* obj_win
+	rm -rf obj/*.o bin/* obj_win/*.o
 
 cleandoc:
 	rm -rf doc/html
@@ -101,8 +101,7 @@ cleandoc:
 # Les objets Windows seront placés dans le dossier obj_win
 
 CROSS = x86_64-w64-mingw32-g++
-CROSS_CXXFLAGS = -Wall -g -c -municode -DUNICODE -D_UNICODE \
-				 $(shell x86_64-w64-mingw32-pkg-config sdl2 SDL2_image SDL2_ttf SDL2_gfx --cflags)
+CROSS_CXXFLAGS = -Wall -g -c -municode -DUNICODE -D_UNICODE $(shell x86_64-w64-mingw32-pkg-config sdl2 SDL2_image SDL2_ttf SDL2_gfx --cflags)
 WIN_OBJ_DIR = obj_win
 LDFLAGS = $(shell x86_64-w64-mingw32-pkg-config sdl2 SDL2_image SDL2_ttf SDL2_gfx --libs)
 
@@ -139,26 +138,26 @@ $(WIN_OBJ_DIR)/AffichageConsole.o: $(TXT)/AffichageConsole.cpp $(TXT)/AffichageC
 $(WIN_OBJ_DIR)/AffichageGraphique.o: $(SDL)/AffichageGraphique.cpp $(SDL)/AffichageGraphique.h $(CORE)/Jeu.h | $(WIN_OBJ_DIR)
 	$(CROSS) $(CROSS_CXXFLAGS) $(SDL)/AffichageGraphique.cpp -o $(WIN_OBJ_DIR)/AffichageGraphique.o
 
-$(WIN_OBJ_DIR)/controleur.o: $(AFFICHAGE)/controleur.cpp $(AFFICHAGE)/controleur.h $(TXT)/AffichageConsole.h $(SDL)/AffichageGraphique.h | $(WIN_OBJ_DIR)
-	$(CROSS) $(CROSS_CXXFLAGS) $(AFFICHAGE)/controleur.cpp -o $(WIN_OBJ_DIR)/controleur.o
+$(WIN_OBJ_DIR)/Controleur.o: $(AFFICHAGE)/Controleur.cpp $(AFFICHAGE)/Controleur.h $(TXT)/AffichageConsole.h $(SDL)/AffichageGraphique.h | $(WIN_OBJ_DIR)
+	$(CROSS) $(CROSS_CXXFLAGS) $(AFFICHAGE)/Controleur.cpp -o $(WIN_OBJ_DIR)/Controleur.o
 
-$(WIN_OBJ_DIR)/mainTXT.o: src/mainTXT.cpp $(AFFICHAGE)/controleur.h | $(WIN_OBJ_DIR)
+$(WIN_OBJ_DIR)/mainTXT.o: src/mainTXT.cpp $(AFFICHAGE)/Controleur.h | $(WIN_OBJ_DIR)
 	$(CROSS) $(CROSS_CXXFLAGS) src/mainTXT.cpp -o $(WIN_OBJ_DIR)/mainTXT.o
 
-$(WIN_OBJ_DIR)/mainSDL.o: src/mainSDL.cpp $(AFFICHAGE)/controleur.h | $(WIN_OBJ_DIR)
+$(WIN_OBJ_DIR)/mainSDL.o: src/mainSDL.cpp $(AFFICHAGE)/Controleur.h | $(WIN_OBJ_DIR)
 	$(CROSS) $(CROSS_CXXFLAGS) src/mainSDL.cpp -o $(WIN_OBJ_DIR)/mainSDL.o
 
-$(WIN_OBJ_DIR)/mainDEV.o: src/mainDEV.cpp $(AFFICHAGE)/controleur.h | $(WIN_OBJ_DIR)
+$(WIN_OBJ_DIR)/mainDEV.o: src/mainDEV.cpp $(AFFICHAGE)/Controleur.h | $(WIN_OBJ_DIR)
 	$(CROSS) $(CROSS_CXXFLAGS) src/mainDEV.cpp -o $(WIN_OBJ_DIR)/mainDEV.o
 
 # Règle de linkage pour générer les exécutables Windows
-bin/mainTXT.exe: $(WIN_OBJ_DIR)/Carte.o $(WIN_OBJ_DIR)/Pioche.o $(WIN_OBJ_DIR)/Pion.o $(WIN_OBJ_DIR)/Joueur.o $(WIN_OBJ_DIR)/IA.o $(WIN_OBJ_DIR)/Plateau.o $(WIN_OBJ_DIR)/Jeu.o $(WIN_OBJ_DIR)/AffichageConsole.o $(WIN_OBJ_DIR)/AffichageGraphique.o $(WIN_OBJ_DIR)/controleur.o $(WIN_OBJ_DIR)/mainTXT.o | bin
+bin/mainTXT.exe: $(WIN_OBJ_DIR)/Carte.o $(WIN_OBJ_DIR)/Pioche.o $(WIN_OBJ_DIR)/Pion.o $(WIN_OBJ_DIR)/Joueur.o $(WIN_OBJ_DIR)/IA.o $(WIN_OBJ_DIR)/Plateau.o $(WIN_OBJ_DIR)/Jeu.o $(WIN_OBJ_DIR)/AffichageConsole.o $(WIN_OBJ_DIR)/AffichageGraphique.o $(WIN_OBJ_DIR)/Controleur.o $(WIN_OBJ_DIR)/mainTXT.o | bin
 	$(CROSS) $^ -static -static-libgcc -static-libstdc++ -lmingw32 $(LDFLAGS) -o bin/mainTXT.exe
 
-bin/mainSDL.exe: $(WIN_OBJ_DIR)/Carte.o $(WIN_OBJ_DIR)/Pioche.o $(WIN_OBJ_DIR)/Pion.o $(WIN_OBJ_DIR)/Joueur.o $(WIN_OBJ_DIR)/IA.o $(WIN_OBJ_DIR)/Plateau.o $(WIN_OBJ_DIR)/Jeu.o $(WIN_OBJ_DIR)/AffichageConsole.o $(WIN_OBJ_DIR)/AffichageGraphique.o $(WIN_OBJ_DIR)/controleur.o $(WIN_OBJ_DIR)/mainSDL.o | bin
+bin/mainSDL.exe: $(WIN_OBJ_DIR)/Carte.o $(WIN_OBJ_DIR)/Pioche.o $(WIN_OBJ_DIR)/Pion.o $(WIN_OBJ_DIR)/Joueur.o $(WIN_OBJ_DIR)/IA.o $(WIN_OBJ_DIR)/Plateau.o $(WIN_OBJ_DIR)/Jeu.o $(WIN_OBJ_DIR)/AffichageConsole.o $(WIN_OBJ_DIR)/AffichageGraphique.o $(WIN_OBJ_DIR)/Controleur.o $(WIN_OBJ_DIR)/mainSDL.o | bin
 	$(CROSS) $^ -static -static-libgcc -static-libstdc++ -lmingw32 $(LDFLAGS) -o bin/mainSDL.exe
 
-bin/mainDEV.exe: $(WIN_OBJ_DIR)/Carte.o $(WIN_OBJ_DIR)/Pioche.o $(WIN_OBJ_DIR)/Pion.o $(WIN_OBJ_DIR)/Joueur.o $(WIN_OBJ_DIR)/IA.o $(WIN_OBJ_DIR)/Plateau.o $(WIN_OBJ_DIR)/Jeu.o $(WIN_OBJ_DIR)/AffichageConsole.o $(WIN_OBJ_DIR)/AffichageGraphique.o $(WIN_OBJ_DIR)/controleur.o $(WIN_OBJ_DIR)/mainDEV.o | bin
+bin/mainDEV.exe: $(WIN_OBJ_DIR)/Carte.o $(WIN_OBJ_DIR)/Pioche.o $(WIN_OBJ_DIR)/Pion.o $(WIN_OBJ_DIR)/Joueur.o $(WIN_OBJ_DIR)/IA.o $(WIN_OBJ_DIR)/Plateau.o $(WIN_OBJ_DIR)/Jeu.o $(WIN_OBJ_DIR)/AffichageConsole.o $(WIN_OBJ_DIR)/AffichageGraphique.o $(WIN_OBJ_DIR)/Controleur.o $(WIN_OBJ_DIR)/mainDEV.o | bin
 	$(CROSS) $^ -static -static-libgcc -static-libstdc++ -lmingw32 $(LDFLAGS) -o bin/mainDEV.exe
 # Assure que le dossier bin existe
 bin:
